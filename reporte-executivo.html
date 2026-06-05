@@ -700,105 +700,6 @@ body.read-mode .read-show { display: flex !important; }
   .toolbar-left .toolbar-badge:last-child { display: none; }
   #fab-comment { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 20px; }
 }
-/* ── SLA MONITOR ── */
-.sla-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 14px;
-}
-.sla-summary {
-  display: flex; gap: 8px;
-}
-.sla-summary-badge {
-  font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 8px;
-  display: flex; align-items: center; gap: 4px;
-}
-.imp-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px 0; border-bottom: 1px solid var(--border);
-}
-.imp-item:last-of-type { border-bottom: none; }
-.imp-sev { width: 4px; min-height: 56px; border-radius: 99px; flex-shrink: 0; margin-top: 2px; }
-.imp-body { flex: 1; }
-.imp-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.imp-context { font-size: 11px; color: var(--text3); line-height: 1.45; margin-bottom: 6px; }
-.imp-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.imp-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
-.imp-action-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 6px; white-space: nowrap; }
-.sla-chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 6px;
-  font-family: var(--mono);
-}
-.sla-ok { background: rgba(34,211,164,0.12); color: var(--success); border: 1px solid rgba(34,211,164,0.25); }
-.sla-warn { background: rgba(251,191,36,0.12); color: var(--warning); border: 1px solid rgba(251,191,36,0.25); }
-.sla-over { background: rgba(248,113,113,0.12); color: var(--danger); border: 1px solid rgba(248,113,113,0.3); animation: pulse-sla 2s infinite; }
-@keyframes pulse-sla {
-  0%,100% { opacity: 1; } 50% { opacity: 0.65; }
-}
-.imp-assignee { font-size: 10px; color: var(--text3); }
-.sla-timer { font-size: 10px; font-weight: 700; font-family: var(--mono); }
-.imp-add-form { background: rgba(255,255,255,0.025); border-radius: 12px; padding: 14px; margin-top: 14px; border: 1px dashed var(--border); }
-.imp-add-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
-.imp-add-input {
-  width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-  border-radius: 8px; color: var(--text); font-family: 'Poppins', sans-serif;
-  font-size: 11px; padding: 7px 10px; outline: none; transition: border-color 0.2s;
-}
-.imp-add-input:focus { border-color: var(--accent); }
-.imp-add-input::placeholder { color: var(--text3); }
-
-/* ── ROADMAP ── */
-.roadmap-grid {
-  display: grid;
-  grid-template-columns: 160px repeat(4, 1fr);
-  gap: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-.roadmap-header-cell {
-  padding: 10px 14px; font-size: 10px; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 1px;
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-}
-.roadmap-header-cell.current { color: var(--accent); background: rgba(250,100,30,0.06); }
-.roadmap-label-cell {
-  padding: 10px 14px; font-size: 11px; font-weight: 700;
-  background: rgba(255,255,255,0.02);
-  border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
-  display: flex; align-items: center; gap: 8px;
-}
-.roadmap-cell {
-  padding: 6px 8px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
-  min-height: 48px; vertical-align: top;
-}
-.roadmap-cell:last-child, .roadmap-header-cell:last-child, .roadmap-label-cell:last-child { border-right: none; }
-.roadmap-item {
-  padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700;
-  margin-bottom: 4px; cursor: pointer; transition: opacity 0.2s;
-  display: flex; align-items: center; justify-content: space-between; gap: 4px;
-}
-.roadmap-item:hover { opacity: 0.8; }
-.ri-aprovado { background: rgba(34,211,164,0.15); color: var(--success); border: 1px solid rgba(34,211,164,0.25); }
-.ri-aguardando { background: rgba(251,191,36,0.12); color: var(--warning); border: 1px solid rgba(251,191,36,0.2); }
-.ri-andamento { background: rgba(96,165,250,0.12); color: var(--info); border: 1px solid rgba(96,165,250,0.2); }
-.ri-planejado { background: rgba(255,255,255,0.06); color: var(--text3); border: 1px solid var(--border); }
-.roadmap-add-btn {
-  width: 100%; background: none; border: 1px dashed var(--border); border-radius: 6px;
-  color: var(--text3); font-size: 10px; font-family: 'Poppins', sans-serif;
-  padding: 4px; cursor: pointer; transition: all 0.2s; margin-top: 2px;
-}
-.roadmap-add-btn:hover { border-color: var(--accent); color: var(--accent); }
-.roadmap-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-.roadmap-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text3); }
-.roadmap-legend-dot { width: 8px; height: 8px; border-radius: 3px; }
-
-@media (max-width: 900px) {
-  .roadmap-grid { grid-template-columns: 100px repeat(4,1fr); font-size: 9px; }
-  .imp-add-row { grid-template-columns: 1fr; }
-}
 </style>
 </head>
 <body>
@@ -823,12 +724,13 @@ body.read-mode .read-show { display: flex !important; }
   </div>
 </div>
 
-<!-- NAVBAR DE SEC-NAV -->
+<!-- NAVBAR DE SEÇÕES -->
 <nav class="sec-nav" id="sec-nav">
-  <a class="sec-nav-item" href="#sec-decisao">🚨 Decisões</a>
+  <a class="sec-nav-item active" href="#sec-decisao">🚨 Decisão</a>
   <a class="sec-nav-item" href="#sec-resumo">📌 Resumo</a>
   <a class="sec-nav-item" href="#sec-kpis">📊 KPIs</a>
   <a class="sec-nav-item" href="#sec-saude">🩺 Saúde</a>
+  <a class="sec-nav-item" href="#sec-impedimentos">⚠️ Impedimentos</a>
   <a class="sec-nav-item" href="#sec-distribuicao">📦 Bugs</a>
   <a class="sec-nav-item" href="#sec-metricas">📈 Métricas</a>
   <a class="sec-nav-item" href="#sec-prioridades">🎯 Prioridades</a>
@@ -1059,42 +961,33 @@ body.read-mode .read-show { display: flex !important; }
     </div>
   </div>
 
-  <!-- ════ SLA MONITOR + IMPEDIMENTOS ════ -->
+  <!-- ════ GARGALOS + DISTRIBUIÇÃO ════ -->
   <div class="two-cols" id="sec-impedimentos">
 
-    <!-- Monitor de SLA -->
+    <!-- Impedimentos -->
     <div class="card">
-      <div class="sla-header">
-        <div class="card-title">⚠️ Monitor de SLA &amp; Impedimentos</div>
-        <div class="sla-summary">
-          <span class="sla-summary-badge" id="sla-badge-ok" style="background:rgba(34,211,164,0.1);color:var(--success)">🟢 <span id="sla-count-ok">0</span> OK</span>
-          <span class="sla-summary-badge" id="sla-badge-warn" style="background:rgba(251,191,36,0.1);color:var(--warning)">🟡 <span id="sla-count-warn">0</span> Atenção</span>
-          <span class="sla-summary-badge" id="sla-badge-over" style="background:rgba(248,113,113,0.1);color:var(--danger)">🔴 <span id="sla-count-over">0</span> Violado</span>
-        </div>
-      </div>
-
+      <div class="card-title">⚠️ Impedimentos Ativos</div>
       <div class="imp-list" id="imp-list">
-        <!-- Renderizado por JS -->
-      </div>
-
-      <div class="imp-add-form edit-only">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:10px">➕ Novo Impedimento</div>
-        <div class="imp-add-row">
-          <input class="imp-add-input" id="ni-titulo" placeholder="Título do impedimento">
-          <input class="imp-add-input" id="ni-responsavel" placeholder="Responsável (dev)">
+        <div class="imp-item">
+          <div class="imp-sev" style="background:var(--danger)"></div>
+          <div class="imp-body">
+            <div class="imp-title">Pigz Partner — Zero visibilidade de erros em produção</div>
+            <div class="imp-context">Impacta operação dos restaurantes antes mesmo de ser detectado</div>
+          </div>
+          <div class="imp-actions">
+            <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
+          </div>
         </div>
-        <div class="imp-add-row">
-          <select class="imp-add-input" id="ni-sev">
-            <option value="P0">🔴 P0 — Urgente (SLA: 4h)</option>
-            <option value="P1">🟠 P1 — Alto (SLA: 24h)</option>
-            <option value="P2" selected>🟡 P2 — Médio (SLA: 72h)</option>
-            <option value="P3">🔵 P3 — Baixo (SLA: 7d)</option>
-          </select>
-          <input class="imp-add-input" id="ni-contexto" placeholder="Contexto / impacto">
+        <div class="imp-item">
+          <div class="imp-sev" style="background:var(--danger)"></div>
+          <div class="imp-body">
+            <div class="imp-title">TEF — Quedas de websocket em horário de pico</div>
+            <div class="imp-context">Falhas de pagamento reportadas por múltiplos restaurantes</div>
+          </div>
+          <div class="imp-actions">
+            <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
+          </div>
         </div>
-        <button onclick="addImpedimentoSLA()" style="padding:7px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">+ Registrar</button>
-      </div>
-    </div>
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--warning)"></div>
           <div class="imp-body">
@@ -1115,7 +1008,14 @@ body.read-mode .read-show { display: flex !important; }
             <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Médio</span>
           </div>
         </div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="field-label">Adicionar impedimento</div>
+        <textarea class="rpt-textarea" id="new-imp" placeholder="Descreva o novo impedimento..." style="min-height:56px;"></textarea>
+        <button onclick="addImpedimento()" style="margin-top:8px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">+ Adicionar</button>
+      </div>
     </div>
+
     <!-- Distribuição de Bugs -->
     <div class="card">
       <div class="card-title">📦 Distribuição de Bugs por Produto</div>
@@ -1378,29 +1278,6 @@ body.read-mode .read-show { display: flex !important; }
     </div>
   </div>
 
-  <!-- ════ ROADMAP 4 SEMANAS ════ -->
-  <div class="sec-label" id="sec-roadmap" style="margin-top:40px">🗺️ Roadmap — Próximas 4 Semanas</div>
-  <div class="card" style="margin-bottom:28px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div>
-        <div class="card-title">Planejamento &amp; Aprovações</div>
-        <p style="font-size:11px;color:var(--text3);margin-top:2px">Iniciativas das próximas semanas com status de aprovação da liderança. Clique num item para alterar o status.</p>
-      </div>
-      <button class="tbtn edit-only" onclick="addRoadmapItem()" style="flex-shrink:0">+ Iniciativa</button>
-    </div>
-
-    <div class="roadmap-grid" id="roadmap-grid">
-      <!-- Gerado por JS -->
-    </div>
-
-    <div class="roadmap-legend">
-      <div class="roadmap-legend-item"><div class="roadmap-legend-dot" style="background:var(--success)"></div> Aprovado</div>
-      <div class="roadmap-legend-item"><div class="roadmap-legend-dot" style="background:var(--warning)"></div> Aguardando aprovação</div>
-      <div class="roadmap-legend-item"><div class="roadmap-legend-dot" style="background:var(--info)"></div> Em andamento</div>
-      <div class="roadmap-legend-item"><div class="roadmap-legend-dot" style="background:var(--border2)"></div> Planejado</div>
-    </div>
-  </div>
-
   <!-- ════ DEPLOYMENTS + OBSERVAÇÕES ════ -->
   <div class="two-cols">
     <div class="card">
@@ -1557,241 +1434,18 @@ let docId = 'semana3';
 let unsubscribeData = null;
 let unsubscribeComments = null;
 
-// Utilitário: escape HTML
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
 try {
   const semText = document.getElementById('rpt-semana-display')?.textContent.trim() || '';
   const match = semText.toLowerCase().match(/semana\s*(\d+)/);
   if (match) docId = 'semana' + match[1];
 } catch (e) {}
 
-// \u2500\u2500 METODOLOGIA (toggle) \u2500\u2500
+// ── METODOLOGIA (toggle) ──
 function toggleMetodologia() {
   const body = document.getElementById('met-body');
   const chev = document.getElementById('met-chev');
-  if (body) body.classList.toggle('open');
-  if (chev) chev.classList.toggle('open');
-}
-
-// ════════════════════════════════════════
-// SLA MONITOR
-// ════════════════════════════════════════
-const IMP_KEY = KEY + '-impedimentos-v2';
-const SLA_HOURS = { P0: 4, P1: 24, P2: 72, P3: 168 };
-const SEV_COLOR = { P0: 'var(--danger)', P1: '#FF8C56', P2: 'var(--warning)', P3: 'var(--info)' };
-const SEV_LABEL = { P0: '🔴 P0 · Urgente', P1: '🟠 P1 · Alto', P2: '🟡 P2 · Médio', P3: '🔵 P3 · Baixo' };
-
-let impedimentos = JSON.parse(localStorage.getItem(IMP_KEY) || '[]');
-
-// Dados iniciais (pré-populado)
-if (impedimentos.length === 0) {
-  const now = Date.now();
-  impedimentos = [
-    { id: 'i1', titulo: 'Pigz Partner — Zero visibilidade de erros em produção', contexto: 'Impacta operação dos restaurantes antes mesmo de ser detectado', sev: 'P0', responsavel: 'Equipe', openedAt: now - 1000*60*60*6 },
-    { id: 'i2', titulo: 'TEF — Quedas de websocket em horário de pico', contexto: 'Falhas de pagamento reportadas por múltiplos restaurantes', sev: 'P0', responsavel: 'Equipe', openedAt: now - 1000*60*60*18 },
-    { id: 'i3', titulo: 'Backlog sem triagem padronizada no Linear', contexto: 'Bugs críticos e melhorias de UX sem diferenciação de prioridade', sev: 'P2', responsavel: 'Coord', openedAt: now - 1000*60*60*48 },
-    { id: 'i4', titulo: 'Stack mobile fragmentada (RN v0.72 → v0.76)', contexto: 'Dificulta rotação de devs e duplica esforço em atualizações', sev: 'P2', responsavel: 'Mobile', openedAt: now - 1000*60*60*72 }
-  ];
-  localStorage.setItem(IMP_KEY, JSON.stringify(impedimentos));
-}
-
-function getSlaStatus(imp) {
-  const elapsedH = (Date.now() - imp.openedAt) / (1000 * 60 * 60);
-  const slaH = SLA_HOURS[imp.sev] || 72;
-  const pct = elapsedH / slaH;
-  if (pct >= 1) return { cls: 'sla-over', label: `🔴 ${formatHours(elapsedH)} — VIOLADO`, elapsed: elapsedH };
-  if (pct >= 0.7) return { cls: 'sla-warn', label: `🟡 ${formatHours(elapsedH)} / ${slaH}h`, elapsed: elapsedH };
-  return { cls: 'sla-ok', label: `🟢 ${formatHours(elapsedH)} / ${slaH}h`, elapsed: elapsedH };
-}
-
-function formatHours(h) {
-  if (h < 1) return `${Math.round(h*60)}min`;
-  if (h < 24) return `${h.toFixed(1)}h`;
-  return `${(h/24).toFixed(1)}d`;
-}
-
-function renderImpedimentos() {
-  const list = document.getElementById('imp-list');
-  if (!list) return;
-
-  let nOk = 0, nWarn = 0, nOver = 0;
-
-  if (impedimentos.length === 0) {
-    list.innerHTML = `<div style="text-align:center;padding:24px;color:var(--text3);font-size:11px;border:1px dashed var(--border);border-radius:10px">✅ Nenhum impedimento ativo no momento.</div>`;
-  } else {
-    list.innerHTML = impedimentos.map((imp, idx) => {
-      const sla = getSlaStatus(imp);
-      if (sla.cls === 'sla-ok') nOk++;
-      else if (sla.cls === 'sla-warn') nWarn++;
-      else nOver++;
-      return `
-        <div class="imp-item">
-          <div class="imp-sev" style="background:${SEV_COLOR[imp.sev] || 'var(--warning)'}"></div>
-          <div class="imp-body">
-            <div class="imp-title">${esc(imp.titulo)}</div>
-            <div class="imp-context">${esc(imp.contexto)}</div>
-            <div class="imp-meta">
-              <span class="sla-chip ${sla.cls}">${sla.label}</span>
-              <span class="imp-assignee">👤 ${esc(imp.responsavel || '—')}</span>
-            </div>
-          </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:${SEV_COLOR[imp.sev]}22;color:${SEV_COLOR[imp.sev]}">${SEV_LABEL[imp.sev]}</span>
-            <button class="resolve-btn edit-only" onclick="resolverImpedimento(${idx})">✓ Resolver</button>
-          </div>
-        </div>`;
-    }).join('');
-  }
-
-  const ok = document.getElementById('sla-count-ok');
-  const warn = document.getElementById('sla-count-warn');
-  const over = document.getElementById('sla-count-over');
-  if (ok) ok.textContent = nOk;
-  if (warn) warn.textContent = nWarn;
-  if (over) over.textContent = nOver;
-}
-
-function addImpedimentoSLA() {
-  const titulo = document.getElementById('ni-titulo')?.value.trim();
-  const responsavel = document.getElementById('ni-responsavel')?.value.trim();
-  const sev = document.getElementById('ni-sev')?.value || 'P2';
-  const contexto = document.getElementById('ni-contexto')?.value.trim();
-  if (!titulo) { showToast('⚠️ Preencha o título!'); return; }
-  impedimentos.push({ id: 'i'+Date.now(), titulo, contexto: contexto||'', sev, responsavel: responsavel||'—', openedAt: Date.now() });
-  localStorage.setItem(IMP_KEY, JSON.stringify(impedimentos));
-  document.getElementById('ni-titulo').value = '';
-  document.getElementById('ni-responsavel').value = '';
-  document.getElementById('ni-contexto').value = '';
-  renderImpedimentos();
-  showToast('⚠️ Impedimento registrado com SLA ativo!');
-}
-
-function resolverImpedimento(idx) {
-  if (!confirm(`Marcar "${impedimentos[idx].titulo}" como resolvido?`)) return;
-  impedimentos.splice(idx, 1);
-  localStorage.setItem(IMP_KEY, JSON.stringify(impedimentos));
-  renderImpedimentos();
-  showToast('✅ Impedimento resolvido!');
-}
-
-// Atualiza os contadores de SLA a cada 60s
-setInterval(renderImpedimentos, 60000);
-
-// ════════════════════════════════════════
-// ROADMAP 4 SEMANAS
-// ════════════════════════════════════════
-const RM_KEY = KEY + '-roadmap-v2';
-const RM_STATUS = ['aprovado','andamento','aguardando','planejado'];
-const RM_STATUS_LABEL = { aprovado:'✅ Aprovado', andamento:'🔄 Em andamento', aguardando:'⏳ Aguardando', planejado:'📋 Planejado' };
-const RM_STATUS_CLS = { aprovado:'ri-aprovado', andamento:'ri-andamento', aguardando:'ri-aguardando', planejado:'ri-planejado' };
-
-const PRODUTOS = [
-  { key:'partner', label:'🏪 Partner', color:'var(--accent)' },
-  { key:'mobile',  label:'📱 Mobile',  color:'var(--purple)' },
-  { key:'tef',     label:'💳 TEF',     color:'var(--danger)' },
-  { key:'gestao',  label:'🗂 Gestão',   color:'var(--info)' },
-  { key:'infra',   label:'⚙️ Infra',    color:'var(--text3)' }
-];
-
-function getWeekLabels() {
-  const now = new Date();
-  const day = now.getDay() || 7;
-  const mon = new Date(now);
-  mon.setDate(now.getDate() - day + 1);
-  return Array.from({length:4}, (_, i) => {
-    const d = new Date(mon);
-    d.setDate(mon.getDate() + i*7);
-    const end = new Date(d); end.setDate(d.getDate()+4);
-    const fmt = x => x.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-    return { label: i===0 ? `Esta semana` : `+${i}w`, sub: `${fmt(d)}–${fmt(end)}`, current: i===0 };
-  });
-}
-
-let roadmapData = JSON.parse(localStorage.getItem(RM_KEY) || 'null');
-if (!roadmapData) {
-  roadmapData = {
-    partner: { 0:'aprovado', 1:'andamento', 2:'aguardando', 3:'planejado' },
-    mobile:  { 0:'andamento', 1:'planejado', 2:'', 3:'' },
-    tef:     { 0:'aguardando', 1:'aprovado', 2:'', 3:'' },
-    gestao:  { 0:'planejado', 1:'', 2:'planejado', 3:'' },
-    infra:   { 0:'', 1:'aguardando', 2:'planejado', 3:'' }
-  };
-  roadmapData._items = {
-    'partner-0':'Implementar Sentry', 'partner-1':'Dashboard analytics', 'partner-2':'App v2.1', 'partner-3':'Redesign cardápio',
-    'mobile-0':'Migrar RN v0.76', 'mobile-1':'Push notifications',
-    'tef-0':'Fix websocket pico', 'tef-1':'SLA automatizado',
-    'gestao-0':'Novo painel coord', 'gestao-2':'Relatórios automáticos',
-    'infra-1':'CI/CD pipeline', 'infra-2':'Monitoramento Sentry'
-  };
-  localStorage.setItem(RM_KEY, JSON.stringify(roadmapData));
-}
-
-function renderRoadmap() {
-  const grid = document.getElementById('roadmap-grid');
-  if (!grid) return;
-  const weeks = getWeekLabels();
-
-  let html = '';
-  // Header
-  html += `<div class="roadmap-header-cell">Produto / Time</div>`;
-  weeks.forEach(w => {
-    html += `<div class="roadmap-header-cell ${w.current?'current':''}">${w.label}<br><span style="font-size:9px;font-weight:400;opacity:0.7">${w.sub}</span></div>`;
-  });
-
-  // Rows
-  PRODUTOS.forEach(prod => {
-    html += `<div class="roadmap-label-cell"><span style="color:${prod.color}">${prod.label}</span></div>`;
-    for (let w = 0; w < 4; w++) {
-      const status = roadmapData[prod.key]?.[w] || '';
-      const itemKey = `${prod.key}-${w}`;
-      const itemLabel = roadmapData._items?.[itemKey] || '';
-      const cls = status ? RM_STATUS_CLS[status] : '';
-      html += `<div class="roadmap-cell">`;
-      if (itemLabel && status) {
-        html += `<div class="roadmap-item ${cls}" onclick="cycleRoadmapStatus('${prod.key}',${w})" title="Clique para alterar status">
-          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${esc(itemLabel)}</span>
-        </div>`;
-      } else {
-        html += `<button class="roadmap-add-btn edit-only" onclick="addRoadmapCell('${prod.key}',${w})">+</button>`;
-      }
-      html += `</div>`;
-    }
-  });
-
-  grid.innerHTML = html;
-}
-
-function cycleRoadmapStatus(prod, week) {
-  if (!roadmapData[prod]) roadmapData[prod] = {};
-  const cur = roadmapData[prod][week] || 'planejado';
-  const idx = RM_STATUS.indexOf(cur);
-  roadmapData[prod][week] = RM_STATUS[(idx + 1) % RM_STATUS.length];
-  localStorage.setItem(RM_KEY, JSON.stringify(roadmapData));
-  renderRoadmap();
-  showToast(`Status: ${RM_STATUS_LABEL[roadmapData[prod][week]]}`);
-}
-
-function addRoadmapCell(prod, week) {
-  const nome = prompt('Nome da iniciativa:');
-  if (!nome || !nome.trim()) return;
-  if (!roadmapData[prod]) roadmapData[prod] = {};
-  if (!roadmapData._items) roadmapData._items = {};
-  roadmapData[prod][week] = 'planejado';
-  roadmapData._items[`${prod}-${week}`] = nome.trim();
-  localStorage.setItem(RM_KEY, JSON.stringify(roadmapData));
-  renderRoadmap();
-  showToast('📋 Iniciativa adicionada!');
-}
-
-function addRoadmapItem() {
-  const prod = prompt('Produto (partner / mobile / tef / gestao / infra):')?.toLowerCase().trim();
-  if (!prod || !PRODUTOS.find(p=>p.key===prod)) { showToast('⚠️ Produto inválido'); return; }
-  const week = parseInt(prompt('Semana (0=esta, 1=próx, 2, 3):') || '0');
-  if (isNaN(week) || week < 0 || week > 3) { showToast('⚠️ Semana inválida'); return; }
-  addRoadmapCell(prod, week);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
 }
 
 // ── EVIDÊNCIAS ──
@@ -2387,8 +2041,6 @@ function loadAll() {
   initFirebase();
   setupAutoSave();
   renderEvidencias();
-  renderImpedimentos();
-  renderRoadmap();
 }
 
 function showToast(msg) {
