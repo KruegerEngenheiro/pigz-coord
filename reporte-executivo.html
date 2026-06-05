@@ -819,32 +819,32 @@ body.read-mode .read-show { display: flex !important; }
         <div class="metodologia-item">
           <div class="metodologia-item-title">🐛 Bugs Críticos em Aberto</div>
           <div class="metodologia-item-desc">Contagem de issues com label P0 ou P1 no status "Em aberto" ou "Em andamento" ao final da semana.</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Jira / Linear / GitHub Issues</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · filtro Priority: Urgent + High, Status: In Progress / Todo</div>
         </div>
         <div class="metodologia-item">
           <div class="metodologia-item-title">✅ Bugs Resolvidos</div>
           <div class="metodologia-item-desc">Issues fechadas com status "Resolvido" ou "Done" durante o período da semana (seg à sex).</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Jira / Linear / GitHub Issues</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · filtro Status: Done, periodo da semana</div>
         </div>
         <div class="metodologia-item">
           <div class="metodologia-item-title">⏱️ MTTR Médio</div>
           <div class="metodologia-item-desc">Média de (data fechamento − data abertura) para bugs P0+P1 resolvidos na semana. Calculado em horas.</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Timestamps dos tickets</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · data Created → data Completed das issues P0+P1</div>
         </div>
         <div class="metodologia-item">
           <div class="metodologia-item-title">📋 Sem Estimativa (%)</div>
           <div class="metodologia-item-desc">Issues sem campo Story Points preenchido ÷ total de issues abertas no backlog. Quanto menor, melhor governança.</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Filtro "sem story points" no board</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · filtro Estimate: sem valor (empty)</div>
         </div>
         <div class="metodologia-item">
           <div class="metodologia-item-title">🎯 Entregas vs. Planejado (%)</div>
           <div class="metodologia-item-desc">Issues marcadas "Done" na sprint ÷ issues que entraram no sprint planning × 100. Meta: acima de 80%.</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Relatório de sprint / board</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · Cycle Report ÷ issues do planejamento do ciclo</div>
         </div>
         <div class="metodologia-item">
           <div class="metodologia-item-title">🩺 Saúde por Produto</div>
           <div class="metodologia-item-desc">Avaliação qualitativa baseada em: taxa de erros no Sentry, feedback do standup, incidentes da semana.</div>
-          <div class="metodologia-item-fonte">🔗 Fonte: Sentry + standups diários</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: <strong>Linear</strong> · team insights + standups diários</div>
         </div>
       </div>
     </div>
@@ -859,7 +859,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-label">Bugs Críticos<br>em Aberto</div>
       <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ 3 novos esta semana</div>
       <div class="kpi-vs up" id="kvs-bugs-crit">vs. S2: <input type="number" id="k-bugs-crit-prev" value="5" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +3</div>
-      <div class="kpi-fonte">🔗 <span>Jira · filtro P0+P1 abertos</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Priority: Urgent+High · Status: ativo</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--success)">
       <div class="kpi-card-icon">✅</div>
@@ -867,7 +867,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-label">Resolvidos<br>na Semana</div>
       <div class="kpi-trend" style="color:var(--success)" id="trend-res">↑ Taxa: 63%</div>
       <div class="kpi-vs down" id="kvs-bugs-res">vs. S2: <input type="number" id="k-bugs-res-prev" value="9" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +5</div>
-      <div class="kpi-fonte">🔗 <span>Jira · issues fechadas na semana</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Status: Done · semana atual</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--warning)">
       <div class="kpi-card-icon">⏱️</div>
@@ -875,7 +875,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-label">MTTR Médio<br>(horas)</div>
       <div class="kpi-trend" id="trend-mttr" style="color:var(--danger)">⚠ Acima da meta (4h)</div>
       <div class="kpi-vs neutral" id="kvs-mttr">vs. S2: <input type="number" id="k-mttr-prev" value="8" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −2h</div>
-      <div class="kpi-fonte">🔗 <span>Timestamps de abertura→fechamento</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Created → Completed das P0+P1</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--info)">
       <div class="kpi-card-icon">📋</div>
@@ -883,7 +883,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-label">Sem Estimativa<br>(%)</div>
       <div class="kpi-trend" style="color:var(--danger)">⚠ Meta: &lt; 20%</div>
       <div class="kpi-vs up" id="kvs-sem-est">vs. S2: <input type="number" id="k-sem-est-prev" value="41" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −7%</div>
-      <div class="kpi-fonte">🔗 <span>Filtro "sem story points" no board</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · filtro Estimate: vazio</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--accent)">
       <div class="kpi-card-icon">🎯</div>
@@ -891,7 +891,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-label">Entregas vs.<br>Planejado (%)</div>
       <div class="kpi-trend" style="color:var(--warning)">↓ Meta: &gt; 80%</div>
       <div class="kpi-vs neutral" id="kvs-entregas">vs. S2: <input type="number" id="k-entregas-prev" value="65" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +6%</div>
-      <div class="kpi-fonte">🔗 <span>Done na sprint ÷ planejado × 100</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle Report da semana</span></div>
     </div>
   </div>
 
@@ -1296,7 +1296,7 @@ body.read-mode .read-show { display: flex !important; }
       <span class="card-title-accent">Base de sustentação</span> · Links, prints e dados que embasam este reporte
     </div>
     <p style="font-size:12px; color:var(--text2); margin-bottom:16px; line-height:1.6">
-      Registre aqui os dados brutos, links do Jira, prints de erro ou qualquer evidência que responda à pergunta dos líderes: <strong style="color:var(--text)">“Como você chegou a esses números?”</strong>
+      Registre aqui os dados brutos do <strong style="color:var(--accent)">Linear</strong> que embasam este reporte — links de issues, prints de filtros ou métricas exportadas. Quando o CEO perguntar <strong style="color:var(--text)">“Como você chegou a esses números?”</strong>, as evidências já estarão aqui.
     </p>
     <div class="edit-only" style="margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap">
       <button class="tbtn" onclick="addEvidencia('bug')">+ Bug / Incidente</button>
@@ -1459,7 +1459,7 @@ const evTagMap = {
 };
 
 function addEvidencia(tipo) {
-  const texto = prompt(`Cole aqui a evidência (${evTagMap[tipo].label}):\n\nEx: "Jira P0-412 · TEF caiu 4x entre 11h–13h · link: jira.pigz.com/P0-412"`);
+  const texto = prompt(`Cole aqui a evidência (${evTagMap[tipo].label}):\n\nEx: "Linear P0-412 · TEF caiu 4x entre 11h–13h · link: linear.app/pigz/issue/P0-412"`);
   if (!texto || !texto.trim()) return;
   evidencias.push({ tipo, texto: texto.trim(), time: new Date().toISOString() });
   localStorage.setItem(EV_KEY, JSON.stringify(evidencias));
