@@ -793,15 +793,15 @@ body.read-mode .read-show { display: flex !important; }
     <div class="exec-grid">
       <div class="exec-item">
         <div class="exec-item-label">Contexto</div>
-        <textarea class="rpt-textarea" id="exec-contexto" placeholder="Descreva o contexto geral da semana..." style="min-height:70px;background:rgba(255,255,255,0.04);">Terceira semana de atuação. Foco em estabilização dos produtos críticos (TEF e Partner) e implementação das hipóteses de melhoria aprovadas. Primeiro ciclo de governança semanal estruturada em operação.</textarea>
+        <textarea class="rpt-textarea" id="exec-contexto" placeholder="Descreva o contexto geral da semana..." style="min-height:70px;background:rgba(255,255,255,0.04);">Semana 03 do Squad Pigz (25/05–30/05). Primeiro ciclo completo de governança com dados reais do Linear. O backlog ativo cresceu 55 issues na semana (60 criadas vs. 5 resolvidas). Cycle 2 encerrou com 20% de completude (33/168). São 193 issues ativas, das quais 88% sem data de entrega definida.</textarea>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Conquista</div>
-        <textarea class="rpt-textarea" id="exec-conquista" placeholder="Qual foi o maior avanço da semana?" style="min-height:70px;background:rgba(255,255,255,0.04);">Triagem do backlog concluída: 47 issues classificadas por severidade (P0–P3). Processo de cadência semanal implementado. Primeiros SLAs definidos para bugs críticos (P0 = resolução em 4h).</textarea>
+        <textarea class="rpt-textarea" id="exec-conquista" placeholder="Qual foi o maior avanço da semana?" style="min-height:70px;background:rgba(255,255,255,0.04);">Implementação do primeiro reporte executivo com dados rastreados diretamente do Linear. Mapeamento completo do backlog: 193 issues ativas, 26 críticas (Urgent+High), 5 incidentes Urgent abertos na semana. Base de dados confiável estabelecida para decisões da liderança.</textarea>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Risco no Horizonte</div>
-        <textarea class="rpt-textarea" id="exec-risco" placeholder="O que pode impactar a operação se não for endereçado?" style="min-height:70px;background:rgba(255,255,255,0.04);">TEF com quedas recorrentes em horário de pico (11h–13h). Cada incidente gera falhas de pagamento em múltiplos restaurantes simultaneamente. Sem correção esta semana, risco de impacto em receita é alto.</textarea>
+        <textarea class="rpt-textarea" id="exec-risco" placeholder="O que pode impactar a operação se não for endereçado?" style="min-height:70px;background:rgba(255,255,255,0.04);">Backlog crescendo 55 issues/semana sem due dates. FIN-1 e FIN-2 abertas há 42 dias sem assignee. 22 issues travadas em In Progress sem atualização há mais de 7 dias. Se não houver governância de due dates e responsabilidade, o backlog se tornará incontrolável em 4–6 semanas.</textarea>
       </div>
     </div>
   </div>
@@ -888,11 +888,11 @@ body.read-mode .read-show { display: flex !important; }
     </div>
     <div class="kpi-card" style="--kc:var(--accent)">
       <div class="kpi-card-icon">🎯</div>
-      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="3"></div>
+      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="20"></div>
       <div class="kpi-label">Entregas vs.<br>Planejado (%)</div>
-      <div class="kpi-trend" style="color:var(--danger)">🔴 2 de 74 issues concluídas</div>
+      <div class="kpi-trend" style="color:var(--danger)">🔴 33 de 168 issues do Cycle 2</div>
       <div class="kpi-vs neutral" id="kvs-entregas">vs. S2: <input type="number" id="k-entregas-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle 25/05–30/05 · Squad Pigz</span></div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle 2 · Squad Pigz</span></div>
     </div>
   </div>
 
@@ -904,7 +904,7 @@ body.read-mode .read-show { display: flex !important; }
       <div class="health-product">Pigz Partner</div>
       <div class="health-dot" id="hd-partner">🟡</div>
       <div class="health-status-label" id="hl-partner" style="color:var(--warning)">Atenção</div>
-      <div class="health-note" id="hn-partner">Sem monitoramento ativo</div>
+      <div class="health-note" id="hn-partner">1 bug Urgent/High ativo · sem monitoramento</div>
       <select class="health-select" onchange="setHealth('partner',this.value)">
         <option value="ok">🟢 Saudável</option>
         <option value="att" selected>🟡 Atenção</option>
@@ -914,21 +914,21 @@ body.read-mode .read-show { display: flex !important; }
     <div class="health-card" id="hc-mobile">
       <div class="health-icon">📱</div>
       <div class="health-product">Mobile (iOS/Android)</div>
-      <div class="health-dot" id="hd-mobile">🟡</div>
-      <div class="health-status-label" id="hl-mobile" style="color:var(--warning)">Atenção</div>
-      <div class="health-note" id="hn-mobile">Fragmentação de versões RN</div>
+      <div class="health-dot" id="hd-mobile">🟢</div>
+      <div class="health-status-label" id="hl-mobile" style="color:var(--success)">Saudável</div>
+      <div class="health-note" id="hn-mobile">0 bugs Urgent/High · Pigz App + Comanda</div>
       <select class="health-select" onchange="setHealth('mobile',this.value)">
-        <option value="ok">🟢 Saudável</option>
-        <option value="att" selected>🟡 Atenção</option>
+        <option value="ok" selected>🟢 Saudável</option>
+        <option value="att">🟡 Atenção</option>
         <option value="crit">🔴 Crítico</option>
       </select>
     </div>
     <div class="health-card" id="hc-gestao">
       <div class="health-icon">💻</div>
-      <div class="health-product">Gestão Desktop</div>
+      <div class="health-product">Gestão Desktop + Mobile</div>
       <div class="health-dot" id="hd-gestao">🟢</div>
       <div class="health-status-label" id="hl-gestao" style="color:var(--success)">Saudável</div>
-      <div class="health-note" id="hn-gestao">Sentry ativo, picos de trava</div>
+      <div class="health-note" id="hn-gestao">0 bugs Urgent/High · sem incidentes</div>
       <select class="health-select" onchange="setHealth('gestao',this.value)">
         <option value="ok" selected>🟢 Saudável</option>
         <option value="att">🟡 Atenção</option>
@@ -938,24 +938,24 @@ body.read-mode .read-show { display: flex !important; }
     <div class="health-card" id="hc-tef">
       <div class="health-icon">💳</div>
       <div class="health-product">TEF / Totem</div>
-      <div class="health-dot" id="hd-tef">🔴</div>
-      <div class="health-status-label" id="hl-tef" style="color:var(--danger)">Crítico</div>
-      <div class="health-note" id="hn-tef">Instabilidade websocket em pico</div>
+      <div class="health-dot" id="hd-tef">🟡</div>
+      <div class="health-status-label" id="hl-tef" style="color:var(--warning)">Atenção</div>
+      <div class="health-note" id="hn-tef">Não mapeado no Linear · verificar label</div>
       <select class="health-select" onchange="setHealth('tef',this.value)">
         <option value="ok">🟢 Saudável</option>
-        <option value="att">🟡 Atenção</option>
-        <option value="crit" selected>🔴 Crítico</option>
+        <option value="att" selected>🟡 Atenção</option>
+        <option value="crit">🔴 Crítico</option>
       </select>
     </div>
     <div class="health-card" id="hc-appweb">
       <div class="health-icon">🌐</div>
-      <div class="health-product">App Web</div>
-      <div class="health-dot" id="hd-appweb">🟡</div>
-      <div class="health-status-label" id="hl-appweb" style="color:var(--warning)">Atenção</div>
-      <div class="health-note" id="hn-appweb">Node 16 + Next 12 (legado)</div>
+      <div class="health-product">App Web (Pigz Web)</div>
+      <div class="health-dot" id="hd-appweb">🟢</div>
+      <div class="health-status-label" id="hl-appweb" style="color:var(--success)">Saudável</div>
+      <div class="health-note" id="hn-appweb">0 bugs Urgent/High · estável</div>
       <select class="health-select" onchange="setHealth('appweb',this.value)">
-        <option value="ok">🟢 Saudável</option>
-        <option value="att" selected>🟡 Atenção</option>
+        <option value="ok" selected>🟢 Saudável</option>
+        <option value="att">🟡 Atenção</option>
         <option value="crit">🔴 Crítico</option>
       </select>
     </div>
