@@ -856,9 +856,9 @@ body.read-mode .read-show { display: flex !important; }
   <div class="kpi-grid">
     <div class="kpi-card" style="--kc:var(--danger)">
       <div class="kpi-card-icon">🐛</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="26"></div>
+      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="28"></div>
       <div class="kpi-label">Bugs Críticos<br>em Aberto</div>
-      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ Levantado no Linear S3</div>
+      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ 28 Urgent+High · Squad Pigz</div>
       <div class="kpi-vs up" id="kvs-bugs-crit">vs. S2: <input type="number" id="k-bugs-crit-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Priority: Urgent+High · Status: ativo</span></div>
     </div>
@@ -971,8 +971,8 @@ body.read-mode .read-show { display: flex !important; }
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--danger)"></div>
           <div class="imp-body">
-            <div class="imp-title">Pigz Partner — Zero visibilidade de erros em produção</div>
-            <div class="imp-context">Impacta operação dos restaurantes antes mesmo de ser detectado</div>
+            <div class="imp-title">FIN-1 e FIN-2 — Issues Urgent abertas há 42 dias sem assignee</div>
+            <div class="imp-context">Criadas em 24/04/2026, última atualização 25/05. Nenhum responsável atribuído. Risco operacional direto não rastreado.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
@@ -981,8 +981,8 @@ body.read-mode .read-show { display: flex !important; }
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--danger)"></div>
           <div class="imp-body">
-            <div class="imp-title">TEF — Quedas de websocket em horário de pico</div>
-            <div class="imp-context">Falhas de pagamento reportadas por múltiplos restaurantes</div>
+            <div class="imp-title">PED-19, 20, 21, 24 — 4 issues paradas há 37 dias sem assignee</div>
+            <div class="imp-context">Status In Progress desde 29/04/2026. Nenhuma atualização. Sem responsável. Aparecem como progresso mas estão abandonadas.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
@@ -991,8 +991,8 @@ body.read-mode .read-show { display: flex !important; }
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--warning)"></div>
           <div class="imp-body">
-            <div class="imp-title">Backlog sem triagem padronizada no Linear</div>
-            <div class="imp-context">Bugs críticos e melhorias de UX sem diferenciação de prioridade</div>
+            <div class="imp-title">27 de 28 bugs críticos sem label de produto no Linear</div>
+            <div class="imp-context">96% dos bugs Urgent/High não estão vinculados a nenhum produto. Impossível priorizar por área sem tagueamento correto.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Médio</span>
@@ -1001,8 +1001,8 @@ body.read-mode .read-show { display: flex !important; }
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--warning)"></div>
           <div class="imp-body">
-            <div class="imp-title">Stack mobile fragmentada (RN v0.72 → v0.76)</div>
-            <div class="imp-context">Dificulta rotação de devs e duplica esforço em atualizações</div>
+            <div class="imp-title">@miguel.bonilla com 51 issues criadas sem nenhuma resolvida (14 dias)</div>
+            <div class="imp-context">Concentração de criação sem entrega. Indica gargalo ou ausência de suporte. Requer investigação imediata.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Médio</span>
@@ -1022,23 +1022,23 @@ body.read-mode .read-show { display: flex !important; }
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Partner</div>
-          <input class="rpt-input" type="number" id="b0" min="0" placeholder="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <input class="rpt-input" type="number" id="b0" min="0" value="1" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Mobile</div>
-          <input class="rpt-input" type="number" id="b1" min="0" placeholder="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <input class="rpt-input" type="number" id="b1" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">App Web</div>
-          <input class="rpt-input" type="number" id="b2" min="0" placeholder="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <input class="rpt-input" type="number" id="b2" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Gestão</div>
-          <input class="rpt-input" type="number" id="b3" min="0" placeholder="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <input class="rpt-input" type="number" id="b3" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">TEF / Totem</div>
-          <input class="rpt-input" type="number" id="b4" min="0" placeholder="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Sem label</div>
+          <input class="rpt-input" type="number" id="b4" min="0" value="27" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
       </div>
       <div class="bar-viz" style="height:110px">
@@ -1065,7 +1065,7 @@ body.read-mode .read-show { display: flex !important; }
         <div class="bar-col">
           <div class="bar-val-label" id="bv4" style="color:var(--purple)">—</div>
           <div class="bar-track"><div class="bar-fill" id="bf4" style="background:linear-gradient(to top,#8B5CF6,#A78BFA);height:0%"></div></div>
-          <div class="bar-name-label">TEF</div>
+          <div class="bar-name-label">Sem label</div>
         </div>
       </div>
     </div>
@@ -1081,42 +1081,42 @@ body.read-mode .read-show { display: flex !important; }
         <div class="metric-row">
           <div class="metric-row-label">⏱ MTTR</div>
           <div class="metric-row-val" style="color:var(--warning)">
-            <input type="number" id="m-mttr" placeholder="—" min="0">
+            <input type="number" id="m-mttr" placeholder="—" min="0" value="168">
           </div>
           <div class="metric-row-unit">horas</div>
         </div>
         <div class="metric-row">
-          <div class="metric-row-label">📋 Sem estimativa</div>
+          <div class="metric-row-label">📅 Sem due date</div>
           <div class="metric-row-val" style="color:var(--info)">
-            <input type="number" id="m-sem-est" placeholder="—" min="0" max="100">
+            <input type="number" id="m-sem-est" placeholder="—" min="0" max="100" value="88">
           </div>
           <div class="metric-row-unit">%</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">🎯 Aderência entregas</div>
           <div class="metric-row-val" style="color:var(--accent)">
-            <input type="number" id="m-aderencia" placeholder="—" min="0" max="100">
+            <input type="number" id="m-aderencia" placeholder="—" min="0" max="100" value="20">
           </div>
           <div class="metric-row-unit">%</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">🐛 Issues criadas</div>
-          <div class="metric-row-val" style="color:var(--text2)">
-            <input type="number" id="m-issues-new" placeholder="—" min="0">
+          <div class="metric-row-val" style="color:var(--danger)">
+            <input type="number" id="m-issues-new" placeholder="—" min="0" value="60">
           </div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">✅ Issues fechadas</div>
           <div class="metric-row-val" style="color:var(--success)">
-            <input type="number" id="m-issues-closed" placeholder="—" min="0">
+            <input type="number" id="m-issues-closed" placeholder="—" min="0" value="5">
           </div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">🚢 Deployments</div>
           <div class="metric-row-val" style="color:var(--purple)">
-            <input type="number" id="m-deploys" placeholder="—" min="0">
+            <input type="number" id="m-deploys" placeholder="—" min="0" value="0">
           </div>
           <div class="metric-row-unit">deploys</div>
         </div>
@@ -1130,19 +1130,19 @@ body.read-mode .read-show { display: flex !important; }
         <div class="priority-item" style="--pc:var(--danger)">
           <div class="priority-rank" style="color:var(--danger)">01</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p1" placeholder="Descreva a 1ª prioridade crítica..." style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Implementar monitoramento (Sentry) no Pigz Partner — eliminar ponto cego crítico</textarea>
+            <textarea class="rpt-textarea" id="p1" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 — Atribuir assignee e resolver 5 issues Urgent abertas desde 24/04 (42 dias paradas)</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--warning)">
           <div class="priority-rank" style="color:var(--warning)">02</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p2" placeholder="Descreva a 2ª prioridade..." style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Estruturar processo de triagem no Linear com labels de severidade (P0/P1/P2/P3)</textarea>
+            <textarea class="rpt-textarea" id="p2" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Tagueamento de produto no Linear — 27 de 28 bugs críticos sem label. Impossível priorizar por área sem esse dado.</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--info)">
           <div class="priority-rank" style="color:var(--info)">03</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p3" placeholder="Descreva a 3ª prioridade..." style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Investigar e mapear causa raiz das quedas de websocket no TEF em horário de pico</textarea>
+            <textarea class="rpt-textarea" id="p3" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Investigar concentração de @miguel.bonilla — 51 issues criadas em 14 dias sem resolução. Mapear causa: sobrecarga, bloqueio ou processo?</textarea>
           </div>
         </div>
       </div>
@@ -1282,11 +1282,22 @@ body.read-mode .read-show { display: flex !important; }
   <div class="two-cols">
     <div class="card">
       <div class="card-title">🚀 Deployments da Semana</div>
-      <textarea class="rpt-textarea" id="deploys" placeholder="Liste os deployments realizados:&#10;• [Produto] — v[X.X.X] — [data] — [impacto/contexto]&#10;• ..." style="min-height:120px;"></textarea>
+      <textarea class="rpt-textarea" id="deploys" style="min-height:120px;">Nenhum deployment rastreado via label no Linear nesta semana.
+
+Ação recomendada: criar label padrão “deploy” ou “release” no Linear para rastrear entregas em produção automaticamente a partir da S4.</textarea>
     </div>
     <div class="card">
       <div class="card-title">🔭 Observações para a Liderança</div>
-      <textarea class="rpt-textarea" id="obs-lider" placeholder="Contexto estratégico, conquistas, riscos no horizonte, decisões necessárias..." style="min-height:120px;"></textarea>
+      <textarea class="rpt-textarea" id="obs-lider" style="min-height:120px;">🟢 DESTAQUE: @guilherme.bernardo foi o dev com mais entregas na semana (7 Done em 14 dias). Reconhecimento recomendado.
+
+🔴 ALERTA: @miguel.bonilla criou 51 issues em 14 dias com 0 resolvidas. Investigar se há sobrecarga, bloqueio técnico ou falta de processo.
+
+🔴 ALERTA: Backlog crescendo +55 issues/semana. 3 projetos com mais de 15 issues paradas há mais de 30 dias:
+  • Chat em tempo real — 18 issues
+  • Planos Pós-pagos IPV — 17 issues
+  • LLM para pedidos — 16 issues
+
+⚠️ 96% dos bugs críticos (27/28) não têm label de produto no Linear. A distribuição por área é atualmente inviável sem tagueamento correto.</textarea>
     </div>
   </div>
 
