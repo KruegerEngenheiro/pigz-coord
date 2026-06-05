@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Ação Semanal — PIGZ Coord</title>
+<meta name="description" content="Checklist operacional diário e semanal do Coordenador PIGZ — coleta Linear, rotina de equipe e pré-reporte executivo.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0F1117;
+  --bg2:     #161820;
+  --card:    #1C1E26;
+  --card2:   #21242E;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --accent:  #FA641E;
+  --success: #22D3A4;
+  --warning: #FBBF24;
+  --danger:  #F87171;
+  --info:    #60A5FA;
+  --purple:  #A78BFA;
+  --text:    #F3F4F6;
+  --text2:   #9CA3AF;
+  --text3:   #6B7280;
+  --mono:    'JetBrains Mono', monospace;
+
+  --mon: #60A5FA;
+  --tue: #A78BFA;
+  --wed: #22D3A4;
+  --thu: #FBBF24;
+  --fri: #FA641E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 53px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(15,17,23,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { font-size: 15px; font-weight: 800; }
+.logo .accent { color: var(--accent); }
+.toolbar-badge {
+  font-size: 11px; font-weight: 700; padding: 4px 10px;
+  border-radius: 999px; border: 1px solid rgba(250,100,30,0.3);
+  color: var(--accent); background: rgba(250,100,30,0.08);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.tbtn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 13px; border-radius: 8px; border: 1px solid var(--border2);
+  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text2);
+  background: rgba(255,255,255,0.04);
+}
+.tbtn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+.tbtn-danger { border-color: rgba(248,113,113,0.3); color: var(--danger); background: rgba(248,113,113,0.06); }
+.tbtn-danger:hover { background: rgba(248,113,113,0.12); color: var(--danger); }
+
+/* ── LAYOUT ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 77px 24px 80px; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, rgba(250,100,30,0.1) 0%, rgba(96,165,250,0.06) 100%);
+  border: 1px solid rgba(250,100,30,0.15);
+  border-radius: 20px; padding: 28px 32px; margin-bottom: 28px;
+  display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+}
+.hero-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; }
+.hero-sub { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.hero-week { text-align: right; }
+.hero-week-label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--text3); margin-bottom: 4px; }
+.hero-week-num { font-size: 32px; font-weight: 900; font-family: var(--mono); color: var(--accent); }
+.hero-week-date { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── PROGRESS GERAL ── */
+.week-progress-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px 24px; margin-bottom: 28px;
+}
+.week-progress-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.week-progress-title { font-size: 13px; font-weight: 700; }
+.week-progress-pct { font-size: 24px; font-weight: 900; font-family: var(--mono); color: var(--accent); }
+.week-bar-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; }
+.day-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.day-bar-label { font-size: 10px; font-weight: 700; color: var(--text3); }
+.day-bar-track { width: 100%; height: 8px; background: rgba(255,255,255,0.06); border-radius: 99px; overflow: hidden; }
+.day-bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+.day-bar-count { font-size: 10px; font-family: var(--mono); color: var(--text3); }
+
+/* ── TABS DE DIA ── */
+.day-tabs { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; }
+.day-tab {
+  flex: 1; min-width: 100px; padding: 12px 16px; border-radius: 12px;
+  border: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+  text-align: center; background: var(--card);
+  font-family: 'Poppins', sans-serif;
+}
+.day-tab:hover { border-color: var(--border2); }
+.day-tab.active { border-color: var(--dc, var(--accent)); background: rgba(255,255,255,0.04); }
+.day-tab.today { box-shadow: 0 0 0 1px var(--dc, var(--accent)); }
+.day-tab-name { font-size: 13px; font-weight: 800; color: var(--dc, var(--text2)); }
+.day-tab-full { font-size: 10px; color: var(--text3); margin-bottom: 8px; }
+.day-tab-prog { font-size: 10px; font-weight: 700; color: var(--dc, var(--text3)); }
+.day-tab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dc, var(--border2)); margin: 6px auto 4px; }
+
+/* ── CONTEÚDO DO DIA ── */
+.day-content { display: none; }
+.day-content.active { display: block; }
+
+/* ── BLOCO DE TAREFAS ── */
+.task-block {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; margin-bottom: 16px; overflow: hidden;
+}
+.task-block-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.task-block-icon { font-size: 18px; }
+.task-block-title { font-size: 13px; font-weight: 800; flex: 1; }
+.task-block-badge {
+  font-size: 10px; font-weight: 700; padding: 3px 10px;
+  border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text3);
+}
+.task-block-body { padding: 8px 0; }
+
+/* ── ITEM DE TAREFA ── */
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 20px; transition: background 0.15s; cursor: pointer;
+  border-left: 3px solid transparent;
+}
+.task-item:hover { background: rgba(255,255,255,0.025); }
+.task-item.done { background: rgba(34,211,164,0.03); border-left-color: rgba(34,211,164,0.3); }
+.task-checkbox {
+  width: 18px; height: 18px; border-radius: 5px;
+  border: 2px solid var(--border2); flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; font-size: 11px;
+}
+.task-item.done .task-checkbox {
+  background: var(--success); border-color: var(--success); color: white;
+}
+.task-text { font-size: 12px; color: var(--text2); line-height: 1.55; flex: 1; }
+.task-item.done .task-text { text-decoration: line-through; color: var(--text3); }
+.task-tag {
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 5px;
+  flex-shrink: 0; margin-top: 1px;
+}
+.tag-linear { background: rgba(96,165,250,0.1); color: var(--info); }
+.tag-equipe { background: rgba(167,139,250,0.1); color: var(--purple); }
+.tag-reporte { background: rgba(250,100,30,0.1); color: var(--accent); }
+.tag-git { background: rgba(34,211,164,0.1); color: var(--success); }
+
+/* ── BADGE DE DIA COMPLETO ── */
+.day-complete-banner {
+  display: none; align-items: center; gap: 14px;
+  background: linear-gradient(135deg, rgba(34,211,164,0.12), rgba(34,211,164,0.04));
+  border: 1px solid rgba(34,211,164,0.25); border-radius: 14px;
+  padding: 18px 24px; margin-bottom: 16px;
+}
+.day-complete-banner.show { display: flex; animation: fadeSlideIn 0.4s ease; }
+.day-complete-icon { font-size: 32px; }
+.day-complete-text { }
+.day-complete-title { font-size: 14px; font-weight: 800; color: var(--success); }
+.day-complete-sub { font-size: 11px; color: var(--text3); }
+
+/* ── LINK LINEAR ── */
+.linear-link-bar {
+  background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.15);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.linear-link-bar-icon { font-size: 20px; }
+.linear-link-bar-text { flex: 1; font-size: 12px; color: var(--text2); }
+.linear-link-bar-text strong { color: var(--info); }
+.linear-link-bar a {
+  font-size: 11px; font-weight: 700; color: var(--info);
+  text-decoration: none; padding: 5px 12px; border-radius: 7px;
+  border: 1px solid rgba(96,165,250,0.25); transition: all 0.2s;
+}
+.linear-link-bar a:hover { background: rgba(96,165,250,0.1); }
+
+/* ── ANIMAÇÃO ── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── TOAST ── */
+#toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--card2); border: 1px solid var(--border2);
+  color: var(--text); font-size: 13px; font-weight: 600;
+  padding: 12px 24px; border-radius: 12px; z-index: 9999;
+  opacity: 0; transition: all 0.3s; pointer-events: none; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── RESPONSIVO ── */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-week { text-align: left; }
+  .week-bar-row { grid-template-columns: repeat(5,1fr); }
+  .day-tab { min-width: 60px; }
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="logo">PIGZ<span class="accent">.</span></span>
+    <span class="toolbar-badge">Plano Semanal</span>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="tbtn tbtn-danger" onclick="resetSemana()">🔄 Nova Semana</button>
+    <a class="tbtn" href="reporte-executivo.html">📋 Reporte</a>
+    <a class="tbtn" href="index.html">← Painel</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-title">🗓️ Plano de Ação Operacional</div>
+      <div class="hero-sub">
+        Checklist diário e semanal para coletar dados do <strong style="color:var(--info)">Linear</strong>,
+        gerir a equipe e manter o Reporte Executivo sempre preciso e atualizado para a liderança.
+      </div>
+    </div>
+    <div class="hero-week">
+      <div class="hero-week-label">Semana atual</div>
+      <div class="hero-week-num" id="week-num">—</div>
+      <div class="hero-week-date" id="week-date">—</div>
+    </div>
+  </div>
+
+  <!-- BARRA DE PROGRESSO DA SEMANA -->
+  <div class="week-progress-card">
+    <div class="week-progress-header">
+      <div class="week-progress-title">📊 Progresso da Semana</div>
+      <div class="week-progress-pct" id="week-pct">0%</div>
+    </div>
+    <div class="week-bar-row" id="week-bar-row">
+      <!-- gerado pelo JS -->
+    </div>
+  </div>
+
+  <!-- ABAS DE DIA -->
+  <div class="day-tabs" id="day-tabs">
+    <!-- gerado pelo JS -->
+  </div>
+
+  <!-- CONTEÚDOS DE CADA DIA -->
+  <div id="day-contents"></div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  DADOS DAS TAREFAS POR DIA
+// ════════════════════════════════════════
+
+const DAYS = [
+  {
+    key: 'seg', name: 'SEG', full: 'Segunda-feira',
+    color: '#60A5FA', emoji: '🚀',
+    blocks: [
+      {
+        icon: '📋', title: 'Abertura da Semana — Linear',
+        tasks: [
+          { id: 'seg1', text: 'Abrir Linear e revisar issues herdadas da semana anterior', tag: 'linear' },
+          { id: 'seg2', text: 'Verificar View "Travados +3 dias" — cobrar responsáveis', tag: 'linear' },
+          { id: 'seg3', text: 'Checar se há issues P0/P1 sem assignee e atribuir', tag: 'linear' },
+          { id: 'seg4', text: 'Verificar issues sem estimativa — listar para cobrar no kick-off', tag: 'linear' },
+        ]
+      },
+      {
+        icon: '👥', title: 'Kick-off com a Equipe (30 min)',
+        tasks: [
+          { id: 'seg5', text: 'Conduzir reunião de kick-off da semana com todos os devs', tag: 'equipe' },
+          { id: 'seg6', text: 'Garantir que cada dev sai com issues atribuídas e estimadas', tag: 'equipe' },
+          { id: 'seg7', text: 'Perguntar: "Tem impedimento herdado da semana passada?"', tag: 'equipe' },
+          { id: 'seg8', text: 'Perguntar: "O que precisa de decisão de liderança esta semana?"', tag: 'equipe' },
+        ]
+      },
+      {
+        icon: '📝', title: 'Registro pós-kick-off',
+        tasks: [
+          { id: 'seg9', text: 'Registrar impedimentos no Linear com label "impedimento"', tag: 'linear' },
+          { id: 'seg10', text: 'Rascunhar "Decisões Necessárias" no Reporte Executivo', tag: 'reporte' },
+          { id: 'seg11', text: 'Confirmar que o Cycle/Sprint da semana está criado no Linear', tag: 'linear' },
+        ]
+      }
+    ]
+  },
+  {
+    key: 'ter', name: 'TER', full: 'Terça-feira',
+    color: '#A78BFA', emoji: '⚙️',
+    blocks: [
+      {
+        icon: '🗣', title: 'Standup Diário (15 min)',
+        tasks: [
+          { id: 'ter1', text: 'Conduzir standup: O que fez ontem? O que vai fazer hoje? Tem bloqueio?', tag: 'equipe' },
+          { id: 'ter2', text: 'Anotar novos impedimentos e abrir issues no Linear na hora', tag: 'linear' },
+          { id: 'ter3', text: 'Checar se issues P0/P1 tiveram update nas últimas 24h', tag: 'linear' },
+        ]
+      },
+      {
+        icon: '🔍', title: 'Verificação Linear',
+        tasks: [
+          { id: 'ter4', text: 'Checar issues P0/P1 abertas — surgiu algum bug crítico novo?', tag: 'linear' },
+          { id: 'ter5', text: 'Issues "In Progress" sem movimento há +2 dias — contato direto', tag: 'linear' },
+          { id: 'ter6', text: 'Cobrar issues sem estimativa identificadas na segunda', tag: 'equipe' },
+        ]
+      }
+    ]
+  },
+  {
+    key: 'qua', name: 'QUA', full: 'Quarta-feira',
+    color: '#22D3A4', emoji: '📊',
+    blocks: [
+      {
+        icon: '🗣', title: 'Standup Diário (15 min)',
+        tasks: [
+          { id: 'qua1', text: 'Conduzir standup: O que fez ontem? O que vai fazer hoje? Tem bloqueio?', tag: 'equipe' },
+          { id: 'qua2', text: 'Anotar atualizações sobre impedimentos em aberto', tag: 'linear' },
+        ]
+      },
+      {
+        icon: '📈', title: 'Acompanhamento do Ciclo',
+        tasks: [
+          { id: 'qua3', text: 'Verificar progresso das issues comprometidas no kick-off', tag: 'linear' },
+          { id: 'qua4', text: 'Issues paradas há +2 dias sem update — cobrar no 1:1', tag: 'equipe' },
+          { id: 'qua5', text: 'Última cobrança: issues que ainda não têm estimativa', tag: 'equipe' },
+          { id: 'qua6', text: 'Registrar qualquer novo incidente/bug no Linear com severidade', tag: 'linear' },
+        ]
+      }
+    ]
+  },
+  {
+    key: 'qui', name: 'QUI', full: 'Quinta-feira',
+    color: '#FBBF24', emoji: '🎯',
+    blocks: [
+      {
+        icon: '🗣', title: 'Standup Diário (15 min)',
+        tasks: [
+          { id: 'qui1', text: 'Conduzir standup: O que fez ontem? O que vai fazer hoje? Tem bloqueio?', tag: 'equipe' },
+          { id: 'qui2', text: 'Verificar: o que será concluído até sexta? O que não entrará?', tag: 'equipe' },
+        ]
+      },
+      {
+        icon: '🔭', title: 'Preparação para o Reporte (sexta)',
+        tasks: [
+          { id: 'qui3', text: 'Alertar devs sobre issues próximas do prazo do ciclo', tag: 'equipe' },
+          { id: 'qui4', text: 'Levantar: o que vai para o próximo ciclo (não entregou esta semana)?', tag: 'linear' },
+          { id: 'qui5', text: 'Rascunhar o Resumo Executivo (Contexto, Conquista, Risco) no reporte', tag: 'reporte' },
+          { id: 'qui6', text: 'Confirmar saúde de cada produto com os devs responsáveis', tag: 'equipe' },
+        ]
+      }
+    ]
+  },
+  {
+    key: 'sex', name: 'SEX', full: 'Sexta-feira',
+    color: '#FA641E', emoji: '📋',
+    blocks: [
+      {
+        icon: '🔗', title: 'Coleta de Dados no Linear (Manhã — 45 min)',
+        linear: true,
+        tasks: [
+          { id: 'sex1', text: 'View 1: Bugs Críticos → Priority: Urgent+High + Status: ativo → contar e registrar', tag: 'linear' },
+          { id: 'sex2', text: 'View 2: Resolvidos → Status: Done + Completed: últimos 7 dias → contar', tag: 'linear' },
+          { id: 'sex3', text: 'MTTR: Calcular (Created → Completed) das P0/P1 fechadas → média em horas', tag: 'linear' },
+          { id: 'sex4', text: 'View 3: Sem Estimativa → (Estimate: None ÷ total ativas) × 100 → %', tag: 'linear' },
+          { id: 'sex5', text: 'Cycle Report: issues Done ÷ issues planejadas × 100 → % entregas', tag: 'linear' },
+          { id: 'sex6', text: 'Avaliar saúde de cada produto (Partner, Mobile, TEF, Gestão, AppWeb)', tag: 'linear' },
+          { id: 'sex7', text: 'View 5: Listar Impedimentos com label "impedimento" ainda abertos', tag: 'linear' },
+          { id: 'sex8', text: 'Copiar links das views como evidências no reporte', tag: 'reporte' },
+        ]
+      },
+      {
+        icon: '📝', title: 'Preencher o Reporte Executivo (Tarde — 30 min)',
+        tasks: [
+          { id: 'sex9', text: 'Abrir Reporte Executivo em Modo Edição', tag: 'reporte' },
+          { id: 'sex10', text: 'Preencher os 5 KPIs com os dados coletados do Linear', tag: 'reporte' },
+          { id: 'sex11', text: 'Atualizar campo "vs. Semana Anterior" em cada KPI', tag: 'reporte' },
+          { id: 'sex12', text: 'Escrever Resumo Executivo: Contexto + Principal Conquista + Principal Risco', tag: 'reporte' },
+          { id: 'sex13', text: 'Atualizar status de Saúde de cada produto', tag: 'reporte' },
+          { id: 'sex14', text: 'Listar Impedimentos Ativos coletados', tag: 'reporte' },
+          { id: 'sex15', text: 'Preencher "Como chegamos nessa decisão" em cada Decisão Necessária', tag: 'reporte' },
+          { id: 'sex16', text: 'Definir Prioridades da próxima semana', tag: 'reporte' },
+        ]
+      },
+      {
+        icon: '🚀', title: 'Publicação e Comunicação',
+        tasks: [
+          { id: 'sex17', text: 'Revisar o reporte completo em Modo Leitura (como o CEO vai ver)', tag: 'reporte' },
+          { id: 'sex18', text: 'Salvar e publicar no GitHub (automático via Git)', tag: 'git' },
+          { id: 'sex19', text: 'Notificar líderes no Google Chat com mensagem padrão', tag: 'equipe' },
+          { id: 'sex20', text: 'Aguardar feedback e marcar comentários como resolvidos', tag: 'reporte' },
+        ]
+      }
+    ]
+  }
+];
+
+const DAY_COLORS = { seg:'#60A5FA', ter:'#A78BFA', qua:'#22D3A4', qui:'#FBBF24', sex:'#FA641E' };
+const TAG_LABELS = { linear: 'Linear', equipe: 'Equipe', reporte: 'Reporte', git: 'GitHub' };
+
+// ════════════════════════════════════════
+//  ESTADO
+// ════════════════════════════════════════
+
+function getWeekKey() {
+  const now = new Date();
+  const d = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2,'0')}`;
+}
+
+const WEEK_KEY = 'pigz-plano-' + getWeekKey();
+let state = JSON.parse(localStorage.getItem(WEEK_KEY) || '{}');
+
+function saveState() {
+  localStorage.setItem(WEEK_KEY, JSON.stringify(state));
+}
+
+function toggleTask(id) {
+  state[id] = !state[id];
+  saveState();
+  renderAll();
+}
+
+function resetSemana() {
+  if (!confirm('Resetar todos os checkboxes da semana? (Os dados da semana atual serão apagados)')) return;
+  state = {};
+  saveState();
+  renderAll();
+  showToast('🔄 Semana resetada com sucesso!');
+}
+
+// ════════════════════════════════════════
+//  INFO DA SEMANA
+// ════════════════════════════════════════
+
+function getWeekInfo() {
+  const now = new Date();
+  const day = now.getDay(); // 0=dom, 1=seg, ...
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
+  const fri = new Date(mon);
+  fri.setDate(mon.getDate() + 4);
+  const fmt = d => d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+  return { mon, fri, range: `${fmt(mon)} – ${fmt(fri)}` };
+}
+
+function getTodayKey() {
+  const d = new Date().getDay();
+  return ['', 'seg','ter','qua','qui','sex','',''][d] || null;
+}
+
+// ════════════════════════════════════════
+//  CÁLCULO DE PROGRESSO
+// ════════════════════════════════════════
+
+function getDayProgress(dayKey) {
+  const day = DAYS.find(d => d.key === dayKey);
+  if (!day) return { done: 0, total: 0, pct: 0 };
+  const allTasks = day.blocks.flatMap(b => b.tasks);
+  const done = allTasks.filter(t => state[t.id]).length;
+  const total = allTasks.length;
+  return { done, total, pct: total ? Math.round((done/total)*100) : 0 };
+}
+
+function getWeekProgress() {
+  let done = 0, total = 0;
+  DAYS.forEach(d => {
+    const p = getDayProgress(d.key);
+    done += p.done; total += p.total;
+  });
+  return total ? Math.round((done/total)*100) : 0;
+}
+
+// ════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════
+
+let activeDay = getTodayKey() || 'seg';
+
+function renderWeekInfo() {
+  const wk = getWeekInfo();
+  const wkKey = getWeekKey();
+  document.getElementById('week-num').textContent = wkKey.replace('-', ' · S').replace('W','');
+  document.getElementById('week-date').textContent = wk.range;
+}
+
+function renderWeekProgress() {
+  const pct = getWeekProgress();
+  document.getElementById('week-pct').textContent = pct + '%';
+
+  const row = document.getElementById('week-bar-row');
+  row.innerHTML = DAYS.map(d => {
+    const p = getDayProgress(d.key);
+    return `
+      <div class="day-bar-wrap">
+        <div class="day-bar-label" style="color:${d.color}">${d.name}</div>
+        <div class="day-bar-track">
+          <div class="day-bar-fill" style="width:${p.pct}%;background:${d.color}"></div>
+        </div>
+        <div class="day-bar-count">${p.done}/${p.total}</div>
+      </div>`;
+  }).join('');
+}
+
+function renderTabs() {
+  const today = getTodayKey();
+  const container = document.getElementById('day-tabs');
+  container.innerHTML = DAYS.map(d => {
+    const p = getDayProgress(d.key);
+    const isActive = d.key === activeDay;
+    const isToday = d.key === today;
+    return `
+      <div class="day-tab ${isActive?'active':''} ${isToday?'today':''}"
+           style="--dc:${d.color}" onclick="setActiveDay('${d.key}')">
+        <div class="day-tab-full">${d.full}</div>
+        <div class="day-tab-name">${d.emoji} ${d.name}</div>
+        <div class="day-tab-dot" style="${p.pct===100?'background:'+d.color:''}"></div>
+        <div class="day-tab-prog">${p.pct}%</div>
+      </div>`;
+  }).join('');
+}
+
+function renderDayContent() {
+  const container = document.getElementById('day-contents');
+  container.innerHTML = DAYS.map(d => {
+    const p = getDayProgress(d.key);
+    const isActive = d.key === activeDay;
+    const isDone = p.total > 0 && p.done === p.total;
+
+    const blocksHtml = d.blocks.map(block => {
+      const taskHtml = block.tasks.map(t => {
+        const done = !!state[t.id];
+        return `
+          <div class="task-item ${done?'done':''}" onclick="toggleTask('${t.id}')">
+            <div class="task-checkbox">${done?'✓':''}</div>
+            <div class="task-text">${t.text}</div>
+            <span class="task-tag tag-${t.tag}">${TAG_LABELS[t.tag]}</span>
+          </div>`;
+      }).join('');
+
+      const linearLink = block.linear ? `
+        <div class="linear-link-bar">
+          <div class="linear-link-bar-icon">🔗</div>
+          <div class="linear-link-bar-text">Abra o <strong>Linear</strong> e acesse as views salvas para coletar os dados de cada item abaixo.</div>
+          <a href="https://linear.app" target="_blank">Abrir Linear ↗</a>
+        </div>` : '';
+
+      const doneCount = block.tasks.filter(t => state[t.id]).length;
+      return `
+        <div class="task-block">
+          <div class="task-block-header">
+            <div class="task-block-icon">${block.icon}</div>
+            <div class="task-block-title">${block.title}</div>
+            <div class="task-block-badge">${doneCount}/${block.tasks.length}</div>
+          </div>
+          <div class="task-block-body">
+            ${linearLink}
+            ${taskHtml}
+          </div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="day-content ${isActive?'active':''}" id="content-${d.key}">
+        <div class="day-complete-banner ${isDone?'show':''}" id="banner-${d.key}">
+          <div class="day-complete-icon">🎉</div>
+          <div class="day-complete-text">
+            <div class="day-complete-title">Todas as tarefas de ${d.full} concluídas!</div>
+            <div class="day-complete-sub">Ótimo trabalho. Você está no controle da operação.</div>
+          </div>
+        </div>
+        ${blocksHtml}
+      </div>`;
+  }).join('');
+}
+
+function renderAll() {
+  renderWeekInfo();
+  renderWeekProgress();
+  renderTabs();
+  renderDayContent();
+}
+
+function setActiveDay(key) {
+  activeDay = key;
+  renderAll();
+}
+
+// ════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+
+renderAll();
+</script>
+</body>
+</html>
