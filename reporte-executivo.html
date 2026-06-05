@@ -749,8 +749,8 @@ body.read-mode .read-show { display: flex !important; }
       <div class="rh-subtitle">Visão executiva da saúde operacional, gargalos ativos, métricas de governança e ações priorizadas para a semana. Preparado para que a liderança tome decisões informadas sem precisar falar com toda a equipe.</div>
     </div>
     <div class="rh-meta">
-      <div class="rh-meta-week" id="rpt-semana-display">Semana 3 · Jun 2026</div>
-      <div class="rh-meta-date" id="rpt-data-display">02–06 de Junho de 2026</div>
+      <div class="rh-meta-week" id="rpt-semana-display">Semana 3 · Mai/Jun 2026</div>
+      <div class="rh-meta-date" id="rpt-data-display">25 de Maio — 30 de Maio de 2026</div>
       <div id="status-global-badge" class="status-badge-global" style="background:rgba(251,191,36,0.12);color:#FBBF24;border:1px solid rgba(251,191,36,0.25)" onclick="cycleGlobalStatus()">
         <span id="status-global-dot" style="font-size:18px">🟡</span>
         <span id="status-global-text">Atenção Necessária</span>
@@ -856,43 +856,43 @@ body.read-mode .read-show { display: flex !important; }
   <div class="kpi-grid">
     <div class="kpi-card" style="--kc:var(--danger)">
       <div class="kpi-card-icon">🐛</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="8"></div>
+      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="26"></div>
       <div class="kpi-label">Bugs Críticos<br>em Aberto</div>
-      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ 3 novos esta semana</div>
-      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S2: <input type="number" id="k-bugs-crit-prev" value="5" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +3</div>
+      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ Levantado no Linear S3</div>
+      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S2: <input type="number" id="k-bugs-crit-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Priority: Urgent+High · Status: ativo</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--success)">
       <div class="kpi-card-icon">✅</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="—" min="0" value="14" oninput="calcTaxaRes()"></div>
+      <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="—" min="0" value="5" oninput="calcTaxaRes()"></div>
       <div class="kpi-label">Resolvidos<br>na Semana</div>
-      <div class="kpi-trend" style="color:var(--success)" id="trend-res">↑ Taxa: 63%</div>
-      <div class="kpi-vs down" id="kvs-bugs-res">vs. S2: <input type="number" id="k-bugs-res-prev" value="9" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +5</div>
+      <div class="kpi-trend" style="color:var(--warning)" id="trend-res">↓ Taxa: 16% (meta: 50%)</div>
+      <div class="kpi-vs down" id="kvs-bugs-res">vs. S2: <input type="number" id="k-bugs-res-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Status: Done · semana atual</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--warning)">
       <div class="kpi-card-icon">⏱️</div>
-      <div class="kpi-num"><input type="number" id="k-mttr" placeholder="—" min="0" value="6" oninput="updateMttrTrend()"></div>
+      <div class="kpi-num"><input type="number" id="k-mttr" placeholder="—" min="0" value="168" oninput="updateMttrTrend()"></div>
       <div class="kpi-label">MTTR Médio<br>(horas)</div>
-      <div class="kpi-trend" id="trend-mttr" style="color:var(--danger)">⚠ Acima da meta (4h)</div>
-      <div class="kpi-vs neutral" id="kvs-mttr">vs. S2: <input type="number" id="k-mttr-prev" value="8" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −2h</div>
+      <div class="kpi-trend" id="trend-mttr" style="color:var(--danger)">🔴 7 dias · Meta: 4h (P0)</div>
+      <div class="kpi-vs neutral" id="kvs-mttr">vs. S2: <input type="number" id="k-mttr-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Created → Completed das P0+P1</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--info)">
-      <div class="kpi-card-icon">📋</div>
-      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="34"></div>
-      <div class="kpi-label">Sem Estimativa<br>(%)</div>
-      <div class="kpi-trend" style="color:var(--danger)">⚠ Meta: &lt; 20%</div>
-      <div class="kpi-vs up" id="kvs-sem-est">vs. S2: <input type="number" id="k-sem-est-prev" value="41" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −7%</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · filtro Estimate: vazio</span></div>
+      <div class="kpi-card-icon">📅</div>
+      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="88"></div>
+      <div class="kpi-label">Sem Due Date<br>(%)</div>
+      <div class="kpi-trend" style="color:var(--danger)">🔴 170 de 193 ativas sem prazo</div>
+      <div class="kpi-vs up" id="kvs-sem-est">vs. S2: <input type="number" id="k-sem-est-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Active + Due Date: vazio · 170/193</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--accent)">
       <div class="kpi-card-icon">🎯</div>
-      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="71"></div>
+      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="3"></div>
       <div class="kpi-label">Entregas vs.<br>Planejado (%)</div>
-      <div class="kpi-trend" style="color:var(--warning)">↓ Meta: &gt; 80%</div>
-      <div class="kpi-vs neutral" id="kvs-entregas">vs. S2: <input type="number" id="k-entregas-prev" value="65" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +6%</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle Report da semana</span></div>
+      <div class="kpi-trend" style="color:var(--danger)">🔴 2 de 74 issues concluídas</div>
+      <div class="kpi-vs neutral" id="kvs-entregas">vs. S2: <input type="number" id="k-entregas-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="?"> → ?</div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle 25/05–30/05 · Squad Pigz</span></div>
     </div>
   </div>
 
