@@ -128,27 +128,74 @@ body {
 }
 
 /* ── COMENTARIO RESOLVIDO ── */
-.comment-card.resolved {
-  opacity: 0.45;
-  border-color: transparent;
+.comment-card.resolved { opacity: 0.45; border-color: transparent; }
+.comment-card.resolved p { text-decoration: line-through; color: var(--text3) !important; }
+.resolved-tag { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:6px; background:rgba(34,211,164,0.1); color:var(--success); }
+.resolve-btn { background:none; border:1px solid var(--border); border-radius:6px; color:var(--text3); font-size:10px; font-weight:700; padding:3px 8px; cursor:pointer; transition:all 0.2s; font-family:'Poppins',sans-serif; }
+.resolve-btn:hover { background:rgba(34,211,164,0.1); color:var(--success); border-color:rgba(34,211,164,0.3); }
+
+/* ── KPI FONTE TOOLTIP ── */
+.kpi-fonte {
+  font-size: 9px; color: var(--text3); margin-top: 8px;
+  display: flex; align-items: center; gap: 4px;
+  border-top: 1px solid var(--border); padding-top: 8px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.comment-card.resolved p {
-  text-decoration: line-through;
-  color: var(--text3) !important;
+.kpi-fonte a { color: var(--info); text-decoration: none; }
+.kpi-fonte a:hover { text-decoration: underline; }
+.kpi-vs {
+  font-size: 10px; font-weight: 700; margin-top: 4px;
+  display: flex; align-items: center; gap: 4px;
+  color: var(--text3);
 }
-.resolved-tag {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 10px; font-weight: 700; padding: 2px 8px;
-  border-radius: 6px; background: rgba(34,211,164,0.1); color: var(--success);
+.kpi-vs.up { color: var(--danger); }
+.kpi-vs.down { color: var(--success); }
+.kpi-vs.neutral { color: var(--text3); }
+
+/* ── DECISÃO JUSTIFICATIVA ── */
+.decisao-justif-label {
+  font-size: 10px; font-weight: 700; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-top: 10px; margin-bottom: 4px;
 }
-.resolve-btn {
-  background: none; border: 1px solid var(--border);
-  border-radius: 6px; color: var(--text3);
-  font-size: 10px; font-weight: 700; padding: 3px 8px;
-  cursor: pointer; transition: all 0.2s;
-  font-family: 'Poppins', sans-serif;
+.decisao-justif {
+  width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(248,113,113,0.1);
+  border-radius: 8px; color: var(--text2); font-family:'Poppins',sans-serif;
+  font-size: 11px; line-height: 1.5; padding: 8px 10px;
+  resize: vertical; min-height: 52px; outline: none;
+  transition: border-color 0.2s;
 }
-.resolve-btn:hover { background: rgba(34,211,164,0.1); color: var(--success); border-color: rgba(34,211,164,0.3); }
+.decisao-justif:focus { border-color: rgba(248,113,113,0.35); }
+.decisao-justif::placeholder { color: rgba(255,255,255,0.15); }
+
+/* ── METODOLOGIA COLAPSÁVEL ── */
+.metodologia-bar {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 32px; overflow: hidden;
+}
+.metodologia-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; cursor: pointer; user-select: none;
+  transition: background 0.2s;
+}
+.metodologia-header:hover { background: rgba(255,255,255,0.03); }
+.metodologia-header-left { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; color: var(--text2); }
+.metodologia-chevron { font-size: 11px; color: var(--text3); transition: transform 0.3s; }
+.metodologia-chevron.open { transform: rotate(180deg); }
+.metodologia-body { display: none; padding: 0 20px 20px; }
+.metodologia-body.open { display: block; }
+.metodologia-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 4px; }
+.metodologia-item { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 12px 14px; }
+.metodologia-item-title { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.metodologia-item-desc { font-size: 10px; color: var(--text3); line-height: 1.5; }
+.metodologia-item-fonte { font-size: 10px; color: var(--info); margin-top: 4px; }
+
+/* ── EVIDÊNCIAS ── */
+.evidencia-card { background: var(--card2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); }
+.evidencia-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.evidencia-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 6px; background: rgba(96,165,250,0.12); color: var(--info); }
+.evidencia-del { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 13px; }
+.evidencia-text { font-size: 12px; color: var(--text2); line-height: 1.6; white-space: pre-wrap; }
 
 /* ── REPORT HEADER ── */
 .report-header {
@@ -719,16 +766,22 @@ body.read-mode .read-show { display: flex !important; }
         <div class="decisao-num">Decisão 01</div>
         <div class="decisao-pergunta">Aprovar implementação do Sentry no Pigz Partner?</div>
         <div class="decisao-context">Produto crítico sem nenhum monitoramento de erros. Bugs chegam após reclamação de cliente. Estimativa: 1 dev · 3 dias.</div>
+        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
+        <textarea class="decisao-justif edit-only" id="dec1-justif" placeholder="Ex: 3 bugs reportados por clientes esta semana sem nenhum log de erro disponível..."></textarea>
       </div>
       <div class="decisao-item">
         <div class="decisao-num">Decisão 02</div>
         <div class="decisao-pergunta">Priorizar correção do TEF antes de novas features?</div>
         <div class="decisao-context">Quedas de websocket em pico causam falhas de pagamento. Impacto direto em receita. Exige pausa em 1 desenvolvimento em andamento.</div>
+        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
+        <textarea class="decisao-justif edit-only" id="dec2-justif" placeholder="Ex: 4 incidentes registrados entre 11h–13h, média de 23 minutos de instabilidade por ocorrência..."></textarea>
       </div>
       <div class="decisao-item">
         <div class="decisao-num">Decisão 03</div>
         <div class="decisao-pergunta">Validar e aprovar as hipóteses H1–H4 do plano de ação?</div>
         <div class="decisao-context">Hipóteses estruturadas aguardam sinal verde da liderança para entrar no roadmap da semana 4. Sem aprovação, equipe continua no reativo.</div>
+        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
+        <textarea class="decisao-justif edit-only" id="dec3-justif" placeholder="Ex: Análise de causa-raiz dos 3 principais gargalos identificou padrões repetitivos..."></textarea>
       </div>
     </div>
   </div>
@@ -752,6 +805,51 @@ body.read-mode .read-show { display: flex !important; }
     </div>
   </div>
 
+  <!-- ════ METODOLOGIA (COLAPSÁVEL) ════ -->
+  <div class="metodologia-bar" id="sec-metodologia">
+    <div class="metodologia-header" onclick="toggleMetodologia()">
+      <div class="metodologia-header-left">
+        📚 Como calculamos esses dados
+        <span style="font-size:10px; color:var(--text3); font-weight:400">Clique para ver a metodologia e fontes de cada indicador</span>
+      </div>
+      <span class="metodologia-chevron" id="met-chev">▼</span>
+    </div>
+    <div class="metodologia-body" id="met-body">
+      <div class="metodologia-grid">
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">🐛 Bugs Críticos em Aberto</div>
+          <div class="metodologia-item-desc">Contagem de issues com label P0 ou P1 no status "Em aberto" ou "Em andamento" ao final da semana.</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Jira / Linear / GitHub Issues</div>
+        </div>
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">✅ Bugs Resolvidos</div>
+          <div class="metodologia-item-desc">Issues fechadas com status "Resolvido" ou "Done" durante o período da semana (seg à sex).</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Jira / Linear / GitHub Issues</div>
+        </div>
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">⏱️ MTTR Médio</div>
+          <div class="metodologia-item-desc">Média de (data fechamento − data abertura) para bugs P0+P1 resolvidos na semana. Calculado em horas.</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Timestamps dos tickets</div>
+        </div>
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">📋 Sem Estimativa (%)</div>
+          <div class="metodologia-item-desc">Issues sem campo Story Points preenchido ÷ total de issues abertas no backlog. Quanto menor, melhor governança.</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Filtro "sem story points" no board</div>
+        </div>
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">🎯 Entregas vs. Planejado (%)</div>
+          <div class="metodologia-item-desc">Issues marcadas "Done" na sprint ÷ issues que entraram no sprint planning × 100. Meta: acima de 80%.</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Relatório de sprint / board</div>
+        </div>
+        <div class="metodologia-item">
+          <div class="metodologia-item-title">🩺 Saúde por Produto</div>
+          <div class="metodologia-item-desc">Avaliação qualitativa baseada em: taxa de erros no Sentry, feedback do standup, incidentes da semana.</div>
+          <div class="metodologia-item-fonte">🔗 Fonte: Sentry + standups diários</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ════ KPIs ════ -->
   <div class="sec-label" id="sec-kpis">📊 Indicadores da Semana</div>
   <div class="kpi-grid">
@@ -760,31 +858,40 @@ body.read-mode .read-show { display: flex !important; }
       <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="8"></div>
       <div class="kpi-label">Bugs Críticos<br>em Aberto</div>
       <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ 3 novos esta semana</div>
+      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S2: <input type="number" id="k-bugs-crit-prev" value="5" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +3</div>
+      <div class="kpi-fonte">🔗 <span>Jira · filtro P0+P1 abertos</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--success)">
       <div class="kpi-card-icon">✅</div>
       <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="—" min="0" value="14" oninput="calcTaxaRes()"></div>
       <div class="kpi-label">Resolvidos<br>na Semana</div>
       <div class="kpi-trend" style="color:var(--success)" id="trend-res">↑ Taxa: 63%</div>
+      <div class="kpi-vs down" id="kvs-bugs-res">vs. S2: <input type="number" id="k-bugs-res-prev" value="9" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +5</div>
+      <div class="kpi-fonte">🔗 <span>Jira · issues fechadas na semana</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--warning)">
       <div class="kpi-card-icon">⏱️</div>
       <div class="kpi-num"><input type="number" id="k-mttr" placeholder="—" min="0" value="6" oninput="updateMttrTrend()"></div>
       <div class="kpi-label">MTTR Médio<br>(horas)</div>
       <div class="kpi-trend" id="trend-mttr" style="color:var(--danger)">⚠ Acima da meta (4h)</div>
+      <div class="kpi-vs neutral" id="kvs-mttr">vs. S2: <input type="number" id="k-mttr-prev" value="8" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −2h</div>
+      <div class="kpi-fonte">🔗 <span>Timestamps de abertura→fechamento</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--info)">
       <div class="kpi-card-icon">📋</div>
-      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="34">
-      </div>
+      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="34"></div>
       <div class="kpi-label">Sem Estimativa<br>(%)</div>
       <div class="kpi-trend" style="color:var(--danger)">⚠ Meta: &lt; 20%</div>
+      <div class="kpi-vs up" id="kvs-sem-est">vs. S2: <input type="number" id="k-sem-est-prev" value="41" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → −7%</div>
+      <div class="kpi-fonte">🔗 <span>Filtro "sem story points" no board</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--accent)">
       <div class="kpi-card-icon">🎯</div>
       <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="71"></div>
       <div class="kpi-label">Entregas vs.<br>Planejado (%)</div>
       <div class="kpi-trend" style="color:var(--warning)">↓ Meta: &gt; 80%</div>
+      <div class="kpi-vs neutral" id="kvs-entregas">vs. S2: <input type="number" id="k-entregas-prev" value="65" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +6%</div>
+      <div class="kpi-fonte">🔗 <span>Done na sprint ÷ planejado × 100</span></div>
     </div>
   </div>
 
@@ -1182,6 +1289,28 @@ body.read-mode .read-show { display: flex !important; }
     </div>
   </div>
 
+  <!-- ════ EVIDÊNCIAS DA SEMANA ════ -->
+  <div class="sec-label" id="sec-evidencias" style="margin-top:40px">🔍 Evidências da Semana</div>
+  <div class="card" style="margin-bottom:32px">
+    <div class="card-title">
+      <span class="card-title-accent">Base de sustentação</span> · Links, prints e dados que embasam este reporte
+    </div>
+    <p style="font-size:12px; color:var(--text2); margin-bottom:16px; line-height:1.6">
+      Registre aqui os dados brutos, links do Jira, prints de erro ou qualquer evidência que responda à pergunta dos líderes: <strong style="color:var(--text)">“Como você chegou a esses números?”</strong>
+    </p>
+    <div class="edit-only" style="margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap">
+      <button class="tbtn" onclick="addEvidencia('bug')">+ Bug / Incidente</button>
+      <button class="tbtn" onclick="addEvidencia('metrica')">+ Métrica</button>
+      <button class="tbtn" onclick="addEvidencia('standup')">+ Anotação Standup</button>
+      <button class="tbtn" onclick="addEvidencia('link')">+ Link / Referência</button>
+    </div>
+    <div id="evidencias-list">
+      <div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">
+        🔍 Nenhuma evidência cadastrada ainda. Use os botões acima para adicionar.
+      </div>
+    </div>
+  </div>
+
   <!-- ════ SEÇÃO DE FEEDBACK & COMENTÁRIOS DOS LÍDERES ════ -->
   <div class="sec-label" id="sec-comentarios" style="margin-top:40px">💬 Comentários e Feedback dos Líderes</div>
   <div class="card" style="margin-bottom:80px" id="section-comments">
@@ -1309,6 +1438,66 @@ try {
   const match = semText.toLowerCase().match(/semana\s*(\d+)/);
   if (match) docId = 'semana' + match[1];
 } catch (e) {}
+
+// ── METODOLOGIA (toggle) ──
+function toggleMetodologia() {
+  const body = document.getElementById('met-body');
+  const chev = document.getElementById('met-chev');
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+// ── EVIDÊNCIAS ──
+const EV_KEY = KEY + '-evidencias';
+let evidencias = JSON.parse(localStorage.getItem(EV_KEY) || '[]');
+
+const evTagMap = {
+  bug:     { label: '🐛 Bug / Incidente', color: 'var(--danger)' },
+  metrica: { label: '📊 Métrica',         color: 'var(--info)' },
+  standup: { label: '🗣 Standup',          color: 'var(--success)' },
+  link:    { label: '🔗 Link / Ref',       color: 'var(--purple)' }
+};
+
+function addEvidencia(tipo) {
+  const texto = prompt(`Cole aqui a evidência (${evTagMap[tipo].label}):\n\nEx: "Jira P0-412 · TEF caiu 4x entre 11h–13h · link: jira.pigz.com/P0-412"`);
+  if (!texto || !texto.trim()) return;
+  evidencias.push({ tipo, texto: texto.trim(), time: new Date().toISOString() });
+  localStorage.setItem(EV_KEY, JSON.stringify(evidencias));
+  renderEvidencias();
+  showToast('🔍 Evidência adicionada!');
+}
+
+function deleteEvidencia(idx) {
+  if (!confirm('Remover esta evidência?')) return;
+  evidencias.splice(idx, 1);
+  localStorage.setItem(EV_KEY, JSON.stringify(evidencias));
+  renderEvidencias();
+}
+
+function renderEvidencias() {
+  const list = document.getElementById('evidencias-list');
+  if (!list) return;
+  if (evidencias.length === 0) {
+    list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">🔍 Nenhuma evidência cadastrada ainda. Use os botões acima para adicionar.</div>`;
+    return;
+  }
+  list.innerHTML = evidencias.map((ev, idx) => {
+    const tag = evTagMap[ev.tipo] || evTagMap.link;
+    const date = new Date(ev.time).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+    return `<div class="evidencia-card">
+      <div class="evidencia-header">
+        <span class="evidencia-tag" style="color:${tag.color};background:transparent;border:1px solid ${tag.color}40">${tag.label}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:10px;color:var(--text3)">${date}</span>
+          <button class="evidencia-del edit-only" onclick="deleteEvidencia(${idx})" title="Remover">✕</button>
+        </div>
+      </div>
+      <div class="evidencia-text">${esc(ev.texto)}</div>
+    </div>`;
+  }).join('');
+}
+
+
 
 // ── SCROLL SPY — NAVBAR ATIVA ──
 const NAV_SECTIONS = ['sec-decisao','sec-resumo','sec-kpis','sec-saude','sec-impedimentos','sec-comentarios'];
@@ -1850,6 +2039,7 @@ function loadAllLocal() {
 function loadAll() {
   initFirebase();
   setupAutoSave();
+  renderEvidencias();
 }
 
 function showToast(msg) {
