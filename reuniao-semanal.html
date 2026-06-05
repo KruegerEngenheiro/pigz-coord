@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunião Semanal S3 — Kickoff da Triagem | PIGZ Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0B0D12; --bg2:#10131A; --card:#181B24; --card2:#1E2130;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+  --accent:#FA641E; --success:#22D3A4; --warning:#FBBF24;
+  --danger:#F87171; --info:#60A5FA; --purple:#A78BFA;
+  --text:#EFF0F3; --text2:#9CA3AF; --text3:#4B5563;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text)}
+
+/* ══ ROOT ══ */
+.root{display:grid;grid-template-rows:52px 1fr 58px;height:100vh}
+
+/* ══ TOPBAR ══ */
+.topbar{
+  display:flex;align-items:center;gap:10px;padding:0 18px;
+  background:rgba(11,13,18,.98);border-bottom:1px solid var(--border);
+  position:relative;flex-shrink:0;
+}
+.topbar::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent) 0%,var(--warning) 60%,transparent 100%);opacity:.5}
+.t-logo{font-size:13px;font-weight:900;text-decoration:none;color:var(--text);white-space:nowrap}
+.t-logo b{color:var(--accent)}
+.t-div{width:1px;height:18px;background:var(--border2);flex-shrink:0}
+.t-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;
+  background:rgba(250,100,30,.1);border:1px solid rgba(250,100,30,.25);color:var(--accent);white-space:nowrap}
+.t-week{font-size:10px;color:var(--text3);font-family:var(--mono);white-space:nowrap}
+.t-prog{flex:1;display:flex;align-items:center;gap:8px;min-width:0;padding:0 8px}
+.t-bar{flex:1;height:3px;background:var(--border2);border-radius:999px;overflow:hidden;min-width:40px}
+.t-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--warning));transition:width .4s}
+.t-step{font-size:10px;color:var(--text3);font-family:var(--mono);white-space:nowrap}
+.timer{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;
+  background:var(--card2);border:1px solid var(--border2)}
+.tnum{font-family:var(--mono);font-size:14px;font-weight:700;min-width:40px;transition:color .3s}
+.tnum.warn{color:var(--warning)}.tnum.crit{color:var(--danger);animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.tic{font-size:12px;cursor:pointer;padding:2px;opacity:.5;transition:opacity .2s}
+.tic:hover{opacity:1}
+.t-right{display:flex;align-items:center;gap:5px;margin-left:auto;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:7px;
+  border:1px solid var(--border2);font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;
+  cursor:pointer;transition:all .15s;color:var(--text2);background:rgba(255,255,255,.03);
+  text-decoration:none;white-space:nowrap}
+.tbtn:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.tbtn-p{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 0 14px rgba(250,100,30,.3)}
+.tbtn-p:hover{opacity:.88;color:#fff}
+.tbtn-s{background:rgba(34,211,164,.1);color:var(--success);border-color:rgba(34,211,164,.2)}
+.tbtn-s:hover{background:rgba(34,211,164,.18)}
+
+/* ══ MAIN ══ */
+.main{overflow:hidden;position:relative}
+
+/* ══ SLIDES ══ */
+.slide{display:none;height:calc(100vh - 52px - 58px);overflow:hidden}
+.slide.on{display:grid;grid-template-columns:260px 1fr}
+@keyframes sIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+.slide.on .sr{animation:sIn .28s ease}
+
+/* ── LEFT SIDEBAR ── */
+.sl{
+  background:var(--bg2);border-right:1px solid var(--border);
+  padding:24px 20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;
+}
+.sl-tag{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--accent)}
+.sl-title{font-size:20px;font-weight:900;letter-spacing:-.5px;line-height:1.2}
+.sl-title span{color:var(--accent)}
+.sl-sub{font-size:11px;color:var(--text2);line-height:1.6}
+.sl-time{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;
+  background:rgba(250,100,30,.06);border:1px solid rgba(250,100,30,.14)}
+.sl-tval{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--warning)}
+.sl-tlbl{font-size:9px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+
+/* report conn box */
+.conn-box{background:rgba(34,211,164,.04);border:1px solid rgba(34,211,164,.14);border-radius:9px;padding:11px}
+.cb-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--success);margin-bottom:7px}
+.cb-item{display:flex;align-items:flex-start;gap:7px;font-size:10px;color:var(--text2);margin-bottom:5px;line-height:1.45}
+.cb-dot{width:5px;height:5px;border-radius:50%;background:var(--success);flex-shrink:0;margin-top:4px}
+
+/* agenda */
+.ag-list{display:flex;flex-direction:column;gap:3px}
+.ag-it{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:7px;
+  cursor:pointer;transition:background .15s;border:1px solid transparent}
+.ag-it:hover{background:rgba(255,255,255,.04)}
+.ag-it.cur{background:rgba(250,100,30,.1);border-color:rgba(250,100,30,.2)}
+.ag-it.done{opacity:.45}
+.ag-n{width:20px;height:20px;border-radius:5px;background:var(--card2);display:flex;align-items:center;
+  justify-content:center;font-size:9px;font-weight:800;font-family:var(--mono);color:var(--text3);flex-shrink:0}
+.ag-it.cur .ag-n{background:var(--accent);color:#fff}
+.ag-it.done .ag-n{background:rgba(34,211,164,.2);color:var(--success)}
+.ag-nm{font-size:11px;font-weight:700;flex:1}
+.ag-tm{font-size:9px;color:var(--text3);font-family:var(--mono)}
+
+/* ── RIGHT PANEL ── */
+.sr{overflow-y:auto;padding:24px 28px;display:flex;flex-direction:column;gap:16px}
+
+/* ══ FORMS ══ */
+.fl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3)}
+.finput{background:var(--card2);border:1px solid var(--border2);border-radius:8px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;padding:9px 12px;
+  outline:none;width:100%;transition:border-color .2s}
+.finput:focus{border-color:var(--accent)}
+.ftarea{background:var(--card2);border:1px solid var(--border2);border-radius:8px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;padding:9px 12px;
+  outline:none;resize:vertical;width:100%;min-height:68px;line-height:1.55;transition:border-color .2s}
+.ftarea:focus{border-color:var(--accent)}
+.finput::placeholder,.ftarea::placeholder{color:var(--text3)}
+.fgroup{display:flex;flex-direction:column;gap:5px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+
+/* ══ S0 — SLIDE ABERTURA ══ */
+.priority-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.pcard{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:14px}
+.pcard-badge{font-size:9px;font-weight:900;padding:2px 9px;border-radius:5px;margin-bottom:8px;display:inline-block;font-family:var(--mono)}
+.pcard-title{font-size:12px;font-weight:800;margin-bottom:5px;line-height:1.3}
+.pcard-sub{font-size:10px;color:var(--text2);line-height:1.5}
+.pcard-status{margin-top:10px}
+.ps-sel{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:6px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;
+  padding:5px 8px;outline:none;cursor:pointer}
+
+/* presentes input */
+.attend-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ══ S1 — TRIAGEM LIVE ══ */
+/* Bug entry form */
+.triage-form{
+  background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:16px;
+}
+.tf-grid{display:grid;grid-template-columns:100px 1fr 120px 160px;gap:10px;align-items:end}
+.tsel{background:var(--card2);border:1px solid var(--border2);border-radius:7px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+  padding:8px 10px;outline:none;cursor:pointer;width:100%}
+.tadd-btn{padding:8px 18px;border-radius:7px;background:var(--accent);border:none;
+  color:#fff;font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;
+  cursor:pointer;transition:opacity .15s;white-space:nowrap}
+.tadd-btn:hover{opacity:.85}
+
+/* Bug list */
+.bug-list{display:flex;flex-direction:column;gap:7px}
+.bug-item{
+  display:grid;grid-template-columns:70px 1fr 130px auto;align-items:center;gap:10px;
+  padding:10px 14px;background:var(--card2);border-radius:10px;
+  border-left:3px solid var(--bc,var(--border2));
+}
+.bi-badge{font-size:9px;font-weight:900;padding:2px 8px;border-radius:4px;font-family:var(--mono);text-align:center}
+.bi-bug{font-size:11px;font-weight:600;line-height:1.4}
+.bi-dev{font-size:10px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:5px}
+.bi-status{font-size:9px;font-weight:800;padding:3px 9px;border-radius:999px;cursor:pointer;
+  border:none;font-family:'Poppins',sans-serif;white-space:nowrap}
+.bi-del{cursor:pointer;font-size:14px;color:var(--text3);padding:4px;border-radius:5px;
+  transition:all .15s;background:none;border:none}
+.bi-del:hover{color:var(--danger);background:rgba(248,113,113,.1)}
+
+/* empty state */
+.bug-empty{text-align:center;padding:24px;color:var(--text3);font-size:11px;
+  border:1px dashed var(--border2);border-radius:10px}
+.bug-empty big{font-size:22px;display:block;margin-bottom:6px}
+
+/* counter row */
+.bug-counters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bc-card{background:var(--card);border:1px solid var(--border2);border-radius:9px;
+  padding:10px;text-align:center}
+.bc-num{font-size:22px;font-weight:900;font-family:var(--mono);line-height:1}
+.bc-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
+
+/* ══ S2 — SAÚDE & BLOQUEIOS ══ */
+.health-list{display:flex;flex-direction:column;gap:6px}
+.hr{display:flex;align-items:center;gap:10px;padding:9px 12px;
+  background:var(--card2);border-radius:9px;border:1px solid var(--border)}
+.hr:hover{border-color:var(--border2)}
+.hi{font-size:15px;flex-shrink:0;width:22px;text-align:center}
+.hn{font-size:12px;font-weight:700;flex:1;min-width:0}
+.hbtns{display:flex;gap:3px;flex-shrink:0}
+.hb{font-size:13px;cursor:pointer;padding:4px 7px;border-radius:6px;
+  opacity:.28;transition:all .15s;border:1px solid transparent;line-height:1}
+.hb:hover{opacity:.6}
+.hb.on{opacity:1;border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06)}
+.hn2{flex:1;background:transparent;border:none;outline:none;font-family:'Poppins',sans-serif;
+  font-size:10px;color:var(--text2);border-bottom:1px dashed var(--border2);padding:2px 0}
+.hn2::placeholder{color:var(--text3)}
+.hn2:focus{border-color:var(--accent)}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:4px 11px;border-radius:999px;border:1px solid var(--border2);font-size:10px;
+  font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;background:var(--card2);user-select:none}
+.chip:hover{border-color:rgba(250,100,30,.4);color:var(--text)}
+.chip.on{background:rgba(250,100,30,.12);border-color:rgba(250,100,30,.35);color:var(--accent)}
+
+/* ══ S3 — DECISÕES & ENCERRAMENTO ══ */
+.commit-list{display:flex;flex-direction:column;gap:7px}
+.commit-row{display:grid;grid-template-columns:24px 1fr 120px 18px;align-items:center;gap:9px;
+  padding:9px 12px;background:var(--card2);border-radius:9px;border:1px solid var(--border)}
+.cr-n{font-size:10px;font-weight:900;color:var(--accent);font-family:var(--mono)}
+.cr-inp{background:transparent;border:none;outline:none;font-family:'Poppins',sans-serif;
+  font-size:11px;color:var(--text);width:100%}
+.cr-inp::placeholder{color:var(--text3)}
+.cr-sel{background:var(--card);border:1px solid var(--border2);border-radius:6px;
+  color:var(--text2);font-size:9px;font-weight:700;padding:3px 6px;outline:none;
+  cursor:pointer;font-family:'Poppins',sans-serif;width:100%}
+.cr-del{cursor:pointer;font-size:12px;color:var(--text3);background:none;border:none;padding:2px}
+.cr-del:hover{color:var(--danger)}
+
+/* finish */
+.finish{background:linear-gradient(135deg,rgba(34,211,164,.05),rgba(96,165,250,.03));
+  border:1px solid rgba(34,211,164,.18);border-radius:13px;padding:24px;text-align:center}
+.finish h2{font-size:16px;font-weight:900;margin-bottom:6px}
+.finish p{font-size:11px;color:var(--text2);margin-bottom:18px;line-height:1.6}
+.finish-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.fbtn{display:inline-flex;align-items:center;gap:5px;padding:10px 20px;border-radius:9px;
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:800;cursor:pointer;
+  text-decoration:none;border:none;transition:all .2s}
+.fbtn-p{background:linear-gradient(135deg,var(--accent),var(--warning));color:#fff;
+  box-shadow:0 4px 16px rgba(250,100,30,.35)}
+.fbtn-p:hover{opacity:.9}
+.fbtn-s{background:rgba(34,211,164,.1);color:var(--success);border:1px solid rgba(34,211,164,.25)}
+.fbtn-s:hover{background:rgba(34,211,164,.18)}
+.fbtn-g{background:var(--card2);color:var(--text2);border:1px solid var(--border2)}
+.fbtn-g:hover{background:var(--card);color:var(--text)}
+
+/* ══ BOTTOMBAR ══ */
+.bottombar{display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;border-top:1px solid var(--border);background:rgba(11,13,18,.98);flex-shrink:0}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .2s}
+.dot.on{background:var(--accent);width:16px;border-radius:3px}
+.dot.done{background:var(--success)}
+.nav{padding:7px 18px;border-radius:7px;border:1px solid var(--border2);
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;
+  transition:all .2s;background:var(--card2);color:var(--text)}
+.nav:hover:not(:disabled){background:var(--card)}
+.nav:disabled{opacity:.3;cursor:not-allowed}
+.nav.pri{background:var(--accent);border-color:transparent;color:#fff}
+.nav.pri:hover{opacity:.85}
+
+/* ══ MODAL ══ */
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);
+  z-index:999;display:none;align-items:center;justify-content:center}
+.mb.on{display:flex}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:18px;
+  padding:28px;max-width:520px;width:92%}
+.modal h3{font-size:18px;font-weight:900;margin-bottom:6px}
+.modal p{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:18px}
+.modal-list{background:var(--card2);border-radius:9px;padding:12px 16px;margin-bottom:18px}
+.modal-list li{font-size:11px;color:var(--text2);padding:3px 0;list-style:none}
+.modal-list li::before{content:'✅ '}
+.modal-acts{display:flex;gap:9px}
+
+/* ══ TOAST ══ */
+#toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);
+  background:var(--success);color:var(--bg);padding:9px 22px;border-radius:999px;
+  font-size:12px;font-weight:800;z-index:9999;pointer-events:none;opacity:0;transition:opacity .3s;white-space:nowrap}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="root">
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <a class="t-logo" href="index.html"><b>PIGZ</b> Coord</a>
+  <div class="t-div"></div>
+  <span class="t-badge">🔁 Reunião S3 — Kickoff da Triagem</span>
+  <span class="t-week" id="weekLbl"></span>
+  <div class="t-prog">
+    <div class="t-bar"><div class="t-fill" id="pFill" style="width:25%"></div></div>
+    <span class="t-step" id="stepInfo">1/4</span>
+  </div>
+  <div class="timer">
+    <span class="tic" id="tPlay" onclick="toggleTimer()">▶</span>
+    <span class="tnum" id="tNum">10:00</span>
+    <span class="tic" onclick="resetTimer()">↺</span>
+  </div>
+  <div class="t-right">
+    <button class="tbtn" onclick="setT(300)">5m</button>
+    <button class="tbtn" onclick="setT(600)">10m</button>
+    <button class="tbtn" onclick="setT(900)">15m</button>
+    <button class="tbtn" onclick="toggleFS()" id="fsBtn">⛶</button>
+    <a class="tbtn" href="relatorio-s3.html" target="_blank">🐞 Fila</a>
+    <a class="tbtn" href="plano-acao-semanal.html" target="_blank">⚡ Plano</a>
+    <button class="tbtn tbtn-p" onclick="openModal()">⭐ Exportar</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- ════════ SLIDE 0: ABERTURA (5 min) ════════ -->
+  <div class="slide on" id="s0">
+    <div class="sl">
+      <div>
+        <div class="sl-tag">01 · Abertura</div>
+        <h2 class="sl-title">Bom dia,<br><span>time!</span> 👋</h2>
+      </div>
+      <p class="sl-sub">Esta é a <strong style="color:var(--text)">1ª reunião da cadência semanal</strong> com o time de devs. Toda Segunda às 08h, 45 min. O que capturarmos aqui vira o reporte dos coordenadores na Sexta.</p>
+      <div class="sl-time"><span>⏱</span><div><div class="sl-tval">5 min</div><div class="sl-tlbl">Abertura</div></div></div>
+      <div class="conn-box">
+        <div class="cb-title">O que sai desta reunião</div>
+        <div class="cb-item"><div class="cb-dot"></div>Bugs classificados P0→P3 com dono e prazo</div>
+        <div class="cb-item"><div class="cb-dot"></div>Plano de Ação da semana gerado</div>
+        <div class="cb-item"><div class="cb-dot"></div>Reporte dos coordenadores (Sexta)</div>
+        <div class="cb-item"><div class="cb-dot"></div>Ata oficial assinada no GOV</div>
+      </div>
+      <div class="ag-list">
+        <div class="ag-it cur" onclick="jump(0)"><div class="ag-n">1</div><div class="ag-nm">Contexto S3</div><div class="ag-tm">5m</div></div>
+        <div class="ag-it" onclick="jump(1)"><div class="ag-n">2</div><div class="ag-nm">Triagem ao Vivo</div><div class="ag-tm">20m</div></div>
+        <div class="ag-it" onclick="jump(2)"><div class="ag-n">3</div><div class="ag-nm">Bloqueios & Saúde</div><div class="ag-tm">10m</div></div>
+        <div class="ag-it" onclick="jump(3)"><div class="ag-n">4</div><div class="ag-nm">Comprometimentos</div><div class="ag-tm">10m</div></div>
+      </div>
+    </div>
+    <div class="sr">
+      <div class="g2">
+        <div class="fgroup">
+          <div class="fl">📋 Presentes hoje</div>
+          <input class="finput" id="presentes" placeholder="Guilherme, João Lúcio, Elias, Gustavo, João Paulo, Emerson...">
+        </div>
+        <div class="fgroup">
+          <div class="fl">📅 Data e hora</div>
+          <input class="finput" id="data-hora" value="02/06/2026 · 08:00">
+        </div>
+      </div>
+
+      <!-- As 3 prioridades aprovadas pela diretoria -->
+      <div>
+        <div class="fl" style="margin-bottom:10px">🎯 As 3 prioridades aprovadas pela diretoria na S2 — o que implementamos esta semana</div>
+        <div class="priority-cards">
+          <!-- P1 -->
+          <div class="pcard" style="border-top:2px solid var(--danger)">
+            <span class="pcard-badge" style="background:rgba(248,113,113,.15);color:var(--danger)">🔴 PRIORIDADE 1</span>
+            <div class="pcard-title">Triagem Padronizada P0/P1/P2/P3</div>
+            <div class="pcard-sub">Todo bug classificado com severidade, responsável e prazo de SLA. Começa <strong style="color:var(--text)">hoje</strong> nesta reunião.</div>
+            <div class="pcard-status">
+              <select class="ps-sel" id="st-p1">
+                <option>🔴 Não iniciado</option>
+                <option selected>🟡 Kickoff hoje (nesta reunião)</option>
+                <option>🟢 Implementado</option>
+              </select>
+            </div>
+          </div>
+          <!-- P2 -->
+          <div class="pcard" style="border-top:2px solid var(--warning)">
+            <span class="pcard-badge" style="background:rgba(251,191,36,.15);color:var(--warning)">🟡 PRIORIDADE 2</span>
+            <div class="pcard-title">Cadência Semanal com o Time Dev</div>
+            <div class="pcard-sub">Reunião toda Segunda 08h. Pauta fixa: retro, bugs, bloqueios, decisões. <strong style="color:var(--text)">Esta é a 1ª.</strong></div>
+            <div class="pcard-status">
+              <select class="ps-sel" id="st-p2">
+                <option>🔴 Não iniciado</option>
+                <option selected>🟡 Iniciando agora</option>
+                <option>🟢 Estabelecida</option>
+              </select>
+            </div>
+          </div>
+          <!-- P3 -->
+          <div class="pcard" style="border-top:2px solid var(--info)">
+            <span class="pcard-badge" style="background:rgba(96,165,250,.15);color:var(--info)">🔵 PRIORIDADE 3</span>
+            <div class="pcard-title">Monitoramento (Sentry / MS Clarity)</div>
+            <div class="pcard-sub">Implementar nos produtos sem cobertura atual. Iniciar mapeamento de quais produtos precisam.</div>
+            <div class="pcard-status">
+              <select class="ps-sel" id="st-p3">
+                <option selected>🔴 Mapeamento pendente</option>
+                <option>🟡 Em planejamento</option>
+                <option>🟢 Implementado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- O que o time precisa saber -->
+      <div style="background:rgba(250,100,30,.04);border:1px solid rgba(250,100,30,.15);border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:800;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">📣 Para o facilitador dizer ao time</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.7">
+          "Pessoal, a partir de hoje todo bug que a gente atender precisa ter uma classificação: <strong style="color:var(--text)">P0 (crítico/4h), P1 (alta/24h), P2 (média/72h) ou P3 (baixa/7 dias)</strong>. Mais um dev responsável e um prazo. Vamos fazer isso ao vivo agora — cada um levanta os bugs do seu produto e a gente classifica junto."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SLIDE 1: TRIAGEM AO VIVO (20 min) ════════ -->
+  <div class="slide" id="s1">
+    <div class="sl">
+      <div>
+        <div class="sl-tag">02 · Triagem Ao Vivo</div>
+        <h2 class="sl-title">Classificar<br><span>bugs agora</span> 🐞</h2>
+      </div>
+      <p class="sl-sub">Cada dev levanta os bugs do seu produto. Juntos classificam a severidade, definem o responsável e o prazo.</p>
+      <div class="sl-time"><span>⏱</span><div><div class="sl-tval">20 min</div><div class="sl-tlbl">Parte principal</div></div></div>
+      <div class="conn-box">
+        <div class="cb-title">📊 Vai direto para</div>
+        <div class="cb-item"><div class="cb-dot"></div><strong style="color:var(--text)">Fila de Bugs S3</strong> (relatorio-s3.html)</div>
+        <div class="cb-item"><div class="cb-dot"></div><strong style="color:var(--text)">Plano de Ação</strong> da semana</div>
+        <div class="cb-item"><div class="cb-dot"></div>KPIs P0/P1 do reporte executivo</div>
+        <div class="cb-item"><div class="cb-dot"></div>Base para o Ranking SLA por dev</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:9px;padding:11px">
+        <div class="fl" style="margin-bottom:8px">Contagem atual</div>
+        <div class="bug-counters" id="bug-counters">
+          <div class="bc-card" style="border-top:2px solid var(--danger)"><div class="bc-num" id="cnt-P0" style="color:var(--danger)">0</div><div class="bc-lbl" style="color:var(--danger)">P0</div></div>
+          <div class="bc-card" style="border-top:2px solid var(--warning)"><div class="bc-num" id="cnt-P1" style="color:var(--warning)">0</div><div class="bc-lbl" style="color:var(--warning)">P1</div></div>
+          <div class="bc-card" style="border-top:2px solid var(--info)"><div class="bc-num" id="cnt-P2" style="color:var(--info)">0</div><div class="bc-lbl" style="color:var(--info)">P2</div></div>
+          <div class="bc-card"><div class="bc-num" id="cnt-P3" style="color:var(--text3)">0</div><div class="bc-lbl">P3</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sr">
+      <!-- Bug entry form -->
+      <div class="triage-form">
+        <div class="fl" style="margin-bottom:10px">➕ Adicionar bug ao vivo — preencha com o time</div>
+        <div class="tf-grid" style="margin-bottom:10px">
+          <div class="fgroup">
+            <div class="fl">Severidade</div>
+            <select class="tsel" id="nb-prio">
+              <option value="P0">🔴 P0 — Crítico (4h)</option>
+              <option value="P1" selected>🟡 P1 — Alta (24h)</option>
+              <option value="P2">🔵 P2 — Média (72h)</option>
+              <option value="P3">⚪ P3 — Baixa (7d)</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <div class="fl">Descrição do bug</div>
+            <input class="finput" id="nb-bug" placeholder="Ex: Erro no fluxo de pagamento do Partner..." onkeydown="if(event.key==='Enter')addBug()">
+          </div>
+          <div class="fgroup">
+            <div class="fl">Dev responsável</div>
+            <select class="tsel" id="nb-dev">
+              <option value="">— selecionar —</option>
+              <option>Guilherme Alves</option>
+              <option>João Lúcio</option>
+              <option>Elias</option>
+              <option>Gustavo</option>
+              <option>João Paulo</option>
+              <option>Emerson</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <div class="fl" style="opacity:0">.</div>
+            <button class="tadd-btn" onclick="addBug()">+ Adicionar bug</button>
+          </div>
+        </div>
+        <div class="fgroup">
+          <div class="fl">Produto afetado</div>
+          <select class="tsel" id="nb-prod" style="max-width:280px">
+            <option value="">— produto —</option>
+            <option>Pigz Partner</option>
+            <option>Gestão Desktop</option>
+            <option>Pigz TEF</option>
+            <option>Pigz Comanda</option>
+            <option>Pigz Totem</option>
+            <option>Geral / Infraestrutura</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bug list -->
+      <div>
+        <div class="fl" style="margin-bottom:8px">📋 Bugs classificados nesta reunião</div>
+        <div class="bug-list" id="bug-list">
+          <div class="bug-empty"><big>🐞</big>Nenhum bug adicionado ainda.<br>Use o formulário acima para classificar ao vivo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SLIDE 2: BLOQUEIOS & SAÚDE (10 min) ════════ -->
+  <div class="slide" id="s2">
+    <div class="sl">
+      <div>
+        <div class="sl-tag">03 · Saúde & Bloqueios</div>
+        <h2 class="sl-title">Como está<br><span>cada produto?</span></h2>
+      </div>
+      <p class="sl-sub">Rápido: status de saúde de cada produto e os principais bloqueios para a semana.</p>
+      <div class="sl-time"><span>⏱</span><div><div class="sl-tval">10 min</div><div class="sl-tlbl">Saúde & Bloqueios</div></div></div>
+      <div class="conn-box">
+        <div class="cb-title">📊 Vai para o Reporte</div>
+        <div class="cb-item"><div class="cb-dot"></div>Semáforos de saúde (CEO view)</div>
+        <div class="cb-item"><div class="cb-dot"></div>Riscos e impedimentos da semana</div>
+        <div class="cb-item"><div class="cb-dot"></div>Ações que a coordenação precisa tomar</div>
+      </div>
+    </div>
+    <div class="sr">
+      <div>
+        <div class="fl" style="margin-bottom:10px">🩺 Saúde dos produtos — como está hoje?</div>
+        <div class="health-list">
+          <div class="hr"><span class="hi">🏪</span><span class="hn">Pigz Partner</span>
+            <div class="hbtns"><div class="hb" onclick="sem(this,'partner','g')">🟢</div><div class="hb on" onclick="sem(this,'partner','y')">🟡</div><div class="hb" onclick="sem(this,'partner','r')">🔴</div></div>
+            <input class="hn2" id="n-partner" placeholder="O que está acontecendo?">
+          </div>
+          <div class="hr"><span class="hi">🖥️</span><span class="hn">Gestão Desktop</span>
+            <div class="hbtns"><div class="hb on" onclick="sem(this,'desktop','g')">🟢</div><div class="hb" onclick="sem(this,'desktop','y')">🟡</div><div class="hb" onclick="sem(this,'desktop','r')">🔴</div></div>
+            <input class="hn2" id="n-desktop" placeholder="O que está acontecendo?">
+          </div>
+          <div class="hr"><span class="hi">💳</span><span class="hn">Pigz TEF</span>
+            <div class="hbtns"><div class="hb" onclick="sem(this,'tef','g')">🟢</div><div class="hb" onclick="sem(this,'tef','y')">🟡</div><div class="hb on" onclick="sem(this,'tef','r')">🔴</div></div>
+            <input class="hn2" id="n-tef" placeholder="O que está acontecendo?">
+          </div>
+          <div class="hr"><span class="hi">📱</span><span class="hn">Pigz Comanda</span>
+            <div class="hbtns"><div class="hb on" onclick="sem(this,'comanda','g')">🟢</div><div class="hb" onclick="sem(this,'comanda','y')">🟡</div><div class="hb" onclick="sem(this,'comanda','r')">🔴</div></div>
+            <input class="hn2" id="n-comanda" placeholder="O que está acontecendo?">
+          </div>
+          <div class="hr"><span class="hi">🔲</span><span class="hn">Pigz Totem</span>
+            <div class="hbtns"><div class="hb" onclick="sem(this,'totem','g')">🟢</div><div class="hb on" onclick="sem(this,'totem','y')">🟡</div><div class="hb" onclick="sem(this,'totem','r')">🔴</div></div>
+            <input class="hn2" id="n-totem" placeholder="O que está acontecendo?">
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="fgroup">
+          <div class="fl">🔥 Maior bloqueio desta semana</div>
+          <textarea class="ftarea" id="bloqueio" placeholder="O que está travando o time? Quem depende de quê?"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="fl">🤝 O que a coordenação precisa resolver?</div>
+          <textarea class="ftarea" id="coord-acao" placeholder="Decisões, desbloqueios, alinhamentos necessários..."></textarea>
+        </div>
+      </div>
+      <div class="fgroup">
+        <div class="fl">🚥 Gargalos identificados <span style="font-weight:500;text-transform:none;letter-spacing:0;font-size:9px">(marque todos)</span></div>
+        <div class="chips" id="chip-gargalos" style="margin-top:6px">
+          <div class="chip" onclick="tog(this)">Sem responsável definido</div>
+          <div class="chip" onclick="tog(this)">SLA vencido sem resolução</div>
+          <div class="chip" onclick="tog(this)">Deploy bloqueado</div>
+          <div class="chip" onclick="tog(this)">Ambiente de QA instável</div>
+          <div class="chip" onclick="tog(this)">Falta de contexto na tarefa</div>
+          <div class="chip" onclick="tog(this)">Dependência externa</div>
+          <div class="chip" onclick="tog(this)">Prioridade mudando</div>
+          <div class="chip" onclick="tog(this)">Review demorado</div>
+          <div class="chip" onclick="tog(this)">Requisito incompleto</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ SLIDE 3: COMPROMETIMENTOS (10 min) ════════ -->
+  <div class="slide" id="s3">
+    <div class="sl">
+      <div>
+        <div class="sl-tag">04 · Comprometimentos</div>
+        <h2 class="sl-title">O que cada<br><span>um faz agora?</span></h2>
+      </div>
+      <p class="sl-sub">Nenhum dev sai desta sala sem saber exatamente o que ele vai entregar esta semana. Compromisso público = responsabilidade real.</p>
+      <div class="sl-time"><span>⏱</span><div><div class="sl-tval">10 min</div><div class="sl-tlbl">Comprometimentos</div></div></div>
+      <div class="conn-box">
+        <div class="cb-title">📊 Vai para</div>
+        <div class="cb-item"><div class="cb-dot"></div><strong style="color:var(--text)">Plano de Ação</strong> — linha de ação da semana</div>
+        <div class="cb-item"><div class="cb-dot"></div><strong style="color:var(--text)">Reporte</strong> — seção "próximos passos"</div>
+        <div class="cb-item"><div class="cb-dot"></div><strong style="color:var(--text)">Ranking SLA</strong> — quem se comprometeu com o quê</div>
+      </div>
+      <div style="background:var(--card);border:1px solid rgba(34,211,164,.2);border-radius:9px;padding:11px;margin-top:auto">
+        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--success);margin-bottom:7px">🏁 Encerramento</div>
+        <div style="font-size:10px;color:var(--text2);line-height:1.6">
+          Após exportar: o <strong style="color:var(--text)">Plano de Ação</strong> é gerado automaticamente com todos os bugs classificados e comprometimentos desta reunião.
+        </div>
+      </div>
+    </div>
+    <div class="sr">
+      <div>
+        <div class="fl" style="margin-bottom:10px">📋 Comprometimentos da reunião — o que cada um vai entregar esta semana</div>
+        <div class="commit-list" id="commit-list"></div>
+        <button class="tbtn" onclick="addCommit()" style="margin-top:8px">+ Adicionar comprometimento</button>
+      </div>
+      <div class="g2">
+        <div class="fgroup">
+          <div class="fl">📅 Próxima reunião</div>
+          <input class="finput" id="proxima" value="Segunda 09/06/2026 · 08h00 — mesma pauta">
+        </div>
+        <div class="fgroup">
+          <div class="fl">📝 Mensagem para os coordenadores (reporte)</div>
+          <textarea class="ftarea" id="msg-coord" style="min-height:50px" placeholder="O que a liderança precisa saber sobre esta semana?"></textarea>
+        </div>
+      </div>
+      <div class="finish">
+        <h2>🏁 Reunião Concluída!</h2>
+        <p>
+          <strong style="color:var(--text)" id="bug-summary-txt">0 bugs</strong> classificados · Saúde dos produtos mapeada · Comprometimentos registrados<br>
+          Ao exportar, o <strong style="color:var(--text)">Plano de Ação S3</strong> e o <strong style="color:var(--text)">Reporte dos Coordenadores</strong> são preenchidos automaticamente.
+        </p>
+        <div class="finish-btns">
+          <button class="fbtn fbtn-p" onclick="openModal()">⭐ Exportar Tudo</button>
+          <a class="fbtn fbtn-s" href="plano-acao-semanal.html" target="_blank">⚡ Ver Plano de Ação</a>
+          <a class="fbtn fbtn-g" href="ata-reuniao-devs.html" target="_blank">📄 Ver Ata</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ══ BOTTOMBAR ══ -->
+<div class="bottombar">
+  <button class="nav" id="btnPrev" onclick="go(-1)" disabled>← Anterior</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav pri" id="btnNext" onclick="go(1)">Próximo →</button>
+</div>
+
+</div><!-- /root -->
+
+<!-- ══ MODAL ══ -->
+<div class="mb" id="modal">
+  <div class="modal">
+    <h3>⭐ Exportar Reunião S3</h3>
+    <p>Os dados capturados ao vivo serão exportados para o <strong>Plano de Ação Semanal</strong> e o <strong>Reporte dos Coordenadores</strong>.</p>
+    <ul class="modal-list">
+      <li id="ex-bugs">Bugs classificados ao vivo com P0/P1/P2/P3</li>
+      <li>Saúde dos 5 produtos (semáforos)</li>
+      <li>Bloqueios e impedimentos identificados</li>
+      <li>Comprometimentos individuais do time</li>
+      <li>Contexto narrativo para os coordenadores</li>
+    </ul>
+    <div class="modal-acts">
+      <button class="fbtn fbtn-p" onclick="doExport()" style="flex:1;justify-content:center">✅ Exportar agora</button>
+      <button class="fbtn fbtn-g" onclick="closeModal()" style="flex:1;justify-content:center">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ══ STATE ══ */
+const N = 4;
+let cur = 0;
+const KEY = 'pigz-reuniao-semanal-v2';
+const semState = {partner:'y',desktop:'g',tef:'r',comanda:'g',totem:'y'};
+let bugs = [];
+let commits = [];
+const DEVS = ['','Guilherme Alves','João Lúcio','Elias','Gustavo','João Paulo','Emerson'];
+const PRODS = ['','Pigz Partner','Gestão Desktop','Pigz TEF','Pigz Comanda','Pigz Totem','Geral / Infraestrutura'];
+const STATUS_CYCLE = ['Aberto','Em Resolução','Em QA','Resolvido'];
+const PRIO_COLOR = {P0:'var(--danger)',P1:'var(--warning)',P2:'var(--info)',P3:'var(--text3)'};
+const PRIO_BG = {P0:'rgba(248,113,113,.15)',P1:'rgba(251,191,36,.15)',P2:'rgba(96,165,250,.15)',P3:'rgba(107,114,128,.15)'};
+const PRIO_SLA = {P0:'SLA 4h',P1:'SLA 24h',P2:'SLA 72h',P3:'SLA 7d'};
+
+/* ══ WEEK LABEL ══ */
+(function(){
+  const now = new Date();
+  const dow = now.getDay();
+  const diff = (dow===0?-6:1)-dow;
+  const mon = new Date(now); mon.setDate(now.getDate()+diff);
+  const fri = new Date(mon); fri.setDate(mon.getDate()+4);
+  const f = d=>d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+  const wn = Math.ceil(((now-new Date(now.getFullYear(),0,1))/86400000+1)/7);
+  const el = document.getElementById('weekLbl');
+  if(el) el.textContent = `S${wn} · ${f(mon)}–${f(fri)}`;
+})();
+
+/* ══ NAV ══ */
+function go(d){
+  const next=cur+d;
+  if(next<0||next>=N) return;
+  document.getElementById('s'+cur).classList.remove('on');
+  cur=next;
+  document.getElementById('s'+cur).classList.add('on');
+  updateUI(); save();
+}
+function jump(i){
+  if(i===cur) return;
+  document.getElementById('s'+cur).classList.remove('on');
+  cur=i;
+  document.getElementById('s'+cur).classList.add('on');
+  updateUI(); save();
+}
+function updateUI(){
+  const prev=document.getElementById('btnPrev');
+  const next=document.getElementById('btnNext');
+  if(prev) prev.disabled=cur===0;
+  if(next) next.textContent=cur===N-1?'🏁 Concluir':'Próximo →';
+  const si=document.getElementById('stepInfo');
+  if(si) si.textContent=`${cur+1}/${N}`;
+  const pf=document.getElementById('pFill');
+  if(pf) pf.style.width=`${((cur+1)/N)*100}%`;
+  const dots=document.getElementById('dots');
+  if(dots) dots.innerHTML=Array.from({length:N},(_,i)=>
+    `<div class="dot ${i===cur?'on':i<cur?'done':''}" onclick="jump(${i})"></div>`
+  ).join('');
+  document.querySelectorAll('.ag-it').forEach((el,i)=>{
+    el.classList.toggle('cur',i===cur);
+    el.classList.toggle('done',i<cur);
+    const n=el.querySelector('.ag-n');
+    if(n) n.textContent=i<cur?'✓':i+1;
+  });
+}
+
+/* ══ TIMER ══ */
+let tsec=600,trun=false,tiv=null;
+function setT(s){tsec=s;trun=false;clearInterval(tiv);document.getElementById('tPlay').textContent='▶';updT()}
+function toggleTimer(){
+  trun=!trun;document.getElementById('tPlay').textContent=trun?'❚❚':'▶';
+  if(trun) tiv=setInterval(()=>{tsec--;updT();if(tsec<=0){clearInterval(tiv);trun=false;toast('⏰ Tempo esgotado!')}},1000);
+  else clearInterval(tiv);
+}
+function resetTimer(){clearInterval(tiv);trun=false;tsec=600;document.getElementById('tPlay').textContent='▶';updT()}
+function updT(){
+  const m=Math.floor(tsec/60),s=tsec%60;
+  const el=document.getElementById('tNum');
+  if(!el) return;
+  el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.className='tnum'+(tsec<60?' crit':tsec<120?' warn':'');
+}
+
+/* ══ CHIPS ══ */
+function tog(el){el.classList.toggle('on');save()}
+
+/* ══ SEMÁFORO ══ */
+function sem(btn,prod,color){
+  const row=btn.closest('.hr');
+  row.querySelectorAll('.hb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  semState[prod]=color; save();
+}
+
+/* ══ BUGS ══ */
+function addBug(){
+  const prio=v('nb-prio')||'P1';
+  const bug=v('nb-bug').trim();
+  const dev=v('nb-dev');
+  const prod=v('nb-prod');
+  if(!bug){toast('⚠️ Descreva o bug antes de adicionar');return}
+  bugs.push({id:'b'+Date.now(),prio,bug,dev,prod,status:'Aberto'});
+  document.getElementById('nb-bug').value='';
+  renderBugs(); save();
+}
+function cycleStatus(id){
+  const b=bugs.find(b=>b.id===id);
+  if(!b) return;
+  const c=STATUS_CYCLE.indexOf(b.status);
+  b.status=STATUS_CYCLE[(c+1)%STATUS_CYCLE.length];
+  renderBugs(); save();
+}
+function deleteBug(id){
+  bugs=bugs.filter(b=>b.id!==id);
+  renderBugs(); save();
+}
+function renderBugs(){
+  const list=document.getElementById('bug-list');
+  if(!list) return;
+  if(bugs.length===0){
+    list.innerHTML='<div class="bug-empty"><big>🐞</big>Nenhum bug adicionado ainda.<br>Use o formulário acima para classificar ao vivo.</div>';
+  } else {
+    list.innerHTML=bugs.map(b=>bugHTML(b)).join('');
+  }
+  // Counters
+  ['P0','P1','P2','P3'].forEach(p=>{
+    const el=document.getElementById('cnt-'+p);
+    if(el) el.textContent=bugs.filter(b=>b.prio===p).length;
+  });
+  // Summary text
+  const st=document.getElementById('bug-summary-txt');
+  if(st) st.textContent=`${bugs.length} bug${bugs.length!==1?'s':''} (P0:${bugs.filter(b=>b.prio==='P0').length} P1:${bugs.filter(b=>b.prio==='P1').length} P2:${bugs.filter(b=>b.prio==='P2').length})`;
+  // ex-bugs modal
+  const exb=document.getElementById('ex-bugs');
+  if(exb) exb.textContent=`${bugs.length} bug(s) classificados (${bugs.filter(b=>b.prio==='P0').length} P0, ${bugs.filter(b=>b.prio==='P1').length} P1, ${bugs.filter(b=>b.prio==='P2').length} P2)`;
+}
+function bugHTML(b){
+  const stCls=b.status.replace(/\s+/g,'-');
+  const stColor={Aberto:'var(--danger)',['Em-Resolução']:'var(--warning)',['Em-QA']:'var(--info)',Resolvido:'var(--success)'};
+  const sc=stColor[stCls]||stColor['Aberto'];
+  return `<div class="bug-item" style="--bc:${PRIO_COLOR[b.prio]||'var(--border2)'}">
+    <div>
+      <span class="bi-badge" style="background:${PRIO_BG[b.prio]};color:${PRIO_COLOR[b.prio]}">${b.prio}</span>
+      <div style="font-size:9px;color:var(--text3);font-family:var(--mono)">${PRIO_SLA[b.prio]||''}</div>
+    </div>
+    <div>
+      <div class="bi-bug">${esc(b.bug)}</div>
+      <div class="bi-dev">
+        ${b.dev?`<span>👤 ${esc(b.dev)}</span>`:''}
+        ${b.prod?`<span>📦 ${esc(b.prod)}</span>`:''}
+      </div>
+    </div>
+    <button class="bi-status" onclick="cycleStatus('${b.id}')" style="background:rgba(255,255,255,.07);color:${sc};border:1px solid rgba(255,255,255,.1)">${b.status}</button>
+    <button class="bi-del" onclick="deleteBug('${b.id}')">✕</button>
+  </div>`;
+}
+
+/* ══ COMMITS ══ */
+function addCommit(){
+  commits.push({id:'c'+Date.now(),text:'',dev:''});
+  renderCommits(); save();
+}
+function deleteCommit(id){commits=commits.filter(c=>c.id!==id);renderCommits();save()}
+function updateCommit(id){
+  const c=commits.find(c=>c.id===id);
+  if(!c) return;
+  c.text=document.getElementById('ct-'+id)?.value||'';
+  c.dev=document.getElementById('cd-'+id)?.value||'';
+  save();
+}
+function renderCommits(){
+  const list=document.getElementById('commit-list');
+  if(!list) return;
+  if(commits.length===0){
+    list.innerHTML='<div style="font-size:11px;color:var(--text3);padding:10px 0">Clique em "+ Adicionar" para registrar o comprometimento de cada dev.</div>';
+    return;
+  }
+  list.innerHTML=commits.map((c,i)=>{
+    const dSel=DEVS.map(d=>`<option value="${d}"${c.dev===d?' selected':''}>${d||'— responsável —'}</option>`).join('');
+    return `<div class="commit-row">
+      <div class="cr-n">C${i+1}</div>
+      <input class="cr-inp" id="ct-${c.id}" placeholder="Ex: Resolver bug do TEF antes de Quarta..." value="${esc(c.text)}" oninput="updateCommit('${c.id}')">
+      <select class="cr-sel" id="cd-${c.id}" onchange="updateCommit('${c.id}')">${dSel}</select>
+      <button class="cr-del" onclick="deleteCommit('${c.id}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+/* ══ MODAL ══ */
+function openModal(){document.getElementById('modal').classList.add('on')}
+function closeModal(){document.getElementById('modal').classList.remove('on')}
+
+/* ══ EXPORT ══ */
+function v(id){const e=document.getElementById(id);return e?e.value:''}
+
+function doExport(){
+  const gargalos=[...document.querySelectorAll('#chip-gargalos .chip.on')].map(c=>c.textContent).join(', ');
+
+  // 1. Save meeting data for plano-acao-semanal.html
+  const meetData = {
+    semana: v('proxima').includes('09/06') ? 'Semana 3 · 02–06 de Junho de 2026' : 'Semana 3',
+    presentes: v('presentes'),
+    bugs: bugs,
+    slaRows: bugs.map(b=>({p:b.prio,bug:b.bug,dev:b.dev||'',prazo:'',status:b.status,prod:b.prod})),
+    decisions: commits.map(c=>({text:c.text,owner:c.dev})),
+    sem: semState,
+    notas: {
+      partner:v('n-partner'),desktop:v('n-desktop'),tef:v('n-tef'),
+      comanda:v('n-comanda'),totem:v('n-totem')
+    },
+    bloqueio: v('bloqueio'),
+    coordResolve: v('coord-acao'),
+    proximo: v('proxima'),
+    gargalos: [...document.querySelectorAll('#chip-gargalos .chip.on')].map(c=>c.textContent),
+    priorityStatus: {p1:v('st-p1'),p2:v('st-p2'),p3:v('st-p3')},
+    msgCoord: v('msg-coord'),
+    exportedAt: new Date().toISOString()
+  };
+  localStorage.setItem('pigz-reuniao-semanal-v2', JSON.stringify(meetData));
+
+  // 2. Update executive report
+  const exec = JSON.parse(localStorage.getItem('pigz-exec-report-v1')||'{}');
+  const p0=bugs.filter(b=>b.prio==='P0').length;
+  const p1=bugs.filter(b=>b.prio==='P1').length;
+  const p2=bugs.filter(b=>b.prio==='P2').length;
+  exec['k-bugs-crit']=String(p0+p1);
+  exec['b0']=String(p0); exec['b1']=String(p1); exec['b2']=String(p2);
+  exec['b3']='0'; exec['b4']='0';
+  const hm={g:'ok',y:'att',r:'crit'};
+  exec['_health']={};
+  Object.keys(semState).forEach(p=>exec['_health'][p]=hm[semState[p]]||'att');
+  const bugsP01=bugs.filter(b=>['P0','P1'].includes(b.prio));
+  exec['p1']=bugsP01.length?bugsP01.map(b=>`[${b.prio}] ${b.bug}${b.dev?' — '+b.dev:''}`).join('\n'):'Nenhum P0/P1 aberto.';
+  exec['p2']=v('bloqueio')||'Sem bloqueios críticos.';
+  exec['p3']=v('coord-acao')||'A definir.';
+  exec['exec-conquista']=`1ª Reunião da Cadência Semanal realizada com o time dev.\n${bugs.length} bugs classificados no novo sistema P0/P1/P2/P3.\nPrioridades S3 apresentadas e validadas com o time.`;
+  exec['exec-contexto']=`Reunião de kickoff da triagem semanal (02/06/2026).\nPresentes: ${v('presentes')||'—'}\n\nGargalos: ${gargalos||'Nenhum'}\n\n${v('msg-coord')||''}`.trim();
+  exec['deploys']=`Comprometimentos:\n${commits.filter(c=>c.text).map((c,i)=>`C${i+1}: ${c.text}${c.dev?' ('+c.dev+')':''}`).join('\n')}\n\nPróxima reunião: ${v('proxima')}`;
+  localStorage.setItem('pigz-exec-report-v1',JSON.stringify(exec));
+
+  // 3. Clear plano state so it reloads from meeting
+  localStorage.removeItem('pigz-plano-semanal-v1');
+
+  closeModal();
+  toast('✅ Exportado! Abrindo o Plano de Ação...');
+  setTimeout(()=>window.open('plano-acao-semanal.html','_blank'),900);
+}
+
+/* ══ SAVE / LOAD ══ */
+function collect(){
+  return {
+    presentes:v('presentes'),'data-hora':v('data-hora'),
+    'st-p1':v('st-p1'),'st-p2':v('st-p2'),'st-p3':v('st-p3'),
+    bugs, sem:semState,
+    notas:{partner:v('n-partner'),desktop:v('n-desktop'),tef:v('n-tef'),comanda:v('n-comanda'),totem:v('n-totem')},
+    bloqueio:v('bloqueio'),'coord-acao':v('coord-acao'),
+    gargalos:[...document.querySelectorAll('#chip-gargalos .chip.on')].map(c=>c.textContent),
+    commits, proxima:v('proxima'),'msg-coord':v('msg-coord'),
+    slide:cur
+  };
+}
+function save(){
+  try{localStorage.setItem(KEY+'_draft',JSON.stringify(collect()))}catch(e){}
+}
+function load(){
+  const raw=localStorage.getItem(KEY+'_draft');
+  if(!raw){renderBugs();renderCommits();return}
+  try{
+    const d=JSON.parse(raw);
+    const fm={'presentes':d.presentes,'data-hora':d['data-hora'],'st-p1':d['st-p1'],'st-p2':d['st-p2'],'st-p3':d['st-p3'],'n-partner':d.notas?.partner,'n-desktop':d.notas?.desktop,'n-tef':d.notas?.tef,'n-comanda':d.notas?.comanda,'n-totem':d.notas?.totem,'bloqueio':d.bloqueio,'coord-acao':d['coord-acao'],'proxima':d.proxima,'msg-coord':d['msg-coord']};
+    Object.keys(fm).forEach(id=>{const e=document.getElementById(id);if(e&&fm[id])e.value=fm[id]});
+    if(d.sem) Object.assign(semState,d.sem);
+    const prodMap={partner:'Pigz Partner',desktop:'Gestão Desktop',tef:'Pigz TEF',comanda:'Pigz Comanda',totem:'Pigz Totem'};
+    const ci={g:0,y:1,r:2};
+    Object.keys(semState).forEach(prod=>{
+      const c=ci[semState[prod]]??1;
+      document.querySelectorAll('.hr').forEach(row=>{
+        const nm=row.querySelector('.hn');
+        if(nm&&nm.textContent===prodMap[prod]){
+          const btns=row.querySelectorAll('.hb');
+          btns.forEach(b=>b.classList.remove('on'));
+          btns[c]?.classList.add('on');
+        }
+      });
+    });
+    if(d.gargalos) d.gargalos.forEach(txt=>[...document.querySelectorAll('#chip-gargalos .chip')].find(c=>c.textContent===txt)?.classList.add('on'));
+    bugs=d.bugs||[];
+    commits=d.commits||[];
+    renderBugs(); renderCommits();
+  }catch(e){renderBugs();renderCommits()}
+}
+
+/* ══ HELPERS ══ */
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3200)}
+function toggleFS(){
+  const btn=document.getElementById('fsBtn');
+  if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>{});btn.textContent='✕';}
+  else{document.exitFullscreen();btn.textContent='⛶';}
+}
+document.addEventListener('fullscreenchange',()=>{const btn=document.getElementById('fsBtn');if(btn)btn.textContent=document.fullscreenElement?'✕':'⛶'});
+document.addEventListener('keydown',e=>{
+  const t=document.activeElement.tagName;
+  if(['INPUT','TEXTAREA','SELECT'].includes(t)) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown') go(1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp') go(-1);
+  if(e.key==='f'||e.key==='F') toggleFS();
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();save();toast('💾 Salvo!')}
+});
+document.addEventListener('input',save);
+document.addEventListener('change',save);
+
+/* ══ INIT ══ */
+updateUI(); load(); updT();
+// Init commits with 3 empty
+if(commits.length===0){commits=[{id:'c1',text:'',dev:''},{id:'c2',text:'',dev:''},{id:'c3',text:'',dev:''}];renderCommits();}
+</script>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestão de Bugs S3 — PIGZ Coord</title>
+<meta name="description" content="Triagem e gestão de bugs Semana 3 — PIGZ Coord · Priorização P0/P1/P2/P3 com SLA">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6FA;--card:#FFFFFF;--border:#E5E7EB;--border2:#D1D5DB;
+  --dark:#0D0F14;--dark2:#1A1F2E;
+  --accent:#FA641E;--success:#10B981;--warning:#F59E0B;--danger:#EF4444;--info:#3B82F6;
+  --text:#111827;--text2:#4B5563;--text3:#9CA3AF;
+  --p0-bg:rgba(239,68,68,0.1);    --p0:var(--danger);
+  --p1-bg:rgba(245,158,11,0.1);   --p1:var(--warning);
+  --p2-bg:rgba(59,130,246,0.1);   --p2:var(--info);
+  --p3-bg:rgba(16,185,129,0.08);  --p3:#6B7280;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+  background:rgba(255,255,255,.97);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.topbar::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--danger),var(--warning));opacity:.6;
+}
+.t-logo{font-size:15px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+.t-logo span{color:var(--accent)}
+.t-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(239,68,68,.1);color:var(--danger);text-transform:uppercase;letter-spacing:.5px}
+.topbar-center{position:absolute;left:50%;transform:translateX(-50%);font-size:11px;color:var(--text3);font-weight:600;pointer-events:none;white-space:nowrap}
+.t-nav{display:flex;gap:6px;align-items:center}
+.t-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:999px;border:1px solid var(--border);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);background:white;text-decoration:none;transition:all .15s}
+.t-btn:hover{background:var(--bg);color:var(--text)}
+.t-btn-save{background:rgba(16,185,129,.08);color:var(--success);border-color:rgba(16,185,129,.2)}
+.t-btn-save:hover{background:rgba(16,185,129,.15)}
+.t-btn-p{background:var(--accent);color:white;border-color:transparent}
+.t-btn-p:hover{opacity:.88;color:white}
+
+/* ── PAGE ── */
+.page{max-width:1300px;margin:0 auto;padding:68px 28px 64px}
+
+/* ── PAGE HEADER ── */
+.page-hd{margin-bottom:28px}
+.page-title{font-size:24px;font-weight:900;letter-spacing:-.5px;color:var(--text);margin-bottom:4px}
+.page-sub{font-size:12px;color:var(--text3);font-weight:500}
+
+/* ── KPI STRIP ── */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.kpi-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px 20px;display:flex;align-items:center;gap:14px;
+  border-left:4px solid var(--c,var(--border));
+}
+.kpi-icon{font-size:22px;flex-shrink:0}
+.kpi-num{font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--c,var(--text));line-height:1}
+.kpi-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;line-height:1.3}
+
+/* ── LAYOUT COLS ── */
+.layout{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+
+/* ── FORM CARD ── */
+.form-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px;position:sticky;top:68px}
+.form-card-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.form-field{margin-bottom:12px}
+.form-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);margin-bottom:5px;display:block}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;padding:9px 12px;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px rgba(250,100,30,.08);
+}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
+.form-textarea{resize:vertical;min-height:70px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-btn{
+  width:100%;padding:11px;border-radius:12px;border:none;
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:800;
+  cursor:pointer;background:var(--accent);color:white;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:all .15s;margin-top:4px;
+  box-shadow:0 4px 14px rgba(250,100,30,.3);
+}
+.form-btn:hover{opacity:.88;transform:translateY(-1px)}
+
+/* SLA HINT */
+.sla-hint{
+  display:flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;
+  padding:8px 12px;border-radius:9px;margin:10px 0;
+  background:var(--sla-bg,var(--border));color:var(--sla-c,var(--text3));
+  transition:all .3s;
+}
+.sla-hint.p0{background:rgba(239,68,68,.1);color:var(--danger);--sla-bg:rgba(239,68,68,.1);--sla-c:var(--danger)}
+.sla-hint.p1{background:rgba(245,158,11,.1);color:var(--warning)}
+.sla-hint.p2{background:rgba(59,130,246,.1);color:var(--info)}
+.sla-hint.p3{background:rgba(107,114,128,.1);color:#6B7280}
+
+/* ── QUEUE CARD ── */
+.queue-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.queue-header{
+  padding:16px 20px;border-bottom:1px solid var(--border);background:white;
+  display:flex;align-items:center;gap:12px;
+}
+.queue-title{font-size:14px;font-weight:800;color:var(--text);flex:1}
+.queue-count{font-size:11px;font-weight:800;padding:4px 12px;border-radius:999px;background:rgba(239,68,68,.1);color:var(--danger)}
+.queue-count.empty{background:rgba(16,185,129,.1);color:var(--success)}
+.queue-filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.filter-btn{
+  font-size:10px;font-weight:800;padding:4px 12px;border-radius:999px;
+  border:1px solid var(--border);background:white;cursor:pointer;
+  color:var(--text3);transition:all .15s;white-space:nowrap;font-family:'Poppins',sans-serif;
+}
+.filter-btn:hover{background:var(--bg)}
+.filter-btn.active{background:var(--accent);color:white;border-color:var(--accent)}
+
+/* ── BUG ITEMS ── */
+.bug-list{display:flex;flex-direction:column;gap:0}
+.bug-item{
+  padding:14px 20px;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:auto 1fr auto auto auto auto;
+  gap:14px;align-items:center;transition:background .15s;
+}
+.bug-item:last-child{border-bottom:none}
+.bug-item:hover{background:rgba(0,0,0,.015)}
+
+.priority-badge{
+  font-size:10px;font-weight:900;padding:4px 10px;border-radius:7px;
+  letter-spacing:.5px;white-space:nowrap;display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+}
+.pb-p0{background:var(--p0-bg);color:var(--p0);border:1px solid rgba(239,68,68,.2)}
+.pb-p1{background:var(--p1-bg);color:var(--p1);border:1px solid rgba(245,158,11,.2)}
+.pb-p2{background:var(--p2-bg);color:var(--p2);border:1px solid rgba(59,130,246,.2)}
+.pb-p3{background:var(--p3-bg);color:var(--p3);border:1px solid rgba(107,114,128,.15)}
+
+.bug-main{}
+.bug-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3}
+.bug-meta{font-size:10px;color:var(--text3);display:flex;gap:10px;flex-wrap:wrap}
+.bug-meta span{display:flex;align-items:center;gap:3px}
+
+.status-pill{
+  font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap;
+}
+.sp-open    {background:rgba(239,68,68,.1);color:var(--danger)}
+.sp-prog    {background:rgba(245,158,11,.1);color:var(--warning)}
+.sp-qa      {background:rgba(59,130,246,.1);color:var(--info)}
+.sp-done    {background:rgba(16,185,129,.1);color:var(--success)}
+
+.sla-pill{
+  font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;
+}
+.sla-ok     {background:rgba(16,185,129,.08);color:var(--success)}
+.sla-warn   {background:rgba(245,158,11,.1);color:var(--warning)}
+.sla-crit   {background:rgba(239,68,68,.1);color:var(--danger);animation:blink .8s ease-in-out infinite alternate}
+@keyframes blink{from{opacity:1}to{opacity:.5}}
+
+.bug-actions{display:flex;gap:5px}
+.act-btn{
+  font-size:10px;font-weight:700;padding:4px 10px;border-radius:7px;
+  border:1px solid var(--border);background:white;cursor:pointer;
+  font-family:'Poppins',sans-serif;color:var(--text2);transition:all .15s;
+}
+.act-btn:hover{background:var(--bg);color:var(--text)}
+.act-btn.done-btn{background:rgba(16,185,129,.1);color:var(--success);border-color:rgba(16,185,129,.2)}
+.act-btn.done-btn:hover{background:rgba(16,185,129,.2)}
+.act-btn.del-btn{background:rgba(239,68,68,.06);color:var(--danger);border-color:rgba(239,68,68,.15)}
+.act-btn.del-btn:hover{background:rgba(239,68,68,.12)}
+
+/* EMPTY STATE */
+.empty-state{padding:48px 20px;text-align:center}
+.empty-icon{font-size:40px;margin-bottom:12px}
+.empty-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px}
+.empty-sub{font-size:11px;color:var(--text3)}
+
+/* ── REPORTE SECTION ── */
+.rep-section{margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.rep-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.rep-title{font-size:14px;font-weight:800;color:var(--text);flex:1}
+.rep-body{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rep-field{display:flex;flex-direction:column;gap:6px}
+.rep-field.full{grid-column:1/-1}
+.rep-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3)}
+
+/* TOAST */
+#toast{
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  background:var(--success);color:white;padding:11px 20px;border-radius:12px;
+  font-size:13px;font-weight:700;
+  box-shadow:0 8px 24px rgba(16,185,129,.35);
+  opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;
+}
+#toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .form-card{position:static}
+  .kpi-strip{grid-template-columns:1fr 1fr}
+  .rep-body{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR UNIVERSAL -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="t-logo" href="index.html">PIGZ <span>Coord</span></a>
+    <span class="t-badge">🐞 Semana 3</span>
+  </div>
+  <div class="topbar-center">Gestão de Bugs · Triagem P0/P1/P2/P3 · Semana 3</div>
+  <div class="t-nav">
+    <a class="t-btn" href="index.html">← Painel</a>
+    <a class="t-btn" href="reporte-executivo.html" target="_blank">📊 Reporte</a>
+    <a class="t-btn" href="reuniao-devs.html" target="_blank">🎤 Reunião</a>
+    <button class="t-btn t-btn-save" onclick="saveAll()">💾 Salvar</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page-hd">
+    <h1 class="page-title">Gestão de Bugs — Esteira S3</h1>
+    <p class="page-sub">Triagem P0/P1/P2/P3 com SLA · 02–06 de Junho, 2026 · Responsabilidade por dev obrigatória</p>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-strip">
+    <div class="kpi-card" style="--c:var(--danger)">
+      <div class="kpi-icon">🔴</div>
+      <div>
+        <div class="kpi-num" id="kpi-p0">0</div>
+        <div class="kpi-label">P0 — Crítico<br>SLA: ≤ 4h</div>
+      </div>
+    </div>
+    <div class="kpi-card" style="--c:var(--warning)">
+      <div class="kpi-icon">🟡</div>
+      <div>
+        <div class="kpi-num" id="kpi-p1">0</div>
+        <div class="kpi-label">P1 — Alto<br>SLA: ≤ 24h</div>
+      </div>
+    </div>
+    <div class="kpi-card" style="--c:var(--info)">
+      <div class="kpi-icon">🔵</div>
+      <div>
+        <div class="kpi-num" id="kpi-p2">0</div>
+        <div class="kpi-label">P2 — Médio<br>SLA: ≤ 72h</div>
+      </div>
+    </div>
+    <div class="kpi-card" style="--c:var(--success)">
+      <div class="kpi-icon">✅</div>
+      <div>
+        <div class="kpi-num" id="kpi-done">0</div>
+        <div class="kpi-label">Resolvidos<br>na semana</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- FORMULÁRIO DE TRIAGEM -->
+    <div class="form-card">
+      <div class="form-card-title">🐞 Registrar e Triar Bug</div>
+
+      <div class="form-field">
+        <label class="form-label">Título do Defeito</label>
+        <input class="form-input" id="bug-title" placeholder="Descreva brevemente o problema...">
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Produto Afetado</label>
+          <select class="form-select" id="bug-prod">
+            <option>Pigz Partner</option>
+            <option>Pigz Totem</option>
+            <option>Pigz App</option>
+            <option>Pigz Comanda</option>
+            <option>Pigz TEF</option>
+            <option>Gestão Desktop</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Responsável (Dev)</label>
+          <select class="form-select" id="bug-dev">
+            <option>Guilherme Alves</option>
+            <option>João Lúcio</option>
+            <option>Elias</option>
+            <option>Gustavo</option>
+            <option>João Paulo</option>
+            <option>Emerson</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">Severidade</label>
+          <select class="form-select" id="bug-sev" onchange="updateSlaHint()">
+            <option value="P0">P0 — Crítico</option>
+            <option value="P1">P1 — Alto</option>
+            <option value="P2" selected>P2 — Médio</option>
+            <option value="P3">P3 — Baixo</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Status Atual</label>
+          <select class="form-select" id="bug-status">
+            <option value="Aberto">Aberto</option>
+            <option value="Em Resolução">Em Resolução</option>
+            <option value="Em QA">Em QA</option>
+            <option value="Resolvido">Resolvido</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Prazo de Resolução (SLA)</label>
+        <input class="form-input" type="datetime-local" id="bug-prazo">
+      </div>
+
+      <!-- HINT SLA dinâmico -->
+      <div class="sla-hint p2" id="sla-hint">
+        🔵 P2 — Deve ser resolvido em até 72 horas
+      </div>
+
+      <div class="form-field">
+        <label class="form-label">Contexto / Observação (opcional)</label>
+        <textarea class="form-textarea" id="bug-obs" placeholder="Passos para reproduzir, ambiente afetado, frequência..."></textarea>
+      </div>
+
+      <button class="form-btn" onclick="addBug()">
+        + Registrar na Fila de Bugs
+      </button>
+    </div>
+
+    <!-- FILA DE BUGS + REPORTE -->
+    <div>
+      <!-- FILTROS + FILA -->
+      <div class="queue-card">
+        <div class="queue-header">
+          <div class="queue-title">⚠️ Fila Ativa de Bugs</div>
+          <div class="queue-filters">
+            <button class="filter-btn active" onclick="setFilter('todos',this)">Todos</button>
+            <button class="filter-btn" onclick="setFilter('P0',this)" style="color:var(--danger)">🔴 P0</button>
+            <button class="filter-btn" onclick="setFilter('P1',this)" style="color:var(--warning)">🟡 P1</button>
+            <button class="filter-btn" onclick="setFilter('P2',this)" style="color:var(--info)">🔵 P2</button>
+            <button class="filter-btn" onclick="setFilter('P3',this)" style="color:#6B7280">⚪ P3</button>
+            <button class="filter-btn" onclick="setFilter('Resolvido',this)">✅ Resolvidos</button>
+          </div>
+          <span class="queue-count" id="queue-count">0 bugs</span>
+        </div>
+        <div class="bug-list" id="bug-list"></div>
+      </div>
+
+      <!-- REPORTE OPERACIONAL -->
+      <div class="rep-section">
+        <div class="rep-header">
+          <span style="font-size:18px">📋</span>
+          <div class="rep-title">Reporte Operacional S3 — Para a Liderança</div>
+          <span style="font-size:11px;color:var(--text3);font-weight:600">Semana 3 · Junho 2026</span>
+        </div>
+        <div class="rep-body">
+          <div class="rep-field">
+            <label class="rep-label">1. Saúde da Fila (SLA cumprido)</label>
+            <input class="form-input" id="rep-saude" placeholder="Ex: 0 bugs resolvidos esta semana. Triagem iniciada em 02/06.">
+          </div>
+          <div class="rep-field">
+            <label class="rep-label">2. Bloqueios e Impedimentos</label>
+            <input class="form-input" id="rep-bloqueios" placeholder="Ex: Nenhum bloqueio identificado ainda.">
+          </div>
+          <div class="rep-field full">
+            <label class="rep-label">3. Próximos Passos</label>
+            <textarea class="form-textarea" id="rep-proximos" placeholder="Ex: Reunião de alinhamento na Segunda 08h. Triagem P0/P1 será definida ao vivo com o time."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:11px;color:var(--text3)">
+    PIGZ Coord · Gestão de Bugs · P0=4h · P1=24h · P2=72h · P3=168h · Salvo em <span id="lastSave">—</span>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══ SLA POR SEVERIDADE (em horas) ═══
+const SLA_H = { P0: 4, P1: 24, P2: 72, P3: 168 };
+const SLA_LABELS = {
+  P0: '🔴 P0 Crítico — resolução em até 4 horas. Ação imediata.',
+  P1: '🟡 P1 Alto — resolução em até 24 horas.',
+  P2: '🔵 P2 Médio — resolução em até 72 horas.',
+  P3: '⚪ P3 Baixo — resolução em até 7 dias.',
+};
+
+let BUGS = [];
+let currentFilter = 'todos';
+
+// ── SLA HINT DINÂMICO ──
+function updateSlaHint() {
+  const sev = document.getElementById('bug-sev').value;
+  const hint = document.getElementById('sla-hint');
+  hint.textContent = SLA_LABELS[sev];
+  hint.className = 'sla-hint ' + sev.toLowerCase();
+
+  // Sugerir prazo automaticamente
+  const prazoInput = document.getElementById('bug-prazo');
+  if (!prazoInput.value) {
+    const d = new Date();
+    d.setHours(d.getHours() + SLA_H[sev]);
+    // Formato datetime-local: YYYY-MM-DDTHH:MM
+    const pad = n => String(n).padStart(2,'0');
+    prazoInput.value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+}
+
+// ── ADICIONAR BUG ──
+function addBug() {
+  const title = document.getElementById('bug-title').value.trim();
+  if (!title) { showToast('Informe o título do defeito', 'err'); return; }
+
+  const sev    = document.getElementById('bug-sev').value;
+  const prazo  = document.getElementById('bug-prazo').value;
+  const status = document.getElementById('bug-status').value;
+
+  BUGS.unshift({
+    id:     Date.now(),
+    title:  title,
+    prod:   document.getElementById('bug-prod').value,
+    sev:    sev,
+    dev:    document.getElementById('bug-dev').value,
+    status: status,
+    prazo:  prazo,
+    obs:    document.getElementById('bug-obs').value.trim(),
+    criado: new Date().toISOString(),
+  });
+
+  // Limpar campos
+  document.getElementById('bug-title').value = '';
+  document.getElementById('bug-obs').value   = '';
+  document.getElementById('bug-prazo').value = '';
+
+  saveAll();
+  renderBugs();
+  showToast('Bug registrado na fila!');
+}
+
+// ── RESOLVER BUG ──
+function resolveBug(id) {
+  const b = BUGS.find(b => b.id === id);
+  if (b) { b.status = 'Resolvido'; b.resolvidoEm = new Date().toISOString(); }
+  saveAll(); renderBugs();
+  showToast('Bug marcado como resolvido ✅');
+}
+
+// ── REMOVER BUG ──
+function removeBug(id) {
+  if (!confirm('Remover este bug da fila?')) return;
+  BUGS = BUGS.filter(b => b.id !== id);
+  saveAll(); renderBugs();
+}
+
+// ── FILTRO ──
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBugs();
+}
+
+// ── CALCULAR STATUS SLA ──
+function calcSla(bug) {
+  if (!bug.prazo) return null;
+  const agora = new Date();
+  const prazo = new Date(bug.prazo);
+  const diffH = (prazo - agora) / 3600000;
+  if (bug.status === 'Resolvido') return { label: 'Resolvido', cls: 'sla-ok' };
+  if (diffH < 0)     return { label: 'SLA vencido!', cls: 'sla-crit' };
+  if (diffH < 4)     return { label: `${Math.round(diffH*60)}min restantes`, cls: 'sla-crit' };
+  if (diffH < 8)     return { label: `${Math.round(diffH)}h restantes`, cls: 'sla-warn' };
+  const h = Math.round(diffH);
+  return { label: `${h}h restantes`, cls: 'sla-ok' };
+}
+
+// ── RENDER ──
+function renderBugs() {
+  const list = document.getElementById('bug-list');
+  const pbMap = { P0:'pb-p0', P1:'pb-p1', P2:'pb-p2', P3:'pb-p3' };
+  const spMap = { 'Aberto':'sp-open', 'Em Resolução':'sp-prog', 'Em QA':'sp-qa', 'Resolvido':'sp-done' };
+
+  // KPIs
+  const open = BUGS.filter(b => b.status !== 'Resolvido');
+  document.getElementById('kpi-p0').textContent   = open.filter(b => b.sev === 'P0').length;
+  document.getElementById('kpi-p1').textContent   = open.filter(b => b.sev === 'P1').length;
+  document.getElementById('kpi-p2').textContent   = open.filter(b => b.sev === 'P2').length;
+  document.getElementById('kpi-done').textContent = BUGS.filter(b => b.status === 'Resolvido').length;
+
+  // Filtrar
+  let visible = BUGS;
+  if (currentFilter === 'Resolvido') {
+    visible = BUGS.filter(b => b.status === 'Resolvido');
+  } else if (currentFilter !== 'todos') {
+    visible = BUGS.filter(b => b.sev === currentFilter && b.status !== 'Resolvido');
+  }
+
+  // Count badge
+  const qc = document.getElementById('queue-count');
+  qc.textContent = visible.length + (visible.length === 1 ? ' bug' : ' bugs');
+  qc.className   = 'queue-count' + (visible.length === 0 ? ' empty' : '');
+
+  if (visible.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">🎉</div>
+        <div class="empty-title">${currentFilter === 'todos' ? 'Fila vazia — sem bugs!' : 'Nenhum bug com esse filtro'}</div>
+        <div class="empty-sub">${currentFilter === 'todos' ? 'Registre o primeiro bug usando o formulário ao lado.' : 'Tente outro filtro ou adicione bugs.'}</div>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = visible.map(b => {
+    const sla = calcSla(b);
+    const prazoLabel = b.prazo
+      ? new Date(b.prazo).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})
+      : '—';
+    return `
+      <div class="bug-item">
+        <span class="priority-badge ${pbMap[b.sev]||'pb-p3'}">${b.sev}</span>
+        <div class="bug-main">
+          <div class="bug-title">${b.title}</div>
+          <div class="bug-meta">
+            <span>📦 ${b.prod}</span>
+            <span>👤 ${b.dev}</span>
+            <span>⏰ Prazo: ${prazoLabel}</span>
+            ${b.obs ? `<span>💬 ${b.obs.substring(0,40)}${b.obs.length>40?'…':''}</span>` : ''}
+          </div>
+        </div>
+        <span class="status-pill ${spMap[b.status]||'sp-open'}">${b.status}</span>
+        ${sla ? `<span class="sla-pill ${sla.cls}">${sla.label}</span>` : '<span></span>'}
+        <div class="bug-actions">
+          ${b.status !== 'Resolvido' ? `<button class="act-btn done-btn" onclick="resolveBug(${b.id})">✓ Resolver</button>` : ''}
+          <button class="act-btn del-btn" onclick="removeBug(${b.id})">✕</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── SAVE / LOAD ──
+function saveAll() {
+  const data = {
+    bugs:         BUGS,
+    repSaude:     document.getElementById('rep-saude').value,
+    repBloqueios: document.getElementById('rep-bloqueios').value,
+    repProximos:  document.getElementById('rep-proximos').value,
+  };
+  localStorage.setItem('pigz-s3-v2', JSON.stringify(data));
+  const now = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('lastSave').textContent = now;
+}
+
+function loadData() {
+  const raw = localStorage.getItem('pigz-s3-v2');
+  if (raw) {
+    const d = JSON.parse(raw);
+    BUGS = d.bugs || [];
+    if (d.repSaude)     document.getElementById('rep-saude').value     = d.repSaude;
+    if (d.repBloqueios) document.getElementById('rep-bloqueios').value = d.repBloqueios;
+    if (d.repProximos)  document.getElementById('rep-proximos').value  = d.repProximos;
+  }
+  updateSlaHint();
+  renderBugs();
+}
+
+// ── TOAST ──
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = (type === 'err' ? '⚠️ ' : '✅ ') + msg;
+  t.style.background = type === 'err' ? 'var(--danger)' : 'var(--success)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── CTRL+S ──
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); saveAll(); showToast('Dados salvos!'); }
+});
+
+// INIT
+loadData();
+</script>
+</body>
+</html>

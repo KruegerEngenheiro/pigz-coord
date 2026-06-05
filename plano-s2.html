@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Ação — Semana 2 | PIGZ Coord</title>
+<meta name="description" content="Plano de ação detalhado por dia para a Semana 2 de imersão — reuniões, alinhamentos e entregáveis progressivos.">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #FA641E;
+  --accent-dim: rgba(250,100,30,0.10);
+  --warning: #F59E0B;
+  --warning-dim: rgba(245,158,11,0.10);
+  --success: #10B981;
+  --success-dim: rgba(16,185,129,0.10);
+  --danger: #EF4444;
+  --danger-dim: rgba(239,68,68,0.10);
+  --info: #3B82F6;
+  --info-dim: rgba(59,130,246,0.10);
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139,92,246,0.10);
+  --text: #111827;
+  --text2: #4B5563;
+  --text3: #9CA3AF;
+  --border: #E5E7EB;
+  --card: #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #F8F9FB;
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+.toolbar-left { display: flex; align-items: center; gap: 16px; }
+.logo { font-size: 15px; font-weight: 700; color: var(--text); }
+.logo span { color: var(--accent); }
+.week-pill {
+  background: var(--warning-dim); color: var(--warning);
+  font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 999px;
+}
+.toolbar-right { display: flex; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px; border: none;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.btn-ghost { background: rgba(0,0,0,0.04); color: var(--text2); }
+.btn-ghost:hover { background: rgba(0,0,0,0.08); color: var(--text); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  padding: 100px 32px 48px;
+  max-width: 1300px; margin: 0 auto;
+  animation: fadeInUp 0.5s ease;
+}
+.hero-pre {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--warning); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-pre::before { content: ''; width: 24px; height: 2px; background: var(--warning); }
+h1.hero-title {
+  font-size: 40px; font-weight: 800; letter-spacing: -1px;
+  line-height: 1.1; margin-bottom: 14px;
+}
+h1.hero-title span { color: var(--warning); }
+.hero-subtitle { font-size: 16px; color: var(--text2); line-height: 1.65; max-width: 680px; margin-bottom: 28px; }
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border);
+  font-size: 13px; font-weight: 600; color: var(--text2); background: var(--card);
+}
+
+/* ── PROGRESS STRIP ── */
+.progress-strip {
+  max-width: 1300px; margin: 0 auto 48px;
+  padding: 0 32px;
+}
+.day-strip {
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 12px;
+}
+.day-chip {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 16px; text-align: center;
+  cursor: pointer; transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.day-chip::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--day-color, var(--warning));
+}
+.day-chip:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); border-color: var(--day-color, var(--warning)); }
+.day-chip.today { border-color: var(--day-color, var(--warning)); background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, white 100%); }
+.day-chip.today .day-badge { background: var(--day-color, var(--warning)); color: #fff; }
+.day-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.day-date { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
+.day-badge {
+  display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px;
+  border-radius: 999px; background: rgba(0,0,0,0.06); color: var(--text3);
+}
+.day-events-count { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+
+/* ── MAIN LAYOUT ── */
+.layout { max-width: 1300px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── DAY SECTION ── */
+.day-section {
+  margin-bottom: 40px;
+  animation: fadeInUp 0.4s ease;
+}
+.day-header {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  position: relative;
+}
+.day-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.day-num-badge {
+  width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: white; font-weight: 800; line-height: 1;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+.day-num-badge .dn { font-size: 11px; opacity: 0.85; }
+.day-num-badge .dd { font-size: 18px; }
+.day-header-info {}
+.day-header-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.day-header-sub { font-size: 13px; color: var(--text3); }
+.day-focus-tag {
+  font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+}
+
+/* ── EVENT CARDS ── */
+.events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.event-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px 22px;
+  transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.event-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--ev-color, var(--warning));
+}
+.event-card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.06); border-color: var(--ev-color, var(--warning)); }
+
+.event-card.full { grid-column: 1 / -1; }
+.event-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; gap: 12px; }
+.event-type-icon { font-size: 22px; flex-shrink: 0; }
+.event-header-info { flex: 1; }
+.event-time { font-size: 11px; font-weight: 700; color: var(--ev-color, var(--warning)); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.event-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.event-type-tag {
+  font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 6px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.tag-reuniao { background: var(--info-dim); color: var(--info); }
+.tag-async { background: var(--purple-dim); color: var(--purple); }
+.tag-entregavel { background: var(--accent-dim); color: var(--accent); }
+.tag-alinhamento { background: var(--warning-dim); color: var(--warning); }
+.tag-analise { background: var(--success-dim); color: var(--success); }
+
+.event-body { font-size: 13px; color: var(--text2); line-height: 1.65; }
+.event-bullets { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.event-bullets li { display: flex; align-items: flex-start; gap: 8px; }
+.bullet-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+  background: var(--ev-color, var(--warning));
+}
+
+.event-output {
+  margin-top: 14px; padding: 12px 14px;
+  background: rgba(0,0,0,0.025); border-radius: 10px;
+  border: 1px dashed var(--border);
+}
+.event-output-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--ev-color, var(--warning)); margin-bottom: 6px;
+}
+.event-output-text { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* ── DELIVERABLE TIMELINE ── */
+.deliverable-trail {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px; margin-bottom: 40px;
+}
+.trail-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+.trail-sub { font-size: 13px; color: var(--text3); margin-bottom: 28px; }
+.trail-steps { display: flex; gap: 0; position: relative; }
+.trail-steps::before {
+  content: ''; position: absolute; top: 22px; left: 22px; right: 22px; height: 2px;
+  background: linear-gradient(90deg, var(--warning), var(--accent));
+  z-index: 0;
+}
+.trail-step {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  position: relative; z-index: 1;
+}
+.trail-dot {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 800;
+  border: 3px solid white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  margin-bottom: 12px; flex-shrink: 0;
+}
+.trail-step-title { font-size: 12px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+.trail-step-day { font-size: 11px; color: var(--text3); text-align: center; margin-bottom: 8px; }
+.trail-step-items { font-size: 11px; color: var(--text2); text-align: center; line-height: 1.5; }
+
+/* ── WEEK SUMMARY ── */
+.week-summary {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(250,100,30,0.04) 100%);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 20px; padding: 32px; margin-bottom: 40px;
+}
+.summary-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.summary-item { text-align: center; }
+.summary-number { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.summary-label { font-size: 12px; color: var(--text3); font-weight: 500; }
+
+/* ── EVIDENCE SECTION ── */
+.evidence-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 40px; }
+.evidence-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px;
+  transition: all 0.2s;
+}
+.evidence-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.evidence-day { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); margin-bottom: 8px; }
+.evidence-title { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.evidence-icon { font-size: 20px; }
+.evidence-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+.evidence-status {
+  margin-top: 12px; display: inline-block;
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 6px;
+}
+.ev-done { background: var(--success-dim); color: var(--success); }
+.ev-progress { background: var(--warning-dim); color: var(--warning); }
+.ev-planned { background: rgba(0,0,0,0.05); color: var(--text3); }
+
+/* ── FOOTER ── */
+.footer { text-align: center; padding: 40px 0 20px; color: var(--text3); font-size: 12px; }
+
+/* ── PRINT ── */
+@media print {
+  .toolbar { display: none; }
+  .hero { padding-top: 40px; }
+  .event-card:hover, .day-chip:hover { transform: none; box-shadow: none; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-left">
+    <a class="logo" href="index.html" style="text-decoration:none">PIGZ <span>Coord</span></a>
+    <span class="week-pill">🗓 Plano de Ação — Semana 2</span>
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ PDF</button>
+    <a class="btn btn-ghost" href="entregavel-final-s2.html" target="_blank">⭐ Entregável Final</a>
+    <a class="btn btn-ghost" href="index.html">← Painel</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pre">Semana 02 · 26 a 30 de Maio de 2026</div>
+  <h1 class="hero-title">Plano de Ação <span>Operacional</span><br>da Semana</h1>
+  <p class="hero-subtitle">
+    Este documento comprova como o entregável da Semana 2 foi construído progressivamente ao longo dos 5 dias úteis — com reuniões reais, alinhamentos estruturados e artefatos gerados a cada etapa.
+  </p>
+  <div class="hero-chips">
+    <span class="chip">📅 26–30 de Maio, 2026</span>
+    <span class="chip">👤 Coordenador de Projetos</span>
+    <span class="chip">🎯 Diagnóstico + Governança</span>
+    <span class="chip">📋 Plano de Ação + Template de Reporte</span>
+  </div>
+</div>
+
+<!-- TRAIL DE CONSTRUÇÃO DO ENTREGÁVEL -->
+<div class="layout">
+  <div class="deliverable-trail">
+    <div class="trail-title">🔗 Como o Entregável Foi Construído Durante a Semana</div>
+    <div class="trail-sub">Cada dia contribuiu com um bloco do entregável final — nada foi feito em uma única sessão.</div>
+    <div class="trail-steps">
+      <div class="trail-step">
+        <div class="trail-dot" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">🔍</div>
+        <div class="trail-step-title">Auditoria Linear</div>
+        <div class="trail-step-day">Segunda · 26/05</div>
+        <div class="trail-step-items">Mapeamento de estados, responsáveis e gargalos no backlog</div>
+      </div>
+      <div class="trail-step">
+        <div class="trail-dot" style="background:linear-gradient(135deg,#F59E0B,#FA641E)">🗺️</div>
+        <div class="trail-step-title">Hipóteses Mapeadas</div>
+        <div class="trail-step-day">Terça · 27/05</div>
+        <div class="trail-step-items">4 hipóteses de melhoria estruturadas com impacto e risco</div>
+      </div>
+      <div class="trail-step">
+        <div class="trail-dot" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)">🤝</div>
+        <div class="trail-step-title">Validação</div>
+        <div class="trail-step-day">Quarta · 28/05</div>
+        <div class="trail-step-items">Apresentação e validação com Estratégia e Produto</div>
+      </div>
+      <div class="trail-step">
+        <div class="trail-dot" style="background:linear-gradient(135deg,#10B981,#34D399)">📄</div>
+        <div class="trail-step-title">Template Reporte</div>
+        <div class="trail-step-day">Quinta · 29/05</div>
+        <div class="trail-step-items">Template oficial de reporte validado com lideranças</div>
+      </div>
+      <div class="trail-step">
+        <div class="trail-dot" style="background:linear-gradient(135deg,#FA641E,#F59E0B)">🏁</div>
+        <div class="trail-step-title">Entregável Final</div>
+        <div class="trail-step-day">Sexta · 30/05</div>
+        <div class="trail-step-items">Consolidação, revisão e apresentação do entregável</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK STATS -->
+<div class="layout" style="margin-top:-8px">
+  <div class="week-summary">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <div>
+        <div style="font-size:18px;font-weight:700">Visão Geral da Semana</div>
+        <div style="font-size:13px;color:var(--text3)">26 a 30 de Maio · Diagnóstico Operacional e Governança</div>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-number" style="color:var(--info)">5</div>
+        <div class="summary-label">Reuniões Planejadas</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" style="color:var(--purple)">4</div>
+        <div class="summary-label">Hipóteses de Melhoria</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" style="color:var(--accent)">3</div>
+        <div class="summary-label">Alinhamentos com Lideranças</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" style="color:var(--success)">2</div>
+        <div class="summary-label">Artefatos Entregues</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIAS DA SEMANA -->
+<div class="layout">
+
+  <!-- ═══════════ SEGUNDA-FEIRA ═══════════ -->
+  <div class="day-section" id="day-seg">
+    <div class="day-header">
+      <div class="day-num-badge" style="background:linear-gradient(135deg,#6366F1,#8B5CF6)">
+        <span class="dn">SEG</span>
+        <span class="dd">26</span>
+      </div>
+      <div class="day-header-info">
+        <div class="day-header-title">Auditoria Operacional no Linear</div>
+        <div class="day-header-sub">Primeiro contato profundo com o backlog — mapeamento de estados, gargalos e inconsistências</div>
+      </div>
+      <span class="day-focus-tag" style="background:rgba(99,102,241,0.1);color:#6366F1">🔍 Foco: Diagnóstico</span>
+    </div>
+    <div class="events-grid">
+
+      <div class="event-card" style="--ev-color: #6366F1">
+        <div class="event-header">
+          <span class="event-type-icon">☀️</span>
+          <div class="event-header-info">
+            <div class="event-time">09:00 — Início do dia</div>
+            <div class="event-title">Alinhamento de Kick-off da Semana 2</div>
+          </div>
+          <span class="event-type-tag tag-reuniao">Reunião</span>
+        </div>
+        <div class="event-body">
+          Breve alinhamento interno para definir os objetivos da semana. Revisão dos artefatos da Semana 1 e definição das prioridades do diagnóstico.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Revisão do entregável S1 (Diagrama de Fluxo)</li>
+            <li><span class="bullet-dot"></span>Definição dos produtos que serão auditados no Linear</li>
+            <li><span class="bullet-dot"></span>Combinação do formato de reporte das hipóteses</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Escopo da auditoria definido: Partner, Mobile, App Web, Gestão Desktop, TEF/Totem</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #8B5CF6">
+        <div class="event-header">
+          <span class="event-type-icon">💻</span>
+          <div class="event-header-info">
+            <div class="event-time">10:00 – 13:00 — Bloco de trabalho</div>
+            <div class="event-title">Auditoria do Backlog no Linear</div>
+          </div>
+          <span class="event-type-tag tag-async">Remoto</span>
+        </div>
+        <div class="event-body">
+          Navegação sistemática pelo backlog do Linear analisando todos os produtos. Foco em estados, responsáveis, severidades e ciclos de vida das tarefas.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Mapeamento de tarefas sem responsável atribuído</li>
+            <li><span class="bullet-dot"></span>Identificação de issues sem estimativa de esforço</li>
+            <li><span class="bullet-dot"></span>Detecção de bugs críticos misturados com features</li>
+            <li><span class="bullet-dot"></span>Análise de ciclos: criação → resolução → deploy</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Rascunho da Seção 1 do entregável: Auditoria Tecnológica e Riscos Operacionais Mapeados</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #6366F1">
+        <div class="event-header">
+          <span class="event-type-icon">👥</span>
+          <div class="event-header-info">
+            <div class="event-time">14:30 — Presencial</div>
+            <div class="event-title">Conversa com Desenvolvedores — Contexto Operacional</div>
+          </div>
+          <span class="event-type-tag tag-alinhamento">Alinhamento</span>
+        </div>
+        <div class="event-body">
+          Conversas rápidas e diretas com os devs de cada squad para validar os achados da auditoria e capturar contexto que o Linear não mostra.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Quais bugs estão travando o trabalho?</li>
+            <li><span class="bullet-dot"></span>Onde está o maior ponto de dor operacional hoje?</li>
+            <li><span class="bullet-dot"></span>O que falta no processo atual de triagem?</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Notas de campo com achados qualitativos — alimenta a Seção 2 (Plano de Ação)</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #8B5CF6">
+        <div class="event-header">
+          <span class="event-type-icon">📝</span>
+          <div class="event-header-info">
+            <div class="event-time">16:00 – 17:00 — Síntese do dia</div>
+            <div class="event-title">Consolidação dos Achados da Auditoria</div>
+          </div>
+          <span class="event-type-tag tag-async">Remoto</span>
+        </div>
+        <div class="event-body">
+          Organização de todos os achados do dia em uma estrutura lógica por produto e severidade. Início da categorização das hipóteses de melhoria.
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Rascunho dos 3 pontos críticos: Ponto Cego de Monitoramento, Fragmentação de Stack, Legados e Débito Técnico</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ TERÇA-FEIRA ═══════════ -->
+  <div class="day-section" id="day-ter">
+    <div class="day-header">
+      <div class="day-num-badge" style="background:linear-gradient(135deg,#F59E0B,#FA641E)">
+        <span class="dn">TER</span>
+        <span class="dd">27</span>
+      </div>
+      <div class="day-header-info">
+        <div class="day-header-title">Estruturação das Hipóteses de Melhoria</div>
+        <div class="day-header-sub">Transformar os achados da auditoria em hipóteses acionáveis com problema / impacto / risco / esforço</div>
+      </div>
+      <span class="day-focus-tag" style="background:var(--warning-dim);color:var(--warning)">🗺️ Foco: Hipóteses</span>
+    </div>
+    <div class="events-grid">
+
+      <div class="event-card" style="--ev-color: var(--warning)">
+        <div class="event-header">
+          <span class="event-type-icon">🧠</span>
+          <div class="event-header-info">
+            <div class="event-time">09:00 – 11:30 — Bloco de trabalho</div>
+            <div class="event-title">Construção das Hipóteses de Melhoria</div>
+          </div>
+          <span class="event-type-tag tag-async">Remoto</span>
+        </div>
+        <div class="event-body">
+          Estruturação formal das 4 hipóteses de melhoria mapeadas, seguindo o framework: Problema → Impacto → Plano → Validação. Cada hipótese documentada com risco e esforço estimados.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>H1: Padronização do Monitoramento (Risco Médio / Esforço Médio)</li>
+            <li><span class="bullet-dot"></span>H2: Triagem Unificada no Linear (Risco Baixo / Esforço Baixo)</li>
+            <li><span class="bullet-dot"></span>H3: Migração Node 16 / Next.js 12 (Risco Alto / Esforço Alto)</li>
+            <li><span class="bullet-dot"></span>H4: Cadência Operacional Semanal (Risco Baixo / Esforço Baixo)</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Seção 2 do entregável completa: Plano de Ação com 4 Hipóteses estruturadas</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #FA641E">
+        <div class="event-header">
+          <span class="event-type-icon">📊</span>
+          <div class="event-header-info">
+            <div class="event-time">11:30 – 12:30 — Análise</div>
+            <div class="event-title">Definição dos KPIs Operacionais</div>
+          </div>
+          <span class="event-type-tag tag-analise">Análise</span>
+        </div>
+        <div class="event-body">
+          Identificação e definição dos indicadores de governança que serão monitorados semanalmente: MTTR, % tarefas sem estimativa, aderência às entregas e saúde por produto.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Definição dos KPIs: MTTR, tarefas sem estimativa, entregas vs. planejado</li>
+            <li><span class="bullet-dot"></span>Baseline inicial coletado da auditoria do Linear</li>
+            <li><span class="bullet-dot"></span>Metas definidas para cada indicador</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Painel de KPIs montado com 6 métricas e distribuição de bugs por produto</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: var(--warning)">
+        <div class="event-header">
+          <span class="event-type-icon">🔄</span>
+          <div class="event-header-info">
+            <div class="event-time">14:00 – 15:00 — Presencial</div>
+            <div class="event-title">Check-in Rápido com Devs — Validação Técnica</div>
+          </div>
+          <span class="event-type-tag tag-alinhamento">Alinhamento</span>
+        </div>
+        <div class="event-body">
+          Apresentação rápida das hipóteses para os desenvolvedores para validar a viabilidade técnica antes de levar para Estratégia e Produto.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>As hipóteses fazem sentido tecnicamente?</li>
+            <li><span class="bullet-dot"></span>Algum risco não mapeado que devo considerar?</li>
+            <li><span class="bullet-dot"></span>Estimativas de esforço são realistas?</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Hipóteses ajustadas com feedback técnico dos devs — versão pré-validada com Produto</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #FA641E">
+        <div class="event-header">
+          <span class="event-type-icon">📋</span>
+          <div class="event-header-info">
+            <div class="event-time">15:30 – 17:00 — Trabalho</div>
+            <div class="event-title">Início da Estrutura do Template de Reporte</div>
+          </div>
+          <span class="event-type-tag tag-entregavel">Entregável</span>
+        </div>
+        <div class="event-body">
+          Primeira versão do template oficial de reporte operacional semanal. Definição das seções, campos obrigatórios e indicadores que constarão no documento.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Seções definidas: Saúde da Esteira, Gargalos, KPIs e Prioridades</li>
+            <li><span class="bullet-dot"></span>Campos obrigatórios vs. campos contextuais</li>
+            <li><span class="bullet-dot"></span>Fluxo de preenchimento e responsáveis</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Rascunho v0.1 do Template de Reporte — pronto para validação com lideranças</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ QUARTA-FEIRA ═══════════ -->
+  <div class="day-section" id="day-qua">
+    <div class="day-header">
+      <div class="day-num-badge" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)">
+        <span class="dn">QUA</span>
+        <span class="dd">28</span>
+      </div>
+      <div class="day-header-info">
+        <div class="day-header-title">Validação com Estratégia e Produto</div>
+        <div class="day-header-sub">Apresentação das hipóteses, coleta de feedback e definição de prioridades com as lideranças</div>
+      </div>
+      <span class="day-focus-tag" style="background:var(--info-dim);color:var(--info)">🤝 Foco: Validação</span>
+    </div>
+    <div class="events-grid">
+
+      <div class="event-card full" style="--ev-color: var(--info)">
+        <div class="event-header">
+          <span class="event-type-icon">🎯</span>
+          <div class="event-header-info">
+            <div class="event-time">10:00 – 11:30 — REUNIÃO CENTRAL DA SEMANA</div>
+            <div class="event-title">Apresentação das Hipóteses para Estratégia e Produto</div>
+          </div>
+          <span class="event-type-tag tag-reuniao">Reunião</span>
+        </div>
+        <div class="event-body">
+          Reunião principal da semana. Apresentação formal das 4 hipóteses de melhoria com dados da auditoria do Linear. Cada hipótese apresentada com problema, impacto esperado, risco e esforço estimado.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Contexto: achados da auditoria do backlog + conversas com devs</li>
+            <li><span class="bullet-dot"></span>Apresentação das 4 hipóteses com framework P/I/R/E</li>
+            <li><span class="bullet-dot"></span>Discussão e priorização conjunta com lideranças</li>
+            <li><span class="bullet-dot"></span>Definição de quais hipóteses serão aprovadas para execução</li>
+            <li><span class="bullet-dot"></span>Alinhamento sobre o formato do reporte semanal</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Status de validação de cada hipótese atualizado no Plano de Ação · Decisões documentadas no entregável</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #06B6D4">
+        <div class="event-header">
+          <span class="event-type-icon">🖊️</span>
+          <div class="event-header-info">
+            <div class="event-time">14:00 – 15:30 — Trabalho</div>
+            <div class="event-title">Incorporação do Feedback no Entregável</div>
+          </div>
+          <span class="event-type-tag tag-entregavel">Entregável</span>
+        </div>
+        <div class="event-body">
+          Atualização do documento com as decisões tomadas na reunião: hipóteses aprovadas, ajustes de escopo, novos riscos identificados e comentários das lideranças.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Atualização dos status de validação (aprovado/rejeitado/parcial)</li>
+            <li><span class="bullet-dot"></span>Ajuste das estimativas conforme feedback técnico</li>
+            <li><span class="bullet-dot"></span>Adição de observações e contextos estratégicos</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Entregável v0.8 — Auditoria + Plano de Ação validado com lideranças</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: var(--info)">
+        <div class="event-header">
+          <span class="event-type-icon">📊</span>
+          <div class="event-header-info">
+            <div class="event-time">16:00 – 17:00 — Trabalho</div>
+            <div class="event-title">Coleta dos Dados para o Painel de KPIs</div>
+          </div>
+          <span class="event-type-tag tag-analise">Análise</span>
+        </div>
+        <div class="event-body">
+          Extração dos dados operacionais da semana para popular o painel de métricas: número de bugs por produto, MTTR médio, quantidade de issues abertas e fechadas.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Exportação de dados do Linear por produto</li>
+            <li><span class="bullet-dot"></span>Cálculo das métricas de governança</li>
+            <li><span class="bullet-dot"></span>Atualização do painel de saúde por produto</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">KPIs da semana preenchidos no Painel de Métricas do entregável</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ QUINTA-FEIRA ═══════════ -->
+  <div class="day-section" id="day-qui">
+    <div class="day-header">
+      <div class="day-num-badge" style="background:linear-gradient(135deg,#10B981,#34D399)">
+        <span class="dn">QUI</span>
+        <span class="dd">29</span>
+      </div>
+      <div class="day-header-info">
+        <div class="day-header-title">Construção e Validação do Template de Reporte</div>
+        <div class="day-header-sub">Finalizar o template oficial do reporte operacional e validar a estrutura com as áreas</div>
+      </div>
+      <span class="day-focus-tag" style="background:var(--success-dim);color:var(--success)">📄 Foco: Template</span>
+    </div>
+    <div class="events-grid">
+
+      <div class="event-card" style="--ev-color: var(--success)">
+        <div class="event-header">
+          <span class="event-type-icon">📋</span>
+          <div class="event-header-info">
+            <div class="event-time">09:00 – 11:00 — Trabalho</div>
+            <div class="event-title">Finalização do Template de Reporte Oficial</div>
+          </div>
+          <span class="event-type-tag tag-entregavel">Entregável</span>
+        </div>
+        <div class="event-body">
+          Desenvolvimento da versão final do template de reporte operacional semanal. Formulário funcional com todas as seções, campos obrigatórios e indicadores de governança.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>4 seções: Saúde da Esteira, Gargalos, KPIs e Prioridades</li>
+            <li><span class="bullet-dot"></span>Semáforos de saúde por produto (Verde/Amarelo/Vermelho)</li>
+            <li><span class="bullet-dot"></span>Campos de métricas numéricas e campos narrativos</li>
+            <li><span class="bullet-dot"></span>Funcionalidade de salvar e limpar para reuso semanal</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Template oficial v1.0 — funcional e pronto para uso semanal</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: #34D399">
+        <div class="event-header">
+          <span class="event-type-icon">✅</span>
+          <div class="event-header-info">
+            <div class="event-time">11:30 – 12:30 — Presencial</div>
+            <div class="event-title">Validação da Estrutura do Reporte com Produto</div>
+          </div>
+          <span class="event-type-tag tag-reuniao">Reunião</span>
+        </div>
+        <div class="event-body">
+          Revisão rápida do template de reporte com o Head de Produto para garantir que as informações cobrem as necessidades de visibilidade da liderança.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>O template captura tudo que Produto precisa saber semanalmente?</li>
+            <li><span class="bullet-dot"></span>Algum campo faltando ou desnecessário?</li>
+            <li><span class="bullet-dot"></span>Qual o melhor dia e horário para o reporte semanal?</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Template aprovado com ajustes menores — cadência semanal definida</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: var(--success)">
+        <div class="event-header">
+          <span class="event-type-icon">🔗</span>
+          <div class="event-header-info">
+            <div class="event-time">14:30 – 16:00 — Trabalho</div>
+            <div class="event-title">Integração Final do Entregável</div>
+          </div>
+          <span class="event-type-tag tag-entregavel">Entregável</span>
+        </div>
+        <div class="event-body">
+          Unificação de todas as seções no documento final: Auditoria (Seção 1) + Plano de Ação validado (Seção 2) + KPIs (Seção 3) + Template de Reporte (Seção 4).
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Revisão de consistência entre seções</li>
+            <li><span class="bullet-dot"></span>Verificação dos dados do painel de métricas</li>
+            <li><span class="bullet-dot"></span>Ajuste final de linguagem e contexto estratégico</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Entregável S2 v1.0 — completo e pronto para apresentação na Sexta</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ SEXTA-FEIRA ═══════════ -->
+  <div class="day-section" id="day-sex">
+    <div class="day-header">
+      <div class="day-num-badge" style="background:linear-gradient(135deg,#FA641E,#F59E0B)">
+        <span class="dn">SEX</span>
+        <span class="dd">30</span>
+      </div>
+      <div class="day-header-info">
+        <div class="day-header-title">Apresentação e Consolidação do Entregável</div>
+        <div class="day-header-sub">Entrega formal do Plano de Ação + Template de Reporte para as lideranças — encerramento da Semana 2</div>
+      </div>
+      <span class="day-focus-tag" style="background:var(--accent-dim);color:var(--accent)">🏁 Foco: Entrega</span>
+    </div>
+    <div class="events-grid">
+
+      <div class="event-card" style="--ev-color: var(--accent)">
+        <div class="event-header">
+          <span class="event-type-icon">☀️</span>
+          <div class="event-header-info">
+            <div class="event-time">09:00 – 10:00 — Preparação</div>
+            <div class="event-title">Revisão Final e Preparação da Apresentação</div>
+          </div>
+          <span class="event-type-tag tag-async">Remoto</span>
+        </div>
+        <div class="event-body">
+          Última revisão do entregável completo. Preparação dos pontos de destaque para a apresentação às lideranças, focando nos insights mais relevantes e nas decisões necessárias.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Revisão final de todos os dados e hipóteses</li>
+            <li><span class="bullet-dot"></span>Seleção dos 3 achados mais críticos para destacar</li>
+            <li><span class="bullet-dot"></span>Preparação para possíveis perguntas das lideranças</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Entregável final revisado e aprovado para apresentação</div>
+        </div>
+      </div>
+
+      <div class="event-card full" style="--ev-color: #F59E0B">
+        <div class="event-header">
+          <span class="event-type-icon">🏆</span>
+          <div class="event-header-info">
+            <div class="event-time">10:30 – 12:00 — ENTREGA FINAL DA SEMANA</div>
+            <div class="event-title">Apresentação do Entregável S2 para Estratégia e Produto</div>
+          </div>
+          <span class="event-type-tag tag-reuniao">Reunião</span>
+        </div>
+        <div class="event-body">
+          Reunião de encerramento da Semana 2. Apresentação formal do entregável completo: diagnóstico operacional, plano de ação com hipóteses validadas e template oficial de reporte.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Apresentação do diagnóstico: 6 pontos críticos identificados na auditoria</li>
+            <li><span class="bullet-dot"></span>Revisão das 4 hipóteses e status de aprovação</li>
+            <li><span class="bullet-dot"></span>Demonstração do template de reporte operacional</li>
+            <li><span class="bullet-dot"></span>Definição da data do 1º reporte oficial (Semana 3)</li>
+            <li><span class="bullet-dot"></span>Alinhamento das prioridades para a Semana 3 — Gestão da Esteira de Bugs</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output — Entregável Oficial da Semana 2</div>
+          <div class="event-output-text">✅ Plano de Ação Operacional validado (4 hipóteses) + ✅ Template de Reporte aprovado + ✅ KPIs baseline definidos + ✅ Cadência semanal estabelecida</div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--ev-color: var(--accent)">
+        <div class="event-header">
+          <span class="event-type-icon">📬</span>
+          <div class="event-header-info">
+            <div class="event-time">14:00 — Pós-reunião</div>
+            <div class="event-title">Registro e Comunicação dos Próximos Passos</div>
+          </div>
+          <span class="event-type-tag tag-async">Remoto</span>
+        </div>
+        <div class="event-body">
+          Atualização do Painel Pessoal com o progresso da semana e comunicação formal dos próximos passos para todos os envolvidos.
+          <ul class="event-bullets">
+            <li><span class="bullet-dot"></span>Marcar todas as tarefas da Semana 2 como concluídas</li>
+            <li><span class="bullet-dot"></span>Registrar decisões e observações nas notas da semana</li>
+            <li><span class="bullet-dot"></span>Alinhar com devs sobre as hipóteses aprovadas para execução</li>
+          </ul>
+        </div>
+        <div class="event-output">
+          <div class="event-output-label">📤 Output</div>
+          <div class="event-output-text">Semana 2 oficialmente concluída · Entrada na Semana 3 — Gestão da Esteira de Bugs</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════ EVIDÊNCIAS DE CONSTRUÇÃO PROGRESSIVA ═══════ -->
+  <div style="margin-bottom:24px">
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px">📎 Evidências de Construção Progressiva</div>
+    <div style="font-size:13px;color:var(--text3);margin-bottom:20px">Artefatos gerados a cada dia que comprovam o processo de construção da semana</div>
+  </div>
+  <div class="evidence-grid">
+    <div class="evidence-card">
+      <div class="evidence-day">Segunda · 26/05</div>
+      <div class="evidence-title"><span class="evidence-icon">🗃️</span>Escopo da Auditoria</div>
+      <div class="evidence-body">Documento definindo quais produtos seriam auditados e qual a metodologia de análise do backlog no Linear.</div>
+      <span class="evidence-status ev-done">✅ Gerado na Segunda</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Segunda · 26/05</div>
+      <div class="evidence-title"><span class="evidence-icon">📋</span>Notas de Campo — Devs</div>
+      <div class="evidence-body">Anotações das conversas qualitativas com os desenvolvedores — pontos de dor, bloqueios reais e contexto operacional.</div>
+      <span class="evidence-status ev-done">✅ Gerado na Segunda</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Terça · 27/05</div>
+      <div class="evidence-title"><span class="evidence-icon">🔍</span>Auditoria do Linear</div>
+      <div class="evidence-body">Relatório de achados do backlog: tarefas sem responsável, bugs críticos sem triagem, ciclos longos identificados por produto.</div>
+      <span class="evidence-status ev-done">✅ Gerado na Terça</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Terça · 27/05</div>
+      <div class="evidence-title"><span class="evidence-icon">💡</span>Rascunho das Hipóteses</div>
+      <div class="evidence-body">Primeira versão das 4 hipóteses de melhoria com framework P/I/R/E — validada tecnicamente com devs antes de ir para Produto.</div>
+      <span class="evidence-status ev-done">✅ Gerado na Terça</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Quarta · 28/05</div>
+      <div class="evidence-title"><span class="evidence-icon">🤝</span>Ata de Validação</div>
+      <div class="evidence-body">Registro das decisões tomadas na reunião de validação com Estratégia e Produto — hipóteses aprovadas, rejeitadas e observações.</div>
+      <span class="evidence-status ev-planned">📅 Quarta-feira</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Quinta · 29/05</div>
+      <div class="evidence-title"><span class="evidence-icon">📊</span>Template de Reporte v1</div>
+      <div class="evidence-body">Template oficial aprovado por Produto com todas as seções, campos e indicadores de governança para uso na Semana 3.</div>
+      <span class="evidence-status ev-planned">📅 Quinta-feira</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Sexta · 30/05</div>
+      <div class="evidence-title"><span class="evidence-icon">🏆</span>Entregável Final S2</div>
+      <div class="evidence-body">Documento consolidado com Auditoria, Plano de Ação, KPIs e Template de Reporte — entregue formalmente às lideranças.</div>
+      <span class="evidence-status ev-planned">📅 Sexta-feira</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Toda a Semana</div>
+      <div class="evidence-title"><span class="evidence-icon">📈</span>Painel de KPIs</div>
+      <div class="evidence-body">Dados do Linear coletados progressivamente ao longo da semana, consolidados no painel de métricas do entregável final.</div>
+      <span class="evidence-status ev-progress">🔄 Em construção</span>
+    </div>
+    <div class="evidence-card">
+      <div class="evidence-day">Toda a Semana</div>
+      <div class="evidence-title"><span class="evidence-icon">🗒️</span>Notas Semanais</div>
+      <div class="evidence-body">Registro diário no Painel Pessoal das observações, insights e descobertas ao longo da semana — histórico auditável.</div>
+      <span class="evidence-status ev-progress">🔄 Em construção</span>
+    </div>
+  </div>
+
+  <div class="footer">PIGZ Coord · Plano de Ação · Semana 2 · 26–30 de Maio de 2026 · Coordenação de Projetos</div>
+</div>
+
+<script>
+// Highlight today
+function highlightToday() {
+  const today = new Date();
+  const dow = today.getDay(); // 0=Sun, 1=Mon...5=Fri
+  const dayMap = { 1: 'day-seg', 2: 'day-ter', 3: 'day-qua', 4: 'day-qui', 5: 'day-sex' };
+  const id = dayMap[dow];
+  if (id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+// Only auto-scroll if it's actually one of those days this week
+const d = new Date();
+if (d.getDay() >= 1 && d.getDay() <= 5) {
+  // Give time to render
+  setTimeout(highlightToday, 800);
+}
+</script>
+
+</body>
+</html>

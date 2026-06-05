@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entregável Final S2 — PIGZ Coord</title>
+<meta name="description" content="Entregável Final Semana 2 — Diagnóstico Operacional e Governança PIGZ">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0F2F5;--card:#FFFFFF;--border:#E5E7EB;
+  --accent:#FA641E;--success:#10B981;--warning:#F59E0B;
+  --danger:#EF4444;--info:#3B82F6;--purple:#8B5CF6;
+  --dark:#0D0F14;
+  --text:#111827;--text2:#4B5563;--text3:#9CA3AF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:#F5F7FA;color:var(--text);min-height:100vh}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;height:52px;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.t-logo{font-size:14px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.t-logo span{color:var(--accent)}
+.t-badge{background:rgba(239,68,68,0.1);color:var(--danger);font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.5px}
+.t-nav{display:flex;align-items:center;gap:6px}
+.tnav-btn{
+  padding:6px 14px;border-radius:999px;border:1px solid var(--border);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;
+  cursor:pointer;color:var(--text2);background:white;
+  text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  transition:all .15s;
+}
+.tnav-btn:hover{background:var(--bg);color:var(--text)}
+.tnav-btn-p{background:var(--accent);color:white;border-color:transparent}
+.tnav-btn-p:hover{opacity:.85;color:white}
+.tnav-btn-fs{background:var(--dark);color:rgba(255,255,255,0.85);border-color:var(--dark)}
+.tnav-btn-fs:hover{background:#1A1F2E;color:white}
+
+/* FULLSCREEN MODE */
+body.fs-mode .topbar,body.fs-mode .week-bar{display:none!important}
+body.fs-mode .page{padding:20px 28px 40px}
+body.fs-mode .hero{padding:32px 28px}
+#fs-exit{
+  position:fixed;bottom:20px;right:20px;z-index:9999;
+  background:rgba(0,0,0,0.75);color:white;border:1px solid rgba(255,255,255,0.15);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+  padding:8px 18px;border-radius:999px;cursor:pointer;
+  display:none;align-items:center;gap:6px;backdrop-filter:blur(8px);transition:all .2s;
+}
+#fs-exit:hover{background:rgba(0,0,0,0.92)}
+#fs-badge{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;
+  background:rgba(250,100,30,0.92);color:white;border-radius:999px;
+  font-family:'Poppins',sans-serif;font-size:10px;font-weight:800;
+  padding:5px 18px;letter-spacing:1px;text-transform:uppercase;
+  display:none;backdrop-filter:blur(8px);box-shadow:0 4px 16px rgba(250,100,30,0.4);
+}
+
+/* WEEK BAR */
+.week-bar{position:fixed;top:52px;left:0;right:0;z-index:190;background:white;border-bottom:1px solid var(--border);padding:8px 32px}
+.week-bar-inner{display:flex;align-items:center;gap:16px;max-width:1200px;margin:0 auto}
+.wk-label{font-size:11px;font-weight:700;color:var(--text2);white-space:nowrap}
+.wk-track{flex:1;height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.wk-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--warning));border-radius:99px;width:95%}
+.wk-pct{font-size:11px;font-weight:800;color:var(--accent);white-space:nowrap}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#0D0F14 0%,#1A1F2E 60%,#1E1528 100%);
+  padding:48px 32px 44px;margin-top:88px;
+}
+.hero-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;
+}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-week{font-size:10px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:2px}
+.hero-title{font-size:34px;font-weight:800;color:white;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px}
+.hero-title span{color:var(--accent)}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;max-width:520px;margin-bottom:20px}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap}
+.hero-tag{padding:5px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:700;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.05)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;min-width:320px}
+.h-stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 16px;text-align:center}
+.h-stat-num{font-size:26px;font-weight:800;line-height:1}
+.h-stat-label{font-size:10px;color:rgba(255,255,255,0.4);margin-top:4px;line-height:1.3}
+
+/* PAGE */
+.page{max-width:1200px;margin:0 auto;padding:36px 32px 80px}
+
+/* SECTION HEADER */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sec-num{width:28px;height:28px;border-radius:8px;background:var(--accent);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title-text{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.3px}
+.sec-sub{font-size:11px;color:var(--text3);margin-left:auto;font-weight:500}
+.sec-div{height:1px;background:var(--border);margin-bottom:20px}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* TIMELINE STRIP */
+.tl-strip{display:flex;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:white;margin-bottom:0}
+.tl-cell{flex:1;padding:16px 14px;border-right:1px solid var(--border);background:white;transition:background .15s;min-width:0}
+.tl-cell:last-child{border-right:none}
+.tl-date{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.tl-event{font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;line-height:1.3}
+.tl-result{font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:6px}
+.tl-status{font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;display:inline-block}
+.tl-go{font-size:10px;font-weight:800;margin-top:8px;opacity:0;transition:opacity .2s}
+.tl-link{text-decoration:none;color:inherit;display:block}
+.tl-link:hover .tl-go{opacity:1}
+.tl-link:hover{background:#F9FAFB!important}
+
+/* VALIDATION BLOCKS */
+.val-block{background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.val-head{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+.val-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.val-title{font-size:13px;font-weight:800;color:var(--text)}
+.val-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;margin-left:auto;white-space:nowrap}
+.val-body{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.val-item{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--text2);line-height:1.5}
+.vi-dot{width:22px;height:22px;border-radius:6px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* PROCESS STEPS */
+.proc-step{background:white;border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.proc-num{font-size:48px;font-weight:900;color:rgba(250,100,30,0.06);position:absolute;right:16px;top:8px;line-height:1;letter-spacing:-3px}
+.proc-icon{font-size:22px;margin-bottom:10px}
+.proc-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:6px}
+.proc-desc{font-size:11px;color:var(--text2);line-height:1.55}
+.proc-arrow{display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:18px;padding-top:16px}
+
+/* PRIORITY CARDS */
+.pri-card{background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.pri-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.pri-num{width:32px;height:32px;border-radius:9px;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:white}
+.pri-title{font-size:13px;font-weight:800;color:var(--text);flex:1}
+.pri-body{padding:16px 20px}
+.pri-why{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px}
+.pri-text{font-size:12px;color:var(--text2);line-height:1.55;margin-bottom:14px}
+.pri-how-title{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px}
+.pri-how-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);line-height:1.45;margin-bottom:6px}
+.pri-evidence{margin-top:12px;padding:10px 12px;background:var(--bg);border-radius:9px;font-size:11px;color:var(--text2);line-height:1.5}
+
+/* BEFORE/AFTER */
+.ba-card{background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px}
+.ba-header{padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.ba-badge{font-size:9px;font-weight:800;padding:2px 10px;border-radius:5px;margin-left:auto}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr}
+.ba-col{padding:16px 20px}
+.ba-col-left{border-right:1px solid var(--border);background:rgba(239,68,68,0.015)}
+.ba-col-right{background:rgba(16,185,129,0.015)}
+.ba-item{display:flex;gap:9px;font-size:12px;color:var(--text2);line-height:1.45;align-items:flex-start;margin-bottom:10px}
+.ba-item:last-child{margin-bottom:0}
+.ba-x{color:var(--danger);font-weight:900;font-size:15px;flex-shrink:0;line-height:1}
+.ba-ok{color:var(--success);font-weight:900;font-size:15px;flex-shrink:0;line-height:1}
+
+/* CHECK ICON */
+.ck{width:20px;height:20px;border-radius:6px;background:rgba(16,185,129,0.12);color:var(--success);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* RESPONSIVE */
+@media(max-width:1400px){
+  .hero{padding:40px 24px 36px}
+  .hero-inner{grid-template-columns:1fr auto;gap:20px}
+  .hero-title{font-size:28px}
+  .page{padding:32px 24px 60px}
+  .topbar,.week-bar{padding-left:24px;padding-right:24px}
+  .hero-stats{grid-template-columns:1fr 1fr;gap:8px}
+  .tl-strip{overflow-x:auto}
+  .tl-cell{min-width:150px}
+}
+@media(max-width:900px){
+  .g2,.g3{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(4,1fr);margin-top:16px}
+  .ba-grid{grid-template-columns:1fr}
+  .ba-col-left{border-right:none;border-bottom:1px solid var(--border)}
+}
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* Esconder elementos interativos */
+  .topbar,.week-bar,#fs-badge,#fs-exit{display:none!important}
+
+  /* Ajustar espaçamento da página */
+  .hero{margin-top:0;padding:28px 20px 24px}
+  .page{padding:24px 20px 32px}
+
+  /* ── CORREÇÃO PRINCIPAL: timeline horizontal → grade 2×3 no PDF ── */
+  .tl-strip{
+    display:grid!important;
+    grid-template-columns:1fr 1fr 1fr!important;
+    overflow:visible!important;
+    border-radius:10px;
+    page-break-inside:avoid;
+  }
+  .tl-cell{
+    min-width:0!important;
+    border-right:1px solid var(--border)!important;
+    border-bottom:1px solid var(--border)!important;
+    padding:12px!important;
+    break-inside:avoid;
+  }
+  .tl-cell:nth-child(3),.tl-cell:nth-child(6){border-right:none!important}
+  .tl-cell:nth-child(4),.tl-cell:nth-child(5),.tl-cell:nth-child(6){border-bottom:none!important}
+
+  /* Mostrar a seta (normalmente oculta no hover) */
+  .tl-go{opacity:1!important;color:var(--accent)!important}
+
+  /* Grids */
+  .g2,.g3{gap:12px}
+  .ba-grid{grid-template-columns:1fr 1fr}
+
+  /* Processo em 2 colunas para caber no A4 */
+  div[style*="grid-template-columns:1fr auto 1fr auto 1fr auto 1fr"]{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:10px!important;
+  }
+  .proc-arrow{display:none!important}
+
+  /* Cores do hero */
+  .hero{background:#0D0F14!important}
+  .h-stat{background:rgba(255,255,255,0.07)!important}
+
+  /* Evitar quebra de página no meio dos blocos */
+  .ba-card,.pri-card,.val-block,.proc-step{break-inside:avoid;page-break-inside:avoid}
+  .sec-head,.sec-div{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- FULLSCREEN OVERLAYS -->
+<div id="fs-badge">🟠 Modo Apresentação — PIGZ Coord · Semana 2</div>
+<button id="fs-exit" onclick="toggleFS()">✕ Sair da Apresentação</button>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="t-logo">PIGZ <span>Coord</span></span>
+    <span class="t-badge">Entregável Final — Semana 2</span>
+  </div>
+  <div class="t-nav">
+    <a class="tnav-btn" href="index.html">← Painel</a>
+    <a class="tnav-btn" href="ata-reuniao-devs.html" target="_blank">📄 Ata</a>
+    <a class="tnav-btn" href="apresentacao-diretoria.html" target="_blank">🖥️ Apresentação</a>
+    <a class="tnav-btn" href="reporte-executivo.html" target="_blank">⭐ Reporte</a>
+    <button class="tnav-btn tnav-btn-fs" id="fsBtn" onclick="toggleFS()">⛶ Tela Cheia</button>
+    <button class="tnav-btn tnav-btn-p" onclick="window.print()">🖨️ PDF</button>
+  </div>
+</div>
+
+<!-- BARRA DE PROGRESSO -->
+<div class="week-bar">
+  <div class="week-bar-inner">
+    <span class="wk-label">Semana 2 — 26 a 30/05/2026</span>
+    <div class="wk-track"><div class="wk-fill"></div></div>
+    <span class="wk-pct">95% concluído</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-dot"></div>
+        <span class="hero-week">Semana 2 · 26–30 de Maio, 2026</span>
+      </div>
+      <h1 class="hero-title">Diagnóstico Operacional<br><span>&amp; Governança</span></h1>
+      <p class="hero-sub">Auditoria completa do fluxo operacional, validação com time de desenvolvimento e diretoria, e estruturação do sistema de gestão semanal.</p>
+      <div class="hero-tags">
+        <span class="hero-tag">✅ Validado com Devs</span>
+        <span class="hero-tag">✅ Aprovado pela Diretoria</span>
+        <span class="hero-tag">🕐 Cadência a partir de 02/06</span>
+        <span class="hero-tag">🌟 Sistema de gestão ativo</span>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat">
+        <div class="h-stat-num" style="color:var(--accent)">3</div>
+        <div class="h-stat-label">Prioridades<br>aprovadas</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num" style="color:#F87171">6</div>
+        <div class="h-stat-label">Bugs críticos<br>mapeados</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num" style="color:#34D399">2</div>
+        <div class="h-stat-label">Reuniões<br>realizadas</div>
+      </div>
+      <div class="h-stat">
+        <div class="h-stat-num" style="color:#FBBF24;font-size:22px">✓</div>
+        <div class="h-stat-label">100% validado<br>pela diretoria</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEÚDO DA PÁGINA -->
+<div class="page">
+
+  <!-- ═══ SEÇÃO 1: LINHA DO TEMPO ═══ -->
+  <div class="sec-head" style="margin-top:8px">
+    <div class="sec-num">1</div>
+    <div class="sec-title-text">Jornada cronológica da semana</div>
+    <div class="sec-sub">Do planejamento à validação com a diretoria</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div class="tl-strip">
+    <a class="tl-cell tl-link" href="reuniao-devs.html" target="_blank" style="border-top:3px solid var(--accent)">
+      <div class="tl-date">Seg 26/05 · 19h30</div>
+      <div class="tl-event">🎤 Ferramenta de Reunião</div>
+      <div class="tl-result">5 slides interativos com auto-save, timer e tela cheia</div>
+      <div class="tl-status" style="background:rgba(16,185,129,0.1);color:var(--success)">✅ Concluído</div>
+      <div class="tl-go" style="color:var(--accent)">Abrir →</div>
+    </a>
+    <a class="tl-cell tl-link" href="ata-reuniao-devs.html" target="_blank" style="border-top:3px solid var(--success)">
+      <div class="tl-date">Ter 26/05 · 08h–08h45</div>
+      <div class="tl-event">📋 Reunião com Time Dev</div>
+      <div class="tl-result">6 bugs · 6 gargalos · 3 prioridades · saúde dos produtos</div>
+      <div class="tl-status" style="background:rgba(16,185,129,0.1);color:var(--success)">✅ Realizada</div>
+      <div class="tl-go" style="color:var(--success)">Ver ata →</div>
+    </a>
+    <a class="tl-cell tl-link" href="ata-reuniao-devs.html" target="_blank" style="border-top:3px solid var(--info)">
+      <div class="tl-date">Ter 26/05 · 18h45</div>
+      <div class="tl-event">📄 Ata Gerada e Assinada</div>
+      <div class="tl-result">Automática · assinada no GOV · validade oficial</div>
+      <div class="tl-status" style="background:rgba(59,130,246,0.1);color:var(--info)">✅ Assinada GOV</div>
+      <div class="tl-go" style="color:var(--info)">Ver documento →</div>
+    </a>
+    <a class="tl-cell tl-link" href="apresentacao-diretoria.html" target="_blank" style="border-top:3px solid var(--purple)">
+      <div class="tl-date">Ter 26/05 · 19h</div>
+      <div class="tl-event">📊 Diagnóstico Consolidado</div>
+      <div class="tl-result">Hub executivo + apresentação para diretoria montada</div>
+      <div class="tl-status" style="background:rgba(139,92,246,0.1);color:var(--purple)">✅ Publicado</div>
+      <div class="tl-go" style="color:var(--purple)">Ver apresentação →</div>
+    </a>
+    <a class="tl-cell tl-link" href="apresentacao-diretoria.html" target="_blank" style="border-top:3px solid var(--warning)">
+      <div class="tl-date">Qua 27/05 · manhã</div>
+      <div class="tl-event">🖥️ Apresentação à Diretoria</div>
+      <div class="tl-result">3 prioridades votadas ao vivo com Bia e Rodrigo</div>
+      <div class="tl-status" style="background:rgba(245,158,11,0.1);color:var(--warning)">✅ Aprovado</div>
+      <div class="tl-go" style="color:var(--warning)">Rever slides →</div>
+    </a>
+    <a class="tl-cell tl-link" href="reporte-executivo.html" target="_blank" style="border-top:3px solid var(--accent);background:rgba(250,100,30,0.02)">
+      <div class="tl-date">Sex 30/05 · entrega</div>
+      <div class="tl-event">⭐ Entregável Final</div>
+      <div class="tl-result">Reporte executivo semanal entra em cadência na S3</div>
+      <div class="tl-status" style="background:rgba(250,100,30,0.1);color:var(--accent)">🔄 Você está aqui</div>
+      <div class="tl-go" style="color:var(--accent)">Abrir reporte →</div>
+    </a>
+  </div>
+
+  <!-- ═══ SEÇÃO 2: METAS × ENTREGAS ═══ -->
+  <div class="sec-head" style="margin-top:48px">
+    <div class="sec-num">2</div>
+    <div class="sec-title-text">Metas dos coordenadores × O que foi entregue</div>
+    <div class="sec-sub">O que foi pedido · O que foi feito · O que foi além</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div class="g2" style="margin-bottom:12px">
+
+    <!-- METAS ORIGINAIS -->
+    <div style="background:white;border:1px solid var(--border);border-radius:14px;overflow:hidden">
+      <div style="padding:14px 20px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(75,85,99,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📋</div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--text)">Metas atribuídas pelos coordenadores</div>
+          <div style="font-size:10px;color:var(--text3);margin-top:1px">Escopo original da Semana 2</div>
+        </div>
+        <div style="margin-left:auto;font-size:9px;font-weight:800;padding:3px 10px;border-radius:5px;background:rgba(75,85,99,0.1);color:var(--text2)">7 atividades</div>
+      </div>
+      <div style="padding:16px 20px">
+        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:10px">🔄 Atividades Assíncronas</div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Auditoria operacional no Linear</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Identificação de gargalos, ruídos e inconsistências nos fluxos</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Análise de fluxos, estados, ciclos e organização operacional</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Construção inicial do template de reporte operacional</div>
+        </div>
+        <div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:14px 0 10px">🤝 Atividades Síncronas</div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Apresentar hipóteses de melhoria com problema / impacto / risco / esforço</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Validar com Estratégia e Produto quais ajustes priorizar</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0">
+          <div class="ck">✓</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45">Validar estrutura do reporte operacional com a diretoria</div>
+        </div>
+        <div style="margin-top:14px;padding:12px 14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px">
+          <div style="font-size:10px;font-weight:800;color:var(--success);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">📦 Entregável Oficial</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.45"><strong>Plano de Ação + Template de Reporte Oficial</strong> — plano validado + template do reporte operacional</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O QUE FOI ENTREGUE + ALÉM -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:white;border:1px solid rgba(16,185,129,0.25);border-radius:14px;overflow:hidden">
+        <div style="padding:14px 20px;background:rgba(16,185,129,0.04);border-bottom:1px solid rgba(16,185,129,0.15);display:flex;align-items:center;gap:10px">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--text)">Todas as metas cumpridas</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:1px">100% do escopo original entregue</div>
+          </div>
+          <div style="margin-left:auto;font-size:9px;font-weight:800;padding:3px 10px;border-radius:5px;background:rgba(16,185,129,0.12);color:var(--success)">✓ Validado</div>
+        </div>
+        <div style="padding:14px 20px;font-size:12px;color:var(--text2);line-height:1.6">
+          Auditoria no Linear concluída · 6 gargalos mapeados · Hipóteses apresentadas e votadas com devs e líderes · Reporte validado pela diretoria como <strong>ferramenta de gestão oficial</strong>.
+        </div>
+      </div>
+
+      <div style="background:white;border:1.5px solid rgba(250,100,30,0.3);border-radius:14px;overflow:hidden;flex:1">
+        <div style="padding:14px 20px;background:rgba(250,100,30,0.04);border-bottom:1px solid rgba(250,100,30,0.15);display:flex;align-items:center;gap:10px">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(250,100,30,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🚀</div>
+          <div>
+            <div style="font-size:12px;font-weight:800;color:var(--text)">Além do escopo — ferramentas criadas</div>
+            <div style="font-size:10px;color:var(--text3);margin-top:1px">Não estavam nas metas · Criadas por iniciativa própria</div>
+          </div>
+          <div style="margin-left:auto;font-size:9px;font-weight:800;padding:3px 10px;border-radius:5px;background:rgba(250,100,30,0.12);color:var(--accent)">+6 ferramentas</div>
+        </div>
+        <div style="padding:14px 20px;display:flex;flex-direction:column;gap:7px">
+          <a href="reuniao-devs.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);text-decoration:none;color:inherit;background:white;transition:background .15s" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
+            <span style="font-size:16px;flex-shrink:0">🎤</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Ferramenta de Reunião</div><div style="font-size:10px;color:var(--text3)">5 slides · timer · auto-save · tela cheia</div></div>
+            <span style="font-size:10px;color:var(--accent);font-weight:700">Abrir →</span>
+          </a>
+          <a href="ata-reuniao-devs.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);text-decoration:none;color:inherit;background:white;transition:background .15s" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
+            <span style="font-size:16px;flex-shrink:0">📄</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Ata de Reunião Automática</div><div style="font-size:10px;color:var(--text3)">Gerada · assinada no GOV · validade oficial</div></div>
+            <span style="font-size:10px;color:var(--info);font-weight:700">Ver →</span>
+          </a>
+          <a href="apresentacao-diretoria.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);text-decoration:none;color:inherit;background:white;transition:background .15s" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
+            <span style="font-size:16px;flex-shrink:0">🖥️</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Apresentação para Diretoria</div><div style="font-size:10px;color:var(--text3)">Diagnóstico + prioridades votadas ao vivo</div></div>
+            <span style="font-size:10px;color:var(--purple);font-weight:700">Ver →</span>
+          </a>
+          <a href="reporte-executivo.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);text-decoration:none;color:inherit;background:white;transition:background .15s" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
+            <span style="font-size:16px;flex-shrink:0">📊</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Reporte Executivo Semanal</div><div style="font-size:10px;color:var(--text3)">KPIs · semáforos · plano de ação · cadência</div></div>
+            <span style="font-size:10px;color:var(--warning);font-weight:700">Abrir →</span>
+          </a>
+          <a href="entregavel-s2-hub.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid var(--border);text-decoration:none;color:inherit;background:white;transition:background .15s" onmouseover="this.style.background='#F9FAFB'" onmouseout="this.style.background='white'">
+            <span style="font-size:16px;flex-shrink:0">🗂️</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Hub de Ferramentas S2</div><div style="font-size:10px;color:var(--text3)">Portal centralizado de todos os artefatos</div></div>
+            <span style="font-size:10px;color:var(--success);font-weight:700">Ver →</span>
+          </a>
+          <a href="relatorio-s3.html" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:9px;border:1px solid rgba(250,100,30,0.2);text-decoration:none;color:inherit;background:rgba(250,100,30,0.02);transition:background .15s" onmouseover="this.style.background='#FFF5F0'" onmouseout="this.style.background='rgba(250,100,30,0.02)'">
+            <span style="font-size:16px;flex-shrink:0">🐞</span>
+            <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--text)">Gestão de Bugs — Semana 3</div><div style="font-size:10px;color:var(--accent)">Já pronta para a próxima semana →</div></div>
+            <span style="font-size:10px;color:var(--accent);font-weight:700">Usar →</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SEÇÃO 3: VALIDAÇÕES ═══ -->
+  <div class="sec-head" style="margin-top:48px">
+    <div class="sec-num">3</div>
+    <div class="sec-title-text">Validações realizadas esta semana</div>
+    <div class="sec-sub">Devs em 26/05 · Lideranças em 27/05</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div class="g2" style="margin-bottom:0">
+    <div class="val-block">
+      <div class="val-head">
+        <div class="val-icon" style="background:rgba(16,185,129,0.1)">👨‍💻</div>
+        <div>
+          <div class="val-title">Time de Desenvolvimento</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Reunião · 26/05 · 08h–08h45 · Ata assinada no GOV</div>
+        </div>
+        <div class="val-badge" style="background:rgba(16,185,129,0.1);color:var(--success)">✅ 7 participantes</div>
+      </div>
+      <div class="val-body">
+        <div class="val-item"><div class="vi-dot" style="background:rgba(239,68,68,0.1);color:var(--danger)">6</div><div><strong>Bugs críticos</strong> relatados sem triagem formal de prioridade — confirmando ausência de governança no backlog</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(245,158,11,0.1);color:var(--warning)">6</div><div><strong>Gargalos confirmados</strong> pelo time: sem responsável, sem estimativa, bug sem prioridade, falta de contexto, ambiente instável, prioridade mudando</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(16,185,129,0.1);color:var(--success)">✅</div><div><strong>H1 e H2 fortemente validadas</strong> — monitoramento e triagem estruturada são as principais demandas</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(250,100,30,0.1);color:var(--accent)">🆕</div><div><strong>Roadmap emergiu espontaneamente</strong> — pedido unânime do time e principal causa de retrabalho</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(16,185,129,0.1);color:var(--success)">✅</div><div><strong>O que funciona e não deve mudar:</strong> Deploy, Versionamento, Linear (ferramenta), Autonomia entre squads, bugs chegam contextualizados</div></div>
+      </div>
+    </div>
+
+    <div class="val-block">
+      <div class="val-head">
+        <div class="val-icon" style="background:rgba(250,100,30,0.1)">👔</div>
+        <div>
+          <div class="val-title">Lideranças — Bia &amp; Rodrigo</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Apresentação · 27/05 · Slides ao vivo · Votação em tempo real</div>
+        </div>
+        <div class="val-badge" style="background:rgba(250,100,30,0.1);color:var(--accent)">✅ Aprovado</div>
+      </div>
+      <div class="val-body">
+        <div class="val-item"><div class="vi-dot" style="background:rgba(250,100,30,0.1);color:var(--accent)">🌟</div><div><strong>Reporte validado como ferramenta de gestão</strong> — "se conseguirmos mostrar isso toda semana, vamos ter uma ferramenta de gestão"</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(239,68,68,0.1);color:var(--danger)">P0</div><div><strong>Triagem P0–P3 aprovada</strong> — implementar labels de severidade no Linear com responsável e prazo obrigatórios</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(59,130,246,0.1);color:var(--info)">📅</div><div><strong>Cadência semanal aprovada</strong> — reunião toda Segunda 08h, 30 min, com ata automática e rastreabilidade</div></div>
+        <div class="val-item"><div class="vi-dot" style="background:rgba(250,100,30,0.1);color:var(--accent)">🗺️</div><div><strong>Roadmap aprovado como prioridade S3</strong> — construção trimestral para dar visibilidade ao time e à diretoria</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SEÇÃO 4: PROCESSO ═══ -->
+  <div class="sec-head" style="margin-top:48px">
+    <div class="sec-num">4</div>
+    <div class="sec-title-text">Como o diagnóstico foi construído</div>
+    <div class="sec-sub">Processo cronológico · Da reunião à decisão da diretoria</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:0;align-items:stretch">
+    <div class="proc-step">
+      <div class="proc-num">1</div>
+      <div class="proc-icon">🎤</div>
+      <div class="proc-title">Reunião com Devs</div>
+      <div class="proc-desc">Coleta estruturada de dados operacionais reais: bugs, gargalos, hipóteses e saúde dos produtos em 45 minutos.</div>
+    </div>
+    <div class="proc-arrow">→</div>
+    <div class="proc-step">
+      <div class="proc-num">2</div>
+      <div class="proc-icon">📄</div>
+      <div class="proc-title">Ata + Registro</div>
+      <div class="proc-desc">Ata gerada automaticamente e assinada digitalmente no GOV com validade oficial e rastreabilidade permanente.</div>
+    </div>
+    <div class="proc-arrow">→</div>
+    <div class="proc-step">
+      <div class="proc-num">3</div>
+      <div class="proc-icon">🖥️</div>
+      <div class="proc-title">Apresentação</div>
+      <div class="proc-desc">Slides executivos com diagnóstico, hipóteses e opções de votação ao vivo — diretoria decide em tempo real.</div>
+    </div>
+    <div class="proc-arrow">→</div>
+    <div class="proc-step" style="border:1.5px solid rgba(250,100,30,0.3);background:rgba(250,100,30,0.02)">
+      <div class="proc-num">4</div>
+      <div class="proc-icon">📊</div>
+      <div class="proc-title">Reporte Semanal</div>
+      <div class="proc-desc">Dashboard executivo com KPIs, semáforos e plano de ação. Entregue toda semana para Bia e Rodrigo.</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:10px;font-size:11px;color:var(--text3);font-style:italic">
+    🔁 Este ciclo se repete toda semana a partir de 02/06 — Reunião (Seg 08h) → Ata → Reporte (Qua)
+  </div>
+
+  <!-- ═══ SEÇÃO 5: 3 PRIORIDADES ═══ -->
+  <div class="sec-head" style="margin-top:48px">
+    <div class="sec-num">5</div>
+    <div class="sec-title-text">As 3 prioridades aprovadas pela diretoria</div>
+    <div class="sec-sub">Validadas em 27/05 · Implementação a partir de 02/06</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div class="g3">
+    <div class="pri-card">
+      <div class="pri-header">
+        <div class="pri-num" style="background:rgba(239,68,68,0.9)">P01</div>
+        <div class="pri-title">Triagem no Linear — P0/P1/P2/P3</div>
+        <span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;background:rgba(239,68,68,0.1);color:var(--danger);white-space:nowrap">🔴 Urgente</span>
+      </div>
+      <div class="pri-body">
+        <div class="pri-why">Por que priorizar?</div>
+        <div class="pri-text">Bugs chegam sem hierarquia clara. Devs escolhem o que resolver por conta própria. Uma NF fiscal pode ficar na fila ao lado de um bug de UI sem distinção de urgência.</div>
+        <div class="pri-how-title">Como vai funcionar</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>Labels P0/P1/P2/P3 em todos os cards do Linear</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>Responsável + prazo obrigatórios em cada bug</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>P0 = resolução em até 4h · P3 = backlog</div>
+        <div class="pri-evidence">📋 <strong>Evidência:</strong> 6 bugs críticos mapeados na reunião sem nenhum responsável ou prazo atribuído formalmente.</div>
+      </div>
+    </div>
+
+    <div class="pri-card">
+      <div class="pri-header">
+        <div class="pri-num" style="background:rgba(59,130,246,0.9)">P02</div>
+        <div class="pri-title">Cadência Semanal — Seg 08h</div>
+        <span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;background:rgba(59,130,246,0.1);color:var(--info);white-space:nowrap">📅 02/06</span>
+      </div>
+      <div class="pri-body">
+        <div class="pri-why">Por que priorizar?</div>
+        <div class="pri-text">Sem ritual fixo, alinhamentos acontecem de forma reativa. Prioridade muda no meio da semana sem aviso. O time não tem contexto do negócio para tomar decisões operacionais.</div>
+        <div class="pri-how-title">Como vai funcionar</div>
+        <div class="pri-how-item"><span style="color:var(--info);font-weight:800;flex-shrink:0">•</span>Toda Segunda 08h · 30 min · mesma ferramenta</div>
+        <div class="pri-how-item"><span style="color:var(--info);font-weight:800;flex-shrink:0">•</span>Pauta fixa: bugs · bloqueios · prioridades da semana</div>
+        <div class="pri-how-item"><span style="color:var(--info);font-weight:800;flex-shrink:0">•</span>Ata automática assinada no GOV a cada sessão</div>
+        <div class="pri-evidence">📊 <strong>Resultado esperado:</strong> Dados semanais reais para alimentar o reporte executivo da diretoria toda quarta.</div>
+      </div>
+    </div>
+
+    <div class="pri-card" style="border-color:rgba(250,100,30,0.3)">
+      <div class="pri-header" style="background:rgba(250,100,30,0.03)">
+        <div class="pri-num" style="background:var(--accent)">P03</div>
+        <div class="pri-title">Roadmap Trimestral</div>
+        <span style="font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;background:rgba(250,100,30,0.1);color:var(--accent);white-space:nowrap">🆕 Novo</span>
+      </div>
+      <div class="pri-body">
+        <div class="pri-why">Por que priorizar?</div>
+        <div class="pri-text">O time retrabalha constantemente por mudanças não comunicadas. Nenhum dev sabe o que vem nos próximos meses. Urgências do negócio viram P0 técnico sem avaliação de impacto.</div>
+        <div class="pri-how-title">Como vai funcionar</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>Roadmap trimestral com Partner e Gestão como foco</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>Revisão mensal com o time técnico e produto</div>
+        <div class="pri-how-item"><span style="color:var(--accent);font-weight:800;flex-shrink:0">•</span>Status do Roadmap integrado ao reporte semanal</div>
+        <div class="pri-evidence">🌱 <strong>Origem:</strong> Demanda unânime dos 7 devs na reunião de 26/05 — não estava no escopo original da S2.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SEÇÃO 6: ANTES × DEPOIS ═══ -->
+  <div class="sec-head" style="margin-top:48px">
+    <div class="sec-num">6</div>
+    <div class="sec-title-text">Antes × Depois — o impacto real de cada prioridade</div>
+    <div class="sec-sub">O que muda concretamente na operação · A partir da Semana 3</div>
+  </div>
+  <div class="sec-div"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;margin-bottom:10px;padding:0 4px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--danger)"></div>
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--danger)">Como está hoje</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--success)"></div>
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--success)">Como vai ficar — Semana 3+</div>
+    </div>
+  </div>
+
+  <!-- BA: TRIAGEM -->
+  <div class="ba-card">
+    <div class="ba-header">
+      <span style="width:22px;height:22px;border-radius:6px;background:rgba(239,68,68,0.9);color:white;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">01</span>
+      <span style="font-size:12px;font-weight:800;color:var(--text)">Triagem padronizada no Linear — P0 / P1 / P2 / P3</span>
+      <span class="ba-badge" style="background:rgba(239,68,68,0.1);color:var(--danger)">🔴 Urgente · Semana 3</span>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col ba-col-left">
+        <div class="ba-item"><span class="ba-x">✗</span>Bug de NF Fiscal na fila <strong>sem responsável</strong> definido</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Devs escolhem o que resolver sem critério de prioridade</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Urgências chegam como "prioritário" sem grau de severidade</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Sem visibilidade do que está em progresso ou travado</div>
+      </div>
+      <div class="ba-col ba-col-right">
+        <div class="ba-item"><span class="ba-ok">✓</span>P0 com <strong>responsável + prazo de 4h</strong> — rastreável no Linear</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Coordenação prioriza — time executa com clareza de ordem</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Labels P0–P3 visíveis no Linear para equipe e lideranças</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Reporte semanal reflete status dos bugs em tempo real</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: CADÊNCIA -->
+  <div class="ba-card">
+    <div class="ba-header">
+      <span style="width:22px;height:22px;border-radius:6px;background:rgba(59,130,246,0.9);color:white;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">02</span>
+      <span style="font-size:12px;font-weight:800;color:var(--text)">Cadência semanal de alinhamento — toda Segunda · 30 min</span>
+      <span class="ba-badge" style="background:rgba(59,130,246,0.1);color:var(--info)">📅 Início: Seg 02/06 · 08h</span>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col ba-col-left">
+        <div class="ba-item"><span class="ba-x">✗</span>Time sem ritual fixo — alinhamentos informais e reativos</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Prioridade muda no meio da semana sem aviso ou contexto</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Sem ata, sem registro — nada é rastreável ou auditável</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Coordenação sem dados operacionais para reportar semanalmente</div>
+      </div>
+      <div class="ba-col ba-col-right">
+        <div class="ba-item"><span class="ba-ok">✓</span>Reunião fixa toda Segunda 08h — horário, pauta e meta definidos</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Prioridades comunicadas formalmente antes de mudar</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Ata automática assinada no GOV a cada reunião — registro oficial</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Dados alimentam o reporte executivo semanal para a diretoria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BA: ROADMAP -->
+  <div class="ba-card" style="border:1.5px solid rgba(250,100,30,0.25);margin-bottom:0">
+    <div class="ba-header" style="background:rgba(250,100,30,0.04);border-bottom-color:rgba(250,100,30,0.15)">
+      <span style="width:22px;height:22px;border-radius:6px;background:var(--accent);color:white;font-size:10px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">03</span>
+      <span style="font-size:12px;font-weight:800;color:var(--text)">Definição e comunicação do Roadmap</span>
+      <span class="ba-badge" style="background:rgba(250,100,30,0.1);color:var(--accent)">🆕 Demanda unânime do time</span>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-col ba-col-left">
+        <div class="ba-item"><span class="ba-x">✗</span>Time retrabalha por mudanças <strong>não comunicadas</strong></div>
+        <div class="ba-item"><span class="ba-x">✗</span>Produto desenvolvido sem horizonte trimestral definido</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Urgências viram P0 técnico — time sempre reativo</div>
+        <div class="ba-item"><span class="ba-x">✗</span>Lideranças sem visibilidade do que vem nos próximos meses</div>
+      </div>
+      <div class="ba-col ba-col-right">
+        <div class="ba-item"><span class="ba-ok">✓</span>Roadmap trimestral publicado — time sabe o que vem com antecedência</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Partner e Gestão com objetivos de negócio mapeados e priorizados</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Urgências avaliadas contra o Roadmap antes de virar tarefa técnica</div>
+        <div class="ba-item"><span class="ba-ok">✓</span>Status do Roadmap integrado ao reporte semanal para a diretoria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOCO FINAL -->
+  <div style="margin-top:12px;background:linear-gradient(135deg,#0D0F14,#1A1F2E);border-radius:14px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="font-size:30px;flex-shrink:0">🔁</div>
+      <div>
+        <div style="font-size:13px;font-weight:800;color:white;margin-bottom:5px">Essas 3 prioridades formam um sistema — não são ações isoladas</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6">Triagem define o que entra · Cadência alinha o time toda semana · Roadmap dá direção de longo prazo.<br>Juntas, resolvem <strong style="color:rgba(255,255,255,0.7)">100% dos 6 gargalos</strong> identificados na auditoria desta semana.</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <a href="apresentacao-diretoria.html" target="_blank" style="padding:9px 16px;border-radius:9px;border:1px solid rgba(255,255,255,0.12);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.06);text-decoration:none;display:inline-flex;align-items:center;gap:5px">🖥️ Apresentação</a>
+      <a href="reporte-executivo.html" target="_blank" style="padding:9px 18px;border-radius:9px;border:none;background:linear-gradient(135deg,#FA641E,#F59E0B);color:white;font-family:'Poppins',sans-serif;font-size:11px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:5px;box-shadow:0 4px 14px rgba(250,100,30,0.4)">⭐ Abrir Reporte →</a>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:11px;color:var(--text3)">
+    Entregável Final · Semana 2 · PIGZ Coord · 26–30 de Maio, 2026 · Coordenador de Projetos
+  </div>
+
+</div>
+
+<script>
+function toggleFS(){
+  const body=document.body,btn=document.getElementById('fsBtn'),
+        badge=document.getElementById('fs-badge'),exit=document.getElementById('fs-exit'),
+        isFS=body.classList.contains('fs-mode');
+  if(!isFS){
+    body.classList.add('fs-mode');
+    badge.style.display='block';
+    exit.style.display='flex';
+    btn.textContent='✕ Sair';
+    btn.style.background='#EF4444';
+    btn.style.color='white';
+    btn.style.borderColor='transparent';
+    if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});
+    window.scrollTo({top:0,behavior:'smooth'});
+  } else {
+    body.classList.remove('fs-mode');
+    badge.style.display='none';
+    exit.style.display='none';
+    btn.textContent='⛶ Tela Cheia';
+    btn.style.background='';
+    btn.style.color='';
+    btn.style.borderColor='';
+    if(document.exitFullscreen&&document.fullscreenElement)document.exitFullscreen().catch(()=>{});
+  }
+}
+document.addEventListener('fullscreenchange',()=>{
+  if(!document.fullscreenElement&&document.body.classList.contains('fs-mode'))toggleFS();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='f'&&!e.ctrlKey&&!e.metaKey&&!e.altKey)toggleFS();
+});
+</script>
+</body>
+</html>

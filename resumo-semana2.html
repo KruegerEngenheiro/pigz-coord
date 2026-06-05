@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo Semana 2 — PIGZ Coord</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   SCREEN STYLES
+═══════════════════════════════════════════ */
+:root {
+  --accent: #FA641E;
+  --warning: #F59E0B;
+  --success: #10B981;
+  --danger: #EF4444;
+  --info: #3B82F6;
+  --purple: #8B5CF6;
+  --text: #111827;
+  --text2: #4B5563;
+  --text3: #9CA3AF;
+  --border: #E5E7EB;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #F3F4F6;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ── TOOLBAR (screen only) ── */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.toolbar-left { display: flex; align-items: center; gap: 14px; }
+.logo { font-size: 14px; font-weight: 700; color: var(--text); }
+.logo span { color: var(--accent); }
+.toolbar-pill {
+  background: rgba(245,158,11,0.1); color: var(--warning);
+  font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;
+}
+.toolbar-right { display: flex; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: 999px; border: none;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.btn-download { background: var(--accent); color: white; }
+.btn-download:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-ghost { background: rgba(0,0,0,0.05); color: var(--text2); }
+.btn-ghost:hover { background: rgba(0,0,0,0.09); color: var(--text); }
+
+/* ── DOCUMENT WRAPPER ── */
+.doc-wrap {
+  max-width: 860px;
+  margin: 72px auto 0;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+}
+
+/* ── DOCUMENT HEADER ── */
+.doc-header {
+  background: linear-gradient(135deg, #FA641E 0%, #F59E0B 100%);
+  padding: 44px 52px 36px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.doc-header::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.doc-header::after {
+  content: '';
+  position: absolute; bottom: -60px; right: 80px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.doc-pre {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; opacity: 0.75; margin-bottom: 10px;
+}
+.doc-title {
+  font-size: 30px; font-weight: 800; letter-spacing: -0.5px;
+  line-height: 1.15; margin-bottom: 10px;
+}
+.doc-sub {
+  font-size: 14px; opacity: 0.85; line-height: 1.6; max-width: 520px;
+}
+.doc-meta {
+  display: flex; gap: 24px; margin-top: 24px; flex-wrap: wrap;
+}
+.doc-meta-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; opacity: 0.85; font-weight: 500;
+}
+
+/* ── DOCUMENT BODY ── */
+.doc-body { padding: 44px 52px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 36px; }
+.section-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #F3F4F6;
+}
+.section-num {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: white;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 15px; font-weight: 700; color: var(--text);
+}
+
+/* ── TWO COLUMNS ── */
+.col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.col3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* ── DELIVERABLE CARDS ── */
+.deliv-card {
+  border: 1.5px solid var(--border); border-radius: 12px; padding: 18px;
+  background: #FAFAFA;
+}
+.deliv-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.deliv-icon { font-size: 20px; }
+.deliv-tag {
+  font-size: 10px; font-weight: 700; padding: 3px 8px;
+  border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.deliv-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.deliv-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* ── ACTIVITY LIST ── */
+.activity-list { display: flex; flex-direction: column; gap: 10px; }
+.activity-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 16px; background: #F9FAFB;
+  border-radius: 10px; border: 1px solid var(--border);
+}
+.activity-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.activity-body {}
+.activity-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.activity-desc { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* ── MEETING CARDS ── */
+.meeting-card {
+  border-radius: 12px; padding: 18px;
+  border: 1.5px solid var(--border);
+  background: white;
+}
+.meeting-day-tag {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: 8px; display: block;
+}
+.meeting-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.meeting-with { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-weight: 600; }
+.meeting-points { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.meeting-points li {
+  font-size: 12px; color: var(--text2); display: flex;
+  align-items: flex-start; gap: 6px; line-height: 1.5;
+}
+.mp-dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+}
+
+/* ── DAY TABLE ── */
+.day-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.day-table th {
+  text-align: left; padding: 10px 14px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text3); font-weight: 700;
+  background: #F9FAFB; border-bottom: 1.5px solid var(--border);
+}
+.day-table td {
+  padding: 12px 14px; border-bottom: 1px solid #F3F4F6;
+  vertical-align: top;
+}
+.day-table tr:last-child td { border-bottom: none; }
+.day-name { font-weight: 700; font-size: 13px; }
+.day-date { font-size: 11px; color: var(--text3); }
+
+/* ── RISK TABLE ── */
+.risk-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.risk-table th {
+  text-align: left; padding: 9px 14px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text3); background: #F9FAFB; border-bottom: 1.5px solid var(--border);
+}
+.risk-table td { padding: 11px 14px; border-bottom: 1px solid #F3F4F6; vertical-align: top; }
+.risk-table tr:last-child td { border-bottom: none; }
+
+/* ── HIGHLIGHT BOX ── */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(250,100,30,0.04) 100%);
+  border: 1.5px solid rgba(245,158,11,0.2);
+  border-radius: 14px; padding: 22px 24px;
+  margin-top: 4px;
+}
+.highlight-box-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--warning); }
+.highlight-box-text { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.highlight-box-text strong { color: var(--text); }
+
+/* ── FOOTER ── */
+.doc-footer {
+  padding: 22px 52px;
+  background: #F9FAFB;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 11px; color: var(--text3);
+}
+.footer-logo { font-weight: 700; color: var(--text2); }
+.footer-logo span { color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════
+   PRINT STYLES — ativado com Ctrl+P → Salvar PDF
+═══════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+
+  body {
+    background: white !important;
+    padding: 0 !important;
+    font-size: 11pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .toolbar { display: none !important; }
+
+  .doc-wrap {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+  }
+
+  .doc-header {
+    padding: 32px 40px 28px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .doc-body { padding: 32px 40px !important; }
+  .doc-footer { padding: 16px 40px !important; }
+
+  .section { margin-bottom: 26px !important; page-break-inside: avoid; }
+  .meeting-card, .activity-item, .deliv-card { page-break-inside: avoid; }
+  .col2, .col3 { page-break-inside: avoid; }
+
+  .day-table, .risk-table { page-break-inside: avoid; }
+  .highlight-box { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR (só aparece na tela) -->
+<div class="toolbar">
+  <div class="toolbar-left">
+    <a class="logo" href="index.html" style="text-decoration:none">PIGZ <span>Coord</span></a>
+    <span class="toolbar-pill">📄 Resumo Semana 2</span>
+  </div>
+  <div class="toolbar-right">
+    <button class="btn btn-download" onclick="window.print()">⬇️ PDF</button>
+    <a class="btn btn-ghost" href="entregavel-final-s2.html" target="_blank">⭐ Entregável Final</a>
+    <a class="btn btn-ghost" href="plano-s2.html" target="_blank">🗓 Plano Detalhado</a>
+    <a class="btn btn-ghost" href="index.html">← Painel</a>
+  </div>
+</div>
+
+<!-- DOCUMENTO -->
+<div class="doc-wrap">
+
+  <!-- CABEÇALHO -->
+  <div class="doc-header">
+    <div class="doc-pre">PIGZ Coord · Documento Estratégico</div>
+    <div class="doc-title">Plano de Ação — Semana 2<br>Diagnóstico Operacional e Governança</div>
+    <div class="doc-sub">O que entregamos, o que fazemos, com quem alinhamos e como priorizamos os 5 dias desta semana.</div>
+    <div class="doc-meta">
+      <span class="doc-meta-item">📅 26–30 de Maio de 2026</span>
+      <span class="doc-meta-item">👤 Coordenador de Projetos</span>
+      <span class="doc-meta-item">🏢 PIGZ</span>
+    </div>
+  </div>
+
+  <!-- CORPO -->
+  <div class="doc-body">
+
+    <!-- ── SEÇÃO 1: O QUE ENTREGAMOS ── -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num" style="background:linear-gradient(135deg,#FA641E,#F59E0B)">1</div>
+        <div class="section-title">O Que Entregamos Esta Semana</div>
+      </div>
+      <div class="col2">
+        <div class="deliv-card">
+          <div class="deliv-card-head">
+            <span class="deliv-icon">📋</span>
+            <span class="deliv-tag" style="background:rgba(245,158,11,0.1);color:#F59E0B">Peça 1</span>
+          </div>
+          <div class="deliv-name">Plano de Ação Operacional</div>
+          <div class="deliv-desc">4 hipóteses de melhoria estruturadas com <strong>Problema → Impacto → Risco → Esforço</strong>, validadas pelas lideranças. Não é uma análise pessoal — é um plano <em>aprovado</em>.</div>
+        </div>
+        <div class="deliv-card">
+          <div class="deliv-card-head">
+            <span class="deliv-icon">📊</span>
+            <span class="deliv-tag" style="background:rgba(16,185,129,0.1);color:#10B981">Peça 2</span>
+          </div>
+          <div class="deliv-name">Template de Reporte Oficial</div>
+          <div class="deliv-desc">Formulário padrão que será usado <strong>toda semana</strong> para reportar o status da operação às lideranças. Cria a cadência de governança que antes não existia.</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top:14px">
+        <div class="highlight-box-title">⚡ Diferença crítica: "elaborado" vs. "validado"</div>
+        <div class="highlight-box-text">
+          O entregável só conta se tiver sido <strong>discutido e aprovado por Estratégia e Produto</strong>. Sem a reunião de validação na Quarta, você terá uma análise pessoal — não um plano institucional. A palavra-chave desta semana é <strong>"validado"</strong>.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 2: O QUE FAZEMOS ── -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num" style="background:linear-gradient(135deg,#8B5CF6,#6366F1)">2</div>
+        <div class="section-title">O Que Fazemos Esta Semana (4 Atividades)</div>
+      </div>
+      <div class="activity-list">
+        <div class="activity-item">
+          <span class="activity-icon">🔍</span>
+          <div class="activity-body">
+            <div class="activity-title">1. Auditoria Operacional no Linear</div>
+            <div class="activity-desc">Analisar o backlog de todos os produtos: Partner, Mobile, App Web, Gestão Desktop, TEF/Totem. Verificar tarefas sem responsável, bugs críticos sem triagem, tarefas sem estimativa e ciclos longos sem movimento.</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span class="activity-icon">🗺️</span>
+          <div class="activity-body">
+            <div class="activity-title">2. Identificação de Gargalos e Inconsistências</div>
+            <div class="activity-desc">Com os achados do Linear + o que você ouviu dos devs na Semana 1: mapear os principais pontos de dor. Formato: <em>produto afetado → impacto → frequência → quem sente mais.</em></div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span class="activity-icon">🔄</span>
+          <div class="activity-body">
+            <div class="activity-title">3. Análise de Fluxos, Estados e Ciclos</div>
+            <div class="activity-desc">Entender como as tarefas fluem no sistema. Onde elas travam? O ciclo Criado → Em andamento → Resolvido → Deploy está funcionando? Em qual estado há mais ruptura?</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span class="activity-icon">📄</span>
+          <div class="activity-body">
+            <div class="activity-title">4. Construção do Template de Reporte</div>
+            <div class="activity-desc">Criar o formulário padrão com as 4 seções: Saúde da Esteira · Gargalos e Impedimentos · KPIs de Governança · Prioridades da Próxima Semana. Já temos a estrutura — precisamos preencher com dados reais.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 3: COM QUEM E QUANDO ── -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num" style="background:linear-gradient(135deg,#3B82F6,#06B6D4)">3</div>
+        <div class="section-title">Com Quem Marcar — 3 Reuniões Essenciais</div>
+      </div>
+      <div class="col3">
+
+        <div class="meeting-card" style="border-top:3px solid #8B5CF6">
+          <span class="meeting-day-tag" style="color:#8B5CF6">Segunda ou Terça</span>
+          <div class="meeting-title">Conversa com Desenvolvedores</div>
+          <div class="meeting-with">👥 Devs de cada squad · 20–45 min</div>
+          <ul class="meeting-points">
+            <li><span class="mp-dot" style="background:#8B5CF6"></span>Quais bugs estão travando vocês hoje?</li>
+            <li><span class="mp-dot" style="background:#8B5CF6"></span>O que falta no processo de triagem atual?</li>
+            <li><span class="mp-dot" style="background:#8B5CF6"></span>As hipóteses fazem sentido tecnicamente?</li>
+            <li><span class="mp-dot" style="background:#8B5CF6"></span>As estimativas de esforço são realistas?</li>
+          </ul>
+          <div style="margin-top:12px;font-size:11px;color:#8B5CF6;font-weight:700;background:rgba(139,92,246,0.08);padding:8px 10px;border-radius:8px">
+            💡 Por quê: suas hipóteses precisam de respaldo técnico antes de ir para Produto. Sem isso, caem na hora.
+          </div>
+        </div>
+
+        <div class="meeting-card" style="border-top:3px solid #F59E0B">
+          <span class="meeting-day-tag" style="color:#F59E0B">⭐ Quarta — A mais importante</span>
+          <div class="meeting-title">Validação com Estratégia e Produto</div>
+          <div class="meeting-with">👔 Head de Produto / Estratégia · 60–90 min</div>
+          <ul class="meeting-points">
+            <li><span class="mp-dot" style="background:#F59E0B"></span>Apresentar os gargalos identificados</li>
+            <li><span class="mp-dot" style="background:#F59E0B"></span>Apresentar as 4 hipóteses com P/I/R/E</li>
+            <li><span class="mp-dot" style="background:#F59E0B"></span>Pedir decisão: quais priorizamos?</li>
+            <li><span class="mp-dot" style="background:#F59E0B"></span>Validar rascunho do template de reporte</li>
+          </ul>
+          <div style="margin-top:12px;font-size:11px;color:#F59E0B;font-weight:700;background:rgba(245,158,11,0.08);padding:8px 10px;border-radius:8px">
+            💡 Por quê: essa reunião transforma análise pessoal em plano institucional. Sem ela, não há entregável.
+          </div>
+        </div>
+
+        <div class="meeting-card" style="border-top:3px solid #10B981">
+          <span class="meeting-day-tag" style="color:#10B981">Quinta</span>
+          <div class="meeting-title">Validação do Template de Reporte</div>
+          <div class="meeting-with">📊 Head de Produto · 20–30 min</div>
+          <ul class="meeting-points">
+            <li><span class="mp-dot" style="background:#10B981"></span>Este formato cobre o que você precisa saber?</li>
+            <li><span class="mp-dot" style="background:#10B981"></span>Algum campo faltando ou desnecessário?</li>
+            <li><span class="mp-dot" style="background:#10B981"></span>Qual dia da semana recebe o reporte?</li>
+            <li><span class="mp-dot" style="background:#10B981"></span>Quem deve receber o documento?</li>
+          </ul>
+          <div style="margin-top:12px;font-size:11px;color:#10B981;font-weight:700;background:rgba(16,185,129,0.08);padding:8px 10px;border-radius:8px">
+            💡 Por quê: define a cadência — garante que seu reporte será usado, não só enviado.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SEÇÃO 4: PRIORIDADE POR DIA ── -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num" style="background:linear-gradient(135deg,#FA641E,#EF4444)">4</div>
+        <div class="section-title">Prioridade por Dia</div>
+      </div>
+      <table class="day-table">
+        <thead>
+          <tr>
+            <th>Dia</th>
+            <th>Foco Principal</th>
+            <th>Ação mais importante</th>
+            <th>Output do dia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="day-name" style="color:#8B5CF6">Segunda</div>
+              <div class="day-date">26/05</div>
+            </td>
+            <td>🔍 Auditoria</td>
+            <td>Entrar no Linear e mapear todos os produtos. Conversar com devs.</td>
+            <td style="font-size:11px;color:var(--text2)">Escopo auditado + notas de campo dos devs</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="day-name" style="color:#F59E0B">Terça</div>
+              <div class="day-date">27/05</div>
+            </td>
+            <td>🗺️ Hipóteses</td>
+            <td>Estruturar as 4 hipóteses com P/I/R/E. Validar tecnicamente com devs.</td>
+            <td style="font-size:11px;color:var(--text2)">Plano de Ação v0.1 + KPIs definidos</td>
+          </tr>
+          <tr style="background:rgba(245,158,11,0.04)">
+            <td>
+              <div class="day-name" style="color:#F59E0B">⭐ Quarta</div>
+              <div class="day-date">28/05</div>
+            </td>
+            <td>🤝 Validação</td>
+            <td><strong>Reunião com Estratégia e Produto.</strong> Apresentar diagnóstico e hipóteses.</td>
+            <td style="font-size:11px;color:var(--text2)">Hipóteses aprovadas / priorizadas pelas lideranças</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="day-name" style="color:#10B981">Quinta</div>
+              <div class="day-date">29/05</div>
+            </td>
+            <td>📄 Template</td>
+            <td>Finalizar template de reporte. Validar formato com Produto.</td>
+            <td style="font-size:11px;color:var(--text2)">Template v1.0 aprovado + cadência definida</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="day-name" style="color:#FA641E">Sexta</div>
+              <div class="day-date">30/05</div>
+            </td>
+            <td>🏁 Entrega</td>
+            <td>Apresentação final do entregável. Consolidar para a Semana 3.</td>
+            <td style="font-size:11px;color:var(--text2)">Entregável S2 oficialmente entregue</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── SEÇÃO 5: RISCOS ── -->
+    <div class="section">
+      <div class="section-head">
+        <div class="section-num" style="background:linear-gradient(135deg,#EF4444,#F97316)">5</div>
+        <div class="section-title">Riscos e Como Evitá-los</div>
+      </div>
+      <table class="risk-table">
+        <thead>
+          <tr>
+            <th>⚠️ Risco</th>
+            <th>✅ Como Evitar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Não conseguir agenda com Produto na Quarta</td>
+            <td style="color:var(--success);font-weight:600">Pedir agenda <u>hoje</u> — é o bloqueio mais crítico da semana</td>
+          </tr>
+          <tr>
+            <td>Levar hipóteses sem respaldo técnico</td>
+            <td>Conversar com os devs <u>antes</u> da reunião com Produto — Segunda e Terça</td>
+          </tr>
+          <tr>
+            <td>Template aprovado mas sem cadência definida</td>
+            <td>Na própria reunião de validação, definir dia, hora e lista de destinatários</td>
+          </tr>
+          <tr>
+            <td>Entregável sem dados reais do Linear</td>
+            <td>Preencher os KPIs com números reais — não deixar campos em branco na entrega</td>
+          </tr>
+          <tr>
+            <td>Hipóteses vagas, sem ação concreta</td>
+            <td>Cada hipótese deve ter: quem executa, quando começa e qual o 1º passo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ── DESTAQUE FINAL ── -->
+    <div class="highlight-box">
+      <div class="highlight-box-title">🏁 Resumo em Uma Frase</div>
+      <div class="highlight-box-text">
+        Auditar o Linear, conversar com devs e lideranças, transformar os achados em <strong>hipóteses estruturadas e aprovadas</strong>, e entregar na Sexta um <strong>Plano de Ação validado + Template de Reporte oficial</strong> — pronto para uso a partir da Semana 3.
+        <br><br>
+        <strong>Ação mais urgente agora:</strong> pedir agenda para os desenvolvedores (Segunda) e para Estratégia/Produto (Quarta). Sem essas duas reuniões, o entregável não está completo.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="doc-footer">
+    <span class="footer-logo">PIGZ <span>Coord</span></span>
+    <span>Semana 2 · Diagnóstico Operacional e Governança · 26–30 de Maio de 2026</span>
+    <span>Confidencial — Uso Interno</span>
+  </div>
+
+</div>
+
+<script>
+// Auto-trigger print on load if ?print=1 is in URL
+if (window.location.search.includes('print=1')) {
+  window.onload = () => setTimeout(() => window.print(), 500);
+}
+</script>
+
+</body>
+</html>

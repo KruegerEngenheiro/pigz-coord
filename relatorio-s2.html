@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entregável S2 — Diagnóstico Operacional e Governança | PIGZ Coord</title>
+<meta name="description" content="Plano de Ação Operacional + Template de Reporte Oficial — Semana 2 PIGZ">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F0F2F5;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --accent: #FA641E;
+  --accent-dim: rgba(250,100,30,0.1);
+  --success: #10B981;
+  --success-dim: rgba(16,185,129,0.1);
+  --warning: #F59E0B;
+  --warning-dim: rgba(245,158,11,0.1);
+  --danger: #EF4444;
+  --danger-dim: rgba(239,68,68,0.1);
+  --info: #3B82F6;
+  --info-dim: rgba(59,130,246,0.1);
+  --text: #111827;
+  --text2: #4B5563;
+  --text3: #9CA3AF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top right, rgba(245,158,11,0.06) 0%, #FFFFFF 55%, #F5F7FA 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 28px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+.toolbar-left { display: flex; align-items: center; gap: 16px; }
+.logo { font-size: 15px; font-weight: 700; color: var(--text); }
+.logo span { color: var(--accent); }
+.week-tag {
+  background: var(--warning-dim); color: var(--warning);
+  font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 999px;
+}
+.toolbar-right { display: flex; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px; border: none;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+}
+.btn-ghost { background: rgba(0,0,0,0.04); color: var(--text2); }
+.btn-ghost:hover { background: rgba(0,0,0,0.08); color: var(--text); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-save { background: var(--success-dim); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+.btn-save:hover { background: rgba(16,185,129,0.2); }
+
+/* ── NAV SECTIONS ── */
+.section-nav {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px;
+}
+.section-nav-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border);
+  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; background: rgba(0,0,0,0.03); color: var(--text2);
+  white-space: nowrap;
+}
+.section-nav-btn:hover, .section-nav-btn.active {
+  background: var(--warning-dim); color: var(--warning); border-color: rgba(245,158,11,0.3);
+}
+
+/* ── PAGE ── */
+.page { padding: 80px 28px 60px; max-width: 1400px; margin: 0 auto; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(250,100,30,0.04) 100%);
+  border: 1px solid rgba(245,158,11,0.15);
+  border-radius: 20px;
+  padding: 32px 36px;
+  margin-bottom: 36px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  animation: fadeInUp 0.4s ease-out;
+}
+.page-header-info {}
+.page-pretitle {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--warning); margin-bottom: 8px;
+}
+h1.page-title {
+  font-size: 30px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;
+}
+.page-subtitle { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.page-header-meta {
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+  flex-shrink: 0;
+}
+.meta-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+}
+.meta-chip.warning { background: var(--warning-dim); color: var(--warning); }
+.meta-chip.success { background: var(--success-dim); color: var(--success); }
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--text3);
+  margin: 40px 0 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.section-title-label {
+  background: var(--warning-dim); color: var(--warning);
+  padding: 3px 12px; border-radius: 999px; font-size: 11px;
+}
+
+/* ── KPI GRID ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 4px;
+}
+.kpi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+  cursor: default;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--kpi-color, var(--accent));
+}
+.kpi-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
+.kpi-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.kpi-value { font-size: 32px; font-weight: 800; color: var(--kpi-color, var(--text)); line-height: 1; margin-bottom: 6px; }
+.kpi-unit { font-size: 13px; font-weight: 400; color: var(--text3); }
+.kpi-trend { font-size: 12px; color: var(--text3); margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+.kpi-trend.up { color: var(--success); }
+.kpi-trend.down { color: var(--danger); }
+.kpi-input {
+  width: 100%; background: transparent; border: none; border-bottom: 1px dashed var(--border);
+  font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 800;
+  color: var(--kpi-color, var(--text)); padding: 0; outline: none; line-height: 1;
+  margin-bottom: 6px;
+}
+.kpi-input:focus { border-bottom-color: var(--kpi-color, var(--accent)); }
+
+/* ── AUDIT GRID ── */
+.audit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.audit-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  border-left: 4px solid var(--warning);
+  transition: all 0.2s;
+}
+.audit-card.critical { border-left-color: var(--danger); }
+.audit-card.ok { border-left-color: var(--success); }
+.audit-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.audit-icon { font-size: 20px; margin-bottom: 10px; }
+.audit-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.audit-list { list-style: none; font-size: 13px; color: var(--text2); line-height: 1.65; }
+.audit-list li { position: relative; padding-left: 14px; margin-bottom: 6px; }
+.audit-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); }
+.audit-severity {
+  display: inline-block; margin-top: 12px;
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+}
+.sev-critical { background: var(--danger-dim); color: var(--danger); }
+.sev-medium { background: var(--warning-dim); color: var(--warning); }
+.sev-low { background: var(--success-dim); color: var(--success); }
+
+/* ── ACTION PLAN ── */
+.action-grid { display: flex; flex-direction: column; gap: 16px; }
+.action-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.action-item:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.action-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px;
+  background: linear-gradient(90deg, rgba(245,158,11,0.04) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.action-header-left { display: flex; align-items: center; gap: 14px; }
+.action-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--warning-dim); color: var(--warning);
+  font-weight: 800; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.action-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.action-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 6px;
+}
+.tag-risk-alto { background: var(--danger-dim); color: var(--danger); }
+.tag-risk-medio { background: var(--warning-dim); color: var(--warning); }
+.tag-risk-baixo { background: var(--success-dim); color: var(--success); }
+.tag-esforco-alto { background: rgba(239,68,68,0.08); color: var(--danger); }
+.tag-esforco-medio { background: rgba(245,158,11,0.08); color: var(--warning); }
+.tag-esforco-baixo { background: rgba(16,185,129,0.08); color: var(--success); }
+.action-toggle { font-size: 18px; color: var(--text3); transition: transform 0.3s; }
+.action-toggle.open { transform: rotate(180deg); }
+
+.action-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 20px 22px;
+  display: none;
+}
+.action-body.open { display: grid; animation: fadeInUp 0.25s ease; }
+.action-field { display: flex; flex-direction: column; gap: 8px; }
+.action-field label {
+  font-size: 11px; font-weight: 700; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.field-textarea {
+  width: 100%; background: #F9FAFB; border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text);
+  font-family: 'Poppins', sans-serif; font-size: 13px;
+  padding: 12px; resize: vertical; min-height: 90px;
+  line-height: 1.55; outline: none; transition: border-color 0.2s;
+}
+.field-textarea:focus { border-color: var(--warning); }
+.action-full { grid-column: 1 / -1; }
+
+/* ── REPORT FORM ── */
+.report-form-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+.report-form-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(250,100,30,0.04) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.report-form-title { font-size: 18px; font-weight: 700; }
+.report-form-meta { font-size: 13px; color: var(--text2); }
+.report-form-body { padding: 28px; display: flex; flex-direction: column; gap: 28px; }
+
+.rpt-section-title {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.8px; color: var(--accent); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rpt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.rpt-field { display: flex; flex-direction: column; gap: 6px; }
+.rpt-field.full { grid-column: 1 / -1; }
+.rpt-label { font-size: 12px; font-weight: 600; color: var(--text2); }
+.rpt-input {
+  background: #F9FAFB; border: 1px solid var(--border); border-radius: 10px;
+  font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text);
+  padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%;
+}
+.rpt-input:focus { border-color: var(--accent); }
+.rpt-textarea {
+  background: #F9FAFB; border: 1px solid var(--border); border-radius: 10px;
+  font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text);
+  padding: 12px 14px; outline: none; transition: border-color 0.2s;
+  width: 100%; resize: vertical; min-height: 80px; line-height: 1.55;
+}
+.rpt-textarea:focus { border-color: var(--accent); }
+.rpt-select {
+  background: #F9FAFB; border: 1px solid var(--border); border-radius: 10px;
+  font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text);
+  padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%;
+  appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%239CA3AF' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  padding-right: 36px;
+}
+.rpt-select:focus { border-color: var(--accent); }
+
+.rpt-divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+/* Metric row */
+.metric-row {
+  display: flex; align-items: center; gap: 16px;
+  background: #F9FAFB; border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px;
+}
+.metric-label { font-size: 13px; font-weight: 600; flex: 1; }
+.metric-value-input {
+  width: 100px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700;
+  color: var(--text); padding: 6px 10px; text-align: center; outline: none;
+  transition: border-color 0.2s;
+}
+.metric-value-input:focus { border-color: var(--accent); }
+.metric-unit { font-size: 13px; color: var(--text3); min-width: 40px; }
+
+/* Status indicator */
+.status-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.status-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  border: 1.5px solid var(--border); font-family: 'Poppins', sans-serif;
+  font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  background: transparent; color: var(--text2);
+}
+.status-btn:hover { border-color: var(--warning); color: var(--warning); }
+.status-btn.selected-green { background: var(--success-dim); border-color: var(--success); color: var(--success); }
+.status-btn.selected-yellow { background: var(--warning-dim); border-color: var(--warning); color: var(--warning); }
+.status-btn.selected-red { background: var(--danger-dim); border-color: var(--danger); color: var(--danger); }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-green { background: var(--success); }
+.dot-yellow { background: var(--warning); }
+.dot-red { background: var(--danger); }
+
+/* ── BAR CHART ── */
+.bar-chart { display: flex; gap: 14px; align-items: flex-end; height: 120px; padding: 0 8px; }
+.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.bar-track { width: 100%; background: #F3F4F6; border-radius: 6px; position: relative; flex: 1; overflow: hidden; }
+.bar-fill {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  border-radius: 6px; transition: height 0.8s cubic-bezier(0.34,1.56,0.64,1);
+}
+.bar-label { font-size: 11px; color: var(--text3); text-align: center; }
+.bar-val { font-size: 12px; font-weight: 700; color: var(--text2); }
+
+/* ── PIE LIKE DONUT ── */
+.donut-wrap {
+  display: flex; align-items: center; gap: 28px;
+}
+.donut-svg { flex-shrink: 0; }
+.donut-legend { display: flex; flex-direction: column; gap: 10px; }
+.donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── PROGRESS BARS ── */
+.prog-bars { display: flex; flex-direction: column; gap: 14px; }
+.prog-item {}
+.prog-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.prog-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.prog-pct { font-size: 13px; font-weight: 700; }
+.prog-track {
+  height: 8px; background: #F3F4F6; border-radius: 999px; overflow: hidden;
+}
+.prog-fill {
+  height: 100%; border-radius: 999px;
+  transition: width 1s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── FOOTER ── */
+.footer-note {
+  text-align: center; color: var(--text3); font-size: 12px; padding: 48px 0 20px;
+}
+
+/* ── TOAST ── */
+#toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  background: var(--text); color: #fff;
+  padding: 12px 22px; border-radius: 12px;
+  font-size: 13px; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  opacity: 0; transform: translateY(12px);
+  transition: all 0.3s;
+  pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<div id="toast">💾 Relatório salvo com sucesso!</div>
+
+<div class="toolbar">
+  <div class="toolbar-left">
+    <span class="logo">PIGZ <span>Coord</span></span>
+    <span class="week-tag">⚡ Semana 2 — Entregável</span>
+    <div class="section-nav" id="sectionNav">
+      <button class="section-nav-btn active" onclick="scrollTo('sec-kpi')">📊 KPIs</button>
+      <button class="section-nav-btn" onclick="scrollTo('sec-audit')">🔍 Auditoria</button>
+      <button class="section-nav-btn" onclick="scrollTo('sec-action')">📋 Plano de Ação</button>
+      <button class="section-nav-btn" onclick="scrollTo('sec-report')">📄 Reporte Oficial</button>
+    </div>
+  </div>
+  <div class="toolbar-right">
+    <a class="btn btn-primary" href="entregavel-final-s2.html" target="_blank" style="background:linear-gradient(135deg,#FA641E,#F59E0B);box-shadow:0 4px 14px rgba(250,100,30,0.3)">⭐ Entregável Final</a>
+    <a class="btn btn-ghost" href="reporte-executivo.html" target="_blank">📊 Reporte</a>
+    <button class="btn btn-save" id="saveBtn" onclick="saveAll()">💾 Salvar</button>
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ PDF</button>
+    <a class="btn btn-ghost" href="index.html">← Painel</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-info">
+      <div class="page-pretitle">Entregável · Semana 2</div>
+      <h1 class="page-title">Diagnóstico Operacional e Governança</h1>
+      <p class="page-subtitle">
+        Auditoria do backlog no Linear · Mapeamento de gargalos · Plano de Ação validado<br>
+        Template oficial do Reporte Operacional Semanal
+      </p>
+    </div>
+    <div class="page-header-meta">
+      <span class="meta-chip warning">📅 26–30 de Maio, 2026</span>
+      <span class="meta-chip success">👤 Coordenador de Projetos</span>
+    </div>
+  </div>
+
+  <!-- BANNER — REPORTE EXECUTIVO -->
+  <a href="reporte-executivo.html" target="_blank" id="exec-banner" style="
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    background:linear-gradient(135deg, rgba(250,100,30,0.07) 0%, rgba(245,158,11,0.07) 100%);
+    border:1.5px solid rgba(250,100,30,0.22);
+    border-radius:18px; padding:22px 30px; margin-bottom:30px;
+    text-decoration:none; transition:all 0.25s;
+    animation:fadeInUp 0.5s ease;
+  " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 36px rgba(250,100,30,0.13)';this.style.borderColor='rgba(250,100,30,0.4)'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(250,100,30,0.22)'">
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#FA641E,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 6px 16px rgba(250,100,30,0.35)">⭐</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:4px">Acesso Rápido · Entregável Principal</div>
+        <div style="font-size:16px;font-weight:800;color:var(--text);letter-spacing:-0.3px">Reporte Executivo — Nível CEO</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:3px">Design premium dark · KPIs interativos · Semáforos por produto · Plano de ação visual</div>
+      </div>
+    </div>
+    <div style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#FA641E,#F59E0B);color:white;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(250,100,30,0.35)">
+      Abrir Reporte <span style="font-size:16px">→</span>
+    </div>
+  </a>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- JORNADA DA SEMANA — LINHA DO TEMPO                 -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div style="margin-bottom:36px">
+    <div class="section-title" style="margin-top:0">
+      <span class="section-title-label">📍</span>
+      Jornada da Semana 2 — Construção Cronológica
+    </div>
+
+    <!-- INTRO -->
+    <div style="background:white;border:1px solid var(--border);border-radius:16px;padding:22px 28px;margin-bottom:16px;display:flex;align-items:center;gap:18px">
+      <div style="font-size:28px;flex-shrink:0">🗓️</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">Esta semana foi construída progressivamente — nada foi feito de uma vez.</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6">Cada ferramenta abaixo foi desenvolvida e utilizada em sequência, formando um sistema de gestão completo que vai da <strong>coleta de dados</strong> até o <strong>reporte executivo às lideranças</strong>.</div>
+      </div>
+    </div>
+
+    <!-- TIMELINE GRID -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+
+      <!-- STEP 1 -->
+      <a href="reuniao-devs.html" target="_blank" style="text-decoration:none;display:block;background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px 16px;border-top:4px solid #FA641E;transition:all 0.25s;position:relative" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(250,100,30,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#FA641E">Passo 01</div>
+          <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.1);color:#10B981">✅ Concluído</div>
+        </div>
+        <div style="font-size:20px;margin-bottom:8px">🎤</div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3">Facilitador de Reunião</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Ferramenta interativa criada para conduzir a reunião com o time técnico e capturar dados em tempo real.</div>
+        <div style="font-size:9px;color:var(--text3);font-weight:700;border-top:1px solid var(--border);padding-top:8px">📅 Seg 26/05 · 19h30</div>
+      </a>
+
+      <!-- STEP 2 -->
+      <a href="ata-reuniao-devs.html" target="_blank" style="text-decoration:none;display:block;background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px 16px;border-top:4px solid #10B981;transition:all 0.25s;position:relative" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(16,185,129,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#10B981">Passo 02</div>
+          <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.1);color:#10B981">✅ Concluído</div>
+        </div>
+        <div style="font-size:20px;margin-bottom:8px">📄</div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3">Ata de Reunião Automática</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Gerada automaticamente com os dados da reunião. Assinada no GOV para validade oficial. 6 bugs, 6 gargalos e 5 hipóteses registradas.</div>
+        <div style="font-size:9px;color:var(--text3);font-weight:700;border-top:1px solid var(--border);padding-top:8px">📅 Ter 26/05 · 18h45</div>
+      </a>
+
+      <!-- STEP 3 -->
+      <a href="showcase-ferramenta.html" target="_blank" style="text-decoration:none;display:block;background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px 16px;border-top:4px solid #A78BFA;transition:all 0.25s;position:relative" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(167,139,250,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#A78BFA">Passo 03</div>
+          <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.1);color:#10B981">✅ Concluído</div>
+        </div>
+        <div style="font-size:20px;margin-bottom:8px">📽️</div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3">Showcase do Processo</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Documentação cronológica da construção das ferramentas — evidência de que tudo foi desenvolvido durante a semana.</div>
+        <div style="font-size:9px;color:var(--text3);font-weight:700;border-top:1px solid var(--border);padding-top:8px">📅 Ter 26/05 · 19h</div>
+      </a>
+
+      <!-- STEP 4 -->
+      <a href="reporte-executivo.html" target="_blank" style="text-decoration:none;display:block;background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px 16px;border-top:4px solid #FBBF24;transition:all 0.25s;position:relative" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(251,191,36,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#D97706">Passo 04</div>
+          <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(16,185,129,0.1);color:#10B981">✅ Concluído</div>
+        </div>
+        <div style="font-size:20px;margin-bottom:8px">⭐</div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3">Reporte Executivo CEO</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Dashboard dark premium com KPIs, semáforos e plano de ação. Alimentado pelos dados reais da reunião. Para apresentação semanal às lideranças.</div>
+        <div style="font-size:9px;color:var(--text3);font-weight:700;border-top:1px solid var(--border);padding-top:8px">📅 Qua 27/05 — em uso</div>
+      </a>
+
+      <!-- STEP 5 -->
+      <a href="resumo-semana2.html" target="_blank" style="text-decoration:none;display:block;background:white;border:1.5px solid var(--border);border-radius:14px;padding:18px 16px;border-top:4px solid #3B82F6;transition:all 0.25s;position:relative" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 28px rgba(59,130,246,0.12)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#3B82F6">Passo 05</div>
+          <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(245,158,11,0.1);color:#D97706">⏳ Em andamento</div>
+        </div>
+        <div style="font-size:20px;margin-bottom:8px">📋</div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.3">Resumo Executivo PDF</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:10px">Documento A4 com o plano de ação da semana. Compartilhável com coordenadores e lideranças para validação e assinatura.</div>
+        <div style="font-size:9px;color:var(--text3);font-weight:700;border-top:1px solid var(--border);padding-top:8px">📅 Entrega Sex 30/05</div>
+      </a>
+
+    </div>
+
+    <!-- CONNECTOR LINE (visual only) -->
+    <div style="margin:10px 0 0;display:flex;align-items:center;gap:4px;padding:0 20px">
+      <div style="flex:1;height:2px;background:linear-gradient(90deg,#FA641E,#10B981,#A78BFA,#FBBF24,#3B82F6);border-radius:999px;opacity:0.3"></div>
+    </div>
+
+    <!-- IMPACT SUMMARY -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px">
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#FA641E;letter-spacing:-1px">5</div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3)">Ferramentas criadas</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#10B981;letter-spacing:-1px">6</div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3)">Bugs mapeados</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#A78BFA;letter-spacing:-1px">5</div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3)">Hipóteses validadas</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center">
+        <div style="font-size:22px;font-weight:900;color:#FBBF24;letter-spacing:-1px">1</div>
+        <div style="font-size:10px;font-weight:700;color:var(--text3)">Ata assinada GOV</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="sec-kpi">
+    <div class="section-title">
+      <span class="section-title-label">01</span>
+      Painel de Métricas Operacionais
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--kpi-color: var(--danger)">
+        <div class="kpi-label">Bugs Críticos Abertos</div>
+        <input class="kpi-input" type="number" id="kpi-bugs-criticos" placeholder="0" min="0" oninput="animateBars()">
+        <div class="kpi-unit">issues em aberto</div>
+        <div class="kpi-trend" id="trend-bugs">Registre o valor atual</div>
+      </div>
+      <div class="kpi-card" style="--kpi-color: var(--success)">
+        <div class="kpi-label">Bugs Resolvidos (Semana)</div>
+        <input class="kpi-input" type="number" id="kpi-bugs-resolvidos" placeholder="0" min="0" oninput="animateBars()">
+        <div class="kpi-unit">resoluções na semana</div>
+        <div class="kpi-trend" id="trend-resolvidos">Registre o valor atual</div>
+      </div>
+      <div class="kpi-card" style="--kpi-color: var(--warning)">
+        <div class="kpi-label">MTTR Médio</div>
+        <input class="kpi-input" type="number" id="kpi-mttr" placeholder="0" min="0" oninput="updateMttr()">
+        <div class="kpi-unit">horas / bug crítico</div>
+        <div class="kpi-trend" id="trend-mttr">Tempo médio de resolução</div>
+      </div>
+      <div class="kpi-card" style="--kpi-color: var(--info)">
+        <div class="kpi-label">Tarefas sem Estimativa</div>
+        <input class="kpi-input" type="number" id="kpi-sem-est" placeholder="0" min="0" max="100">
+        <div class="kpi-unit">% do backlog</div>
+        <div class="kpi-trend">Meta: abaixo de 20%</div>
+      </div>
+      <div class="kpi-card" style="--kpi-color: var(--accent)">
+        <div class="kpi-label">Entregas vs. Planejado</div>
+        <input class="kpi-input" type="number" id="kpi-entregas" placeholder="0" min="0" max="100">
+        <div class="kpi-unit">% de aderência</div>
+        <div class="kpi-trend">Meta: acima de 80%</div>
+      </div>
+      <div class="kpi-card" style="--kpi-color: var(--success)">
+        <div class="kpi-label">Features em QA</div>
+        <input class="kpi-input" type="number" id="kpi-qa" placeholder="0" min="0">
+        <div class="kpi-unit">itens em validação</div>
+        <div class="kpi-trend">Aguardando deploy</div>
+      </div>
+    </div>
+
+    <!-- Bar chart -->
+    <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="kpi-card" style="--kpi-color: var(--warning); cursor:default;">
+        <div class="kpi-label" style="margin-bottom:20px">Distribuição do Backlog por Produto</div>
+        <div class="bar-chart" id="barChart">
+          <div class="bar-wrap">
+            <div class="bar-val" id="bv0">—</div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bf0" style="background:var(--danger);height:0%"></div>
+            </div>
+            <div class="bar-label">Partner</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val" id="bv1">—</div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bf1" style="background:var(--warning);height:0%"></div>
+            </div>
+            <div class="bar-label">Mobile</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val" id="bv2">—</div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bf2" style="background:var(--accent);height:0%"></div>
+            </div>
+            <div class="bar-label">App Web</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val" id="bv3">—</div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bf3" style="background:var(--info);height:0%"></div>
+            </div>
+            <div class="bar-label">Gestão</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val" id="bv4">—</div>
+            <div class="bar-track">
+              <div class="bar-fill" id="bf4" style="background:var(--success);height:0%"></div>
+            </div>
+            <div class="bar-label">TEF</div>
+          </div>
+        </div>
+        <div class="prog-bars" style="margin-top:18px">
+          <div class="rpt-label" style="margin-bottom:4px;font-size:11px;letter-spacing:0.5px;color:var(--text3);">BUGS POR PRODUTO — insira os valores</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Partner</div>
+              <input class="rpt-input" type="number" id="bar0" min="0" placeholder="0" oninput="animateBars()">
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Mobile</div>
+              <input class="rpt-input" type="number" id="bar1" min="0" placeholder="0" oninput="animateBars()">
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px">App Web</div>
+              <input class="rpt-input" type="number" id="bar2" min="0" placeholder="0" oninput="animateBars()">
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Gestão Desktop</div>
+              <input class="rpt-input" type="number" id="bar3" min="0" placeholder="0" oninput="animateBars()">
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--text3);margin-bottom:4px">TEF / Totem</div>
+              <input class="rpt-input" type="number" id="bar4" min="0" placeholder="0" oninput="animateBars()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-color: var(--accent); cursor:default;">
+        <div class="kpi-label" style="margin-bottom:20px">Status Geral de Saúde da Esteira</div>
+        <div id="saudeStatus" style="font-size:13px;color:var(--text3);margin-bottom:16px;">Selecione os semáforos abaixo para cada área:</div>
+        <div class="prog-bars">
+          <div class="prog-item" id="area-partner">
+            <div class="prog-header">
+              <span class="prog-name">Pigz Partner</span>
+              <div style="display:flex;gap:6px">
+                <button class="status-btn" data-area="partner" data-color="green" onclick="setSaude(this)"><span class="dot dot-green"></span>OK</button>
+                <button class="status-btn" data-area="partner" data-color="yellow" onclick="setSaude(this)"><span class="dot dot-yellow"></span>Atenção</button>
+                <button class="status-btn" data-area="partner" data-color="red" onclick="setSaude(this)"><span class="dot dot-red"></span>Crítico</button>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item" id="area-mobile">
+            <div class="prog-header">
+              <span class="prog-name">Mobile (iOS/Android)</span>
+              <div style="display:flex;gap:6px">
+                <button class="status-btn" data-area="mobile" data-color="green" onclick="setSaude(this)"><span class="dot dot-green"></span>OK</button>
+                <button class="status-btn" data-area="mobile" data-color="yellow" onclick="setSaude(this)"><span class="dot dot-yellow"></span>Atenção</button>
+                <button class="status-btn" data-area="mobile" data-color="red" onclick="setSaude(this)"><span class="dot dot-red"></span>Crítico</button>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item" id="area-gestao">
+            <div class="prog-header">
+              <span class="prog-name">Gestão Desktop</span>
+              <div style="display:flex;gap:6px">
+                <button class="status-btn" data-area="gestao" data-color="green" onclick="setSaude(this)"><span class="dot dot-green"></span>OK</button>
+                <button class="status-btn" data-area="gestao" data-color="yellow" onclick="setSaude(this)"><span class="dot dot-yellow"></span>Atenção</button>
+                <button class="status-btn" data-area="gestao" data-color="red" onclick="setSaude(this)"><span class="dot dot-red"></span>Crítico</button>
+              </div>
+            </div>
+          </div>
+          <div class="prog-item" id="area-tef">
+            <div class="prog-header">
+              <span class="prog-name">TEF / Totem</span>
+              <div style="display:flex;gap:6px">
+                <button class="status-btn" data-area="tef" data-color="green" onclick="setSaude(this)"><span class="dot dot-green"></span>OK</button>
+                <button class="status-btn" data-area="tef" data-color="yellow" onclick="setSaude(this)"><span class="dot dot-yellow"></span>Atenção</button>
+                <button class="status-btn" data-area="tef" data-color="red" onclick="setSaude(this)"><span class="dot dot-red"></span>Crítico</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SEÇÃO 2: AUDITORIA OPERACIONAL                     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="sec-audit">
+    <div class="section-title">
+      <span class="section-title-label">02</span>
+      Auditoria Operacional — Linear & Produtos
+    </div>
+
+    <div class="audit-grid">
+      <div class="audit-card critical">
+        <div class="audit-icon">🚨</div>
+        <div class="audit-title">Ponto Cego de Monitoramento</div>
+        <ul class="audit-list">
+          <li><strong>Pigz Partner (Crítico):</strong> Sem monitoramento ativo. Erros de configuração impactam a operação sem visibilidade proativa.</li>
+          <li><strong>Gestão Mobile & App Native:</strong> Ausência de ferramentas de tracking de erros (Sentry/Clarity).</li>
+          <li><strong>Impacto:</strong> O time reage aos bugs apenas quando o cliente reclama, aumentando o Downtime operacional.</li>
+        </ul>
+        <span class="audit-severity sev-critical">🔴 Severidade: Crítica</span>
+      </div>
+      <div class="audit-card">
+        <div class="audit-icon">⚠️</div>
+        <div class="audit-title">Fragmentação de Stack Mobile</div>
+        <ul class="audit-list">
+          <li><strong>React Native:</strong> Varia de v0.72.1 (TEF) até v0.76.1 (Mobile).</li>
+          <li><strong>Consequência:</strong> Dificulta rotação de devs e duplica esforço na atualização de bibliotecas base.</li>
+          <li><strong>Risco Operacional:</strong> Lentidão na esteira de desenvolvimento de features transversais.</li>
+        </ul>
+        <span class="audit-severity sev-medium">🟡 Severidade: Média</span>
+      </div>
+      <div class="audit-card">
+        <div class="audit-icon">⚙️</div>
+        <div class="audit-title">Legados e Débito Técnico</div>
+        <ul class="audit-list">
+          <li><strong>Partner & App Web:</strong> Presos no Next.js 12 e Node 16 (fim de vida).</li>
+          <li><strong>Gestão Desktop:</strong> Monolítico em Electron 17 — travamentos em horário de pico.</li>
+          <li><strong>Risco:</strong> Vulnerabilidades de segurança e dificuldade de deploy a longo prazo.</li>
+        </ul>
+        <span class="audit-severity sev-medium">🟡 Severidade: Média</span>
+      </div>
+      <div class="audit-card">
+        <div class="audit-icon">📋</div>
+        <div class="audit-title">Backlog sem Triagem Padrão</div>
+        <ul class="audit-list">
+          <li><strong>Problema:</strong> Sem processo padronizado de triagem, bugs críticos se misturam com melhorias de UX.</li>
+          <li><strong>Linear:</strong> Ausência de labels de severidade, SLAs e responsáveis claros.</li>
+          <li><strong>Impacto:</strong> Dificuldade de priorização e visibilidade para Estratégia e Produto.</li>
+        </ul>
+        <span class="audit-severity sev-medium">🟡 Severidade: Média</span>
+      </div>
+      <div class="audit-card">
+        <div class="audit-icon">🔌</div>
+        <div class="audit-title">TEF / Totem — Instabilidade Websocket</div>
+        <ul class="audit-list">
+          <li><strong>Conexão:</strong> Falhas recorrentes de websocket impactam processamento de pagamento.</li>
+          <li><strong>Frequência:</strong> Bugs reportados por múltiplos restaurantes em horário de pico.</li>
+          <li><strong>Status:</strong> Sem plano de resolução estruturado no backlog.</li>
+        </ul>
+        <span class="audit-severity sev-critical">🔴 Severidade: Crítica</span>
+      </div>
+      <div class="audit-card ok">
+        <div class="audit-icon">✅</div>
+        <div class="audit-title">Monitoramento Gestão Desktop</div>
+        <ul class="audit-list">
+          <li><strong>Sentry:</strong> Ativo e funcionando no produto Desktop/Mesa.</li>
+          <li><strong>Clarity:</strong> Rastreamento de sessão configurado.</li>
+          <li><strong>Referência:</strong> Este padrão deve ser replicado para os demais produtos.</li>
+        </ul>
+        <span class="audit-severity sev-low">🟢 Status: Referência Positiva</span>
+      </div>
+    </div>
+
+    <!-- Campo de observações da auditoria -->
+    <div style="margin-top:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;">
+      <div class="rpt-section-title">📝 Observações Adicionais da Auditoria</div>
+      <textarea class="rpt-textarea" id="audit-notes" placeholder="Registre aqui os achados específicos da auditoria no Linear desta semana: estados de tarefas, responsáveis sem atribuição, ciclos longos, etc." style="min-height:100px;"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SEÇÃO 3: PLANO DE AÇÃO                             -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="sec-action">
+    <div class="section-title">
+      <span class="section-title-label">03</span>
+      Plano de Ação — Hipóteses de Melhoria
+    </div>
+
+    <div class="action-grid">
+
+      <!-- H1 -->
+      <div class="action-item">
+        <div class="action-header" onclick="toggleAction('h1')">
+          <div class="action-header-left">
+            <div class="action-num">1</div>
+            <div>
+              <div class="action-title">Padronização do Monitoramento (Partner & Apps)</div>
+              <div style="font-size:12px;color:var(--text3);margin-top:4px">Implementar Sentry/Clarity nos produtos sem monitoramento ativo</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="action-tags">
+              <span class="tag tag-risk-medio">Risco: Médio</span>
+              <span class="tag tag-esforco-medio">Esforço: Médio</span>
+            </div>
+            <span class="action-toggle" id="toggle-h1">▾</span>
+          </div>
+        </div>
+        <div class="action-body" id="body-h1">
+          <div class="action-field">
+            <label>Problema Identificado</label>
+            <textarea class="field-textarea" id="h1-prob">Produtos críticos (Partner, Gestão Mobile, Pigz App) não possuem monitoramento como Sentry ou Clarity. Bugs silenciosos causam atrasos na operação dos restaurantes sem que o time técnico seja notificado proativamente.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Impacto Esperado</label>
+            <textarea class="field-textarea" id="h1-imp">Redução do MTTR (Tempo Médio de Recuperação). A equipe de engenharia será notificada do erro antes do cliente abrir chamado no suporte, reduzindo o Downtime operacional.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Plano de Execução</label>
+            <textarea class="field-textarea" id="h1-plan" placeholder="Descreva as etapas necessárias para executar esta hipótese..."></textarea>
+          </div>
+          <div class="action-field">
+            <label>Validação com Estratégia/Produto</label>
+            <select class="rpt-select" id="h1-status">
+              <option value="pendente">⏳ Pendente de Validação</option>
+              <option value="aprovado">✅ Aprovado para Execução</option>
+              <option value="rejeitado">❌ Não Priorizado</option>
+              <option value="parcial">🔄 Aprovado Parcialmente</option>
+            </select>
+          </div>
+          <div class="action-field action-full">
+            <label>Observações</label>
+            <textarea class="field-textarea" id="h1-obs" placeholder="Contexto adicional, dependências, decisões tomadas..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- H2 -->
+      <div class="action-item">
+        <div class="action-header" onclick="toggleAction('h2')">
+          <div class="action-header-left">
+            <div class="action-num">2</div>
+            <div>
+              <div class="action-title">Triagem e Tagueamento Unificado no Linear</div>
+              <div style="font-size:12px;color:var(--text3);margin-top:4px">Criar processo de triagem padronizado com labels de severidade e SLAs</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="action-tags">
+              <span class="tag tag-risk-baixo">Risco: Baixo</span>
+              <span class="tag tag-esforco-baixo">Esforço: Baixo</span>
+            </div>
+            <span class="action-toggle" id="toggle-h2">▾</span>
+          </div>
+        </div>
+        <div class="action-body" id="body-h2">
+          <div class="action-field">
+            <label>Problema Identificado</label>
+            <textarea class="field-textarea" id="h2-prob">Sem processo padronizado de triagem, bugs de produtos instáveis (Pigz Totem, TEF) se misturam no backlog com melhorias de UX, dificultando a priorização e a visibilidade para Estratégia e Produto.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Impacto Esperado</label>
+            <textarea class="field-textarea" id="h2-imp">Visibilidade clara para lideranças. O Head de Produto não precisará microgerenciar a fila; a coordenação garante a esteira fluindo via SLAs definidos por severidade (P0/P1/P2/P3).</textarea>
+          </div>
+          <div class="action-field">
+            <label>Plano de Execução</label>
+            <textarea class="field-textarea" id="h2-plan" placeholder="Defina os labels, estados, responsáveis e SLAs propostos..."></textarea>
+          </div>
+          <div class="action-field">
+            <label>Validação com Estratégia/Produto</label>
+            <select class="rpt-select" id="h2-status">
+              <option value="pendente">⏳ Pendente de Validação</option>
+              <option value="aprovado">✅ Aprovado para Execução</option>
+              <option value="rejeitado">❌ Não Priorizado</option>
+              <option value="parcial">🔄 Aprovado Parcialmente</option>
+            </select>
+          </div>
+          <div class="action-field action-full">
+            <label>Observações</label>
+            <textarea class="field-textarea" id="h2-obs" placeholder="Contexto adicional, dependências, decisões tomadas..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- H3 -->
+      <div class="action-item">
+        <div class="action-header" onclick="toggleAction('h3')">
+          <div class="action-header-left">
+            <div class="action-num">3</div>
+            <div>
+              <div class="action-title">Plano de Migração Node 16 / Next.js 12</div>
+              <div style="font-size:12px;color:var(--text3);margin-top:4px">Inserir no roadmap a modernização dos produtos em legado</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="action-tags">
+              <span class="tag tag-risk-alto">Risco: Alto</span>
+              <span class="tag tag-esforco-alto">Esforço: Alto</span>
+            </div>
+            <span class="action-toggle" id="toggle-h3">▾</span>
+          </div>
+        </div>
+        <div class="action-body" id="body-h3">
+          <div class="action-field">
+            <label>Problema Identificado</label>
+            <textarea class="field-textarea" id="h3-prob">Partner e App Web rodam em Node 16 (depreciado) e Next.js 12. Alto acoplamento e interface complexa atrasam o onboarding de novos lojistas e criam vulnerabilidades de segurança.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Impacto Esperado</label>
+            <textarea class="field-textarea" id="h3-imp">Estabilidade a longo prazo e segurança (compliance). Deve ser inserido no roadmap com Produto/Estratégia para não paralisar entregas de novas features de negócio.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Plano de Execução</label>
+            <textarea class="field-textarea" id="h3-plan" placeholder="Faseamento da migração, dependências críticas, janelas de atualização..."></textarea>
+          </div>
+          <div class="action-field">
+            <label>Validação com Estratégia/Produto</label>
+            <select class="rpt-select" id="h3-status">
+              <option value="pendente">⏳ Pendente de Validação</option>
+              <option value="aprovado">✅ Aprovado para Execução</option>
+              <option value="rejeitado">❌ Não Priorizado</option>
+              <option value="parcial">🔄 Aprovado Parcialmente</option>
+            </select>
+          </div>
+          <div class="action-field action-full">
+            <label>Observações</label>
+            <textarea class="field-textarea" id="h3-obs" placeholder="Contexto adicional, dependências, decisões tomadas..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- H4 — novo -->
+      <div class="action-item">
+        <div class="action-header" onclick="toggleAction('h4')">
+          <div class="action-header-left">
+            <div class="action-num">4</div>
+            <div>
+              <div class="action-title">Estabelecimento de Cadência Operacional Semanal</div>
+              <div style="font-size:12px;color:var(--text3);margin-top:4px">Criar ritual fixo de alinhamento operacional entre Coord, Devs e Produto</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="action-tags">
+              <span class="tag tag-risk-baixo">Risco: Baixo</span>
+              <span class="tag tag-esforco-baixo">Esforço: Baixo</span>
+            </div>
+            <span class="action-toggle" id="toggle-h4">▾</span>
+          </div>
+        </div>
+        <div class="action-body" id="body-h4">
+          <div class="action-field">
+            <label>Problema Identificado</label>
+            <textarea class="field-textarea" id="h4-prob" placeholder="Descreva o problema que esta hipótese resolve...">Ausência de cadência formal para revisão operacional semanal. Informações críticas sobre bugs, bloqueios e entregas não chegam às lideranças de forma estruturada e previsível.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Impacto Esperado</label>
+            <textarea class="field-textarea" id="h4-imp" placeholder="Descreva o impacto esperado ao implementar esta hipótese...">Previsibilidade e transparência para Estratégia e Produto. Redução do tempo de decisão em situações críticas e aumento da confiança na coordenação de projetos.</textarea>
+          </div>
+          <div class="action-field">
+            <label>Plano de Execução</label>
+            <textarea class="field-textarea" id="h4-plan" placeholder="Dia da semana, formato da reunião, responsáveis, artefato gerado..."></textarea>
+          </div>
+          <div class="action-field">
+            <label>Validação com Estratégia/Produto</label>
+            <select class="rpt-select" id="h4-status">
+              <option value="pendente">⏳ Pendente de Validação</option>
+              <option value="aprovado">✅ Aprovado para Execução</option>
+              <option value="rejeitado">❌ Não Priorizado</option>
+              <option value="parcial">🔄 Aprovado Parcialmente</option>
+            </select>
+          </div>
+          <div class="action-field action-full">
+            <label>Observações</label>
+            <textarea class="field-textarea" id="h4-obs" placeholder="Contexto adicional, dependências, decisões tomadas..."></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- SEÇÃO 4: TEMPLATE DE REPORTE OFICIAL               -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="sec-report">
+    <div class="section-title">
+      <span class="section-title-label">04</span>
+      Template Oficial — Reporte Operacional Semanal
+    </div>
+
+    <div class="report-form-wrap">
+      <div class="report-form-header">
+        <div>
+          <div class="report-form-title">📊 Reporte de Cadência Operacional</div>
+          <div class="report-form-meta">Template oficial · Coordenação de Projetos · PIGZ</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Semana de referência</div>
+            <input class="rpt-input" type="text" id="rpt-semana" placeholder="Ex: Semana 2 — 26 a 30 Mai" style="width:240px;">
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:4px">Data do reporte</div>
+            <input class="rpt-input" type="date" id="rpt-data" style="width:160px;">
+          </div>
+        </div>
+      </div>
+
+      <div class="report-form-body">
+
+        <!-- 1. Saúde da Esteira -->
+        <div>
+          <div class="rpt-section-title">1. 🩺 Saúde da Esteira (Bugs & Entregas)</div>
+          <div class="rpt-grid">
+            <div class="rpt-field">
+              <label class="rpt-label">Bugs Críticos em Aberto</label>
+              <input class="rpt-input" type="number" id="rpt-bugs-crit" placeholder="0" min="0">
+            </div>
+            <div class="rpt-field">
+              <label class="rpt-label">Bugs Resolvidos na Semana</label>
+              <input class="rpt-input" type="number" id="rpt-bugs-res" placeholder="0" min="0">
+            </div>
+            <div class="rpt-field full">
+              <label class="rpt-label">Features em QA / Validação</label>
+              <textarea class="rpt-textarea" id="rpt-qa" placeholder="Liste as features aguardando validação: produto, responsável e status..."></textarea>
+            </div>
+            <div class="rpt-field full">
+              <label class="rpt-label">Deployments Realizados na Semana</label>
+              <textarea class="rpt-textarea" id="rpt-deploys" placeholder="Liste os deployments: produto, versão, data e impacto..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="rpt-divider"></div>
+
+        <!-- 2. Gargalos -->
+        <div>
+          <div class="rpt-section-title">2. ⚠️ Gargalos e Impedimentos (Requer Atenção)</div>
+          <div class="rpt-grid">
+            <div class="rpt-field full">
+              <label class="rpt-label">Impedimentos Operacionais Ativos</label>
+              <textarea class="rpt-textarea" id="rpt-impedimentos" placeholder="[Produto] — [Bloqueio relatado pelos devs]&#10;[Integração] — [Atraso por dependência externa]&#10;Ação necessária: [O que precisa de Estratégia/Produto]" style="min-height:100px;"></textarea>
+            </div>
+            <div class="rpt-field full">
+              <label class="rpt-label">Decisões Necessárias das Lideranças</label>
+              <textarea class="rpt-textarea" id="rpt-decisoes" placeholder="Liste as decisões pendentes que dependem de Estratégia ou Produto para destravar a operação..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="rpt-divider"></div>
+
+        <!-- 3. KPIs -->
+        <div>
+          <div class="rpt-section-title">3. 📈 Indicadores de Governança</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="metric-row">
+              <span class="metric-label">⏱ Tempo Médio de Resolução (MTTR)</span>
+              <input class="metric-value-input" type="number" id="rpt-mttr" placeholder="—" min="0">
+              <span class="metric-unit">horas</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">📋 Tarefas sem Estimativa no Linear</span>
+              <input class="metric-value-input" type="number" id="rpt-sem-est" placeholder="—" min="0" max="100">
+              <span class="metric-unit">%</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">🎯 Entregas vs. Planejado</span>
+              <input class="metric-value-input" type="number" id="rpt-entregas-pct" placeholder="—" min="0" max="100">
+              <span class="metric-unit">%</span>
+            </div>
+            <div class="metric-row">
+              <span class="metric-label">🐛 Total de Issues Criadas na Semana</span>
+              <input class="metric-value-input" type="number" id="rpt-issues-new" placeholder="—" min="0">
+              <span class="metric-unit">issues</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rpt-divider"></div>
+
+        <!-- 4. Prioridades -->
+        <div>
+          <div class="rpt-section-title">4. 🎯 Prioridades para a Próxima Semana</div>
+          <div class="rpt-grid">
+            <div class="rpt-field full">
+              <label class="rpt-label">Top 3 Prioridades Operacionais</label>
+              <textarea class="rpt-textarea" id="rpt-prioridades" placeholder="1. [Prioridade crítica — produto impactado — owner]&#10;2. [Segunda prioridade — contexto]&#10;3. [Terceira prioridade — contexto]" style="min-height:90px;"></textarea>
+            </div>
+            <div class="rpt-field">
+              <label class="rpt-label">Status Geral da Operação</label>
+              <select class="rpt-select" id="rpt-status-geral">
+                <option value="">Selecione o status...</option>
+                <option value="verde">🟢 Verde — Operação Saudável</option>
+                <option value="amarelo">🟡 Amarelo — Atenção Necessária</option>
+                <option value="vermelho">🔴 Vermelho — Intervenção Urgente</option>
+              </select>
+            </div>
+            <div class="rpt-field">
+              <label class="rpt-label">Responsável pelo Reporte</label>
+              <input class="rpt-input" type="text" id="rpt-responsavel" value="Coordenação de Projetos">
+            </div>
+            <div class="rpt-field full">
+              <label class="rpt-label">Observações Finais / Contexto Estratégico</label>
+              <textarea class="rpt-textarea" id="rpt-obs-finais" placeholder="Contexto adicional relevante para a liderança, conquistas da semana, riscos no horizonte..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botão de salvar -->
+        <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:8px;">
+          <button class="btn btn-ghost" onclick="clearReport()" style="border:1px solid var(--border)">🗑 Limpar Reporte</button>
+          <button class="btn btn-save" onclick="saveAll()" style="padding:10px 24px;font-size:14px;">💾 Salvar Reporte</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">PIGZ Coord · Entregável Semana 2 · Diagnóstico Operacional e Governança · 26–30 Mai 2026</div>
+
+</div>
+
+<script>
+// ── STATE ────────────────────────────────────────────────
+const STORAGE_KEY = 'pigz-s2-v2';
+const saudeState = {};
+
+// ── ACCORDION ────────────────────────────────────────────
+function toggleAction(id) {
+  const body = document.getElementById('body-' + id);
+  const toggle = document.getElementById('toggle-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+// ── SAÚDE SEMÁFOROS ──────────────────────────────────────
+function setSaude(btn) {
+  const area = btn.dataset.area;
+  const color = btn.dataset.color;
+  // clear others in same area
+  document.querySelectorAll(`.status-btn[data-area="${area}"]`).forEach(b => {
+    b.className = 'status-btn';
+  });
+  btn.classList.add('selected-' + color);
+  saudeState[area] = color;
+}
+
+// ── BAR CHART ────────────────────────────────────────────
+function animateBars() {
+  const vals = [0,1,2,3,4].map(i => parseFloat(document.getElementById('bar' + i)?.value) || 0);
+  const max = Math.max(...vals, 1);
+  vals.forEach((v, i) => {
+    const fill = document.getElementById('bf' + i);
+    const label = document.getElementById('bv' + i);
+    if (fill) fill.style.height = Math.round((v / max) * 90) + '%';
+    if (label) label.textContent = v > 0 ? v : '—';
+  });
+}
+
+// ── KPI TRENDS ───────────────────────────────────────────
+function updateMttr() {
+  const v = parseFloat(document.getElementById('kpi-mttr').value) || 0;
+  const el = document.getElementById('trend-mttr');
+  if (v === 0) { el.textContent = 'Registre o valor atual'; el.className = 'kpi-trend'; return; }
+  if (v < 4) { el.textContent = '✅ Excelente (< 4h)'; el.className = 'kpi-trend up'; }
+  else if (v < 12) { el.textContent = '⚠️ Atenção (< 12h)'; el.className = 'kpi-trend'; }
+  else { el.textContent = '🔴 Crítico (> 12h)'; el.className = 'kpi-trend down'; }
+}
+
+// ── SCROLL NAV ───────────────────────────────────────────
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.section-nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ── SAVE / LOAD ──────────────────────────────────────────
+function collectData() {
+  const fields = [
+    'kpi-bugs-criticos','kpi-bugs-resolvidos','kpi-mttr','kpi-sem-est','kpi-entregas','kpi-qa',
+    'bar0','bar1','bar2','bar3','bar4',
+    'audit-notes',
+    'h1-prob','h1-imp','h1-plan','h1-obs','h1-status',
+    'h2-prob','h2-imp','h2-plan','h2-obs','h2-status',
+    'h3-prob','h3-imp','h3-plan','h3-obs','h3-status',
+    'h4-prob','h4-imp','h4-plan','h4-obs','h4-status',
+    'rpt-semana','rpt-data','rpt-bugs-crit','rpt-bugs-res','rpt-qa','rpt-deploys',
+    'rpt-impedimentos','rpt-decisoes','rpt-mttr','rpt-sem-est','rpt-entregas-pct',
+    'rpt-issues-new','rpt-prioridades','rpt-status-geral','rpt-responsavel','rpt-obs-finais'
+  ];
+  const data = { _saude: saudeState };
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+  return data;
+}
+
+function saveAll() {
+  const data = collectData();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  showToast('💾 Relatório salvo com sucesso!');
+}
+
+function loadAll() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+  const data = JSON.parse(raw);
+
+  Object.keys(data).forEach(id => {
+    if (id === '_saude') {
+      Object.keys(data._saude).forEach(area => {
+        const color = data._saude[area];
+        const btn = document.querySelector(`.status-btn[data-area="${area}"][data-color="${color}"]`);
+        if (btn) { btn.className = 'status-btn selected-' + color; saudeState[area] = color; }
+      });
+      return;
+    }
+    const el = document.getElementById(id);
+    if (el) el.value = data[id];
+  });
+
+  animateBars();
+  updateMttr();
+}
+
+function clearReport() {
+  if (!confirm('Limpar todos os campos do Reporte Oficial?')) return;
+  const rptIds = [
+    'rpt-semana','rpt-data','rpt-bugs-crit','rpt-bugs-res','rpt-qa','rpt-deploys',
+    'rpt-impedimentos','rpt-decisoes','rpt-mttr','rpt-sem-est','rpt-entregas-pct',
+    'rpt-issues-new','rpt-prioridades','rpt-obs-finais'
+  ];
+  rptIds.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('rpt-status-geral').value = '';
+  showToast('🗑 Reporte limpo para nova semana!');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── KEYBOARD SHORTCUT ────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
+});
+
+// ── INIT ─────────────────────────────────────────────────
+// Set today's date as default
+document.getElementById('rpt-data').valueAsDate = new Date();
+
+loadAll();
+animateBars();
+</script>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FERRAMENTAS CRIADAS NA SEMANA                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div style="max-width:1400px;margin:0 auto;padding:0 28px 60px">
+  <div style="margin-top:40px;padding-top:32px;border-top:2px solid var(--border)">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+      <span style="font-size:22px">🛠️</span>
+      <h2 style="font-size:18px;font-weight:800;color:var(--text)">Ferramentas Criadas na Semana 2</h2>
+    </div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;max-width:700px">
+      Além do entregável formal, esta semana gerou <strong>5 ferramentas de gestão</strong> construídas progressivamente de Segunda a Terça — cada uma com propósito direto no processo operacional.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+
+      <!-- Tool 1 -->
+      <a href="reuniao-devs.html" target="_blank" style="display:block;text-decoration:none;background:white;border:1.5px solid var(--border);border-radius:16px;padding:22px;transition:all 0.25s;border-top:3px solid #FA641E;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#FA641E,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎤</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#FA641E;margin-bottom:2px">Ferramenta 01</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Facilitador de Reunião Dev</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">Apresentação interativa em 5 slides para conduzir a reunião com os desenvolvedores. Captura bugs, gargalos, validação técnica das hipóteses e saúde dos produtos em tempo real.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(250,100,30,0.08);color:#FA641E">5 slides</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">Auto-salva</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Exporta para Reporte</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#FA641E">Abrir ferramenta →</div>
+      </a>
+
+      <!-- Tool 2 — ATA -->
+      <a href="ata-reuniao-devs.html" target="_blank" style="display:block;text-decoration:none;background:white;border:1.5px solid var(--border);border-radius:16px;padding:22px;transition:all 0.25s;border-top:3px solid #10B981;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#10B981,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📄</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#10B981;margin-bottom:2px">Ferramenta 02</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Ata de Reunião — 26/05</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">Documento formal com todos os dados capturados na reunião com os devs: 6 bugs, 6 gargalos, 5 hipóteses validadas, saúde dos produtos e próximos passos. Exportável em PDF.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">Dados reais</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Exporta PDF</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#10B981">Ver ata →</div>
+      </a>
+
+      <!-- Tool 3 — SHOWCASE -->
+      <a href="showcase-ferramenta.html" target="_blank" style="display:block;text-decoration:none;background:white;border:1.5px solid var(--border);border-radius:16px;padding:22px;transition:all 0.25s;border-top:3px solid #A78BFA;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#A78BFA,#6366F1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📽️</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#A78BFA;margin-bottom:2px">Ferramenta 03</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Showcase — Case Study</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">Prova a construção progressiva da ferramenta durante a semana, com linha do tempo, resultados da reunião e impacto no entregável. Para apresentar às lideranças.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(167,139,250,0.08);color:#A78BFA">Evidência da semana</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(250,100,30,0.08);color:#FA641E">Para lideranças</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#A78BFA">Ver showcase →</div>
+      </a>
+
+      <!-- Tool 4 -->
+      <a href="reporte-executivo.html" target="_blank" style="display:block;text-decoration:none;background:white;border:1.5px solid var(--border);border-radius:16px;padding:22px;transition:all 0.25s;border-top:3px solid #FBBF24;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#FBBF24,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⭐</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#F59E0B;margin-bottom:2px">Ferramenta 04</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Reporte Executivo</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">Dashboard dark premium com KPIs interativos, semáforos por produto, plano de ação com hipóteses e gráfico de bugs. Alimentado pelos dados reais da reunião com os devs.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(245,158,11,0.08);color:#F59E0B">Nível CEO</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">KPIs em tempo real</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Exporta PDF</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#F59E0B">Abrir ferramenta →</div>
+      </a>
+
+      <!-- Tool 5 -->
+      <a href="resumo-semana2.html" target="_blank" style="display:block;text-decoration:none;background:white;border:1.5px solid var(--border);border-radius:16px;padding:22px;transition:all 0.25s;border-top:3px solid #3B82F6;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3B82F6,#6366F1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📋</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#3B82F6;margin-bottom:2px">Ferramenta 05</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Resumo Executivo PDF</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">Documento A4 printável com plano de ação da semana, atividades, reuniões, prioridades por dia e riscos mapeados. Para compartilhar com coordenadores e lideranças.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Formato A4</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">Baixável como PDF</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#3B82F6">Abrir ferramenta →</div>
+      </a>
+
+
+      <a href="reuniao-devs.html" target="_blank" style="
+        display:block;text-decoration:none;
+        background:white;border:1.5px solid var(--border);border-radius:16px;
+        padding:22px;transition:all 0.25s;
+        border-top:3px solid #FA641E;
+      " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#FA641E,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎤</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#FA641E;margin-bottom:2px">Ferramenta 01</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Facilitador de Reunião Dev</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+          Apresentação interativa em 5 slides para conduzir a reunião com os desenvolvedores. Captura bugs, gargalos, validação técnica das hipóteses e saúde dos produtos em tempo real.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(250,100,30,0.08);color:#FA641E">5 slides</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">Auto-salva</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Exporta para Reporte</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#FA641E">Abrir ferramenta →</div>
+      </a>
+
+      <!-- Tool 2 -->
+      <a href="reporte-executivo.html" target="_blank" style="
+        display:block;text-decoration:none;
+        background:white;border:1.5px solid var(--border);border-radius:16px;
+        padding:22px;transition:all 0.25s;
+        border-top:3px solid #FBBF24;
+      " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#FBBF24,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⭐</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#F59E0B;margin-bottom:2px">Ferramenta 02</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Reporte Executivo</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+          Dashboard dark premium para apresentação às lideranças. KPIs interativos, semáforos por produto, plano de ação com hipóteses, gráfico de bugs e exportação em PDF.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(245,158,11,0.08);color:#F59E0B">Nível CEO</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">KPIs em tempo real</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Exporta PDF</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#F59E0B">Abrir ferramenta →</div>
+      </a>
+
+      <!-- Tool 3 -->
+      <a href="resumo-semana2.html" target="_blank" style="
+        display:block;text-decoration:none;
+        background:white;border:1.5px solid var(--border);border-radius:16px;
+        padding:22px;transition:all 0.25s;
+        border-top:3px solid #3B82F6;
+      " onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 28px rgba(0,0,0,0.09)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3B82F6,#6366F1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📄</div>
+          <div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#3B82F6;margin-bottom:2px">Ferramenta 03</div>
+            <div style="font-size:14px;font-weight:800;color:var(--text)">Resumo Executivo PDF</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:14px">
+          Documento A4 printável com o plano de ação da semana: entregas, atividades, reuniões necessárias, prioridades por dia e riscos mapeados. Para compartilhar com coordenadores.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(59,130,246,0.08);color:#3B82F6">Formato A4</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(16,185,129,0.08);color:#10B981">Baixável como PDF</span>
+          <span style="font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(245,158,11,0.08);color:#F59E0B">Compartilhável</span>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:#3B82F6">Abrir ferramenta →</div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

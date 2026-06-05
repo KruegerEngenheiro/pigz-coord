@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação Executiva — Estabilidade Operacional PIGZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --bg-gradient: radial-gradient(circle at top right, rgba(250, 100, 30, 0.15) 0%, #0F172A 50%, #020617 100%);
+      --card: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(250, 100, 30, 0.4);
+      --accent: #FA641E;
+      --accent-grad: linear-gradient(135deg, #FA641E 0%, #FF8A50 100%);
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --text: #F8FAFC;
+      --text2: #94A3B8;
+      --text3: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      color: var(--accent);
+    }
+    .presentation-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── SLIDES CONTAINER ── */
+    .slides-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 40px;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      max-width: 1200px;
+      height: 620px;
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 48px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: absolute;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active {
+      display: flex;
+      position: relative;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Slide internal layout */
+    .slide-header {
+      margin-bottom: 24px;
+    }
+    .slide-tag {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .slide-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--text);
+    }
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--text2);
+      margin-top: 4px;
+    }
+    .slide-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      min-height: 0;
+    }
+
+    /* ── FOOTER & CONTROLS ── */
+    .footer {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    .progress-bar-container {
+      flex: 1;
+      max-width: 600px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-right: 40px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent-grad);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .slide-counter {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text2);
+      min-width: 60px;
+      text-align: center;
+    }
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .nav-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* ── SLIDE SPECIFIC COMPONENTS ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      width: 100%;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 24px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: var(--accent);
+      background: rgba(250, 100, 30, 0.04);
+      transform: translateY(-2px);
+    }
+    .glass-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .glass-card p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* Cover slide */
+    .cover-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .cover-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .cover-badge {
+      background: rgba(250, 100, 30, 0.15);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 700;
+      align-self: flex-start;
+      margin-bottom: 16px;
+      border: 1px solid rgba(250, 100, 30, 0.2);
+    }
+    .cover-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+    }
+    .cover-title span {
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cover-desc {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .cover-art {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(250, 100, 30, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed rgba(250, 100, 30, 0.3);
+      animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .cover-art-inner {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(250, 100, 30, 0.1);
+      border: 1px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 28px;
+      font-weight: 800;
+      animation: pulse-art 4s infinite alternate;
+    }
+    @keyframes pulse-art {
+      0% { transform: scale(0.95); box-shadow: 0 0 10px rgba(250, 100, 30, 0.2); }
+      100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(250, 100, 30, 0.4); }
+    }
+
+    /* Shift Metric Slide */
+    .metric-compare {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+    .compare-side {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .compare-side.old {
+      border-left: 4px solid var(--text3);
+    }
+    .compare-side.new {
+      border-left: 4px solid var(--accent);
+      background: rgba(250, 100, 30, 0.02);
+    }
+    .compare-val {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .compare-side.new .compare-val {
+      color: var(--accent);
+    }
+    .compare-arrow {
+      text-align: center;
+      font-size: 32px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Timeline slide */
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: relative;
+      padding-top: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+    .timeline-step {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1E293B;
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+    .timeline-step.active .step-num {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+      color: #fff;
+    }
+    .step-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .step-desc {
+      font-size: 11px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    /* Product tiers grid */
+    .tier-box {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255,255,255,0.02);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tier-header {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+    .tier-header.t1 { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    .tier-header.t2 { background: rgba(249, 115, 22, 0.1); color: #F97316; }
+    .tier-header.t3 { background: rgba(59, 130, 246, 0.1); color: #3B82F6; }
+    .tier-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tier-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    .item-name { font-weight: 600; }
+    .item-ticket {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .item-ticket.crit { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+    .item-ticket.high { background: rgba(249, 115, 22, 0.15); color: #ea580c; border: 1px solid rgba(249, 115, 22, 0.2); }
+    .item-ticket.mod { background: rgba(59, 130, 246, 0.15); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.2); }
+    .item-ticket.low { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+    /* IERO Simulator slide */
+    .iero-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+      width: 100%;
+      align-items: center;
+    }
+    .iero-details ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .iero-details li {
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .iero-details strong { color: var(--text); }
+    .iero-details li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 800;
+    }
+    .iero-gauge-box {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.01);
+    }
+    .iero-gauge-val {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--danger);
+      line-height: 1;
+    }
+    .iero-gauge-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text3);
+      margin: 8px 0 16px;
+    }
+    .iero-gauge-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .iero-gauge-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--danger);
+      border-radius: 99px;
+      transition: background 0.3s ease;
+    }
+    .iero-gauge-status {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--danger);
+    }
+
+    /* Prioritization Matrix Slide */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      height: 100%;
+    }
+    .matrix-quad {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .matrix-quad:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.04);
+      border-color: var(--accent);
+    }
+    .quad-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+    .quad-badge.qw { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .quad-badge.se { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
+    .quad-badge.ta { background: rgba(100, 116, 139, 0.15); color: #94A3B8; }
+    .quad-badge.av { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+    
+    .quad-items {
+      list-style: none;
+      font-size: 11px;
+      color: var(--text2);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .quad-items li strong { color: var(--text); }
+
+    /* SPOF Slide */
+    .spof-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      border-left: 6px solid var(--danger);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    .spof-card:hover {
+      transform: translateY(-2px);
+      background: rgba(250, 100, 30, 0.03);
+      border-color: var(--accent);
+    }
+    .spof-card.high { border-left-color: #F97316; }
+    .spof-card.med { border-left-color: #EAB308; }
+    .spof-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .spof-desc {
+      font-size: 11px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+    .spof-mitigation {
+      margin-top: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      color: var(--text2);
+    }
+    .spof-mitigation strong { color: var(--accent); }
+
+    /* Tooling slide */
+    .tooling-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 32px;
+      width: 100%;
+      align-items: center;
+    }
+    .tool-desc {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tool-desc h4 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tool-desc p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .tool-preview {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 8px;
+    }
+    .preview-logo { font-size: 14px; font-weight: 700; }
+    .preview-logo span { color: var(--accent); }
+    .preview-week { font-size: 11px; background: rgba(250,100,30,0.15); color: var(--accent); padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+    
+    .preview-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(250,100,30,0.3);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .preview-btn {
+      display: inline-block;
+      margin-top: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    /* Slide Back button in toolbar */
+    .back-panel-link {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .back-panel-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AVISO: versão S1 -->
+  <div id="s1-banner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#0D0F14;color:#F9FAFB;padding:10px 24px;display:flex;align-items:center;gap:12px;font-family:'Poppins',sans-serif;font-size:12px;border-bottom:2px solid #FA641E;">
+    <span style="background:rgba(250,100,30,.2);color:#FA641E;font-weight:800;padding:2px 8px;border-radius:5px;font-size:10px;letter-spacing:.5px">S1 — VERSÃO ANTERIOR</span>
+    <span style="color:#9CA3AF">Esta é a apresentação da <strong style="color:#F9FAFB">Semana 1</strong>. Para a apresentação atual (S2), acesse:</span>
+    <a href="apresentacao-diretoria.html" style="color:#FA641E;font-weight:800;text-decoration:none;border:1px solid rgba(250,100,30,.3);padding:3px 12px;border-radius:999px;transition:all .15s">→ Slides CEO — Semana 2</a>
+    <button onclick="document.getElementById('s1-banner').remove()" style="margin-left:auto;background:none;border:none;color:#6B7280;cursor:pointer;font-size:16px;line-height:1">×</button>
+  </div>
+  <div style="height:44px"></div>
+
+  <div class="header">
+    <div class="logo">PIGZ <span>Coord</span></div>
+    <div class="presentation-title">Apresentação Operacional — Semana 1</div>
+    <a href="index.html" class="back-panel-link">← Voltar ao Painel</a>
+  </div>
+
+  <div class="slides-wrapper">
+
+    <!-- ── SLIDE 1: COVER ── -->
+    <div class="slide active" id="slide-1">
+      <span class="slide-tag">Abertura</span>
+      <div class="slide-content">
+        <div class="grid-2" style="height: 100%; align-items: center;">
+          <div class="cover-left">
+            <span class="cover-badge">Engenharia, Processos & Suporte</span>
+            <h1 class="cover-title">Estabilidade Operacional do Ecossistema <span>PIGZ</span></h1>
+            <p class="cover-desc">Uma estratégia integrada para governança técnica, automações de processos e redução analítica de chamados no suporte.</p>
+          </div>
+          <div class="cover-right">
+            <div class="cover-art">
+              <div class="cover-art-inner">PIGZ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2: SHIFT METRIC ── -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <span class="slide-tag">Mudança de Paradigma</span>
+        <h2 class="slide-title">Maturidade Técnica ➔ Volume de Chamados</h2>
+        <p class="slide-subtitle">Por que migrar a métrica principal de avaliação de estabilidade?</p>
+      </div>
+      <div class="slide-content">
+        <div class="metric-compare">
+          <div class="compare-row">
+            <div class="compare-side old">
+              <div class="compare-val" style="color: var(--text3);">Maturidade Técnica</div>
+              <p style="font-size: 13px; color: var(--text2);">Visão abstrata, teórica e subjetiva da stack de cada produto, com pouca relação de impacto no cliente final.</p>
+            </div>
+            <div class="compare-arrow">➔</div>
+            <div class="compare-side new">
+              <div class="compare-val">Volume de Chamados</div>
+              <p style="font-size: 13px; color: var(--text2);">Dados analíticos concretos do suporte. Conversa diretamente com a squad sob responsabilidade do coordenador.</p>
+            </div>
+          </div>
+          <div style="background: rgba(250, 100, 30, 0.05); border: 1px solid rgba(250,100,30,0.15); padding: 16px; border-radius: 12px; font-size: 13px; text-align: center; color: var(--text2);">
+            <strong>Foco Prático:</strong> Ao invés de discutir teoria de código, focamos em resolver os bugs crônicos que mais geram chamados diários no suporte.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3: TIMELINE ONBOARDING ── -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <span class="slide-tag">Governança</span>
+        <h2 class="slide-title">Cronograma de 30 Dias (Onboarding)</h2>
+        <p class="slide-subtitle">Roteiro tático focado em imersão, diagnóstico e consolidação.</p>
+      </div>
+      <div class="slide-content" style="align-items: center;">
+        <div class="timeline">
+          <div class="timeline-step active">
+            <div class="step-num">S1</div>
+            <div class="step-title">Imersão & Mapeamento</div>
+            <div class="step-desc">Mapear produtos e fluxos operacionais sem realizar alterações estruturais.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-num">S2</div>
+            <div class="step-title">Diagnóstico & Governança</div>
+            <div class="step-desc">Auditar backlog do Linear, propor e validar melhorias operacionais.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-num">S3</div>
+            <div class="step-title">Gestão de Bugs</div>
+            <div class="step-desc">Assumir operacionalmente a triagem de bugs e consolidar chamados urgentes.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="step-num">S4</div>
+            <div class="step-title">Consolidação</div>
+            <div class="step-desc">Consolidar reportes táticos de riscos, rituais diários e estabilidade contínua.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 4: ECOSYSTEM RADIOGRAPHY ── -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <span class="slide-tag">Arquitetura PIGZ</span>
+        <h2 class="slide-title">Ecossistema & Radiografia de Suporte</h2>
+        <p class="slide-subtitle">Classificação de criticidade (Tiers) e volumetria real de chamados reportados.</p>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3">
+          <!-- Tier 1 -->
+          <div class="tier-box">
+            <span class="tier-header t1">Tier 1 — Core (Alto Impacto)</span>
+            <div class="tier-items">
+              <div class="tier-item">
+                <span class="item-name">Pigz Partner</span>
+                <span class="item-ticket crit">Crítico (>50)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz TEF</span>
+                <span class="item-ticket crit">Crítico (>50)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz App / Web</span>
+                <span class="item-ticket mod">Mod (1-10)</span>
+              </div>
+            </div>
+          </div>
+          <!-- Tier 2 -->
+          <div class="tier-box">
+            <span class="tier-header t2">Tier 2 — Operacional</span>
+            <div class="tier-items">
+              <div class="tier-item">
+                <span class="item-name">Gestão Desktop</span>
+                <span class="item-ticket high">Alto (10-50)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz Totem</span>
+                <span class="item-ticket high">Alto (10-50)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz Comanda</span>
+                <span class="item-ticket mod">Mod (1-10)</span>
+              </div>
+            </div>
+          </div>
+          <!-- Tier 3 -->
+          <div class="tier-box">
+            <span class="tier-header t3">Tier 3 — Apoio</span>
+            <div class="tier-items">
+              <div class="tier-item">
+                <span class="item-name">Gestão Mobile</span>
+                <span class="item-ticket mod">Mod (1-10)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz Ingresso</span>
+                <span class="item-ticket mod">Mod (1-10)</span>
+              </div>
+              <div class="tier-item">
+                <span class="item-name">Pigz Check-in</span>
+                <span class="item-ticket low">Baixo (<1)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5: IERO SIMULATOR ── -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <span class="slide-tag">Métricas de Risco</span>
+        <h2 class="slide-title">Indicador IERO: Risco Operacional Global</h2>
+        <p class="slide-subtitle">Cálculo matemático para determinar a exposição de estabilidade do ecossistema.</p>
+      </div>
+      <div class="slide-content">
+        <div class="iero-layout">
+          <div class="iero-details">
+            <ul>
+              <li><strong>Fórmula Ponderada:</strong> O IERO cruza o Tier de Criticidade de Negócio com o Volume de Chamados, gerando um peso real para cada produto (T1 = 3.0, T2 = 2.0, T3 = 1.0).</li>
+              <li><strong>Ponto de Partida Crítico (68%):</strong> As falhas severas no *Partner* e no *TEF* geravam uma alta taxa de incidentes, mantendo a empresa sob risco sistêmico crítico.</li>
+              <li><strong>ROI de Engenharia:</strong> Ao prever a redução de chamados nos produtos-chave pelo simulador do painel, a diretoria visualiza na hora o declínio da exposição de risco.</li>
+            </ul>
+          </div>
+          <div class="iero-gauge-box">
+            <div class="iero-gauge-val">68%</div>
+            <div class="iero-gauge-lbl">Exposição Global Atual (IERO)</div>
+            <div class="iero-gauge-bar">
+              <div class="iero-gauge-fill"></div>
+            </div>
+            <div class="iero-gauge-status">Risco Crítico</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6: PRIORITIZATION MATRIX ── -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <span class="slide-tag">Estratégia</span>
+        <h2 class="slide-title">Matriz de Priorização (Impacto vs Esforço)</h2>
+        <p class="slide-subtitle">Planejamento focado em resoluções rápidas e projetos estruturais.</p>
+      </div>
+      <div class="slide-content">
+        <div class="matrix">
+          <!-- Quick Wins -->
+          <div class="matrix-quad">
+            <span class="quad-badge qw">Quick Wins (Alto Impacto · Baixo Esforço)</span>
+            <ul class="quad-items">
+              <li>• <strong>SQLite offline na Comanda:</strong> Garante comandas mesmo se o Wi-Fi do salão cair.</li>
+              <li>• <strong>Cache PWA no Pigz Mesa:</strong> Carregamento rápido de itens sob sinal 3G/4G instável.</li>
+            </ul>
+          </div>
+          <!-- Strategic -->
+          <div class="matrix-quad">
+            <span class="quad-badge se">Projetos Estratégicos (Alto Impacto · Alto Esforço)</span>
+            <ul class="quad-items">
+              <li>• <strong>Idempotência no TEF:</strong> Elimina estornos manuais gerados por timeouts.</li>
+              <li>• <strong>Fila local de contingência no Totem:</strong> Autonomia de caixa local offline.</li>
+            </ul>
+          </div>
+          <!-- Support Tasks -->
+          <div class="matrix-quad">
+            <span class="quad-badge ta">Tarefas de Apoio (Baixo Impacto · Baixo Esforço)</span>
+            <ul class="quad-items">
+              <li>• <strong>Flash automático no Check-in:</strong> Melhora leitura de ingressos no escuro.</li>
+              <li>• <strong>Retry de Push no Pigz App:</strong> Menos chamados perguntando status.</li>
+            </ul>
+          </div>
+          <!-- Assess Viability -->
+          <div class="matrix-quad">
+            <span class="quad-badge av">Avaliar Viabilidade (Baixo Impacto · Alto Esforço)</span>
+            <ul class="quad-items">
+              <li>• <strong>Reembolso automático no Ingresso:</strong> Reduz fila direta de SAC.</li>
+              <li>• <strong>Faturamento no Gestão Mobile:</strong> Sincronia mobile-caixa (Desktop).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 7: SPOF MAP ── -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <span class="slide-tag">Mitigação</span>
+        <h2 class="slide-title">Pontos Únicos de Falha (SPOF) Identificados</h2>
+        <p class="slide-subtitle">Dores críticas do fluxo atual da PIGZ e suas respectivas contramedidas.</p>
+      </div>
+      <div class="slide-content">
+        <div class="grid-3" style="align-items: stretch;">
+          <div class="spof-card">
+            <span class="spof-title">💥 Backend Central (Partner)</span>
+            <p class="spof-desc">Queries pesadas de lojistas nos horários de pico congelam o banco RDS principal, derrubando todos os canais de venda.</p>
+            <div class="spof-mitigation"><strong>Ação:</strong> Redis para leitura de cardápios e réplicas RDS para relatórios.</div>
+          </div>
+          <div class="spof-card high">
+            <span class="spof-title">💥 Gateway TEF (Websockets)</span>
+            <p class="spof-desc">Quedas de rede websocket causam cartões aprovados na maquininha sem fechar o pedido no Totem/Caixa.</p>
+            <div class="spof-mitigation"><strong>Ação:</strong> Substituir por chamadas HTTP idempotentes com ID Transacional prévio.</div>
+          </div>
+          <div class="spof-card med">
+            <span class="spof-title">💥 Wi-Fi Instável (Comanda)</span>
+            <p class="spof-desc">Oscilação de sinal em salões de pico impede garçons de despachar pedidos de forma confiável para a cozinha.</p>
+            <div class="spof-mitigation"><strong>Ação:</strong> SQLite/WatermelonDB local offline-first com aviso visual de fila pendente.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 8: DADOS E SINCRONISMO ── -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <span class="slide-tag">Ferramentas de Controle</span>
+        <h2 class="slide-title">Novo Painel Pessoal e Integração de Dados</h2>
+        <p class="slide-subtitle">Paridade visual premium, segurança e integridade de reporte.</p>
+      </div>
+      <div class="slide-content">
+        <div class="tooling-layout">
+          <div class="tool-desc">
+            <h4>Alinhamento e Segurança</h4>
+            <p>O painel pessoal do coordenador foi atualizado para herdar o sistema de design premium do relatório S1, proporcionando uma experiência contínua e integrada.</p>
+            <p><strong>Persistência Redundante:</strong> Todo progresso de tarefas e notas digitadas é salvo localmente e enviado para o servidor local (API) instantaneamente, evitando perda de dados.</p>
+          </div>
+          <div class="tool-preview">
+            <div class="preview-header">
+              <span class="preview-logo">PIGZ <span>Coord</span></span>
+              <span class="preview-week">Onboarding 30d</span>
+            </div>
+            <div class="preview-card">
+              <div style="font-weight:700;margin-bottom:4px">Diagrama de Fluxo Operacional</div>
+              <div style="color:var(--text2);font-size:10px;margin-bottom:8px">Entregável S1 pronto para diretoria</div>
+              <div class="preview-btn">Abrir Relatório →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9: CONCLUSÃO ── -->
+    <div class="slide" id="slide-9">
+      <span class="slide-tag">Próximos Passos</span>
+      <div class="slide-content">
+        <div class="grid-2" style="height: 100%; align-items: center;">
+          <div class="cover-left">
+            <h1 class="cover-title">Prontos para <span>Estabilizar</span> e Crescer.</h1>
+            <p class="cover-desc" style="margin-bottom: 24px;">Com o ecossistema mapeado e o indicador IERO implantado, os próximos passos focam na governança do Linear, auditorias semanais e na liderança da esteira de correções de bugs da squad de chamados.</p>
+            <div style="display:flex;gap:12px">
+              <div style="background: rgba(250, 100, 30, 0.1); border-left: 3px solid var(--accent); padding: 8px 12px; border-radius: 4px; font-size: 11px;">
+                <strong>Meta S2:</strong> Diagnóstico de Gargalos no Linear
+              </div>
+              <div style="background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--success); padding: 8px 12px; border-radius: 4px; font-size: 11px;">
+                <strong>Meta S3:</strong> 1º Reporte Geral de Bugs
+              </div>
+            </div>
+          </div>
+          <div class="cover-right">
+            <div class="glass-card" style="border-left: 4px solid var(--accent); padding: 32px; width: 100%;">
+              <h4 style="font-size: 20px; font-weight:800; color: var(--accent);">"Estrutura, Disciplina e Visibilidade Operacional."</h4>
+              <p style="margin-top: 12px; font-size: 13px; line-height: 1.6;">A meta do plano de 30 dias é blindar os produtos vitais da PIGZ, assegurando que o time técnico execute com precisão e clareza de prioridades.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="controls">
+      <button class="nav-btn" onclick="prevSlide()">◀</button>
+      <div class="slide-counter" id="slide-counter">1 / 9</div>
+      <button class="nav-btn" onclick="nextSlide()">▶</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const progressFill = document.getElementById('progress-fill');
+    const slideCounter = document.getElementById('slide-counter');
+
+    function showSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      
+      // Deactivate current active slide
+      const currentActive = document.querySelector('.slide.active');
+      if (currentActive) {
+        currentActive.style.opacity = '0';
+        currentActive.style.transform = 'translateY(-20px) scale(0.98)';
+        setTimeout(() => {
+          currentActive.classList.remove('active');
+        }, 150);
+      }
+
+      // Activate new slide
+      setTimeout(() => {
+        const nextActive = slides[index];
+        nextActive.classList.add('active');
+        // Force reflow
+        nextActive.offsetHeight;
+        nextActive.style.opacity = '1';
+        nextActive.style.transform = 'translateY(0) scale(1)';
+        
+        currentSlideIndex = index;
+        updateUI();
+      }, 160);
+    }
+
+    let ieroInterval = null;
+
+    function animateIeroGauge() {
+      const valEl = document.querySelector('.iero-gauge-val');
+      const fillEl = document.querySelector('.iero-gauge-fill');
+      const statusEl = document.querySelector('.iero-gauge-status');
+      if (!valEl || !fillEl) return;
+      
+      clearInterval(ieroInterval);
+      let currentVal = 0;
+      valEl.textContent = '0%';
+      fillEl.style.width = '0%';
+      
+      ieroInterval = setInterval(() => {
+        currentVal += 2;
+        if (currentVal >= 68) {
+          currentVal = 68;
+          clearInterval(ieroInterval);
+        }
+        valEl.textContent = `${currentVal}%`;
+        fillEl.style.width = `${currentVal}%`;
+        
+        if (currentVal >= 60) {
+          valEl.style.color = 'var(--danger)';
+          fillEl.style.background = 'var(--danger)';
+          if (statusEl) {
+            statusEl.textContent = 'Risco Crítico';
+            statusEl.style.color = 'var(--danger)';
+          }
+        } else if (currentVal >= 35) {
+          valEl.style.color = 'var(--warning)';
+          fillEl.style.background = 'var(--warning)';
+          if (statusEl) {
+            statusEl.textContent = 'Risco Moderado';
+            statusEl.style.color = 'var(--warning)';
+          }
+        } else {
+          valEl.style.color = 'var(--success)';
+          fillEl.style.background = 'var(--success)';
+          if (statusEl) {
+            statusEl.textContent = 'Operação Segura';
+            statusEl.style.color = 'var(--success)';
+          }
+        }
+      }, 25);
+    }
+
+    function resetIeroGauge() {
+      clearInterval(ieroInterval);
+      const valEl = document.querySelector('.iero-gauge-val');
+      const fillEl = document.querySelector('.iero-gauge-fill');
+      const statusEl = document.querySelector('.iero-gauge-status');
+      if (valEl) {
+        valEl.textContent = '0%';
+        valEl.style.color = 'var(--success)';
+      }
+      if (fillEl) {
+        fillEl.style.width = '0%';
+        fillEl.style.background = 'var(--success)';
+      }
+      if (statusEl) {
+        statusEl.textContent = 'Operação Segura';
+        statusEl.style.color = 'var(--success)';
+      }
+    }
+
+    function updateUI() {
+      // Progress fill
+      const pct = ((currentSlideIndex + 1) / totalSlides) * 100;
+      progressFill.style.width = pct + '%';
+      
+      // Slide counter
+      slideCounter.textContent = `${currentSlideIndex + 1} / ${totalSlides}`;
+      
+      // Update interactive timeline active states dynamically in Slide 3
+      if (currentSlideIndex === 2) {
+        // Run animation or transition on timeline steps if needed
+        const steps = document.querySelectorAll('.timeline-step');
+        steps.forEach((step, i) => {
+          setTimeout(() => {
+            step.classList.add('active');
+          }, i * 300);
+        });
+      }
+
+      // Update IERO gauge animation dynamically in Slide 5
+      if (currentSlideIndex === 4) {
+        animateIeroGauge();
+      } else {
+        resetIeroGauge();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < totalSlides - 1) {
+        showSlide(currentSlideIndex + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        showSlide(currentSlideIndex - 1);
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch swipe navigation for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -50) {
+        nextSlide(); // Swipe left
+      } else if (swipeDistance > 50) {
+        prevSlide(); // Swipe right
+      }
+    }
+
+    // Initial setup
+    updateUI();
+  </script>
+</body>
+</html>

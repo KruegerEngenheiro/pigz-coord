@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showcase — Ferramenta de Reunião Dev | PIGZ Coord S2</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0F14;--bg2:#13151C;--card:#1A1D27;--card2:#20232E;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --accent:#FA641E;--success:#22D3A4;--warning:#FBBF24;--danger:#F87171;
+  --info:#60A5FA;--purple:#A78BFA;--text:#F1F2F6;--text2:#9CA3AF;--text3:#6B7280;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;min-height:100vh}
+
+/* TOP */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:52px;
+  background:rgba(13,15,20,0.97);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.logo{font-size:14px;font-weight:800}.logo b{color:var(--accent)}
+.badge{font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;background:rgba(250,100,30,0.1);border:1px solid rgba(250,100,30,0.25);color:var(--accent)}
+.tbtn{
+  display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:8px;
+  border:1px solid var(--border2);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;color:var(--text2);background:rgba(255,255,255,0.04);text-decoration:none;
+}
+.tbtn:hover{background:rgba(255,255,255,0.09);color:var(--text)}
+.tbtn-p{background:var(--accent);color:white;border-color:transparent}
+.tbtn-p:hover{opacity:.85;color:white}
+
+/* HERO */
+.hero{
+  text-align:center;padding:80px 28px 60px;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(250,100,30,0.12),transparent);
+}
+.hero-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:16px}
+.hero-title{font-size:48px;font-weight:900;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
+.hero-title span{background:linear-gradient(135deg,var(--accent),var(--warning));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:16px;color:var(--text2);max-width:580px;margin:0 auto 32px;line-height:1.65}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-btn{
+  padding:12px 24px;border-radius:10px;border:1.5px solid var(--border2);
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;color:var(--text2);background:var(--card2);text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.hero-btn:hover{color:var(--text);border-color:var(--border2);background:rgba(255,255,255,0.07)}
+.hero-btn.p{background:var(--accent);color:white;border-color:transparent}
+.hero-btn.p:hover{opacity:.85;color:white}
+
+/* PAGE */
+.page{max-width:1100px;margin:0 auto;padding:0 28px 80px}
+
+/* TIMELINE DE CONSTRUÇÃO */
+.timeline{position:relative;padding:0 0 0 32px}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--success))}
+.tl-item{position:relative;margin-bottom:28px;animation:fadeIn 0.5s ease}
+.tl-dot{
+  position:absolute;left:-28px;top:4px;
+  width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);
+  background:var(--bg);display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;color:var(--accent);
+}
+.tl-dot.done{background:var(--accent);color:var(--bg)}
+.tl-date{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:4px}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.tl-title{font-size:14px;font-weight:800;margin-bottom:6px}
+.tl-desc{font-size:12px;color:var(--text2);line-height:1.6}
+.tl-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;margin-top:8px}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:40px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;border-top:3px solid var(--c,var(--border2))}
+.stat-num{font-size:32px;font-weight:900;color:var(--c,var(--accent));letter-spacing:-1px;margin-bottom:4px}
+.stat-label{font-size:11px;color:var(--text2);font-weight:600}
+
+/* SLIDES PREVIEW */
+.slides-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0}
+.slide-prev{
+  background:var(--card2);border:1px solid var(--border);border-radius:10px;
+  padding:14px 10px;text-align:center;cursor:pointer;
+  transition:all 0.2s;border-top:3px solid var(--c,var(--border2));
+}
+.slide-prev:hover{transform:translateY(-3px);border-color:var(--c,var(--accent));box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+.sp-icon{font-size:20px;margin-bottom:6px}
+.sp-num{font-size:9px;color:var(--text3);font-weight:700;margin-bottom:4px}
+.sp-name{font-size:11px;font-weight:700;margin-bottom:4px}
+.sp-desc{font-size:9px;color:var(--text3);line-height:1.4}
+.sp-time{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--text3);margin-top:6px;display:inline-block}
+
+/* SECTION */
+.section{margin-bottom:40px}
+.section-title{
+  font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--text3);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.section-title::before{content:'';flex:1;height:1px;background:var(--border)}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* RESULT CARDS */
+.results{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.rc-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:12px}
+.rc-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.5}
+.rc-item:last-child{margin-bottom:0}
+.rc-arrow{color:var(--success);font-weight:700;flex-shrink:0}
+
+/* BIG QUOTE */
+.big-quote{
+  text-align:center;padding:48px;
+  background:linear-gradient(135deg,rgba(250,100,30,0.08),rgba(251,191,36,0.04));
+  border:1px solid rgba(250,100,30,0.2);border-radius:20px;margin:40px 0;
+}
+.bq-text{font-size:22px;font-weight:700;letter-spacing:-0.3px;line-height:1.4;margin-bottom:12px}
+.bq-text em{font-style:normal;color:var(--accent)}
+.bq-sub{font-size:13px;color:var(--text2)}
+
+/* IMPACT TABLE */
+.impact-table{width:100%;border-collapse:collapse}
+.impact-table th{background:var(--card2);padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);text-align:left;border-bottom:1px solid var(--border)}
+.impact-table td{padding:12px 16px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border)}
+.impact-table tr:last-child td{border-bottom:none}
+.impact-table tr:hover td{background:rgba(255,255,255,0.02)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="logo">PIGZ<b>.</b></span>
+    <span class="badge">Case Study · Semana 2</span>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a class="tbtn" href="ata-reuniao-devs.html" target="_blank">📄 Ata da Reunião</a>
+    <a class="tbtn" href="reuniao-devs.html" target="_blank">🎤 Abrir Ferramenta</a>
+    <a class="tbtn tbtn-p" href="relatorio-s2.html">← Entregável S2</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">📽️ Case Study — Construído durante a Semana 2</div>
+  <h1 class="hero-title">Facilitador de<br><span>Reunião Dev</span></h1>
+  <p class="hero-sub">Ferramenta interativa criada do zero durante a semana para estruturar, facilitar e documentar reuniões operacionais — com exportação automática para o painel de gestão.</p>
+  <div class="hero-btns">
+    <a class="hero-btn p" href="reuniao-devs.html" target="_blank">🎤 Abrir a Ferramenta</a>
+    <a class="hero-btn" href="ata-reuniao-devs.html" target="_blank">📄 Ver Ata Gerada</a>
+    <a class="hero-btn" href="reporte-executivo.html" target="_blank">⭐ Ver Reporte Executivo</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card" style="--c:var(--accent)">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Dias para construir a ferramenta</div>
+    </div>
+    <div class="stat-card" style="--c:var(--success)">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Slides estruturados de coleta</div>
+    </div>
+    <div class="stat-card" style="--c:var(--warning)">
+      <div class="stat-num">45</div>
+      <div class="stat-label">Minutos de reunião facilitada</div>
+    </div>
+    <div class="stat-card" style="--c:var(--info)">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Bugs críticos mapeados em tempo real</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-title">Linha do Tempo de Construção</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Segunda-feira, 25/05 — 19:08</div>
+        <div class="tl-card">
+          <div class="tl-title">💡 Conceito e decisão de criar a ferramenta</div>
+          <div class="tl-desc">Identificada a necessidade de estruturar a reunião com os devs de forma que os dados coletados alimentassem diretamente o entregável da semana. Decisão: criar um facilitador interativo em vez de usar slides convencionais ou anotações soltas.</div>
+          <div class="tl-tag" style="background:rgba(250,100,30,0.12);color:var(--accent)">🎯 Problema identificado</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Segunda-feira, 25/05 — 19:30</div>
+        <div class="tl-card">
+          <div class="tl-title">🔧 Primeira versão — 7 slides</div>
+          <div class="tl-desc">Construída a primeira versão da ferramenta com 7 slides, timer de reunião, painel lateral de notas e botão de exportação para o Reporte Executivo. Versão testada e revisada.</div>
+          <div class="tl-tag" style="background:rgba(251,191,36,0.12);color:var(--warning)">⚙️ v1.0 criada</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Segunda-feira, 25/05 — 19:55</div>
+        <div class="tl-card">
+          <div class="tl-title">✂️ Refinamento — reduzida para 5 slides</div>
+          <div class="tl-desc">Após revisão do conteúdo, a versão foi simplificada de 7 para 5 slides. Cada pergunta foi revisada para mapear diretamente a um campo do entregável. Slide de "Contexto" (passivo) foi removido para maximizar o tempo de escuta ativa.</div>
+          <div class="tl-tag" style="background:rgba(34,211,164,0.12);color:var(--success)">✅ v2.0 — versão final</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Segunda-feira, 25/05 — 20:12</div>
+        <div class="tl-card">
+          <div class="tl-title">⛶ Botão de tela cheia adicionado</div>
+          <div class="tl-desc">Implementado botão de Fullscreen para uso em projeção durante a reunião. Atalho de teclado F para ativar. Ferramenta pronta para uso em apresentação.</div>
+          <div class="tl-tag" style="background:rgba(96,165,250,0.12);color:var(--info)">🚀 Pronta para uso</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Terça-feira, 26/05 — 08:00 a 08:45</div>
+        <div class="tl-card">
+          <div class="tl-title">🎤 Ferramenta usada na reunião com o time de desenvolvimento</div>
+          <div class="tl-desc">Reunião conduzida com os 5 slides da ferramenta. Dados coletados em tempo real: 6 bugs críticos mapeados, 6 gargalos identificados, 5 hipóteses validadas, saúde de 5 produtos avaliada. Auto-salvamento ativo durante toda a sessão.</div>
+          <div class="tl-tag" style="background:rgba(34,211,164,0.12);color:var(--success)">✅ Reunião realizada com sucesso</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-date">Terça-feira, 26/05 — 18:47</div>
+        <div class="tl-card">
+          <div class="tl-title">📄 Ata gerada e Reporte Executivo atualizado</div>
+          <div class="tl-desc">Dados da reunião estruturados em ata formal e exportados para o Reporte Executivo. Todos os KPIs, semáforos e hipóteses do painel executivo agora refletem os dados reais coletados com o time.</div>
+          <div class="tl-tag" style="background:rgba(250,100,30,0.12);color:var(--accent)">⭐ Entregável S2 atualizado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OS 5 SLIDES -->
+  <div class="section">
+    <div class="section-title">Estrutura dos 5 Slides</div>
+    <div class="slides-grid">
+      <div class="slide-prev" style="--c:var(--accent)">
+        <div class="sp-icon">👋</div>
+        <div class="sp-num">SLIDE 01</div>
+        <div class="sp-name">Abertura</div>
+        <div class="sp-desc">Agenda visual, presentes e objetivo da reunião</div>
+        <div class="sp-time">5 min</div>
+      </div>
+      <div class="slide-prev" style="--c:var(--danger)">
+        <div class="sp-icon">🐛</div>
+        <div class="sp-num">SLIDE 02</div>
+        <div class="sp-name">Diagnóstico</div>
+        <div class="sp-desc">Bugs críticos por produto + maior bloqueio do time</div>
+        <div class="sp-time">15 min</div>
+      </div>
+      <div class="slide-prev" style="--c:var(--warning)">
+        <div class="sp-icon">🔧</div>
+        <div class="sp-num">SLIDE 03</div>
+        <div class="sp-name">Processo</div>
+        <div class="sp-desc">Chips de gargalo + o que mudar no Linear</div>
+        <div class="sp-time">10 min</div>
+      </div>
+      <div class="slide-prev" style="--c:var(--info)">
+        <div class="sp-icon">💡</div>
+        <div class="sp-num">SLIDE 04</div>
+        <div class="sp-name">Hipóteses</div>
+        <div class="sp-desc">Validação técnica H1–H4 com viabilidade e esforço</div>
+        <div class="sp-time">10 min</div>
+      </div>
+      <div class="slide-prev" style="--c:var(--success)">
+        <div class="sp-icon">🏁</div>
+        <div class="sp-num">SLIDE 05</div>
+        <div class="sp-name">Saúde & Fim</div>
+        <div class="sp-desc">Semáforos por produto + decisões + próximos passos</div>
+        <div class="sp-time">5 min</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="big-quote">
+    <div class="bq-text">A ferramenta não foi construída<br><em>para mostrar trabalho</em> — foi construída<br>para <em>fazer o trabalho funcionar melhor.</em></div>
+    <div class="bq-sub">O resultado prova isso: em 45 minutos de reunião, temos dados suficientes para construir o entregável inteiro da semana.</div>
+  </div>
+
+  <!-- RESULTADOS -->
+  <div class="section">
+    <div class="section-title">Resultados da Reunião</div>
+    <div class="results">
+      <div class="result-card">
+        <div class="rc-title">🐛 Bugs Capturados</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Correção das Notas Fiscais</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Integração iFood</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Integração com a Balança</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Problemas relacionados à entrega</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Documentação das Impressoras</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Link direto das lojas (PIGZ)</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-title">🚥 Gargalos Identificados</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Sem responsável definido</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Sem estimativa de esforço</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Bug crítico sem prioridade</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Falta de contexto na tarefa</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Ambiente de teste instável</div>
+        <div class="rc-item"><span class="rc-arrow">→</span>Prioridade mudando frequentemente</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-title">💡 Hipóteses Validadas</div>
+        <div class="rc-item"><span style="color:var(--success);font-weight:700">✅</span>H1 — Monitoramento (Sentry/Clarity)</div>
+        <div class="rc-item"><span style="color:var(--success);font-weight:700">✅</span>H2 — Triagem Linear P0–P3 (fortemente)</div>
+        <div class="rc-item"><span style="color:var(--warning);font-weight:700">⚠️</span>H3 — Migração Node/Next.js (neutra)</div>
+        <div class="rc-item"><span style="color:var(--success);font-weight:700">✅</span>H4 — Cadência semanal</div>
+        <div class="rc-item"><span style="color:var(--accent);font-weight:700">🆕</span>H5 — Roadmap (nova hipótese emergida)</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-title">🩺 Saúde dos Produtos</div>
+        <div class="rc-item"><span style="color:var(--danger)">🔴</span>Partner — Crítico</div>
+        <div class="rc-item"><span style="color:var(--warning)">🟡</span>Mobile — Atenção</div>
+        <div class="rc-item"><span style="color:var(--warning)">🟡</span>App Web — Atenção</div>
+        <div class="rc-item"><span style="color:var(--danger)">🔴</span>Gestão — Crítico</div>
+        <div class="rc-item"><span style="color:var(--danger)">🔴</span>TEF/Totem — Crítico</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPACTO NO ENTREGÁVEL -->
+  <div class="section">
+    <div class="section-title">Impacto Direto no Entregável S2</div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+      <table class="impact-table">
+        <thead>
+          <tr>
+            <th>Dado coletado na reunião</th>
+            <th>Onde foi no entregável</th>
+            <th>Impacto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>6 bugs críticos listados</td>
+            <td>KPIs do Reporte Executivo</td>
+            <td style="color:var(--success)">✅ Número real, não estimado</td>
+          </tr>
+          <tr>
+            <td>6 gargalos selecionados</td>
+            <td>Seção de Impedimentos + Plano de Ação H2</td>
+            <td style="color:var(--success)">✅ Dados validados pelo time</td>
+          </tr>
+          <tr>
+            <td>Validação das hipóteses H1–H4</td>
+            <td>Plano de Ação do Reporte Executivo</td>
+            <td style="color:var(--success)">✅ Respaldo técnico para Quarta</td>
+          </tr>
+          <tr>
+            <td>Semáforos por produto</td>
+            <td>Dashboard de saúde do Reporte</td>
+            <td style="color:var(--success)">✅ Visão do time na linha de frente</td>
+          </tr>
+          <tr>
+            <td>Papel esperado da coordenação</td>
+            <td>Prioridades do Reporte Executivo</td>
+            <td style="color:var(--success)">✅ Agenda clara para Quarta</td>
+          </tr>
+          <tr>
+            <td>H5 emergiu: Roadmap</td>
+            <td>Nova hipótese no Plano de Ação</td>
+            <td style="color:var(--accent)">🆕 Descoberta que não estava no plano</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

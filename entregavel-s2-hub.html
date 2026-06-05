@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semana 2 — Painel de Progresso | PIGZ Coord</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F6FA;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --accent: #FA641E;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+  --purple: #8B5CF6;
+  --text: #111827;
+  --text2: #4B5563;
+  --text3: #9CA3AF;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100vh; background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--text); }
+
+/* TOP BAR */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 52px;
+}
+.logo { font-size: 14px; font-weight: 800; }
+.logo span { color: var(--accent); }
+.topbar-right { display: flex; gap: 8px; }
+.tbtn {
+  padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border);
+  font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700;
+  cursor: pointer; background: white; color: var(--text2); transition: all 0.2s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+}
+.tbtn:hover { background: var(--bg); color: var(--text); }
+.tbtn-p { background: var(--accent); color: white; border-color: transparent; }
+.tbtn-p:hover { opacity: .85; color: white; }
+
+/* HERO */
+.hero {
+  max-width: 1000px; margin: 0 auto;
+  padding: 48px 28px 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.hero-left {}
+.hero-week {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--warning); margin-bottom: 8px;
+}
+.hero-title {
+  font-size: 32px; font-weight: 900; letter-spacing: -1px;
+  color: var(--text); line-height: 1.1; margin-bottom: 10px;
+}
+.hero-sub { font-size: 13px; color: var(--text2); line-height: 1.6; max-width: 480px; }
+.hero-right {
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0;
+}
+.hero-stat {
+  text-align: right;
+  background: white; border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px 18px; min-width: 140px;
+}
+.hero-stat-num { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+.hero-stat-label { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; }
+
+/* PROGRESS BAR */
+.week-progress {
+  max-width: 1000px; margin: 24px auto 0; padding: 0 28px;
+}
+.prog-track { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.prog-fill {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--warning), var(--success));
+  transition: width 1s ease;
+}
+.prog-labels {
+  display: flex; justify-content: space-between;
+  margin-top: 6px; font-size: 10px; font-weight: 700; color: var(--text3);
+}
+
+/* MAIN CONTENT */
+.main { max-width: 1000px; margin: 0 auto; padding: 32px 28px 60px; }
+
+/* SECTION LABEL */
+.sec-label {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text3); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* TIMELINE */
+.timeline { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+
+.tl-item {
+  display: grid; grid-template-columns: 52px 1fr auto;
+  align-items: center; gap: 16px;
+  background: white; border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 20px;
+  text-decoration: none; color: inherit;
+  transition: all 0.2s; position: relative;
+  border-left: 4px solid var(--c, var(--border));
+}
+.tl-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  border-color: var(--c, var(--border));
+}
+.tl-num {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(0,0,0,0.04);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.tl-body {}
+.tl-step { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--c, var(--text3)); margin-bottom: 3px; }
+.tl-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+.tl-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.tl-meta {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 6px; flex-shrink: 0; min-width: 120px;
+}
+.tl-date { font-size: 10px; color: var(--text3); font-weight: 600; white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+.tl-badge {
+  font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-done { background: rgba(16,185,129,0.1); color: var(--success); }
+.badge-wip { background: rgba(245,158,11,0.1); color: var(--warning); }
+.badge-next { background: rgba(107,114,128,0.1); color: var(--text3); }
+.tl-arrow {
+  font-size: 14px; color: var(--c, var(--text3)); opacity: 0;
+  transition: opacity 0.2s; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+}
+.tl-item:hover .tl-arrow { opacity: 1; }
+
+/* IMPACT STRIP */
+.impact-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  margin-bottom: 32px;
+}
+.impact-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 18px;
+  border-top: 3px solid var(--c, var(--border));
+  text-align: center;
+}
+.impact-num { font-size: 28px; font-weight: 900; color: var(--c, var(--text)); letter-spacing: -1px; margin-bottom: 4px; }
+.impact-label { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* NEXT STEPS */
+.next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+.next-card {
+  background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.next-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.next-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.next-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.next-when { font-size: 10px; font-weight: 700; color: var(--warning); margin-top: 6px; }
+
+/* CTA */
+.cta-bar {
+  background: linear-gradient(135deg, #0D0F14, #1A1D27);
+  border-radius: 16px; padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.cta-text { color: white; }
+.cta-title { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+.cta-sub { font-size: 12px; color: rgba(255,255,255,0.5); }
+.cta-btns { display: flex; gap: 10px; flex-shrink: 0; }
+.cta-btn {
+  padding: 10px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);
+  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06);
+}
+.cta-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+.cta-btn-p { background: var(--accent); color: white; border-color: transparent; }
+.cta-btn-p:hover { opacity: .85; color: white; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="logo">PIGZ<span>.</span></span>
+    <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(245,158,11,0.1);color:var(--warning)">⚡ Semana 2</span>
+  </div>
+  <div class="topbar-right">
+    <a class="tbtn" href="relatorio-s2.html" target="_blank">📊 Relatório Completo</a>
+    <a class="tbtn tbtn-p" href="reporte-executivo.html" target="_blank">⭐ Reporte Executivo</a>
+    <a class="tbtn" href="index.html">← Painel</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-week">Semana 2 · 26–30 de Maio, 2026</div>
+    <h1 class="hero-title">Diagnóstico Operacional<br>& Governança</h1>
+    <p class="hero-sub">Auditoria do processo de bugs, validação técnica das hipóteses de melhoria com o time de desenvolvimento e construção do sistema de reporte semanal.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num" style="color:var(--success)">4/5</div>
+      <div class="hero-stat-label">Etapas concluídas</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" style="color:var(--accent)">Sex 30/05</div>
+      <div class="hero-stat-label">Entrega final</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="week-progress">
+  <div class="prog-track">
+    <div class="prog-fill" style="width:80%"></div>
+  </div>
+  <div class="prog-labels">
+    <span>Seg 26/05</span>
+    <span>Ter 26/05</span>
+    <span>Qua 27/05 ← hoje</span>
+    <span>Qui 28/05</span>
+    <span>Sex 30/05</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- IMPACT -->
+  <div class="sec-label">Resultado da semana</div>
+  <div class="impact-strip">
+    <div class="impact-card" style="--c:var(--accent)">
+      <div class="impact-num" style="color:var(--accent)">5</div>
+      <div class="impact-label">Ferramentas criadas</div>
+    </div>
+    <div class="impact-card" style="--c:var(--danger)">
+      <div class="impact-num" style="color:var(--danger)">6</div>
+      <div class="impact-label">Bugs críticos mapeados</div>
+    </div>
+    <div class="impact-card" style="--c:var(--info)">
+      <div class="impact-num" style="color:var(--info)">5</div>
+      <div class="impact-label">Hipóteses validadas</div>
+    </div>
+    <div class="impact-card" style="--c:var(--success)">
+      <div class="impact-num" style="color:var(--success)">1</div>
+      <div class="impact-label">Ata assinada no GOV</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="sec-label">Construção cronológica — clique para abrir cada ferramenta</div>
+  <div class="timeline">
+
+    <a class="tl-item" href="reuniao-devs.html" target="_blank" style="--c:#FA641E">
+      <div class="tl-num">🎤</div>
+      <div class="tl-body">
+        <div class="tl-step">Passo 01 — Facilitador de Reunião</div>
+        <div class="tl-title">Ferramenta de Condução de Reunião Dev</div>
+        <div class="tl-desc">Criada para guiar a reunião com 5 slides interativos, capturando dados em tempo real: bugs, gargalos, hipóteses e saúde dos produtos.</div>
+      </div>
+      <div class="tl-meta">
+        <div class="tl-date">Seg 26/05 · 19h30</div>
+        <div class="tl-badge badge-done">✅ Concluído</div>
+      </div>
+      <div class="tl-arrow">→</div>
+    </a>
+
+    <a class="tl-item" href="ata-reuniao-devs.html" target="_blank" style="--c:#10B981">
+      <div class="tl-num">📄</div>
+      <div class="tl-body">
+        <div class="tl-step">Passo 02 — Reunião Realizada + Ata</div>
+        <div class="tl-title">Reunião com o Time Dev + Ata Oficial Gerada</div>
+        <div class="tl-desc">Reunião conduzida em 26/05 às 08h. Ata gerada automaticamente com todos os dados capturados e assinada no GOV para validade oficial.</div>
+      </div>
+      <div class="tl-meta">
+        <div class="tl-date">Ter 26/05 · 08h–18h</div>
+        <div class="tl-badge badge-done">✅ Assinada no GOV</div>
+      </div>
+      <div class="tl-arrow">→</div>
+    </a>
+
+    <a class="tl-item" href="showcase-ferramenta.html" target="_blank" style="--c:#8B5CF6">
+      <div class="tl-num">📽️</div>
+      <div class="tl-body">
+        <div class="tl-step">Passo 03 — Evidência do Processo</div>
+        <div class="tl-title">Showcase — Construção da Semana</div>
+        <div class="tl-desc">Documentação cronológica de tudo que foi desenvolvido durante a semana — com linha do tempo, resultados e impacto no entregável. Evidência de que nada foi feito de última hora.</div>
+      </div>
+      <div class="tl-meta">
+        <div class="tl-date">Ter 26/05 · 19h</div>
+        <div class="tl-badge badge-done">✅ Concluído</div>
+      </div>
+      <div class="tl-arrow">→</div>
+    </a>
+
+    <a class="tl-item" href="reporte-executivo.html" target="_blank" style="--c:#F59E0B">
+      <div class="tl-num">⭐</div>
+      <div class="tl-body">
+        <div class="tl-step">Passo 04 — Reporte para as Lideranças</div>
+        <div class="tl-title">Reporte Executivo — Nível CEO</div>
+        <div class="tl-desc">Dashboard premium com KPIs, semáforos de saúde por produto e plano de ação com as 5 hipóteses. Alimentado pelos dados reais da reunião. Apresentação semanal para Bia e Rodrigo.</div>
+      </div>
+      <div class="tl-meta">
+        <div class="tl-date">Qua 27/05</div>
+        <div class="tl-badge badge-wip">🔄 Em uso</div>
+      </div>
+      <div class="tl-arrow">→</div>
+    </a>
+
+    <a class="tl-item" href="resumo-semana2.html" target="_blank" style="--c:#3B82F6">
+      <div class="tl-num">📋</div>
+      <div class="tl-body">
+        <div class="tl-step">Passo 05 — Entrega Final</div>
+        <div class="tl-title">Resumo Executivo — Documento Final da Semana</div>
+        <div class="tl-desc">Documento A4 com o plano de ação completo da semana. Compartilhável com lideranças e coordenadores para validação, arquivo e assinatura.</div>
+      </div>
+      <div class="tl-meta">
+        <div class="tl-date">Sex 30/05</div>
+        <div class="tl-badge badge-next">⏳ Entrega final</div>
+      </div>
+      <div class="tl-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- PRÓXIMAS AÇÕES -->
+  <div class="sec-label">Próximas ações desta semana</div>
+  <div class="next-grid">
+    <div class="next-card">
+      <div class="next-icon">📅</div>
+      <div>
+        <div class="next-title">Reunião com Estratégia e Produto</div>
+        <div class="next-desc">Apresentar diagnóstico com dados do time + proposta das hipóteses H1 a H5 com respaldo técnico dos devs.</div>
+        <div class="next-when">📌 Qua 28/05 — hoje</div>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="next-icon">🏷️</div>
+      <div>
+        <div class="next-title">Implementar Labels P0–P3 no Linear</div>
+        <div class="next-desc">Auditar todos os cards desatualizados e padronizar triagem de severidade no backlog de bugs.</div>
+        <div class="next-when">📌 Qui 28/05</div>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="next-icon">📋</div>
+      <div>
+        <div class="next-title">Entrega do Resumo Executivo</div>
+        <div class="next-desc">Finalizar e compartilhar o documento A4 com o plano de ação da semana para lideranças.</div>
+        <div class="next-when">📌 Sex 30/05 — prazo final</div>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="next-icon">🔄</div>
+      <div>
+        <div class="next-title">Iniciar Cadência Semanal</div>
+        <div class="next-desc">Primeira reunião de alinhamento semanal com o time dev — ritual fixo de 30 min toda Segunda.</div>
+        <div class="next-when">📌 Seg 02/06 — Semana 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-bar">
+    <div class="cta-text">
+      <div class="cta-title">⭐ Reporte Executivo — Bia & Rodrigo</div>
+      <div class="cta-sub">Dashboard completo com KPIs, semáforos e plano de ação — pronto para apresentação semanal</div>
+    </div>
+    <div class="cta-btns">
+      <a class="cta-btn" href="ata-reuniao-devs.html" target="_blank">📄 Ver Ata</a>
+      <a class="cta-btn cta-btn-p" href="reporte-executivo.html" target="_blank">Abrir Reporte →</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

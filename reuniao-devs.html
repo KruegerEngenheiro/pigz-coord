@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunião Dev — Semana 2 | PIGZ Coord</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0D0F14;
+  --bg2:     #13151C;
+  --card:    #1A1D27;
+  --card2:   #20232E;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --accent:  #FA641E;
+  --success: #22D3A4;
+  --warning: #FBBF24;
+  --danger:  #F87171;
+  --info:    #60A5FA;
+  --purple:  #A78BFA;
+  --text:    #F1F2F6;
+  --text2:   #9CA3AF;
+  --text3:   #6B7280;
+  --mono:    'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text)}
+
+/* ── LAYOUT ── */
+.root{display:grid;grid-template-rows:52px 1fr 64px;height:100vh}
+
+/* ── TOPBAR ── */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;background:rgba(13,15,20,0.98);
+  border-bottom:1px solid var(--border);z-index:100;
+}
+.t-left{display:flex;align-items:center;gap:14px}
+.logo{font-size:14px;font-weight:800}.logo b{color:var(--accent)}
+.badge{font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;
+  background:rgba(250,100,30,0.1);border:1px solid rgba(250,100,30,0.25);color:var(--accent)}
+.progress-track{flex:1;max-width:280px;height:4px;background:var(--border2);border-radius:999px;overflow:hidden;margin:0 20px}
+.progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--warning));transition:width 0.4s ease}
+.step-info{font-size:12px;color:var(--text3);font-family:var(--mono)}
+.t-right{display:flex;align-items:center;gap:8px}
+.tbtn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 14px;border-radius:8px;border:1px solid var(--border2);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;color:var(--text2);
+  background:rgba(255,255,255,0.04);text-decoration:none;
+}
+.tbtn:hover{background:rgba(255,255,255,0.09);color:var(--text)}
+.tbtn-p{background:var(--accent);color:white;border-color:transparent}
+.tbtn-p:hover{opacity:.85;color:white}
+.tbtn-s{background:var(--success);color:var(--bg);border-color:transparent}
+.tbtn-s:hover{opacity:.85}
+.timer-box{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--card2);
+}
+.timer-num{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--text);min-width:44px}
+.timer-num.warn{color:var(--warning)}
+.timer-num.crit{color:var(--danger);animation:blink 1s infinite}
+.t-icon{font-size:14px;cursor:pointer;padding:2px 4px;border-radius:4px;transition:background 0.2s}
+.t-icon:hover{background:rgba(255,255,255,0.1)}
+
+/* ── MAIN ── */
+.main{overflow-y:auto;position:relative}
+.slide{
+  display:none;min-height:calc(100vh - 116px);
+  padding:36px 52px 20px;animation:slideIn 0.3s ease;user-select:text;
+}
+.slide.on{display:flex;flex-direction:column}
+@keyframes slideIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+
+/* Slide header */
+.s-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.s-tag::before{content:'';width:14px;height:2px;background:var(--accent)}
+.s-title{font-size:30px;font-weight:900;letter-spacing:-0.8px;line-height:1.1;margin-bottom:8px}
+.s-sub{font-size:13px;color:var(--text2);margin-bottom:28px;line-height:1.6;max-width:640px}
+
+/* Entregavel tag */
+.delivers-to{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px;
+  background:rgba(34,211,164,0.1);border:1px solid rgba(34,211,164,0.2);color:var(--success);
+  margin-bottom:20px;
+}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.gfull{grid-column:1/-1}
+
+/* ── FIELD ── */
+.fgroup{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.flabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
+.finput{
+  background:var(--card);border:1.5px solid var(--border2);border-radius:10px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:13px;
+  padding:10px 14px;outline:none;transition:border-color 0.2s;width:100%;
+}
+.finput:focus{border-color:var(--accent)}
+.finput::placeholder{color:var(--text3)}
+.ftarea{
+  background:var(--card);border:1.5px solid var(--border2);border-radius:10px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:13px;
+  padding:11px 14px;outline:none;transition:border-color 0.2s;
+  width:100%;resize:none;line-height:1.6;
+}
+.ftarea:focus{border-color:var(--accent)}
+.ftarea::placeholder{color:var(--text3)}
+
+/* ── BUG COUNTER CARDS ── */
+.bug-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:14px;
+  padding:14px;text-align:center;transition:all 0.2s;
+  border-top:3px solid var(--c,var(--border2));
+}
+.bug-card:focus-within{border-color:var(--c,var(--accent));box-shadow:0 0 0 2px rgba(250,100,30,0.1)}
+.bug-icon{font-size:20px;margin-bottom:6px}
+.bug-name{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px}
+.bug-num{
+  width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;
+  font-family:var(--mono);font-size:24px;font-weight:700;
+  color:var(--c,var(--accent));text-align:center;padding:8px 4px;
+  outline:none;transition:all 0.2s;
+}
+.bug-num:focus{border-color:var(--c,var(--accent))}
+.bug-note{font-size:9px;color:var(--text3);margin-top:5px}
+
+/* ── CHIP ── */
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border-radius:999px;
+  font-size:12px;font-weight:600;cursor:pointer;
+  border:1.5px solid var(--border2);color:var(--text2);
+  background:var(--card2);transition:all 0.2s;user-select:none;
+}
+.chip:hover{border-color:rgba(250,100,30,0.4);color:var(--text)}
+.chip.on{background:rgba(250,100,30,0.12);border-color:var(--accent);color:var(--accent)}
+
+/* ── HIPÓTESE CARD ── */
+.hypo-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;margin-bottom:10px;
+}
+.hypo-head{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;
+  background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);
+}
+.hypo-badge{
+  width:28px;height:28px;border-radius:8px;display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;
+}
+.hypo-name{font-size:13px;font-weight:700;flex:1}
+.hypo-body{padding:0 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rate-row{display:flex;gap:6px;margin-bottom:8px}
+.rate-btn{
+  flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid var(--border2);
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;color:var(--text3);background:var(--card2);text-align:center;
+}
+.rate-btn:hover{color:var(--text);background:rgba(255,255,255,0.06)}
+.rate-btn.r-v{background:rgba(34,211,164,0.15);border-color:var(--success);color:var(--success)}
+.rate-btn.r-p{background:rgba(251,191,36,0.15);border-color:var(--warning);color:var(--warning)}
+.rate-btn.r-c{background:rgba(248,113,113,0.15);border-color:var(--danger);color:var(--danger)}
+
+/* ── SEMÁFORO ── */
+.sem-row{
+  display:flex;align-items:center;gap:12px;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:12px 16px;margin-bottom:8px;
+}
+.sem-icon{font-size:18px;flex-shrink:0}
+.sem-label{font-size:13px;font-weight:600;flex:1}
+.sem-btns{display:flex;gap:6px;flex-shrink:0}
+.sem-btn{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:14px;cursor:pointer;
+  border:2px solid transparent;background:rgba(255,255,255,0.05);
+  transition:all 0.2s;
+}
+.sem-btn:hover{transform:scale(1.15)}
+.sem-btn.on{border-color:white;box-shadow:0 0 10px rgba(255,255,255,0.15);transform:scale(1.15)}
+.sem-note{
+  background:var(--card2);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;
+  padding:7px 10px;outline:none;flex:1;min-width:160px;
+}
+.sem-note:focus{border-color:var(--accent)}
+.sem-note::placeholder{color:var(--text3)}
+
+/* ── BOTTOMBAR ── */
+.bottombar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;border-top:1px solid var(--border);background:var(--bg2);
+}
+.nav-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 22px;border-radius:10px;border:1.5px solid var(--border2);
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;color:var(--text2);background:var(--card2);
+}
+.nav-btn:hover{color:var(--text);border-color:var(--border2);background:rgba(255,255,255,0.07)}
+.nav-btn.primary{background:var(--accent);color:white;border-color:transparent}
+.nav-btn.primary:hover{opacity:.85}
+.nav-btn:disabled{opacity:.25;cursor:not-allowed;pointer-events:none}
+.dot-track{display:flex;gap:6px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border2);cursor:pointer;transition:all .3s}
+.dot.on{background:var(--accent);width:22px;border-radius:4px;box-shadow:0 0 8px var(--accent)}
+.dot.done{background:var(--success)}
+
+/* ── MODAL ── */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);
+  z-index:500;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.overlay.on{opacity:1;pointer-events:all}
+.modal{
+  background:var(--card);border:1px solid var(--border2);border-radius:20px;
+  padding:36px;max-width:500px;width:90%;
+  transform:translateY(20px);transition:transform 0.3s;
+}
+.overlay.on .modal{transform:translateY(0)}
+.modal-title{font-size:20px;font-weight:800;margin-bottom:8px}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6}
+.export-items{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.export-item{
+  display:flex;align-items:center;gap:10px;background:var(--card2);
+  border-radius:10px;padding:11px 14px;font-size:13px;color:var(--text2);
+}
+.modal-btns{display:flex;gap:10px;justify-content:flex-end}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:var(--success);color:var(--bg);padding:11px 22px;border-radius:10px;
+  font-size:13px;font-weight:700;box-shadow:0 6px 24px rgba(34,211,164,0.3);
+  opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap;
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:linear-gradient(135deg,rgba(250,100,30,0.07),rgba(251,191,36,0.04));
+  border:1px solid rgba(250,100,30,0.18);border-radius:14px;padding:18px 22px;
+  margin-bottom:20px;
+}
+.info-box-title{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+.info-row{font-size:13px;color:var(--text2);display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;line-height:1.55}
+.info-row:last-child{margin-bottom:0}
+.info-arrow{color:var(--accent);font-weight:700;flex-shrink:0}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<!-- EXPORT MODAL -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">⭐ Exportar para o Reporte Executivo</div>
+    <div class="modal-sub">Os dados desta reunião serão transferidos automaticamente para o Reporte Executivo da Semana 2.</div>
+    <div class="export-items">
+      <div class="export-item">🐛 Contagem de bugs críticos por produto</div>
+      <div class="export-item">⚠️ Gargalos e impedimentos relatados</div>
+      <div class="export-item">🩺 Saúde de cada produto (semáforos)</div>
+      <div class="export-item">📋 Viabilidade técnica das 4 hipóteses</div>
+      <div class="export-item">📝 Observações técnicas e próximos passos</div>
+    </div>
+    <div class="modal-btns">
+      <button class="tbtn" onclick="closeModal()">Cancelar</button>
+      <button class="tbtn tbtn-s" onclick="doExport()">✅ Exportar e abrir Reporte</button>
+    </div>
+  </div>
+</div>
+
+<!-- ROOT -->
+<div class="root">
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <div class="t-left">
+      <span class="logo">PIGZ<b>.</b></span>
+      <span class="badge">Dev Meeting · 26/05 · 08:00</span>
+    </div>
+    <div class="t-left" style="flex:1;justify-content:center;max-width:420px;margin:0 auto">
+      <div class="progress-track"><div class="progress-fill" id="pFill" style="width:20%"></div></div>
+      <span class="step-info" id="stepInfo">1 / 5</span>
+    </div>
+    <div class="t-right">
+      <div class="timer-box">
+        <span class="t-icon" onclick="toggleTimer()" id="tPlay">▶</span>
+        <span class="timer-num" id="tNum">10:00</span>
+        <span class="t-icon" onclick="resetTimer()">↺</span>
+      </div>
+      <button class="tbtn" onclick="setT(300)">5m</button>
+      <button class="tbtn" onclick="setT(600)">10m</button>
+      <button class="tbtn" onclick="setT(900)">15m</button>
+      <button class="tbtn" onclick="toggleFS()" id="fsBtn" title="Tela cheia (F)">⛶ Tela Cheia</button>
+      <button class="tbtn tbtn-p" onclick="openModal()">⭐ Exportar</button>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- ════ SLIDE 1: ABERTURA (5 min) ════ -->
+    <div class="slide on" id="s0">
+      <div class="s-tag">Abertura <span style="color:var(--text3)">01/05</span></div>
+      <h1 class="s-title">Bom dia, time! 👋</h1>
+      <p class="s-sub">Reunião rápida — 45 minutos. O objetivo é simples: quero ouvir vocês. Sem apresentações, sem julgamentos. Tudo que for dito aqui vai diretamente para o nosso plano de ação da semana.</p>
+
+      <div class="info-box">
+        <div class="info-box-title">🎯 Por que esta reunião existe</div>
+        <div class="info-row"><span class="info-arrow">→</span>Mapear os bugs críticos em aberto hoje por produto</div>
+        <div class="info-row"><span class="info-arrow">→</span>Entender onde o processo de triagem está quebrando</div>
+        <div class="info-row"><span class="info-arrow">→</span>Validar com vocês se as hipóteses de melhoria fazem sentido técnico</div>
+        <div class="info-row"><span class="info-arrow">→</span>Avaliar a saúde de cada produto na visão de quem está na linha de frente</div>
+      </div>
+
+      <div class="g2">
+        <div class="fgroup">
+          <div class="flabel">📋 Quem está presente</div>
+          <input class="finput" id="presentes" placeholder="Ex: João (Partner), Ana (Mobile), Carlos (TEF)...">
+        </div>
+        <div class="fgroup">
+          <div class="flabel">📅 Data e hora de início</div>
+          <input class="finput" id="data-inicio" value="26/05/2026 · 08:00">
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-top:auto">
+        <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">⏱ Agenda dos próximos 45 min</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+          <div style="text-align:center;padding:12px 8px;background:var(--card2);border-radius:10px">
+            <div style="font-size:18px;margin-bottom:4px">👋</div>
+            <div style="font-size:11px;font-weight:700;margin-bottom:2px">Abertura</div>
+            <div style="font-size:10px;color:var(--text3)">5 min</div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--card2);border-radius:10px">
+            <div style="font-size:18px;margin-bottom:4px">🐛</div>
+            <div style="font-size:11px;font-weight:700;margin-bottom:2px">Diagnóstico</div>
+            <div style="font-size:10px;color:var(--text3)">15 min</div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--card2);border-radius:10px">
+            <div style="font-size:18px;margin-bottom:4px">🔧</div>
+            <div style="font-size:11px;font-weight:700;margin-bottom:2px">Processo</div>
+            <div style="font-size:10px;color:var(--text3)">10 min</div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--card2);border-radius:10px">
+            <div style="font-size:18px;margin-bottom:4px">💡</div>
+            <div style="font-size:11px;font-weight:700;margin-bottom:2px">Hipóteses</div>
+            <div style="font-size:10px;color:var(--text3)">10 min</div>
+          </div>
+          <div style="text-align:center;padding:12px 8px;background:var(--card2);border-radius:10px">
+            <div style="font-size:18px;margin-bottom:4px">🏁</div>
+            <div style="font-size:11px;font-weight:700;margin-bottom:2px">Saúde & Fim</div>
+            <div style="font-size:10px;color:var(--text3)">5 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ SLIDE 2: DIAGNÓSTICO (15 min) ════ -->
+    <div class="slide" id="s1">
+      <div class="s-tag">Diagnóstico Operacional <span style="color:var(--text3)">02/05</span></div>
+      <h1 class="s-title">Bugs & Pontos<br>de Dor</h1>
+      <p class="s-sub">Começando pelo que está queimando agora. Para cada produto: quantos bugs críticos em aberto hoje? Qual está travando mais?</p>
+      <div class="delivers-to">⭐ Popula: KPIs do Reporte Executivo + Impedimentos</div>
+
+      <div class="g5" style="margin-bottom:18px">
+        <div class="bug-card" style="--c:#F87171">
+          <div class="bug-icon">🏪</div>
+          <div class="bug-name">Partner</div>
+          <input class="bug-num" type="number" id="b-partner" min="0" placeholder="0" style="--c:#F87171">
+          <div class="bug-note">bugs críticos</div>
+        </div>
+        <div class="bug-card" style="--c:#FBBF24">
+          <div class="bug-icon">📱</div>
+          <div class="bug-name">Mobile</div>
+          <input class="bug-num" type="number" id="b-mobile" min="0" placeholder="0" style="--c:#FBBF24">
+          <div class="bug-note">bugs críticos</div>
+        </div>
+        <div class="bug-card" style="--c:#FA641E">
+          <div class="bug-icon">🌐</div>
+          <div class="bug-name">App Web</div>
+          <input class="bug-num" type="number" id="b-appweb" min="0" placeholder="0" style="--c:#FA641E">
+          <div class="bug-note">bugs críticos</div>
+        </div>
+        <div class="bug-card" style="--c:#60A5FA">
+          <div class="bug-icon">💻</div>
+          <div class="bug-name">Gestão</div>
+          <input class="bug-num" type="number" id="b-gestao" min="0" placeholder="0" style="--c:#60A5FA">
+          <div class="bug-note">bugs críticos</div>
+        </div>
+        <div class="bug-card" style="--c:#A78BFA">
+          <div class="bug-icon">💳</div>
+          <div class="bug-name">TEF/Totem</div>
+          <input class="bug-num" type="number" id="b-tef" min="0" placeholder="0" style="--c:#A78BFA">
+          <div class="bug-note">bugs críticos</div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="fgroup">
+          <div class="flabel">🔥 Qual é o bug que está impedindo vocês hoje?</div>
+          <textarea class="ftarea" id="bug-principal" placeholder="Produto, descrição do bug, impacto operacional..." style="min-height:90px"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">😤 O que mais gera fricção — além de bugs?</div>
+          <textarea class="ftarea" id="friccao" placeholder="Reuniões desnecessárias, dependências travadas, requisitos confusos, falta de contexto nas tarefas..." style="min-height:90px"></textarea>
+        </div>
+      </div>
+
+      <div class="fgroup">
+        <div class="flabel">📝 Outros bugs e situações relevantes relatados</div>
+        <textarea class="ftarea" id="outros-bugs" placeholder="Registre aqui qualquer bug adicional mencionado durante a conversa..." style="min-height:64px"></textarea>
+      </div>
+    </div>
+
+    <!-- ════ SLIDE 3: PROCESSO (10 min) ════ -->
+    <div class="slide" id="s2">
+      <div class="s-tag">Gargalos & Processo <span style="color:var(--text3)">03/05</span></div>
+      <h1 class="s-title">Onde o processo<br>está quebrando?</h1>
+      <p class="s-sub">Entender onde as tarefas travam entre "criado" e "deployado" — e o que está fora do nosso radar hoje.</p>
+      <div class="delivers-to">⭐ Popula: Plano de Ação H2 (Triagem Linear) + Impedimentos do Reporte</div>
+
+      <div class="fgroup">
+        <div class="flabel">🚥 Onde as tarefas mais travam? <span style="font-weight:400;text-transform:none;letter-spacing:0">(selecione tudo que se aplica)</span></div>
+        <div class="chips" id="chip-gargalos">
+          <div class="chip" onclick="tog(this)">Sem responsável definido</div>
+          <div class="chip" onclick="tog(this)">Sem estimativa de esforço</div>
+          <div class="chip" onclick="tog(this)">Bug crítico sem prioridade</div>
+          <div class="chip" onclick="tog(this)">Falta de contexto na tarefa</div>
+          <div class="chip" onclick="tog(this)">Review demorado</div>
+          <div class="chip" onclick="tog(this)">Deploy bloqueado</div>
+          <div class="chip" onclick="tog(this)">Requisito incompleto</div>
+          <div class="chip" onclick="tog(this)">Ambiente de teste instável</div>
+          <div class="chip" onclick="tog(this)">Prioridade mudando frequentemente</div>
+          <div class="chip" onclick="tog(this)">Dependência de outra squad</div>
+          <div class="chip" onclick="tog(this)">Sem QA definido</div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="fgroup">
+          <div class="flabel">📋 Se pudesse mudar 1 coisa no Linear amanhã — o que seria?</div>
+          <textarea class="ftarea" id="linear-mudanca" placeholder="Foco: o que está faltando no backlog para que a triagem funcione de verdade?" style="min-height:90px"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">🤝 O que a coordenação pode fazer que hoje não está sendo feito?</div>
+          <textarea class="ftarea" id="coord-acao" placeholder="O que vocês precisam que a coordenação desbloqueie, defina ou resolva?" style="min-height:90px"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">✅ O que está funcionando bem e não deve mudar?</div>
+          <textarea class="ftarea" id="funciona-bem" placeholder="O que preservamos? O que é positivo hoje e deve continuar?" style="min-height:72px"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">📦 Qual produto tem o processo mais crítico hoje?</div>
+          <textarea class="ftarea" id="produto-critico" placeholder="Qual produto tem o fluxo de bug → resolução → deploy mais problemático?" style="min-height:72px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ SLIDE 4: HIPÓTESES (10 min) ════ -->
+    <div class="slide" id="s3">
+      <div class="s-tag">Validação Técnica <span style="color:var(--text3)">04/05</span></div>
+      <h1 class="s-title">4 Hipóteses de<br>Melhoria</h1>
+      <p class="s-sub">Estas são as propostas que vamos apresentar para Estratégia e Produto na Quarta. Precisamos da visão técnica de vocês: é viável? Qual o esforço real?</p>
+      <div class="delivers-to">⭐ Popula: Plano de Ação do Reporte Executivo (H1–H4 com status e observações técnicas)</div>
+
+      <div class="hypo-card">
+        <div class="hypo-head">
+          <div class="hypo-badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">H1</div>
+          <div class="hypo-name">Monitoramento nos produtos sem cobertura — Sentry/Clarity no Partner e outros</div>
+        </div>
+        <div class="hypo-body">
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Viabilidade técnica</div>
+            <div class="rate-row">
+              <div class="rate-btn" onclick="rate(this,'h1','v')">✅ Viável</div>
+              <div class="rate-btn" onclick="rate(this,'h1','p')">⚠️ Parcialmente</div>
+              <div class="rate-btn" onclick="rate(this,'h1','c')">❌ Complexo</div>
+            </div>
+          </div>
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Estimativa de esforço do time</div>
+            <input class="finput" id="h1-esf" placeholder="Ex: 1-2 semanas, dependência de infra...">
+          </div>
+          <div class="gfull">
+            <div class="flabel" style="margin-bottom:6px">Observações técnicas, riscos, dependências</div>
+            <textarea class="ftarea" id="h1-obs" placeholder="O que o time levantou sobre esta hipótese?" style="min-height:56px"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="hypo-card">
+        <div class="hypo-head">
+          <div class="hypo-badge" style="background:rgba(251,191,36,0.15);color:var(--warning)">H2</div>
+          <div class="hypo-name">Triagem padronizada no Linear — labels de severidade P0 / P1 / P2 / P3</div>
+        </div>
+        <div class="hypo-body">
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Viabilidade técnica</div>
+            <div class="rate-row">
+              <div class="rate-btn" onclick="rate(this,'h2','v')">✅ Viável</div>
+              <div class="rate-btn" onclick="rate(this,'h2','p')">⚠️ Parcialmente</div>
+              <div class="rate-btn" onclick="rate(this,'h2','c')">❌ Complexo</div>
+            </div>
+          </div>
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Estimativa de esforço do time</div>
+            <input class="finput" id="h2-esf" placeholder="Ex: configuração rápida, precisa de acordo do time...">
+          </div>
+          <div class="gfull">
+            <div class="flabel" style="margin-bottom:6px">Observações técnicas, resistências, sugestões</div>
+            <textarea class="ftarea" id="h2-obs" placeholder="O time concordou? Ajustes sugeridos?" style="min-height:56px"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="hypo-card">
+        <div class="hypo-head">
+          <div class="hypo-badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">H3</div>
+          <div class="hypo-name">Migração do Node 16 / Next.js 12 — entrar no roadmap antes de virar bloqueio</div>
+        </div>
+        <div class="hypo-body">
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Viabilidade técnica</div>
+            <div class="rate-row">
+              <div class="rate-btn" onclick="rate(this,'h3','v')">✅ Viável</div>
+              <div class="rate-btn" onclick="rate(this,'h3','p')">⚠️ Parcialmente</div>
+              <div class="rate-btn" onclick="rate(this,'h3','c')">❌ Complexo</div>
+            </div>
+          </div>
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Estimativa de esforço do time</div>
+            <input class="finput" id="h3-esf" placeholder="Ex: 3-4 sprints, risco de regressão...">
+          </div>
+          <div class="gfull">
+            <div class="flabel" style="margin-bottom:6px">Riscos levantados, dependências, escopo</div>
+            <textarea class="ftarea" id="h3-obs" placeholder="O que pode dar errado? Qual o impacto em features em andamento?" style="min-height:56px"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="hypo-card">
+        <div class="hypo-head">
+          <div class="hypo-badge" style="background:rgba(96,165,250,0.15);color:var(--info)">H4</div>
+          <div class="hypo-name">Cadência semanal de alinhamento — ritual fixo de 30 min toda segunda-feira</div>
+        </div>
+        <div class="hypo-body">
+          <div>
+            <div class="flabel" style="margin-bottom:6px">O time toparia?</div>
+            <div class="rate-row">
+              <div class="rate-btn" onclick="rate(this,'h4','v')">✅ Sim</div>
+              <div class="rate-btn" onclick="rate(this,'h4','p')">⚠️ Com ajustes</div>
+              <div class="rate-btn" onclick="rate(this,'h4','c')">❌ Não agrega</div>
+            </div>
+          </div>
+          <div>
+            <div class="flabel" style="margin-bottom:6px">Melhor formato / horário sugerido</div>
+            <input class="finput" id="h4-esf" placeholder="Ex: Segunda 09h, 30 min, assíncrono via canal...">
+          </div>
+          <div class="gfull">
+            <div class="flabel" style="margin-bottom:6px">Observações e sugestões do time</div>
+            <textarea class="ftarea" id="h4-obs" placeholder="O que tornaria este ritual realmente útil?" style="min-height:56px"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ SLIDE 5: SAÚDE & ENCERRAMENTO (5 min) ════ -->
+    <div class="slide" id="s4">
+      <div class="s-tag">Saúde & Encerramento <span style="color:var(--text3)">05/05</span></div>
+      <h1 class="s-title">Saúde dos Produtos<br>& Próximos Passos</h1>
+      <p class="s-sub">Última rodada: na visão de vocês — como está cada produto agora? Verde, amarelo ou vermelho? E o que fica definido daqui pra frente.</p>
+      <div class="delivers-to">⭐ Popula: Semáforos + Prioridades + Reporte Executivo completo</div>
+
+      <div style="margin-bottom:18px">
+        <div class="flabel" style="margin-bottom:10px">🩺 Status atual de cada produto — na visão do time</div>
+        <div class="sem-row">
+          <span class="sem-icon">🏪</span><span class="sem-label">Pigz Partner</span>
+          <div class="sem-btns">
+            <div class="sem-btn" onclick="sem(this,'partner','g')" title="Saudável" style="background:rgba(34,211,164,0.1)">🟢</div>
+            <div class="sem-btn" onclick="sem(this,'partner','y')" title="Atenção" style="background:rgba(251,191,36,0.1)">🟡</div>
+            <div class="sem-btn on" onclick="sem(this,'partner','r')" title="Crítico" style="background:rgba(248,113,113,0.1)">🔴</div>
+          </div>
+          <input class="sem-note" id="n-partner" placeholder="Contexto em 1 linha...">
+        </div>
+        <div class="sem-row">
+          <span class="sem-icon">📱</span><span class="sem-label">Mobile iOS/Android</span>
+          <div class="sem-btns">
+            <div class="sem-btn" onclick="sem(this,'mobile','g')" style="background:rgba(34,211,164,0.1)">🟢</div>
+            <div class="sem-btn on" onclick="sem(this,'mobile','y')" style="background:rgba(251,191,36,0.1)">🟡</div>
+            <div class="sem-btn" onclick="sem(this,'mobile','r')" style="background:rgba(248,113,113,0.1)">🔴</div>
+          </div>
+          <input class="sem-note" id="n-mobile" placeholder="Contexto em 1 linha...">
+        </div>
+        <div class="sem-row">
+          <span class="sem-icon">🌐</span><span class="sem-label">App Web</span>
+          <div class="sem-btns">
+            <div class="sem-btn" onclick="sem(this,'appweb','g')" style="background:rgba(34,211,164,0.1)">🟢</div>
+            <div class="sem-btn on" onclick="sem(this,'appweb','y')" style="background:rgba(251,191,36,0.1)">🟡</div>
+            <div class="sem-btn" onclick="sem(this,'appweb','r')" style="background:rgba(248,113,113,0.1)">🔴</div>
+          </div>
+          <input class="sem-note" id="n-appweb" placeholder="Contexto em 1 linha...">
+        </div>
+        <div class="sem-row">
+          <span class="sem-icon">💻</span><span class="sem-label">Gestão Desktop</span>
+          <div class="sem-btns">
+            <div class="sem-btn on" onclick="sem(this,'gestao','g')" style="background:rgba(34,211,164,0.1)">🟢</div>
+            <div class="sem-btn" onclick="sem(this,'gestao','y')" style="background:rgba(251,191,36,0.1)">🟡</div>
+            <div class="sem-btn" onclick="sem(this,'gestao','r')" style="background:rgba(248,113,113,0.1)">🔴</div>
+          </div>
+          <input class="sem-note" id="n-gestao" placeholder="Contexto em 1 linha...">
+        </div>
+        <div class="sem-row">
+          <span class="sem-icon">💳</span><span class="sem-label">TEF / Totem</span>
+          <div class="sem-btns">
+            <div class="sem-btn" onclick="sem(this,'tef','g')" style="background:rgba(34,211,164,0.1)">🟢</div>
+            <div class="sem-btn" onclick="sem(this,'tef','y')" style="background:rgba(251,191,36,0.1)">🟡</div>
+            <div class="sem-btn on" onclick="sem(this,'tef','r')" style="background:rgba(248,113,113,0.1)">🔴</div>
+          </div>
+          <input class="sem-note" id="n-tef" placeholder="Contexto em 1 linha...">
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="fgroup">
+          <div class="flabel">✅ O que fica definido desta reunião</div>
+          <textarea class="ftarea" id="decisoes" placeholder="Decisões tomadas, aprovações, o que muda a partir de agora..." style="min-height:72px"></textarea>
+        </div>
+        <div class="fgroup">
+          <div class="flabel">📅 Próximo alinhamento (data, hora, pauta)</div>
+          <textarea class="ftarea" id="proximo" placeholder="Ex: Reunião de validação com Produto — Quarta 28/05 às 14:00..." style="min-height:72px"></textarea>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(34,211,164,0.07),rgba(96,165,250,0.04));border:1px solid rgba(34,211,164,0.18);border-radius:14px;padding:22px;text-align:center;margin-top:auto">
+        <div style="font-size:26px;margin-bottom:8px">🎉</div>
+        <div style="font-size:16px;font-weight:800;margin-bottom:6px">Reunião concluída!</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:16px">Exporte agora para popular automaticamente o Reporte Executivo.</div>
+        <button class="tbtn tbtn-s" onclick="openModal()" style="font-size:13px;padding:10px 26px">⭐ Exportar para o Reporte Executivo</button>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- ── BOTTOMBAR ── -->
+  <div class="bottombar">
+    <button class="nav-btn" id="btnPrev" onclick="go(-1)" disabled>← Anterior</button>
+    <div class="dot-track" id="dots"></div>
+    <button class="nav-btn primary" id="btnNext" onclick="go(1)">Próximo →</button>
+  </div>
+</div>
+
+<script>
+/* ══ STATE ══ */
+const N = 5;
+let cur = 0;
+const trafState = {partner:'r',mobile:'y',appweb:'y',gestao:'g',tef:'r'};
+const rateState = {};
+
+/* ══ NAV ══ */
+function go(d) {
+  const next = cur + d;
+  if (next < 0 || next >= N) return;
+  document.getElementById('s'+cur).classList.remove('on');
+  cur = next;
+  document.getElementById('s'+cur).classList.add('on');
+  updateUI(); save();
+}
+
+function updateUI() {
+  document.getElementById('btnPrev').disabled = cur === 0;
+  document.getElementById('btnNext').textContent = cur === N-1 ? '🏁 Concluir' : 'Próximo →';
+  document.getElementById('stepInfo').textContent = `${cur+1} / ${N}`;
+  document.getElementById('pFill').style.width = `${((cur+1)/N)*100}%`;
+  // dots
+  document.getElementById('dots').innerHTML = Array.from({length:N},(_,i)=>
+    `<div class="dot ${i===cur?'on':i<cur?'done':''}" onclick="jump(${i})"></div>`
+  ).join('');
+}
+function jump(i) { document.getElementById('s'+cur).classList.remove('on'); cur=i; document.getElementById('s'+cur).classList.add('on'); updateUI(); save(); }
+
+/* ══ TIMER ══ */
+let tsec = 600, trun = false, tiv = null;
+function setT(s) { tsec=s; trun=false; clearInterval(tiv); document.getElementById('tPlay').textContent='▶'; updT(); }
+function toggleTimer() {
+  trun=!trun; document.getElementById('tPlay').textContent=trun?'❚❚':'▶';
+  if(trun) tiv=setInterval(()=>{ tsec--; updT(); if(tsec<=0){clearInterval(tiv);trun=false;toast('⏰ Tempo esgotado!')} },1000);
+  else clearInterval(tiv);
+}
+function resetTimer(){clearInterval(tiv);trun=false;tsec=600;document.getElementById('tPlay').textContent='▶';updT()}
+function updT(){
+  const m=Math.floor(tsec/60),s=tsec%60;
+  const el=document.getElementById('tNum');
+  el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.className='timer-num'+(tsec<60?' crit':tsec<120?' warn':'');
+}
+
+/* ══ CHIPS ══ */
+function tog(el){el.classList.toggle('on');save()}
+
+/* ══ RATE ══ */
+function rate(btn,h,v){
+  const row=btn.closest('.rate-row');
+  row.querySelectorAll('.rate-btn').forEach(b=>b.className='rate-btn');
+  btn.classList.add('r-'+v);
+  rateState[h]=v; save();
+}
+
+/* ══ SEMÁFORO ══ */
+function sem(btn,prod,color){
+  const row=btn.closest('.sem-row');
+  row.querySelectorAll('.sem-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  trafState[prod]=color; save();
+}
+
+/* ══ MODAL ══ */
+function openModal(){document.getElementById('modal').classList.add('on')}
+function closeModal(){document.getElementById('modal').classList.remove('on')}
+
+/* ══ EXPORT ══ */
+function doExport(){
+  const data = collect();
+  const exec = JSON.parse(localStorage.getItem('pigz-exec-report-v1')||'{}');
+  // Bugs
+  exec['b0']=v('b-partner'); exec['b1']=v('b-mobile');
+  exec['b2']=v('b-appweb'); exec['b3']=v('b-gestao'); exec['b4']=v('b-tef');
+  const total=[v('b-partner'),v('b-mobile'),v('b-appweb'),v('b-gestao'),v('b-tef')].reduce((a,b)=>a+(parseInt(b)||0),0);
+  exec['k-bugs-crit']=String(total);
+  // Health
+  const hm={g:'ok',y:'att',r:'crit'};
+  exec['_health']={};
+  Object.keys(trafState).forEach(p=>exec['_health'][p]=hm[trafState[p]]||'att');
+  // Context from meeting
+  const gargalos=[...document.querySelectorAll('#chip-gargalos .chip.on')].map(c=>c.textContent).join(', ');
+  exec['exec-contexto']=`Dados coletados na reunião com o time de desenvolvimento (26/05/2026):\n\nBug principal: ${v('bug-principal')}\n\nFricção operacional: ${v('friccao')}\n\nGargalos mapeados: ${gargalos}\n\nObservações adicionais: ${v('outros-bugs')}`.trim();
+  exec['exec-conquista']=`Auditoria realizada com o time de devs. ${total} bugs críticos mapeados. Hipóteses de melhoria validadas tecnicamente.`;
+  // Priorities from meeting
+  exec['p1']=v('coord-acao')||'A definir com base na reunião com o time';
+  exec['p2']=v('linear-mudanca')||'Padronização da triagem no Linear';
+  exec['p3']=v('produto-critico')||'A definir';
+  // Hypothesis status
+  const rm={v:'aprovado',p:'parcial',c:'rejeitado'};
+  ['h1','h2','h3','h4'].forEach(h=>{if(rateState[h])exec['s-'+h]=rm[rateState[h]]||'pendente'});
+  exec['h1-imp']=v('h1-obs'); exec['h2-imp']=v('h2-obs');
+  exec['h3-imp']=v('h3-obs'); exec['h4-imp']=v('h4-obs');
+  exec['obs-lider']=`Reunião com devs: ${v('funciona-bem') ? 'O que funciona bem: '+v('funciona-bem')+'\n\n' : ''}Decisões: ${v('decisoes')}\nPróximo: ${v('proximo')}`.trim();
+  exec['deploys']=`Próximo alinhamento: ${v('proximo')}`;
+  localStorage.setItem('pigz-exec-report-v1',JSON.stringify(exec));
+  localStorage.setItem('pigz-meeting-devs',JSON.stringify(data));
+  closeModal();
+  toast('✅ Exportado com sucesso!');
+  setTimeout(()=>window.open('reporte-executivo.html','_blank'),1000);
+}
+
+/* ══ SAVE / LOAD ══ */
+function v(id){const e=document.getElementById(id);return e?e.value:''}
+
+function collect(){
+  return {
+    presentes:v('presentes'), dataInicio:v('data-inicio'),
+    bugs:{partner:v('b-partner'),mobile:v('b-mobile'),appweb:v('b-appweb'),gestao:v('b-gestao'),tef:v('b-tef')},
+    bugPrincipal:v('bug-principal'), friccao:v('friccao'), outrosBugs:v('outros-bugs'),
+    linearMudanca:v('linear-mudanca'), coordAcao:v('coord-acao'),
+    funcionaBem:v('funciona-bem'), produtoCritico:v('produto-critico'),
+    h1obs:v('h1-obs'),h1esf:v('h1-esf'),h2obs:v('h2-obs'),h2esf:v('h2-esf'),
+    h3obs:v('h3-obs'),h3esf:v('h3-esf'),h4obs:v('h4-obs'),h4esf:v('h4-esf'),
+    traf:trafState, rates:rateState,
+    nPartner:v('n-partner'),nMobile:v('n-mobile'),nAppweb:v('n-appweb'),
+    nGestao:v('n-gestao'),nTef:v('n-tef'),
+    decisoes:v('decisoes'), proximo:v('proximo'),
+    gargalos:[...document.querySelectorAll('#chip-gargalos .chip.on')].map(c=>c.textContent),
+    slide:cur
+  };
+}
+
+function save(){localStorage.setItem('pigz-meeting-devs',JSON.stringify(collect()))}
+
+function load(){
+  const raw=localStorage.getItem('pigz-meeting-devs');
+  if(!raw)return;
+  const d=JSON.parse(raw);
+  const fm={presentes:d.presentes,'data-inicio':d.dataInicio,'b-partner':d.bugs?.partner,
+    'b-mobile':d.bugs?.mobile,'b-appweb':d.bugs?.appweb,'b-gestao':d.bugs?.gestao,'b-tef':d.bugs?.tef,
+    'bug-principal':d.bugPrincipal,'friccao':d.friccao,'outros-bugs':d.outrosBugs,
+    'linear-mudanca':d.linearMudanca,'coord-acao':d.coordAcao,'funciona-bem':d.funcionaBem,
+    'produto-critico':d.produtoCritico,'h1-obs':d.h1obs,'h1-esf':d.h1esf,'h2-obs':d.h2obs,
+    'h2-esf':d.h2esf,'h3-obs':d.h3obs,'h3-esf':d.h3esf,'h4-obs':d.h4obs,'h4-esf':d.h4esf,
+    'n-partner':d.nPartner,'n-mobile':d.nMobile,'n-appweb':d.nAppweb,'n-gestao':d.nGestao,
+    'n-tef':d.nTef,decisoes:d.decisoes,proximo:d.proximo
+  };
+  Object.keys(fm).forEach(id=>{const e=document.getElementById(id);if(e&&fm[id])e.value=fm[id]});
+  if(d.gargalos) d.gargalos.forEach(txt=>{
+    [...document.querySelectorAll('#chip-gargalos .chip')].find(c=>c.textContent===txt)?.classList.add('on');
+  });
+}
+
+/* ══ TOAST ══ */
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;
+  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+/* ══ FULLSCREEN ══ */
+function toggleFS(){
+  const btn=document.getElementById('fsBtn');
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen().catch(()=>{});
+    btn.textContent='✕ Sair';
+  } else {
+    document.exitFullscreen();
+    btn.textContent='⛶ Tela Cheia';
+  }
+}
+document.addEventListener('fullscreenchange',()=>{
+  const btn=document.getElementById('fsBtn');
+  if(btn) btn.textContent=document.fullscreenElement?'✕ Sair':'⛶ Tela Cheia';
+});
+
+/* ══ KEYBOARD ══ */
+document.addEventListener('keydown',e=>{
+  const tag=document.activeElement.tagName;
+  if(['INPUT','TEXTAREA'].includes(tag))return;
+  if(e.key==='ArrowRight')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+  if(e.key==='f'||e.key==='F')toggleFS();
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();save();toast('💾 Salvo!')}
+});
+document.addEventListener('input',save);
+
+/* ══ INIT ══ */
+updateUI(); load(); updT();
+</script>
+</body>
+</html>

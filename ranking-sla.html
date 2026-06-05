@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranking SLA — PIGZ Coord</title>
+<meta name="description" content="Ranking de resolução de bugs por SLA — PIGZ Coord · Semana 3">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F4F6FA;
+  --card:     #FFFFFF;
+  --border:   #E5E7EB;
+  --dark:     #0D0F14;
+  --dark2:    #1A1F2E;
+  --accent:   #FA641E;
+  --success:  #10B981;
+  --warning:  #F59E0B;
+  --danger:   #EF4444;
+  --info:     #3B82F6;
+  --gold:     #F59E0B;
+  --silver:   #94A3B8;
+  --bronze:   #C2845A;
+  --text:     #111827;
+  --text2:    #4B5563;
+  --text3:    #9CA3AF;
+  --mono:     'JetBrains Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;
+  background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.topbar::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--gold));opacity:0.6;
+}
+.t-logo{font-size:15px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+.t-logo span{color:var(--accent)}
+.t-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(245,158,11,0.1);color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.t-nav{display:flex;gap:6px;align-items:center}
+.t-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:999px;border:1px solid var(--border);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;cursor:pointer;color:var(--text2);background:white;text-decoration:none;transition:all .15s}
+.t-btn:hover{background:var(--bg);color:var(--text)}
+.t-btn-p{background:var(--accent);color:white;border-color:transparent}
+.t-btn-p:hover{opacity:.88;color:white}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 60%,#1A0F1E 100%);
+  padding:40px 28px 36px;margin-top:52px;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-120px;right:-120px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,0.08) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(250,100,30,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-label{font-size:10px;font-weight:800;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:2px}
+.hero-title{font-size:32px;font-weight:900;color:white;letter-spacing:-1.5px;line-height:1.05;margin-bottom:8px}
+.hero-title .hl{color:var(--gold)}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.65;max-width:560px;margin-bottom:20px}
+.hero-meta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.hero-meta-item{font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;display:flex;align-items:center;gap:5px}
+.hero-meta-item span{color:rgba(255,255,255,0.8);font-weight:800}
+
+/* PAGE */
+.page{max-width:1100px;margin:0 auto;padding:32px 28px 80px}
+
+/* PODIUM SECTION */
+.podium-section{margin-bottom:48px}
+.podium-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.podium-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:end;margin-bottom:16px}
+.podium-card{border-radius:20px;overflow:hidden;position:relative;transition:transform .2s;cursor:default}
+.podium-card:hover{transform:translateY(-4px)}
+.podium-card.rank-1{
+  background:linear-gradient(135deg,#1A1208 0%,#2D1E00 60%,#1A1208 100%);
+  border:1px solid rgba(245,158,11,0.4);
+  box-shadow:0 0 0 1px rgba(245,158,11,0.1),0 20px 60px rgba(245,158,11,0.2),0 8px 24px rgba(0,0,0,0.3);
+  order:2;
+}
+.podium-card.rank-2{
+  background:linear-gradient(135deg,#0E1418 0%,#141C24 100%);
+  border:1px solid rgba(148,163,184,0.3);
+  box-shadow:0 8px 32px rgba(0,0,0,0.25);
+  order:1;
+}
+.podium-card.rank-3{
+  background:linear-gradient(135deg,#100C08 0%,#1C1208 100%);
+  border:1px solid rgba(194,132,90,0.3);
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+  order:3;
+}
+
+.pod-rank-bar{height:4px;width:100%}
+.rank-1 .pod-rank-bar{background:linear-gradient(90deg,#B45309,#F59E0B,#FCD34D)}
+.rank-2 .pod-rank-bar{background:linear-gradient(90deg,#475569,#94A3B8,#CBD5E1)}
+.rank-3 .pod-rank-bar{background:linear-gradient(90deg,#78350F,#C2845A,#D4A574)}
+
+.pod-body{padding:24px 22px}
+.pod-position{
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.rank-1 .pod-position{color:var(--gold)}
+.rank-2 .pod-position{color:var(--silver)}
+.rank-3 .pod-position{color:var(--bronze)}
+
+.pod-trophy{font-size:28px;margin-bottom:12px}
+.pod-avatar{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:900;margin-bottom:14px;
+  font-family:var(--mono);
+}
+.rank-1 .pod-avatar{background:rgba(245,158,11,0.15);color:var(--gold);box-shadow:0 0 20px rgba(245,158,11,0.2)}
+.rank-2 .pod-avatar{background:rgba(148,163,184,0.12);color:var(--silver)}
+.rank-3 .pod-avatar{background:rgba(194,132,90,0.12);color:var(--bronze)}
+
+.pod-name{font-size:16px;font-weight:800;color:white;margin-bottom:3px}
+.pod-role{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:18px}
+
+.pod-sla-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.35);margin-bottom:6px}
+.pod-sla-pct{font-size:36px;font-weight:900;line-height:1;margin-bottom:6px;font-family:var(--mono)}
+.rank-1 .pod-sla-pct{color:var(--gold)}
+.rank-2 .pod-sla-pct{color:var(--silver)}
+.rank-3 .pod-sla-pct{color:var(--bronze)}
+
+.pod-sla-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.pod-sla-fill{height:100%;border-radius:99px;transition:width 1s ease}
+.rank-1 .pod-sla-fill{background:linear-gradient(90deg,#B45309,#F59E0B)}
+.rank-2 .pod-sla-fill{background:linear-gradient(90deg,#475569,#94A3B8)}
+.rank-3 .pod-sla-fill{background:linear-gradient(90deg,#78350F,#C2845A)}
+
+.pod-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pod-stat{background:rgba(255,255,255,0.05);border-radius:10px;padding:10px 12px;text-align:center}
+.pod-stat-num{font-size:18px;font-weight:800;font-family:var(--mono);line-height:1}
+.pod-stat-label{font-size:9px;color:rgba(255,255,255,0.35);margin-top:3px;font-weight:600}
+.rank-1 .pod-stat-num{color:rgba(245,158,11,0.9)}
+.rank-2 .pod-stat-num{color:rgba(148,163,184,0.9)}
+.rank-3 .pod-stat-num{color:rgba(194,132,90,0.9)}
+
+.pod-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}
+.pod-badge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55)}
+
+/* RANKING TABLE */
+.rank-table{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)}
+.rank-table-head{display:grid;grid-template-columns:48px 1fr 100px 120px 90px 90px 90px 80px;gap:0;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--border)}
+.rank-th{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);display:flex;align-items:center}
+.rank-row{
+  display:grid;grid-template-columns:48px 1fr 100px 120px 90px 90px 90px 80px;
+  gap:0;padding:14px 20px;border-bottom:1px solid var(--border);
+  align-items:center;transition:background .15s;cursor:default;
+}
+.rank-row:last-child{border-bottom:none}
+.rank-row:hover{background:rgba(250,100,30,0.02)}
+.rank-row.highlight-row{background:rgba(16,185,129,0.025);border-left:3px solid var(--success)}
+.rank-row.danger-row{background:rgba(239,68,68,0.025);border-left:3px solid var(--danger)}
+
+.rank-pos{
+  font-size:16px;font-weight:900;font-family:var(--mono);
+  display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:10px;
+}
+.pos-1{background:rgba(245,158,11,0.12);color:var(--gold)}
+.pos-2{background:rgba(148,163,184,0.12);color:var(--silver)}
+.pos-3{background:rgba(194,132,90,0.12);color:var(--bronze)}
+.pos-other{background:var(--bg);color:var(--text3);font-size:13px}
+
+.rank-person{display:flex;align-items:center;gap:12px}
+.rank-avatar{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;flex-shrink:0;font-family:var(--mono);
+}
+.rank-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.rank-role{font-size:10px;color:var(--text3)}
+
+.rank-sla-cell{display:flex;flex-direction:column;gap:4px}
+.rank-sla-pct{font-size:15px;font-weight:800;font-family:var(--mono)}
+.rank-sla-bar{height:4px;background:var(--border);border-radius:99px;overflow:hidden;width:72px}
+.rank-sla-fill{height:100%;border-radius:99px}
+
+.rank-bugs{font-size:14px;font-weight:700;font-family:var(--mono);color:var(--text2)}
+.rank-bugs span{font-size:10px;font-weight:600;color:var(--text3);margin-left:2px}
+
+.rank-p-badge{
+  font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;
+  display:inline-block;margin-right:3px;
+}
+.pb-p0{background:rgba(239,68,68,0.1);color:var(--danger)}
+.pb-p1{background:rgba(245,158,11,0.1);color:var(--warning)}
+.pb-p2{background:rgba(59,130,246,0.1);color:var(--info)}
+.pb-p3{background:rgba(156,163,175,0.1);color:var(--text3)}
+
+.trend-up{color:var(--success);font-size:11px;font-weight:700}
+.trend-dn{color:var(--danger);font-size:11px;font-weight:700}
+.trend-eq{color:var(--text3);font-size:11px;font-weight:700}
+
+/* EDIT PANEL */
+.edit-panel{
+  background:var(--card);border:1.5px solid rgba(250,100,30,0.2);border-radius:20px;
+  padding:24px;margin-top:20px;
+}
+.edit-title{font-size:13px;font-weight:800;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.edit-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+.edit-field{display:flex;flex-direction:column;gap:4px}
+.edit-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
+.edit-input,.edit-select{
+  background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;
+  padding:8px 10px;outline:none;transition:border-color .2s;
+}
+.edit-input:focus,.edit-select:focus{border-color:var(--accent)}
+.edit-btn{
+  padding:9px 16px;border-radius:10px;border:none;
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;background:var(--accent);color:white;transition:all .15s;
+  display:flex;align-items:center;gap:5px;white-space:nowrap;
+}
+.edit-btn:hover{opacity:.88}
+.edit-note{font-size:11px;color:var(--text3);margin-top:8px}
+
+/* LEGEND */
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text2)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* SUMMARY ROW */
+.summary-row{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:32px;
+}
+.sum-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px 18px;text-align:center;
+  border-top:3px solid var(--c,var(--border));
+}
+.sum-num{font-size:28px;font-weight:900;font-family:var(--mono);color:var(--c,var(--text));line-height:1}
+.sum-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;margin-top:5px;line-height:1.3}
+
+@media(max-width:1000px){
+  .podium{grid-template-columns:1fr;max-width:340px;margin:0 auto 16px}
+  .podium-card{order:unset!important}
+  .rank-table-head,.rank-row{grid-template-columns:42px 1fr 90px 100px 80px}
+  .rank-th:nth-child(n+6),.rank-row>*:nth-child(n+6){display:none}
+  .edit-grid{grid-template-columns:1fr 1fr 1fr}
+  .summary-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <a class="t-logo" href="index.html">PIGZ <span>Coord</span></a>
+    <span class="t-badge">🏆 Ranking SLA</span>
+  </div>
+  <div style="position:absolute;left:50%;transform:translateX(-50%);font-size:11px;color:var(--text3);font-weight:600">Semana 3 · Triagem P0–P3 · Atualizado em tempo real</div>
+  <div class="t-nav">
+    <a class="t-btn" href="index.html">← Painel</a>
+    <a class="t-btn" href="relatorio-s3.html" target="_blank">🐞 Triagem</a>
+    <a class="t-btn" href="reporte-executivo.html" target="_blank">📊 Reporte</a>
+    <button class="t-btn t-btn-p" onclick="window.print()">🖨️ Exportar</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="hero-label">Ranking de Performance · SLA P0–P3</span>
+    </div>
+    <h1 class="hero-title">Quem mais resolve<br><span class="hl">dentro do SLA</span></h1>
+    <p class="hero-sub">Ranking semanal baseado na taxa de resolução de bugs dentro do prazo definido por severidade: P0 (4h), P1 (24h), P2 (72h), P3 (168h). Atualizado a cada semana.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">🎯 P0 <span>≤ 4h</span></div>
+      <div class="hero-meta-item">📋 P1 <span>≤ 24h</span></div>
+      <div class="hero-meta-item">🔵 P2 <span>≤ 72h</span></div>
+      <div class="hero-meta-item">⚪ P3 <span>≤ 168h</span></div>
+      <div class="hero-meta-item">👥 <span id="hero-devs">—</span> devs ativos</div>
+      <div class="hero-meta-item">🐞 <span id="hero-total">—</span> bugs resolvidos</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- KPIs RÁPIDOS -->
+  <div class="summary-row" id="summaryRow"></div>
+
+  <!-- PÓDIO TOP 3 -->
+  <div class="podium-label">🏆 Top 3 — Pódio da semana</div>
+  <div class="podium" id="podium"></div>
+
+  <!-- LEGENDA -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--success)"></div> ≥ 90% SLA — Excelente</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--warning)"></div> 70–89% — Atenção</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--danger)"></div> &lt; 70% — Crítico</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--info)"></div> P0–P3: Severidade do bug</div>
+  </div>
+
+  <!-- TABELA RANKING -->
+  <div class="podium-label">📋 Ranking completo</div>
+  <div class="rank-table">
+    <div class="rank-table-head">
+      <div class="rank-th">#</div>
+      <div class="rank-th">Dev</div>
+      <div class="rank-th">SLA %</div>
+      <div class="rank-th">Resolvidos</div>
+      <div class="rank-th">P0 / P1</div>
+      <div class="rank-th">P2 / P3</div>
+      <div class="rank-th">Tendência</div>
+      <div class="rank-th">Status</div>
+    </div>
+    <div id="rankBody"></div>
+  </div>
+
+  <!-- PAINEL DE EDIÇÃO -->
+  <div class="edit-panel" style="margin-top:24px">
+    <div class="edit-title">✏️ Atualizar ranking — adicionar ou editar dev</div>
+    <div class="edit-grid">
+      <div class="edit-field">
+        <label class="edit-label">Nome do Dev</label>
+        <input class="edit-input" id="inp-nome" placeholder="Ex: Lucas M.">
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">SLA % (0–100)</label>
+        <input class="edit-input" id="inp-sla" type="number" min="0" max="100" placeholder="85">
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Bugs resolvidos</label>
+        <input class="edit-input" id="inp-bugs" type="number" min="0" placeholder="12">
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">P0+P1 resolvidos</label>
+        <input class="edit-input" id="inp-crit" type="number" min="0" placeholder="3">
+      </div>
+      <div class="edit-field">
+        <label class="edit-label">Squad / Área</label>
+        <input class="edit-input" id="inp-squad" placeholder="Partner">
+      </div>
+      <button class="edit-btn" onclick="addDev()">+ Adicionar</button>
+    </div>
+    <div class="edit-note">💡 Os dados ficam salvos no navegador. Para recomeçar, use o botão "Resetar dados" abaixo.</div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button onclick="saveData()" style="padding:7px 14px;border-radius:999px;border:1px solid var(--border);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;cursor:pointer;background:white;color:var(--text2)">💾 Salvar</button>
+      <button onclick="resetData()" style="padding:7px 14px;border-radius:999px;border:1px solid var(--border);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;cursor:pointer;background:white;color:var(--danger)">🗑️ Resetar dados</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;font-size:11px;color:var(--text3)">
+    PIGZ Coord · Ranking SLA Semanal · P0=4h · P1=24h · P2=72h · P3=168h
+  </div>
+</div>
+
+<script>
+// ═══ DADOS INICIAIS (mock — substituir com dados reais) ═══
+const DEFAULT_DEVS = [
+  { nome:'Ana Lima',    squad:'Partner',  sla:97, bugs:18, crit:5, trend:'up'  },
+  { nome:'Rafael M.',  squad:'Mobile',   sla:91, bugs:14, crit:3, trend:'up'  },
+  { nome:'Lucas F.',   squad:'App Web',  sla:85, bugs:11, crit:2, trend:'eq'  },
+  { nome:'Carla S.',   squad:'Gestão',   sla:78, bugs:9,  crit:1, trend:'up'  },
+  { nome:'Diego R.',   squad:'TEF',      sla:72, bugs:7,  crit:2, trend:'dn'  },
+  { nome:'Mariana K.', squad:'Partner',  sla:68, bugs:6,  crit:0, trend:'dn'  },
+  { nome:'Pedro T.',   squad:'Mobile',   sla:61, bugs:5,  crit:1, trend:'eq'  },
+];
+
+let devs = [];
+
+function loadData() {
+  const saved = localStorage.getItem('pigz-sla-ranking');
+  devs = saved ? JSON.parse(saved) : [...DEFAULT_DEVS];
+  render();
+}
+
+function saveData() {
+  localStorage.setItem('pigz-sla-ranking', JSON.stringify(devs));
+  showToast('Ranking salvo!');
+}
+
+function resetData() {
+  if(confirm('Resetar para os dados iniciais de demonstração?')) {
+    devs = [...DEFAULT_DEVS];
+    localStorage.removeItem('pigz-sla-ranking');
+    render();
+    showToast('Dados resetados!');
+  }
+}
+
+function addDev() {
+  const nome  = document.getElementById('inp-nome').value.trim();
+  const sla   = parseInt(document.getElementById('inp-sla').value) || 0;
+  const bugs  = parseInt(document.getElementById('inp-bugs').value) || 0;
+  const crit  = parseInt(document.getElementById('inp-crit').value) || 0;
+  const squad = document.getElementById('inp-squad').value.trim() || '—';
+  if(!nome) { alert('Informe o nome do dev'); return; }
+  // Se já existe, atualiza
+  const idx = devs.findIndex(d => d.nome.toLowerCase() === nome.toLowerCase());
+  if(idx >= 0) {
+    devs[idx] = { nome, squad, sla, bugs, crit, trend:'eq' };
+  } else {
+    devs.push({ nome, squad, sla, bugs, crit, trend:'eq' });
+  }
+  saveData();
+  render();
+  // Limpar campos
+  ['inp-nome','inp-sla','inp-bugs','inp-crit','inp-squad'].forEach(id => document.getElementById(id).value = '');
+}
+
+function getSlaColor(sla) {
+  if(sla >= 90) return 'var(--success)';
+  if(sla >= 70) return 'var(--warning)';
+  return 'var(--danger)';
+}
+
+function getSlaLabel(sla) {
+  if(sla >= 90) return '🟢 Excelente';
+  if(sla >= 70) return '🟡 Atenção';
+  return '🔴 Crítico';
+}
+
+function getInitials(nome) {
+  return nome.split(' ').map(p=>p[0]).join('').substring(0,2).toUpperCase();
+}
+
+function getAvatarColor(i) {
+  const colors = [
+    'rgba(250,100,30,0.15);color:var(--accent)',
+    'rgba(16,185,129,0.15);color:var(--success)',
+    'rgba(59,130,246,0.15);color:var(--info)',
+    'rgba(139,92,246,0.15);color:var(--purple,#8B5CF6)',
+    'rgba(245,158,11,0.15);color:var(--warning)',
+    'rgba(239,68,68,0.15);color:var(--danger)',
+    'rgba(20,184,166,0.15);color:#14B8A6',
+  ];
+  return colors[i % colors.length];
+}
+
+function render() {
+  // Ordenar por SLA desc
+  const sorted = [...devs].sort((a,b) => b.sla - a.sla || b.bugs - a.bugs);
+
+  // KPIs
+  const totalBugs = sorted.reduce((s,d)=>s+d.bugs,0);
+  const avgSla    = Math.round(sorted.reduce((s,d)=>s+d.sla,0)/sorted.length);
+  const totalCrit = sorted.reduce((s,d)=>s+d.crit,0);
+  const excellent = sorted.filter(d=>d.sla>=90).length;
+  const critical  = sorted.filter(d=>d.sla<70).length;
+
+  document.getElementById('hero-devs').textContent  = sorted.length;
+  document.getElementById('hero-total').textContent = totalBugs;
+
+  document.getElementById('summaryRow').innerHTML = `
+    <div class="sum-card" style="--c:var(--gold)">
+      <div class="sum-num" style="color:var(--gold)">${sorted.length}</div>
+      <div class="sum-label">Devs no<br>ranking</div>
+    </div>
+    <div class="sum-card" style="--c:var(--success)">
+      <div class="sum-num" style="color:var(--success)">${avgSla}%</div>
+      <div class="sum-label">SLA médio<br>da equipe</div>
+    </div>
+    <div class="sum-card" style="--c:var(--accent)">
+      <div class="sum-num" style="color:var(--accent)">${totalBugs}</div>
+      <div class="sum-label">Bugs<br>resolvidos</div>
+    </div>
+    <div class="sum-card" style="--c:var(--success)">
+      <div class="sum-num" style="color:var(--success)">${excellent}</div>
+      <div class="sum-label">Devs com<br>SLA ≥ 90%</div>
+    </div>
+    <div class="sum-card" style="--c:var(--danger)">
+      <div class="sum-num" style="color:var(--danger)">${critical}</div>
+      <div class="sum-label">Devs abaixo<br>de 70%</div>
+    </div>
+  `;
+
+  // PÓDIO (top 3)
+  const top3 = sorted.slice(0,3);
+  const podOrder = top3.length >= 3 ? [top3[1], top3[0], top3[2]] : top3;
+  const ranks = ['rank-2','rank-1','rank-3'];
+  const trophies = top3.length >= 3 ? ['🥈','🥇','🥉'] : ['🥇','🥈','🥉'];
+  const posLabels = ['2º lugar','1º lugar','3º lugar'];
+  const realRanks = top3.length >= 3 ? [1,0,2] : [0,1,2];
+
+  document.getElementById('podium').innerHTML = podOrder.map((d,i) => {
+    if(!d) return '';
+    const rk = ranks[i];
+    const slaColor = getSlaColor(d.sla);
+    const p2p3 = Math.max(0, d.bugs - d.crit);
+    return `
+      <div class="podium-card ${rk}">
+        <div class="pod-rank-bar"></div>
+        <div class="pod-body">
+          <div class="pod-position">${trophies[i]} ${posLabels[i]}</div>
+          <div class="pod-avatar">${getInitials(d.nome)}</div>
+          <div class="pod-name">${d.nome}</div>
+          <div class="pod-role">${d.squad}</div>
+          <div class="pod-sla-label">Taxa SLA</div>
+          <div class="pod-sla-pct">${d.sla}%</div>
+          <div class="pod-sla-bar"><div class="pod-sla-fill" style="width:${d.sla}%"></div></div>
+          <div class="pod-stats">
+            <div class="pod-stat">
+              <div class="pod-stat-num">${d.bugs}</div>
+              <div class="pod-stat-label">Resolvidos</div>
+            </div>
+            <div class="pod-stat">
+              <div class="pod-stat-num">${d.crit}</div>
+              <div class="pod-stat-label">P0+P1</div>
+            </div>
+          </div>
+          <div class="pod-badges">
+            ${d.sla>=90?'<span class="pod-badge">✅ SLA Excelente</span>':''}
+            ${d.crit>=3?'<span class="pod-badge">🔥 P0/P1 hunter</span>':''}
+            ${d.bugs>=15?'<span class="pod-badge">⚡ Alto volume</span>':''}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // TABELA
+  document.getElementById('rankBody').innerHTML = sorted.map((d,i) => {
+    const pos = i + 1;
+    const slaColor = getSlaColor(d.sla);
+    const rowClass = d.sla>=90 ? 'rank-row highlight-row' : d.sla<70 ? 'rank-row danger-row' : 'rank-row';
+    const posClass = pos<=3 ? `pos-${pos}` : 'pos-other';
+    const p2p3 = Math.max(0, d.bugs - d.crit);
+    const trend = d.trend === 'up' ? '<span class="trend-up">↑ Subindo</span>' :
+                  d.trend === 'dn' ? '<span class="trend-dn">↓ Caindo</span>' :
+                                     '<span class="trend-eq">→ Estável</span>';
+    const avatarColor = getAvatarColor(i);
+    return `
+      <div class="${rowClass}">
+        <div><div class="rank-pos ${posClass}">${pos<=3?['🥇','🥈','🥉'][pos-1]:pos}</div></div>
+        <div class="rank-person">
+          <div class="rank-avatar" style="background:${avatarColor.split(';')[0].replace('background:','')};${avatarColor.split(';')[1]||''}">${getInitials(d.nome)}</div>
+          <div>
+            <div class="rank-name">${d.nome}</div>
+            <div class="rank-role">${d.squad}</div>
+          </div>
+        </div>
+        <div class="rank-sla-cell">
+          <div class="rank-sla-pct" style="color:${slaColor}">${d.sla}%</div>
+          <div class="rank-sla-bar"><div class="rank-sla-fill" style="width:${d.sla}%;background:${slaColor}"></div></div>
+        </div>
+        <div class="rank-bugs">${d.bugs}<span>bugs</span></div>
+        <div><span class="rank-p-badge pb-p0">P0/P1: ${d.crit}</span></div>
+        <div><span class="rank-p-badge pb-p2">P2/P3: ${p2p3}</span></div>
+        <div>${trend}</div>
+        <div><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:${d.sla>=90?'rgba(16,185,129,0.1)':d.sla>=70?'rgba(245,158,11,0.1)':'rgba(239,68,68,0.1)'};color:${slaColor}">${getSlaLabel(d.sla)}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if(!t){ t = document.createElement('div'); t.id='toast'; t.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--success);color:white;padding:11px 20px;border-radius:12px;font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(16,185,129,.35);opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none'; document.body.appendChild(t); }
+  t.textContent = '✅ ' + msg;
+  t.style.opacity='1'; t.style.transform='translateY(0)';
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(8px)'; }, 2200);
+}
+
+loadData();
+</script>
+</body>
+</html>
