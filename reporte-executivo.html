@@ -1325,6 +1325,44 @@ Ação recomendada: criar label padrão “deploy” ou “release” no Linear 
     </div>
   </div>
 
+  <!-- ════ ANOTAÇÕES DO COORDENADOR (PRIVADO) ════ -->
+  <div class="sec-label" id="sec-coord" style="margin-top:40px">📝 Anotações do Coordenador</div>
+  <div class="card" style="margin-bottom:32px; border:1px solid rgba(250,100,30,0.3); background:rgba(250,100,30,0.03)">
+    <div class="card-title">
+      <span class="card-title-accent">Espaço privado</span> · Uso interno do Coordenador de Projetos
+    </div>
+    <p style="font-size:11px;color:var(--text3);margin-bottom:20px;line-height:1.6">⚙️ Este espaço é para rascunhos, missões da semana e acompanhamento interno. Não é apresentado formalmente à liderança.</p>
+
+    <!-- Bugs por origem -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div>
+        <div class="field-label" style="margin-bottom:6px;color:#FB923C">🐛 Bugs Comercial <span style="font-weight:400;color:var(--text3)">(origem: Rian / Comercial)</span></div>
+        <textarea class="rpt-textarea" id="coord-bugs-comercial" placeholder="Liste os bugs reportados pelo Comercial esta semana...&#10;Ex: Bug X — reportado por Rian — impacta cliente Y" style="min-height:110px;border-color:rgba(250,100,30,0.3);"></textarea>
+      </div>
+      <div>
+        <div class="field-label" style="margin-bottom:6px;color:#FB923C">🔧 Bugs Dev <span style="font-weight:400;color:var(--text3)">(origem: Squad / Linear)</span></div>
+        <textarea class="rpt-textarea" id="coord-bugs-dev" placeholder="Liste os bugs identificados internamente pelo dev...&#10;Ex: FIN-1 — Urgent — sem assignee há 43 dias" style="min-height:110px;border-color:rgba(250,100,30,0.3);"></textarea>
+      </div>
+    </div>
+
+    <!-- Missões da semana -->
+    <div style="margin-bottom:20px">
+      <div class="field-label" style="margin-bottom:6px;color:#FB923C">🎯 Missões da Semana</div>
+      <textarea class="rpt-textarea" id="coord-missoes" style="min-height:130px;border-color:rgba(250,100,30,0.3);">☐ SEG — Entregar responsáveis dos bugs (FIN-1, FIN-2, FIN-8, FIN-9, FIN-13) no Linear
+☐ SEG — Contato com Rian (Comercial) — mapear bugs de origem comercial
+☐ TER — Reunião com Devs: cobrar matriz de gestão de riscos
+☐ TER — Cobrar: projetos tratados como entregas, fases com data no Linear, issues bem descritas
+☐ QUI — Rodar prompt no Linear e validar dados para S5
+☐ SEX — Publicar reporte S5 para Bia e Rodrigo</textarea>
+    </div>
+
+    <!-- Notas pessoais -->
+    <div>
+      <div class="field-label" style="margin-bottom:6px;color:#FB923C">📋 Notas Pessoais / Follow-ups</div>
+      <textarea class="rpt-textarea" id="coord-notas" placeholder="Observações livres, follow-ups pendentes, contexto adicional..." style="min-height:80px;border-color:rgba(250,100,30,0.3);"></textarea>
+    </div>
+  </div>
+
   <!-- ════ SEÇÃO DE FEEDBACK & COMENTÁRIOS DOS LÍDERES ════ -->
   <div class="sec-label" id="sec-comentarios" style="margin-top:40px">💬 Comentários e Feedback dos Líderes</div>
   <div class="card" style="margin-bottom:80px" id="section-comments">
