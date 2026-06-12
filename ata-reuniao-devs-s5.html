@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATA de Reunião — Squad Pigz | 10/06/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #F97316;
+    --danger: #DC2626;
+    --warn: #D97706;
+    --success: #059669;
+    --text: #111827;
+    --text2: #374151;
+    --text3: #6B7280;
+    --border: #E5E7EB;
+    --bg: #F9FAFB;
+    --white: #FFFFFF;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%);
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(249,115,22,0.15);
+  }
+
+  .doc-type {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .doc-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #F1F1F5;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .doc-sub {
+    font-size: 14px;
+    color: #A0A0B0;
+    margin-bottom: 24px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5A5A70;
+  }
+
+  .meta-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: #E1E1EB;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── BODY ── */
+  .doc-body { padding: 40px 48px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 36px; }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FEE9D7;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── INFO GRID ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .info-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  .info-key { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .info-val { font-size: 14px; font-weight: 600; color: var(--text); }
+
+  /* ── PARTICIPANTS ── */
+  .participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .participant-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .participant-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #FBBF24);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: #000;
+  }
+
+  /* ── TOPICS ── */
+  .topic-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .topic {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+  }
+
+  .topic-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #FBBF24);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; color: #000;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .topic-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .topic-desc  { font-size: 12px; color: var(--text3); line-height: 1.5; }
+
+  /* ── DECISIONS ── */
+  .decision-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .decision {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border-left: 4px solid;
+  }
+
+  .decision.critical {
+    background: #FEF2F2;
+    border-color: var(--danger);
+  }
+  .decision.warn {
+    background: #FFFBEB;
+    border-color: var(--warn);
+  }
+  .decision.info {
+    background: #EFF6FF;
+    border-color: #3B82F6;
+  }
+  .decision.success {
+    background: #ECFDF5;
+    border-color: var(--success);
+  }
+
+  .decision-icon { font-size: 20px; flex-shrink: 0; }
+  .decision-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .decision-desc  { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .decision-due   { font-size: 11px; font-weight: 700; margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+
+  /* ── COMMITMENTS HIGHLIGHT ── */
+  .commitment-box {
+    background: linear-gradient(135deg, #0A0A0F, #1A1A2E);
+    border: 1px solid rgba(249,115,22,0.4);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+
+  .commitment-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .commitment-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: #F1F1F5;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .commitment-item:last-child { border: none; }
+
+  .commitment-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(249,115,22,0.12);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 4px;
+    padding: 2px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── SIGNATURES ── */
+  .sig-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .sig-box {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    background: var(--bg);
+  }
+
+  .sig-line {
+    border-bottom: 1px solid var(--text3);
+    height: 48px;
+    margin-bottom: 8px;
+  }
+
+  .sig-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .sig-role { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 16px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── PRINT ── */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: linear-gradient(135deg, var(--accent), #FBBF24);
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(249,115,22,0.4);
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.5); }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border: none; border-radius: 0; }
+    .print-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-type">📋 Ata de Reunião · Documento Oficial</div>
+    <div class="doc-title">Reunião Semanal com os Devs</div>
+    <div class="doc-sub">Alinhamento de governança, responsabilidades e entregas — Squad Pigz</div>
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-label">Data</div>
+        <div class="meta-val">10/06/2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Semana</div>
+        <div class="meta-val">S5 · Jun 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Tipo</div>
+        <div class="meta-val">Reunião Semanal</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Documento</div>
+        <div class="meta-val">ATA-2026-S5-DEV</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="doc-body">
+
+    <!-- 1. INFORMAÇÕES GERAIS -->
+    <div class="section">
+      <div class="section-title">01 · Informações Gerais</div>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-key">Organização</div>
+          <div class="info-val">Squad Pigz — Coordenação de Projetos</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Modalidade</div>
+          <div class="info-val">Reunião Semanal de Alinhamento</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Convocado por</div>
+          <div class="info-val">Coordenação de Projetos</div>
+        </div>
+        <div class="info-item">
+          <div class="info-key">Próxima entrega</div>
+          <div class="info-val" style="color:#DC2626;">Segunda-feira · 16/06/2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PARTICIPANTES -->
+    <div class="section">
+      <div class="section-title">02 · Participantes</div>
+      <div class="participants">
+        <div class="participant-chip">
+          <div class="participant-avatar">TK</div>
+          Ten Krueger <span style="font-size:11px;color:#9CA3AF;">(Coordenação)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar">GB</div>
+          Guilherme Bernardo <span style="font-size:11px;color:#9CA3AF;">(Dev)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar">VR</div>
+          Vitor Rocha <span style="font-size:11px;color:#9CA3AF;">(Dev)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar">MS</div>
+          Marcus Santos <span style="font-size:11px;color:#9CA3AF;">(Dev)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar">JC</div>
+          João Conde <span style="font-size:11px;color:#9CA3AF;">(Dev)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar">EM</div>
+          Elias Monteiro <span style="font-size:11px;color:#9CA3AF;">(Dev)</span>
+        </div>
+        <div class="participant-chip" style="border-style:dashed;">
+          + Demais membros do Squad Pigz
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PAUTA -->
+    <div class="section">
+      <div class="section-title">03 · Pauta Discutida</div>
+      <div class="topic-list">
+        <div class="topic">
+          <div class="topic-num">1</div>
+          <div>
+            <div class="topic-title">🗄️ Linear como fonte única de dados</div>
+            <div class="topic-desc">Alinhamento sobre o uso obrigatório do Linear como base de todos os registros do squad. Toda issue precisa ter título claro, status atualizado, assignee e due date.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">2</div>
+          <div>
+            <div class="topic-title">🐛 Bugs críticos com responsáveis</div>
+            <div class="topic-desc">Revisão das issues FIN-1, FIN-2, FIN-8, FIN-9 e FIN-13 abertas há mais de 43 dias sem assignee. Definição de responsáveis em tempo real durante a reunião.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">3</div>
+          <div>
+            <div class="topic-title">⚠️ Matriz de Gestão de Riscos</div>
+            <div class="topic-desc">Apresentação da necessidade de criação e manutenção de uma Matriz de Riscos atualizada para o squad. Definição de responsável e prazo de entrega.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">4</div>
+          <div>
+            <div class="topic-title">🗺️ Projetos organizados como entregas por fases</div>
+            <div class="topic-desc">Alinhamento sobre a necessidade de estruturar os projetos no Linear com fases bem definidas, datas de entrega e issues com descrição mínima. Projetos em destaque: Chat em Tempo Real, Planos Pós-pagos IPV e LLM para Pedidos.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">5</div>
+          <div>
+            <div class="topic-title">🏷️ Tagueamento de produto nos bugs críticos</div>
+            <div class="topic-desc">Nova regra estabelecida: bugs Urgent e High criados sem label de produto serão devolvidos ao criador antes de entrar no fluxo de atendimento.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. COMPROMISSOS (DESTAQUE) -->
+    <div class="section">
+      <div class="section-title">04 · Compromisso Principal</div>
+      <div class="commitment-box">
+        <div class="commitment-label">🔴 Entrega Acordada — Prazo Máximo</div>
+        <div class="commitment-item">
+          <span class="commitment-date">SEG · 16/06/2026</span>
+          <span>Matriz de Gestão de Riscos finalizada e entregue à Coordenação</span>
+        </div>
+        <div class="commitment-item">
+          <span class="commitment-date">SEG · 16/06/2026</span>
+          <span>Organização do Linear em Fases — projetos estruturados com entregas, datas e issues bem definidas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. DECISÕES -->
+    <div class="section">
+      <div class="section-title">05 · Decisões e Ações</div>
+      <div class="decision-list">
+        <div class="decision critical">
+          <div class="decision-icon">🔴</div>
+          <div>
+            <div class="decision-title">Bugs FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 — responsáveis atribuídos</div>
+            <div class="decision-desc">Todas as issues Urgent sem assignee definidas durante a reunião. Nenhuma issue Urgent pode permanecer sem dono.</div>
+            <div class="decision-due" style="color:var(--danger);">Prazo: imediato</div>
+          </div>
+        </div>
+        <div class="decision warn">
+          <div class="decision-icon">⚠️</div>
+          <div>
+            <div class="decision-title">Entrega da Matriz de Gestão de Riscos</div>
+            <div class="decision-desc">O squad se comprometeu a entregar a Matriz de Gestão de Riscos completa à Coordenação de Projetos.</div>
+            <div class="decision-due" style="color:var(--warn);">Prazo: Segunda-feira, 16/06/2026</div>
+          </div>
+        </div>
+        <div class="decision warn">
+          <div class="decision-icon">🗺️</div>
+          <div>
+            <div class="decision-title">Organização do Linear em Fases</div>
+            <div class="decision-desc">Projetos (Chat em Tempo Real, Planos Pós-pagos IPV, LLM para Pedidos) devem ser organizados no Linear com fases, due dates e issues bem descritas.</div>
+            <div class="decision-due" style="color:var(--warn);">Prazo: Segunda-feira, 16/06/2026</div>
+          </div>
+        </div>
+        <div class="decision info">
+          <div class="decision-icon">🏷️</div>
+          <div>
+            <div class="decision-title">Nova regra: label de produto obrigatório em bugs Urgent/High</div>
+            <div class="decision-desc">A partir desta reunião, bugs críticos sem label de produto serão devolvidos ao criador para tagueamento antes de entrar no fluxo.</div>
+            <div class="decision-due" style="color:#2563EB;">Vigência: imediata</div>
+          </div>
+        </div>
+        <div class="decision success">
+          <div class="decision-icon">🗄️</div>
+          <div>
+            <div class="decision-title">Linear como única fonte de verdade — reafirmado</div>
+            <div class="decision-desc">Todo o squad reconhece que o Linear é a base oficial de dados do squad. Issues sem assignee, due date ou descrição serão cobradas individualmente em cada reporte semanal.</div>
+            <div class="decision-due" style="color:var(--success);">Vigência: contínua</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ASSINATURAS -->
+    <div class="section">
+      <div class="section-title">06 · Assinaturas dos Participantes</div>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:16px;">Ao assinar, o participante confirma que leu, compreendeu e concorda com os compromissos registrados nesta ata.</p>
+      <div class="sig-grid">
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Ten Krueger</div>
+          <div class="sig-role">Coordenação de Projetos</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Guilherme Bernardo</div>
+          <div class="sig-role">Desenvolvedor</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Vitor Rocha</div>
+          <div class="sig-role">Desenvolvedor</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Marcus Santos</div>
+          <div class="sig-role">Desenvolvedor</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">João Conde</div>
+          <div class="sig-role">Desenvolvedor</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line"></div>
+          <div class="sig-name">Elias Monteiro</div>
+          <div class="sig-role">Desenvolvedor</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /doc-body -->
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>ATA-2026-S5-DEV · Squad Pigz · Pigz Coord</span>
+    <span>Emitida em: 12/06/2026</span>
+  </div>
+
+</div><!-- /page -->
+
+<!-- PRINT BUTTON -->
+<button class="print-btn" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+
+</body>
+</html>

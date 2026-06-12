@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunião Semanal Devs — S5 | Squad Pigz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0A0A0F;
+    --surface: #12121A;
+    --card: #1A1A25;
+    --border: rgba(255,255,255,0.07);
+    --accent: #F97316;
+    --accent2: #FB923C;
+    --danger: #F87171;
+    --warning: #FBBF24;
+    --success: #34D399;
+    --info: #60A5FA;
+    --purple: #A78BFA;
+    --text: #F1F1F5;
+    --text2: #A0A0B0;
+    --text3: #5A5A70;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* ── SLIDES ── */
+  .slides-wrap {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all .45s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+
+  .slide.exit {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--warning));
+    transition: width .4s ease;
+    z-index: 100;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(18,18,26,0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 20px;
+    z-index: 100;
+  }
+
+  .nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    border-radius: 50%;
+    width: 36px; height: 36px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+
+  .nav-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .slide-counter {
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--mono);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text3);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .dot.active { background: var(--accent); width: 20px; border-radius: 3px; }
+
+  /* ── SLIDE LABEL ── */
+  .slide-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slide-tag::before, .slide-tag::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+    opacity: .4;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 900; line-height: 1.1; }
+  h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 800; line-height: 1.15; }
+  h3 { font-size: clamp(18px, 2.5vw, 28px); font-weight: 700; }
+  p  { font-size: clamp(14px, 1.5vw, 18px); color: var(--text2); line-height: 1.7; }
+
+  .accent { color: var(--accent); }
+  .warn { color: var(--warning); }
+  .danger { color: var(--danger); }
+  .success { color: var(--success); }
+  .info { color: var(--info); }
+  .purple { color: var(--purple); }
+
+  /* ── CARDS ── */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  .card-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+  }
+
+  .card-icon { font-size: 28px; margin-bottom: 12px; }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .hbox {
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 14px;
+    padding: 20px 28px;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .hbox.danger { background: rgba(248,113,113,0.07); border-color: rgba(248,113,113,0.25); }
+  .hbox.warn   { background: rgba(251,191,36,0.07); border-color: rgba(251,191,36,0.25); }
+  .hbox.success{ background: rgba(52,211,153,0.07); border-color: rgba(52,211,153,0.25); }
+
+  /* ── LIST ── */
+  .item-list { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 12px; }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+
+  .item-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  .item-text { font-size: 15px; line-height: 1.6; }
+  .item-sub  { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: var(--mono);
+  }
+
+  /* ── BIG NUMBER ── */
+  .bignumber {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--warning));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── GRADIENT TEXT ── */
+  .grad { background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── TABLE ── */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .tbl th { padding: 10px 16px; text-align: left; color: var(--text3); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .tbl td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text2); }
+  .tbl tr:last-child td { border: none; }
+  .tbl tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── BG DECO ── */
+  .bg-deco {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .12;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ── KEYBOARD HINT ── */
+  .kbd-hint {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    font-size: 11px;
+    color: var(--text3);
+    font-family: var(--mono);
+    z-index: 100;
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  /* ── STEP LIST ── */
+  .steps { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 10px; }
+  .step { display: flex; align-items: center; gap: 16px; padding: 14px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--warning)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: #000; flex-shrink: 0; }
+  .step-body { font-size: 14px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- BG DECO -->
+<div class="bg-deco" style="width:500px;height:500px;background:var(--accent);top:-100px;right:-100px;"></div>
+<div class="bg-deco" style="width:400px;height:400px;background:var(--purple);bottom:-100px;left:-100px;"></div>
+
+<!-- PROGRESS -->
+<div id="progress-bar"></div>
+
+<!-- KEYBOARD HINT -->
+<div class="kbd-hint"><kbd>←</kbd> <kbd>→</kbd> navegar &nbsp;|&nbsp; <kbd>F</kbd> fullscreen</div>
+
+<div class="slides-wrap" id="slides">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — CAPA
+  ══════════════════════════════════════ -->
+  <div class="slide active" id="s0">
+    <div class="slide-tag">Squad Pigz</div>
+    <h1 style="text-align:center;max-width:800px;">Reunião Semanal<br><span class="grad">com os Devs</span></h1>
+    <p style="margin-top:20px;text-align:center;max-width:500px;">Alinhamento de governança, responsabilidades e entregas — Semana 05</p>
+    <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+      <span class="badge" style="background:rgba(249,115,22,0.15);color:var(--accent)">10 Jun 2026</span>
+      <span class="badge" style="background:rgba(167,139,250,0.15);color:var(--purple)">Squad Pigz</span>
+      <span class="badge" style="background:rgba(96,165,250,0.15);color:var(--info)">Coordenação de Projetos</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — AGENDA
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s1">
+    <div class="slide-tag">Pauta de Hoje</div>
+    <h2 style="margin-bottom:32px;">O que vamos <span class="accent">cobrir</span> hoje</h2>
+    <div class="card-grid cols-2" style="max-width:900px;">
+      <div class="card">
+        <div class="card-icon">🗄️</div>
+        <div class="card-title">Linear como fonte única</div>
+        <div class="card-body">Regras de uso — tudo passa pelo Linear</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🐛</div>
+        <div class="card-title">Bugs com responsáveis</div>
+        <div class="card-body">FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 precisam de dono</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚠️</div>
+        <div class="card-title">Matriz de Gestão de Riscos</div>
+        <div class="card-body">Onde está e como vamos manter atualizada</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗺️</div>
+        <div class="card-title">Projetos como Entregas</div>
+        <div class="card-body">Fases, datas e issues bem definidas no Linear</div>
+      </div>
+      <div class="card" style="grid-column: span 2;">
+        <div class="card-icon">🏷️</div>
+        <div class="card-title">Tagueamento de produto nos bugs críticos</div>
+        <div class="card-body">96% dos bugs Urgent/High ainda sem label de produto — isso precisa mudar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — LINEAR COMO BASE
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s2">
+    <div class="slide-tag">Tema 1</div>
+    <h2 style="margin-bottom:12px;">🗄️ Linear é a <span class="accent">fonte única de verdade</span></h2>
+    <p style="margin-bottom:28px;text-align:center;max-width:700px;">Tudo que o squad faz precisa estar registrado no Linear. Sem exceção.</p>
+    <div class="item-list">
+      <div class="item">
+        <div class="item-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="item-text">Nenhum bug, tarefa ou entrega existe se não estiver no Linear</div>
+          <div class="item-sub">Se não tá no Linear, não aparece no reporte — e não aparece para a liderança</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--warning)"></div>
+        <div>
+          <div class="item-text">Toda issue precisa ter: <strong>título claro · status atualizado · assignee · due date</strong></div>
+          <div class="item-sub">Issues sem esses campos serão cobradas individualmente todo reporte</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--success)"></div>
+        <div>
+          <div class="item-text">O Linear alimenta o Pigz Coord — o reporte que a diretoria lê toda semana</div>
+          <div class="item-sub">Dados incorretos no Linear = reporte incorreto para os CEOs</div>
+        </div>
+      </div>
+    </div>
+    <div class="hbox" style="margin-top:20px;">
+      <strong style="color:var(--accent)">📌 Regra simples:</strong> <span style="color:var(--text2)"> se aconteceu, tá no Linear. Se tá no Linear, tem dono e tem data.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — BUGS COM RESPONSÁVEIS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s3">
+    <div class="slide-tag">Tema 2</div>
+    <h2 style="margin-bottom:12px;">🐛 Bugs críticos <span class="danger">sem responsável</span></h2>
+    <p style="margin-bottom:24px;text-align:center;max-width:700px;">Todo bug levantado no reporte precisa ter um dono. Hoje temos 5 issues Urgent abertas há mais de 43 dias sem assignee.</p>
+    <div style="width:100%;max-width:900px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Issue</th>
+            <th>Prioridade</th>
+            <th>Aberta há</th>
+            <th>Assignee</th>
+            <th>Ação necessária</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span style="font-family:var(--mono);color:var(--accent)">FIN-1</span></td>
+            <td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td>
+            <td><span class="danger">43 dias</span></td>
+            <td><span class="warn">— Ninguém —</span></td>
+            <td>Definir hoje</td>
+          </tr>
+          <tr>
+            <td><span style="font-family:var(--mono);color:var(--accent)">FIN-2</span></td>
+            <td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td>
+            <td><span class="danger">43 dias</span></td>
+            <td><span class="warn">— Ninguém —</span></td>
+            <td>Definir hoje</td>
+          </tr>
+          <tr>
+            <td><span style="font-family:var(--mono);color:var(--accent)">FIN-8</span></td>
+            <td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td>
+            <td><span class="danger">43 dias</span></td>
+            <td><span class="warn">— Ninguém —</span></td>
+            <td>Definir hoje</td>
+          </tr>
+          <tr>
+            <td><span style="font-family:var(--mono);color:var(--accent)">FIN-9</span></td>
+            <td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td>
+            <td><span class="danger">43 dias</span></td>
+            <td><span class="warn">— Ninguém —</span></td>
+            <td>Definir hoje</td>
+          </tr>
+          <tr>
+            <td><span style="font-family:var(--mono);color:var(--accent)">FIN-13</span></td>
+            <td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td>
+            <td><span class="danger">43 dias</span></td>
+            <td><span class="warn">— Ninguém —</span></td>
+            <td>Definir hoje</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hbox danger" style="margin-top:16px;">
+      <strong style="color:var(--danger)">🔴 Meta desta reunião:</strong> <span style="color:var(--text2)"> sair daqui com um nome atribuído para cada uma dessas 5 issues.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — MATRIZ DE RISCOS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s4">
+    <div class="slide-tag">Tema 3</div>
+    <h2 style="margin-bottom:12px;">⚠️ Matriz de <span class="warn">Gestão de Riscos</span></h2>
+    <p style="margin-bottom:28px;text-align:center;max-width:700px;">A coordenação precisa de visibilidade sobre os riscos ativos do squad. Sem matriz, trabalhamos no escuro.</p>
+    <div class="item-list">
+      <div class="item">
+        <div class="item-dot" style="background:var(--danger)"></div>
+        <div>
+          <div class="item-text"><strong>O que é a Matriz de Riscos?</strong></div>
+          <div class="item-sub">Um mapa dos principais riscos técnicos e operacionais do squad: o que pode dar errado, qual a probabilidade, qual o impacto e quem é responsável por mitigar</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--warning)"></div>
+        <div>
+          <div class="item-text"><strong>Por que precisamos agora?</strong></div>
+          <div class="item-sub">Com backlog crescendo e projetos estagnados, riscos não mapeados viram problemas na semana seguinte. A diretoria já está acompanhando via Pigz Coord</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--success)"></div>
+        <div>
+          <div class="item-text"><strong>O que precisamos desta reunião?</strong></div>
+          <div class="item-sub">Definir quem lidera a criação da matriz, qual o formato e prazo de entrega — sugestão: até quinta-feira desta semana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — PROJETOS COMO ENTREGAS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s5">
+    <div class="slide-tag">Tema 4</div>
+    <h2 style="margin-bottom:12px;">🗺️ Projetos tratados como <span class="accent">Entregas</span></h2>
+    <p style="margin-bottom:24px;text-align:center;max-width:700px;">Projetos no Linear não podem ser listas de tarefas avulsas. Precisam ter fases, datas e responsáveis claros.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><strong>Mapear o projeto em fases</strong> — cada fase é uma entrega tangível com critério de aceite claro</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><strong>Organizar no Linear por fase</strong> — usar Milestones ou labels de fase (Ex: Fase 1 · Fase 2 · Fase 3)</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><strong>Colocar due date em todas as issues</strong> — sem data, não existe prazo. Sem prazo, não existe entrega</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><strong>Descrição mínima obrigatória</strong> — contexto, critério de aceite e o que precisa ser feito. Issues vazias serão devolvidas</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body"><strong>Assignee definido antes de começar</strong> — nenhuma issue entra em In Progress sem um responsável</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — PROJETOS ESTAGNADOS
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s6">
+    <div class="slide-tag">Atenção</div>
+    <h2 style="margin-bottom:12px;">📦 Projetos com <span class="danger">acúmulo crítico</span></h2>
+    <p style="margin-bottom:28px;text-align:center;max-width:700px;">Três projetos têm issues abertas há mais de 30 dias sem movimentação. Precisam virar entregas com fases.</p>
+    <div class="card-grid cols-3" style="max-width:900px;">
+      <div class="card" style="border-color:rgba(248,113,113,0.3);text-align:center;">
+        <div class="bignumber" style="font-size:52px;">18</div>
+        <div class="card-title" style="margin-top:8px;">Chat em Tempo Real</div>
+        <div class="card-body">issues abertas há 30+ dias sem fase ou data definida</div>
+      </div>
+      <div class="card" style="border-color:rgba(251,191,36,0.3);text-align:center;">
+        <div class="bignumber" style="font-size:52px;">17</div>
+        <div class="card-title" style="margin-top:8px;">Planos Pós-pagos IPV</div>
+        <div class="card-body">issues abertas há 30+ dias sem fase ou data definida</div>
+      </div>
+      <div class="card" style="border-color:rgba(167,139,250,0.3);text-align:center;">
+        <div class="bignumber" style="font-size:52px;">16</div>
+        <div class="card-title" style="margin-top:8px;">LLM para Pedidos</div>
+        <div class="card-body">issues abertas há 30+ dias sem fase ou data definida</div>
+      </div>
+    </div>
+    <div class="hbox warn" style="margin-top:20px;">
+      <strong style="color:var(--warning)">⚠️ Ação:</strong> <span style="color:var(--text2)"> cada projeto precisa sair desta reunião com um líder responsável e um roadmap mínimo de fases no Linear.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8 — TAGUEAMENTO
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s7">
+    <div class="slide-tag">Tema 5</div>
+    <h2 style="margin-bottom:12px;">🏷️ Tagueamento de <span class="accent">produto</span> nos bugs</h2>
+    <p style="margin-bottom:24px;text-align:center;max-width:700px;">Hoje 96% dos bugs críticos não têm label de produto. Sem isso, é impossível saber qual área está com mais problema.</p>
+    <div style="width:100%;max-width:900px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+      <table class="tbl">
+        <thead><tr><th>Label de Produto</th><th>Bugs Críticos (S4)</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Partner</td><td>1</td><td><span class="badge" style="background:rgba(52,211,153,0.1);color:var(--success)">✓ Tagueado</span></td></tr>
+          <tr><td>Pigz App (Mobile)</td><td>0</td><td><span class="badge" style="background:rgba(248,113,113,0.1);color:var(--danger)">Sem dados</span></td></tr>
+          <tr><td>Pigz Comanda</td><td>0</td><td><span class="badge" style="background:rgba(248,113,113,0.1);color:var(--danger)">Sem dados</span></td></tr>
+          <tr><td>Gestão Desktop</td><td>0</td><td><span class="badge" style="background:rgba(248,113,113,0.1);color:var(--danger)">Sem dados</span></td></tr>
+          <tr><td>Pigz Web</td><td>0</td><td><span class="badge" style="background:rgba(248,113,113,0.1);color:var(--danger)">Sem dados</span></td></tr>
+          <tr><td style="color:var(--danger);font-weight:600">⚠️ Sem label de produto</td><td style="color:var(--danger);font-weight:700">26 de 27</td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">🔴 Crítico</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hbox" style="margin-top:16px;">
+      <strong style="color:var(--accent)">📌 Regra nova:</strong> <span style="color:var(--text2)"> bugs Urgent e High criados sem label de produto serão devolvidos para o criador adicionar antes de entrar no fluxo.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9 — AÇÕES
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s8">
+    <div class="slide-tag">Próximos Passos</div>
+    <h2 style="margin-bottom:24px;">✅ O que sai desta <span class="success">reunião hoje</span></h2>
+    <div class="item-list">
+      <div class="item">
+        <div class="item-dot" style="background:var(--danger)"></div>
+        <div>
+          <div class="item-text"><strong>FIN-1, FIN-2, FIN-8, FIN-9, FIN-13</strong> — assignee definido agora</div>
+          <div class="item-sub">Prazo: hoje antes do fim do dia</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--warning)"></div>
+        <div>
+          <div class="item-text"><strong>Matriz de Gestão de Riscos</strong> — líder e prazo definidos</div>
+          <div class="item-sub">Sugestão: entrega até quinta-feira 13/06</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--accent)"></div>
+        <div>
+          <div class="item-text"><strong>Chat em Tempo Real · IPV · LLM para Pedidos</strong> — líder e roadmap de fases no Linear</div>
+          <div class="item-sub">Cada projeto precisa de um responsável e fases com due date</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-dot" style="background:var(--info)"></div>
+        <div>
+          <div class="item-text"><strong>Tagueamento</strong> — todos os devs cientes da regra de label obrigatório</div>
+          <div class="item-sub">Bugs Urgent/High sem label de produto serão devolvidos</div>
+        </div>
+      </div>
+    </div>
+    <div class="hbox success" style="margin-top:16px;">
+      <strong style="color:var(--success)">🎯 Lembrete:</strong> <span style="color:var(--text2)"> o reporte S5 sai na sexta. O que for decidido hoje aparece lá.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 10 — ENCERRAMENTO
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s9">
+    <div class="slide-tag">Obrigado</div>
+    <h1 style="text-align:center;max-width:700px;">Vamos <span class="grad">construir</span> juntos 🚀</h1>
+    <p style="margin-top:20px;text-align:center;max-width:500px;font-size:16px;">
+      Linear organizado · Bugs com dono · Projetos com fases · Riscos mapeados.<br><br>
+      <span style="color:var(--accent)">Essa é a base para a Pigz crescer com qualidade.</span>
+    </p>
+    <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <span class="badge" style="background:rgba(249,115,22,0.15);color:var(--accent);padding:8px 20px;font-size:13px;">Pigz Coord · S5</span>
+      <span class="badge" style="background:rgba(52,211,153,0.15);color:var(--success);padding:8px 20px;font-size:13px;">Reporte: Sexta 13/06</span>
+      <span class="badge" style="background:rgba(96,165,250,0.15);color:var(--info);padding:8px 20px;font-size:13px;">Linear é a fonte única</span>
+    </div>
+  </div>
+
+</div><!-- /slides-wrap -->
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nav-btn" onclick="prevSlide()">←</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-counter" id="counter">1 / 10</div>
+  <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  // Build dots
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function updateUI() {
+    document.getElementById('counter').textContent = `${current+1} / ${total}`;
+    document.getElementById('progress-bar').style.width = `${((current+1)/total)*100}%`;
+    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current < n ? current : current].classList.remove('exit'), 450);
+    current = n;
+    slides[current].classList.add('active');
+    setTimeout(() => {
+      document.querySelectorAll('.slide.exit').forEach(s => s.classList.remove('exit'));
+    }, 460);
+    updateUI();
+  }
+
+  function nextSlide() { if (current < total-1) goTo(current+1); }
+  function prevSlide() { if (current > 0) goTo(current-1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') prevSlide();
+    if (e.key === 'f' || e.key === 'F') document.documentElement.requestFullscreen?.();
+  });
+
+  // Touch / swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
