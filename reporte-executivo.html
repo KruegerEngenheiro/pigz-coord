@@ -749,8 +749,8 @@ body.read-mode .read-show { display: flex !important; }
       <div class="rh-subtitle">Visão executiva da saúde operacional, gargalos ativos, métricas de governança e ações priorizadas para a semana. Preparado para que a liderança tome decisões informadas sem precisar falar com toda a equipe.</div>
     </div>
     <div class="rh-meta">
-      <div class="rh-meta-week" id="rpt-semana-display">Semana 4 · Jun 2026</div>
-      <div class="rh-meta-date" id="rpt-data-display">02 — 06 de Junho de 2026</div>
+      <div class="rh-meta-week" id="rpt-semana-display">Semana 5 · Jun 2026</div>
+      <div class="rh-meta-date" id="rpt-data-display">09 — 13 de Junho de 2026</div>
       <div id="status-global-badge" class="status-badge-global" style="background:rgba(251,191,36,0.12);color:#FBBF24;border:1px solid rgba(251,191,36,0.25)" onclick="cycleGlobalStatus()">
         <span id="status-global-dot" style="font-size:18px">🟡</span>
         <span id="status-global-text">Atenção Necessária</span>
@@ -793,15 +793,15 @@ body.read-mode .read-show { display: flex !important; }
     <div class="exec-grid">
       <div class="exec-item">
         <div class="exec-item-label">Contexto</div>
-        <textarea class="rpt-textarea" id="exec-contexto" style="min-height:70px;background:rgba(255,255,255,0.04);">Semana 04 do Squad Pigz (02/06–06/06). Segunda semana com dados estruturados via Linear. Backlog ativo: 52 issues (22 To Do + 30 In Progress). Cycle não consolidado pelo Linear — lacuna de rastreabilidade a corrigir. Total de 44 issues em status Completed no período.</textarea>
+        <textarea class="rpt-textarea" id="exec-contexto" style="min-height:70px;background:rgba(255,255,255,0.04);">Semana 05 do Squad Pigz (09/06–13/06). Terceira semana de governança com dados do Linear. Backlog ativo: 49 issues (36 To Do + 13 In Progress). Cycle 3 em andamento: 290 planejadas, 37 Completed (13%). Semana marcada por spike de 158 novas issues e cluster de vulnerabilidades de segurança abertas (LGPD/PII).</textarea>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Conquista</div>
-        <textarea class="rpt-textarea" id="exec-conquista" style="min-height:70px;background:rgba(255,255,255,0.04);">MTTR caiu de 168h (S3) para 71h (S4) — redução de 58%. Issues resolvidas subiram de 5 para 7. @guilherme.bernardo liderou com 9 issues concluídas em 14 dias. Processo de reporte semanal 100% operacional com dados reais do Linear.</textarea>
+        <textarea class="rpt-textarea" id="exec-conquista" style="min-height:70px;background:rgba(255,255,255,0.04);">77 issues Completed na semana — salto expressivo vs. 7 da S4. FIN-1, FIN-2, FIN-8, FIN-9 e FIN-13 ganharam assignee (Guilherme Bernardo) — compromisso da reunião de terça cumprido. Emerson Marinho liderou com 28 issues concluídas em 14 dias. Severino AI lançado ao time.</textarea>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Risco no Horizonte</div>
-        <textarea class="rpt-textarea" id="exec-risco" style="min-height:70px;background:rgba(255,255,255,0.04);">57 issues criadas vs. 7 resolvidas = backlog crescendo +50/semana. 39 issues Urgent/High em Backlog sem assignee. FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 abertas há 43+ dias sem dono. @miguel.bonilla com 45 issues criadas sem nenhuma concluída em 14 dias.</textarea>
+        <textarea class="rpt-textarea" id="exec-risco" style="min-height:70px;background:rgba(255,255,255,0.04);">🔴 SEGURANÇA CRÍTICA: 5 vulnerabilidades abertas no SWAT (CVSS 9.3 confirmado) — IDOR cross-tenant, rotas sem auth, webhooks sem HMAC, exposição de PII (LGPD). 158 issues criadas vs. 77 resolvidas = backlog crescendo +81/semana. 50 Urgent/High sem assignee. @marcus.santos com 50 issues criadas sem resolver nenhuma.</textarea>
       </div>
     </div>
   </div>
@@ -856,43 +856,43 @@ body.read-mode .read-show { display: flex !important; }
   <div class="kpi-grid">
     <div class="kpi-card" style="--kc:var(--danger)">
       <div class="kpi-card-icon">🐛</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="27"></div>
+      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="—" min="0" value="30"></div>
       <div class="kpi-label">Bugs Críticos<br>em Aberto</div>
-      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↓ 27 Urgent+High · -1 vs S3</div>
-      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S3: <input type="number" id="k-bugs-crit-prev" value="28" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → -1</div>
+      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">↑ 30 Urgent+High · +3 vs S4</div>
+      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S4: <input type="number" id="k-bugs-crit-prev" value="27" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +3</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Priority: Urgent+High · Status: ativo</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--success)">
       <div class="kpi-card-icon">✅</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="—" min="0" value="7" oninput="calcTaxaRes()"></div>
+      <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="—" min="0" value="77" oninput="calcTaxaRes()"></div>
       <div class="kpi-label">Resolvidos<br>na Semana</div>
-      <div class="kpi-trend" style="color:var(--success)" id="trend-res">↑ Taxa: 26% · +2 vs S3</div>
-      <div class="kpi-vs down" id="kvs-bugs-res">vs. S3: <input type="number" id="k-bugs-res-prev" value="5" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +2</div>
+      <div class="kpi-trend" style="color:var(--success)" id="trend-res">↑↑ Taxa: 256% · +70 vs S4</div>
+      <div class="kpi-vs down" id="kvs-bugs-res">vs. S4: <input type="number" id="k-bugs-res-prev" value="7" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +70</div>
       <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Status: Completed · últimos 7 dias</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--warning)">
       <div class="kpi-card-icon">⏱️</div>
-      <div class="kpi-num"><input type="number" id="k-mttr" placeholder="—" min="0" value="71" oninput="updateMttrTrend()"></div>
+      <div class="kpi-num"><input type="number" id="k-mttr" placeholder="—" min="0" value="" oninput="updateMttrTrend()"></div>
       <div class="kpi-label">MTTR Médio<br>(horas)</div>
-      <div class="kpi-trend" id="trend-mttr" style="color:var(--warning)">↓ 71h · melhora vs 168h (S3)</div>
-      <div class="kpi-vs neutral" id="kvs-mttr">vs. S3: <input type="number" id="k-mttr-prev" value="168" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → -97h</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Created → Completed das issues S4</span></div>
+      <div class="kpi-trend" id="trend-mttr" style="color:var(--text3)">⚠️ Não encontrado no Linear</div>
+      <div class="kpi-vs neutral" id="kvs-mttr">vs. S4: <input type="number" id="k-mttr-prev" value="71" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → ?</div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Lacuna de rastreabilidade</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--info)">
       <div class="kpi-card-icon">📅</div>
-      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="85"></div>
+      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="—" min="0" max="100" value="88"></div>
       <div class="kpi-label">Sem Due Date<br>(%)</div>
-      <div class="kpi-trend" style="color:var(--danger)">🔴 44 de 52 ativas sem prazo</div>
-      <div class="kpi-vs up" id="kvs-sem-est">vs. S3: <input type="number" id="k-sem-est-prev" value="88" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → -3%</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Active + Due Date: vazio · 44/52</span></div>
+      <div class="kpi-trend" style="color:var(--danger)">🔴 43 de 49 ativas sem prazo</div>
+      <div class="kpi-vs up" id="kvs-sem-est">vs. S4: <input type="number" id="k-sem-est-prev" value="85" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → +3%</div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Active + Due Date: vazio · 43/49</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--accent)">
       <div class="kpi-card-icon">🎯</div>
-      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value=""></div>
+      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="—" min="0" max="100" value="13"></div>
       <div class="kpi-label">Entregas vs.<br>Planejado (%)</div>
-      <div class="kpi-trend" style="color:var(--text3)">⚠️ Ciclo não encontrado no Linear</div>
-      <div class="kpi-vs neutral" id="kvs-entregas">vs. S3: <input type="number" id="k-entregas-prev" value="20" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> → ?</div>
-      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Lacuna: Cycle não consolidado</span></div>
+      <div class="kpi-trend" style="color:var(--warning)">🟡 37 de 290 · Cycle 3</div>
+      <div class="kpi-vs neutral" id="kvs-entregas">vs. S4: <input type="number" id="k-entregas-prev" value="" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="—"> → Cycle 3</div>
+      <div class="kpi-fonte">🔗 <span><strong>Linear</strong> · Cycle 3 · 37 Completed / 290 planejadas</span></div>
     </div>
   </div>
 
@@ -969,30 +969,40 @@ body.read-mode .read-show { display: flex !important; }
       <div class="card-title">⚠️ Impedimentos Ativos</div>
       <div class="imp-list" id="imp-list">
         <div class="imp-item">
+          <div class="imp-sev" style="background:#7C3AED"></div>
+          <div class="imp-body">
+            <div class="imp-title">🔴 SEGURANÇA CRÍTICA — CVSS 9.3 confirmado (SWAT-201 a 222)</div>
+            <div class="imp-context">5 vulnerabilidades abertas: IDOR cross-tenant, rotas sem autenticação (A2/A3), webhooks de pagamento sem HMAC, exposição de PII em pedidos guest (LGPD). Requer ação imediata.</div>
+          </div>
+          <div class="imp-actions">
+            <span class="imp-action-tag" style="background:rgba(124,58,237,0.2);color:#A78BFA">Bloqueante</span>
+          </div>
+        </div>
+        <div class="imp-item">
           <div class="imp-sev" style="background:var(--danger)"></div>
           <div class="imp-body">
-            <div class="imp-title">39 issues Urgent/High em Backlog sem assignee</div>
-            <div class="imp-context">Fila crítica sem dono. Issues prioritárias que nunca foram atribuídas a ninguém. Risco de permanecerem ignoradas indefinidamente.</div>
+            <div class="imp-title">50 issues Urgent/High em Backlog sem assignee</div>
+            <div class="imp-context">Fila crítica sem dono — piora vs. 39 da S4. Issues prioritárias nunca atribuídas. PED-25, PED-26, PED-32 abertas desde 29/04 sem responsável.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
           </div>
         </div>
         <div class="imp-item">
-          <div class="imp-sev" style="background:var(--danger)"></div>
+          <div class="imp-sev" style="background:var(--success)"></div>
           <div class="imp-body">
-            <div class="imp-title">FIN-1, FIN-2 — 43+ dias abertas sem assignee</div>
-            <div class="imp-context">Criadas em 24/04/2026. Permanecem sem responsável. Última atualização: 25/05. Risco operacional não rastreado.</div>
+            <div class="imp-title">✅ FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 — Compromisso cumprido</div>
+            <div class="imp-context">Todas as 5 issues atribuídas a Guilherme Bernardo após reunião de terça (10/06). Compromisso da coordenação honrado dentro do prazo.</div>
           </div>
           <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
+            <span class="imp-action-tag" style="background:rgba(52,211,153,0.15);color:var(--success)">Resolvido</span>
           </div>
         </div>
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--warning)"></div>
           <div class="imp-body">
-            <div class="imp-title">22 issues paradas em In Progress há mais de 7 dias</div>
-            <div class="imp-context">COM-4, PED-19, PED-20, PED-21, PED-24 entre as mais antigas (37 dias). Aparecem como "em progresso" mas estão abandonadas.</div>
+            <div class="imp-title">12 issues paradas em In Progress há mais de 7 dias</div>
+            <div class="imp-context">COM-4, PED-24, PED-19, PED-20, PED-21 entre as mais antigas. Melhora vs. 22 da S4, mas ainda requer atenção. Aparecem como "em progresso" mas sem atualização.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Médio</span>
@@ -1001,8 +1011,8 @@ body.read-mode .read-show { display: flex !important; }
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--warning)"></div>
           <div class="imp-body">
-            <div class="imp-title">26 de 27 bugs críticos sem label de produto</div>
-            <div class="imp-context">96% dos Urgent/High sem produto associado. Impossível priorizar por área. Tagueamento obrigatório pendente de implementação.</div>
+            <div class="imp-title">27 de 30 bugs críticos sem label de produto</div>
+            <div class="imp-context">90% dos Urgent/High ainda sem produto associado. Regra de tagueamento obrigatório alinhada na reunião (10/06) ainda não refletida nos dados.</div>
           </div>
           <div class="imp-actions">
             <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Médio</span>
@@ -1022,7 +1032,7 @@ body.read-mode .read-show { display: flex !important; }
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Partner</div>
-          <input class="rpt-input" type="number" id="b0" min="0" value="1" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <input class="rpt-input" type="number" id="b0" min="0" value="3" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
           <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Mobile</div>
@@ -1037,8 +1047,8 @@ body.read-mode .read-show { display: flex !important; }
           <input class="rpt-input" type="number" id="b3" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
         <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Sem label (26)</div>
-          <input class="rpt-input" type="number" id="b4" min="0" value="26" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Sem label (27)</div>
+          <input class="rpt-input" type="number" id="b4" min="0" value="27" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
         </div>
       </div>
       <div class="bar-viz" style="height:110px">
