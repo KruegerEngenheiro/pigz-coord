@@ -765,24 +765,18 @@ body.read-mode .read-show { display: flex !important; }
     <div class="decisao-grid">
       <div class="decisao-item">
         <div class="decisao-num">Decisão 01</div>
-        <div class="decisao-pergunta">Aprovar implementação do Sentry no Pigz Partner?</div>
-        <div class="decisao-context">Produto crítico sem nenhum monitoramento de erros. Bugs chegam após reclamação de cliente. Estimativa: 1 dev · 3 dias.</div>
-        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
-        <textarea class="decisao-justif edit-only" id="dec1-justif" placeholder="Ex: 3 bugs reportados por clientes esta semana sem nenhum log de erro disponível..."></textarea>
+        <div class="decisao-pergunta">Acionar plano de resposta imediata às vulnerabilidades SWAT (CVSS 9.3)?</div>
+        <div class="decisao-context">5 falhas críticas de segurança confirmadas: IDOR cross-tenant, rotas sem autenticação (A2/A3), webhooks de pagamento sem HMAC e exposição de PII (LGPD). SWAT-201 a 222 em Backlog. Risco jurídico e operacional imediato.</div>
       </div>
       <div class="decisao-item">
         <div class="decisao-num">Decisão 02</div>
-        <div class="decisao-pergunta">Priorizar correção do TEF antes de novas features?</div>
-        <div class="decisao-context">Quedas de websocket em pico causam falhas de pagamento. Impacto direto em receita. Exige pausa em 1 desenvolvimento em andamento.</div>
-        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
-        <textarea class="decisao-justif edit-only" id="dec2-justif" placeholder="Ex: 4 incidentes registrados entre 11h–13h, média de 23 minutos de instabilidade por ocorrência..."></textarea>
+        <div class="decisao-pergunta">Validar entrega de segunda-feira (15/06): Matriz de Riscos + Linear em Fases?</div>
+        <div class="decisao-context">Compromisso firmado em reunião (10/06) com prazo para 15/06 (amanhã). Linear indica 31 issues atualizadas em projetos de Matriz de Riscos (Financeiro + SWAT). Confirmar se entrega será integral.</div>
       </div>
       <div class="decisao-item">
         <div class="decisao-num">Decisão 03</div>
-        <div class="decisao-pergunta">Validar e aprovar as hipóteses H1–H4 do plano de ação?</div>
-        <div class="decisao-context">Hipóteses estruturadas aguardam sinal verde da liderança para entrar no roadmap da semana 4. Sem aprovação, equipe continua no reativo.</div>
-        <div class="decisao-justif-label edit-only">Como chegamos nessa decisão</div>
-        <textarea class="decisao-justif edit-only" id="dec3-justif" placeholder="Ex: Análise de causa-raiz dos 3 principais gargalos identificou padrões repetitivos..."></textarea>
+        <div class="decisao-pergunta">Definir responsáveis para 50 issues Urgent/High sem assignee em Backlog?</div>
+        <div class="decisao-context">PED-25, PED-26, PED-32 abertas desde 29/04 sem dono. No total, 50 issues críticas aguardam atribuição. Piora vs. 39 da S4. Sem ação, esse número cresce toda semana.</div>
       </div>
     </div>
   </div>
@@ -1098,28 +1092,28 @@ body.read-mode .read-show { display: flex !important; }
         <div class="metric-row">
           <div class="metric-row-label">📅 Sem due date</div>
           <div class="metric-row-val" style="color:var(--info)">
-            <input type="number" id="m-sem-est" min="0" max="100" value="85">
+            <input type="number" id="m-sem-est" min="0" max="100" value="88">
           </div>
           <div class="metric-row-unit">%</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">🎯 Aderência entregas</div>
-          <div class="metric-row-val" style="color:var(--text3)">
-            <input type="number" id="m-aderencia" min="0" max="100" value="" placeholder="—">
+          <div class="metric-row-val" style="color:var(--success)">
+            <input type="number" id="m-aderencia" min="0" max="100" value="13">
           </div>
           <div class="metric-row-unit">%</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">🐛 Issues criadas</div>
           <div class="metric-row-val" style="color:var(--danger)">
-            <input type="number" id="m-issues-new" min="0" value="57">
+            <input type="number" id="m-issues-new" min="0" value="158">
           </div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
           <div class="metric-row-label">✅ Issues fechadas</div>
           <div class="metric-row-val" style="color:var(--success)">
-            <input type="number" id="m-issues-closed" min="0" value="7">
+            <input type="number" id="m-issues-closed" min="0" value="77">
           </div>
           <div class="metric-row-unit">issues</div>
         </div>
@@ -1140,19 +1134,19 @@ body.read-mode .read-show { display: flex !important; }
         <div class="priority-item" style="--pc:var(--danger)">
           <div class="priority-rank" style="color:var(--danger)">01</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p1" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 — Atribuir assignee e resolver 5 issues Urgent abertas desde 24/04 (42 dias paradas)</textarea>
+            <textarea class="rpt-textarea" id="p1" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">SWAT — Corrigir 5 vulnerabilidades críticas de segurança (CVSS 9.3): IDOR, rotas sem auth, webhooks sem HMAC e exposição de PII (LGPD). Ação imediata necessária.</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--warning)">
           <div class="priority-rank" style="color:var(--warning)">02</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p2" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Tagueamento de produto no Linear — 27 de 28 bugs críticos sem label. Impossível priorizar por área sem esse dado.</textarea>
+            <textarea class="rpt-textarea" id="p2" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Atribuir responsáveis para 50 issues Urgent/High sem assignee em Backlog. PED-25, PED-26, PED-32 abertas desde 29/04 sem dono.</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--info)">
           <div class="priority-rank" style="color:var(--info)">03</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p3" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Investigar concentração de @miguel.bonilla — 51 issues criadas em 14 dias sem resolução. Mapear causa: sobrecarga, bloqueio ou processo?</textarea>
+            <textarea class="rpt-textarea" id="p3" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Tagueamento de produto: 27 de 30 bugs críticos ainda sem label. Regra aprovada na reunião (10/06) precisa ser aplicada imediatamente por todos os squads.</textarea>
           </div>
         </div>
       </div>
