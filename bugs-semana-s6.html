@@ -77,6 +77,13 @@ tr:hover td { background:rgba(255,255,255,0.02); }
 .sig-name { font-weight:700; }
 .sig-role { font-size:11px; color:var(--text3); }
 
+.resp-input {
+  background:rgba(255,255,255,0.05); border:1px dashed var(--border);
+  border-radius:6px; padding:5px 10px; color:var(--text);
+  font-size:12px; font-weight:600; width:160px; outline:none; font-family:"Inter",sans-serif;
+}
+.resp-input:focus { border-color:var(--accent); background:rgba(249,115,22,0.06); }
+.resp-input::placeholder { color:var(--danger); font-style:italic; font-weight:400; }
 @media print {
   body { background:#fff; color:#000; padding:20px; }
   .print-btn, .date-input, .status-sel { border:1px solid #ccc !important; background:#fff !important; color:#000 !important; }
@@ -142,7 +149,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-206</td>
             <td class="desc">Credenciais / Cartao em texto puro<small>Risco de seguranca CRITICO &mdash; exposicao de dados sensiveis</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -150,7 +157,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-189</td>
             <td class="desc">NF-e iFood bloqueada por endereco sem cidade<small>Emissao fiscal &mdash; impacto em pedidos iFood</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -158,7 +165,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-199</td>
             <td class="desc">Centralizacao em horarios fora do expediente<small>Impacto operacional em periodos criticos</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -166,7 +173,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-192</td>
             <td class="desc">Problemas de ponto flutuante com dados<small>Erros de calculo em valores monetarios</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -174,7 +181,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-219</td>
             <td class="desc">GuestTokenRepository::findOrderToken(orderId)<small>Erro de token em pedidos de convidado</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -182,7 +189,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-147</td>
             <td class="desc">Estoque so decrementa em shippingType=TICKET<small>Falha de logica em tipos de entrega</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -190,7 +197,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SWAT-194</td>
             <td class="desc">Falta de manutencao em modulos do sistema<small>Divida tecnica acumulada &mdash; risco de instabilidade</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -212,7 +219,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">COM-52</td>
             <td class="desc">Criar CI/CD do projeto Pigz Pay<small>Infraestrutura &mdash; impacto em deploy</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td class="resp">A confirmar</td>
+            <td><input type="text" class="resp-input" placeholder="A confirmar..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -220,7 +227,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">SP-4</td>
             <td class="desc">Continuar implementacao: split do task.json<small>Arquitetura de tarefas</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td class="resp">A confirmar</td>
+            <td><input type="text" class="resp-input" placeholder="A confirmar..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -228,7 +235,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">RHC-253</td>
             <td class="desc">Erro com a cor da impressora<small>Bug de hardware/software na impressora</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td class="resp">A confirmar</td>
+            <td><input type="text" class="resp-input" placeholder="A confirmar..." /></td>
             <td><input type="date" class="date-input" value="2026-06-18"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -236,7 +243,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">RHC-264</td>
             <td class="desc">Erro com a minha entrega<small>Problemas no fluxo de entrega</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td class="resp">A confirmar</td>
+            <td><input type="text" class="resp-input" placeholder="A confirmar..." /></td>
             <td><input type="date" class="date-input" value="2026-06-18"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -244,7 +251,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">FIN-92</td>
             <td class="desc">Revisao de changelogs semanais<small>Governança de releases</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td class="resp">A confirmar</td>
+            <td><input type="text" class="resp-input" placeholder="A confirmar..." /></td>
             <td><input type="date" class="date-input" value="2026-06-20"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -252,7 +259,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">GES-9</td>
             <td class="desc">Reuniao semanal de bugs com lideres de squad<small>Governança &mdash; proposta aprovada hoje</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td class="resp" style="color:var(--accent)">Coordenacao</td>
+            <td><input type="text" class="resp-input" value="Coordenacao" /></td>
             <td><input type="date" class="date-input" value="2026-06-16"></td>
             <td><select class="status-sel"><option>Em aberto</option><option selected>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -274,7 +281,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">FRONT-50</td>
             <td class="desc">Atualizar PigzComanda para RN 0.80<small>Upgrade de versao &mdash; dependencia critica</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -282,7 +289,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">BE-28</td>
             <td class="desc">Relatorio Caixas Comanda - Pagamento zerado<small>Relatorio financeiro com dados incorretos</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -290,7 +297,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">PROD-7</td>
             <td class="desc">Integracao de pedidos iFood<small>Integracao critica com marketplace</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -298,7 +305,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">FRONT-71</td>
             <td class="desc">Tela bloqueada<small>Bloqueio de interface para usuario</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -306,7 +313,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">FRONT-79</td>
             <td class="desc">Caixa fechou sozinho na maquina &mdash; PigzPay<small>Falha critica no ponto de venda</small></td>
             <td><span class="pri pri-urgent">Urgent</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -314,7 +321,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">BE-35</td>
             <td class="desc">Criacao de novo tipo de plano: Por Comissao<small>Feature critica para modelo de negocios</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -322,7 +329,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">FRONT-44</td>
             <td class="desc">Adicionar modal de senha<small>Seguranca de interface</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -330,7 +337,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">PROD-475</td>
             <td class="desc">Relatorio de Movimentacoes de Comanda<small>Relatorio operacional</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -338,7 +345,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">BE-52</td>
             <td class="desc">Rastreamento e registro de eventos<small>Observabilidade do sistema</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -346,7 +353,7 @@ tr:hover td { background:rgba(255,255,255,0.02); }
             <td class="id">BE-53</td>
             <td class="desc">Endpoint de exportacao de dados<small>Exportacao de dados critica</small></td>
             <td><span class="pri pri-high">High</span></td>
-            <td><span class="resp empty">A definir</span></td>
+            <td><input type="text" class="resp-input" placeholder="A definir..." /></td>
             <td><input type="date" class="date-input"></td>
             <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
           </tr>
@@ -374,3 +381,4 @@ tr:hover td { background:rgba(255,255,255,0.02); }
 </div>
 </body>
 </html>
+
