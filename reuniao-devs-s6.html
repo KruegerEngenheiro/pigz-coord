@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reuniao Semanal Devs - S6 | Squad Pigz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0A0A0F; --surface: #12121A; --card: #1A1A25; --border: rgba(255,255,255,0.07);
+  --accent: #F97316; --accent2: #FB923C; --danger: #F87171; --warning: #FBBF24;
+  --success: #34D399; --info: #60A5FA; --purple: #A78BFA;
+  --text: #F1F1F5; --text2: #A0A0B0; --text3: #5A5A70; --mono: "JetBrains Mono", monospace;
+}
+html, body { width:100%; height:100%; background:var(--bg); font-family:"Inter",sans-serif; color:var(--text); overflow:hidden; }
+.slides-wrap { width:100%; height:100%; position:relative; }
+.slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:60px 80px; opacity:0; transform:translateX(60px); transition:all .45s cubic-bezier(.4,0,.2,1); pointer-events:none; }
+.slide.active { opacity:1; transform:translateX(0); pointer-events:all; }
+.slide.exit { opacity:0; transform:translateX(-60px); }
+#progress-bar { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--warning)); transition:width .4s ease; z-index:100; border-radius:0 2px 2px 0; }
+.nav { position:fixed; bottom:28px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:16px; background:rgba(18,18,26,0.9); backdrop-filter:blur(12px); border:1px solid var(--border); border-radius:50px; padding:10px 20px; z-index:100; }
+.nav-btn { background:none; border:1px solid var(--border); color:var(--text2); border-radius:50%; width:36px; height:36px; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.nav-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+.slide-counter { font-size:12px; color:var(--text3); font-family:var(--mono); min-width:60px; text-align:center; }
+.dots { display:flex; gap:6px; }
+.dot { width:6px; height:6px; border-radius:50%; background:var(--text3); cursor:pointer; transition:all .2s; }
+.dot.active { background:var(--accent); width:20px; border-radius:3px; }
+.slide-tag { font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+.slide-tag::before, .slide-tag::after { content:""; display:block; width:30px; height:1px; background:var(--accent); opacity:.4; }
+h1 { font-size:clamp(36px,5vw,64px); font-weight:900; line-height:1.1; }
+h2 { font-size:clamp(26px,3.5vw,44px); font-weight:800; line-height:1.15; }
+p { font-size:clamp(14px,1.5vw,18px); color:var(--text2); line-height:1.7; }
+.accent { color:var(--accent); } .warn { color:var(--warning); } .danger { color:var(--danger); }
+.success { color:var(--success); } .info { color:var(--info); } .purple { color:var(--purple); }
+.grad { background:linear-gradient(135deg,var(--accent) 0%,var(--warning) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.card-grid { display:grid; gap:16px; width:100%; max-width:1000px; }
+.card-grid.cols-2 { grid-template-columns:1fr 1fr; }
+.card-grid.cols-3 { grid-template-columns:1fr 1fr 1fr; }
+.card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:24px 28px; }
+.card-icon { font-size:28px; margin-bottom:12px; }
+.card-title { font-size:16px; font-weight:700; margin-bottom:8px; }
+.card-body { font-size:13px; color:var(--text2); line-height:1.6; }
+.hbox { background:rgba(249,115,22,0.08); border:1px solid rgba(249,115,22,0.25); border-radius:14px; padding:20px 28px; width:100%; max-width:900px; }
+.hbox.danger { background:rgba(248,113,113,0.07); border-color:rgba(248,113,113,0.25); }
+.hbox.warn { background:rgba(251,191,36,0.07); border-color:rgba(251,191,36,0.25); }
+.hbox.success { background:rgba(52,211,153,0.07); border-color:rgba(52,211,153,0.25); }
+.hbox.info { background:rgba(96,165,250,0.07); border-color:rgba(96,165,250,0.25); }
+.item-list { width:100%; max-width:900px; display:flex; flex-direction:column; gap:12px; }
+.item { display:flex; align-items:flex-start; gap:16px; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; }
+.item-dot { width:8px; height:8px; border-radius:50%; margin-top:7px; flex-shrink:0; }
+.item-text { font-size:15px; line-height:1.6; }
+.item-sub { font-size:12px; color:var(--text3); margin-top:4px; }
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; font-family:var(--mono); }
+.bignumber { font-size:clamp(48px,8vw,96px); font-weight:900; line-height:1; background:linear-gradient(135deg,var(--accent),var(--warning)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.tbl { width:100%; border-collapse:collapse; font-size:14px; }
+.tbl th { padding:10px 16px; text-align:left; color:var(--text3); font-weight:600; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:1px; text-transform:uppercase; }
+.tbl td { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,0.04); color:var(--text2); }
+.tbl tr:last-child td { border:none; }
+.tbl tr:hover td { background:rgba(255,255,255,0.02); }
+.bg-deco { position:fixed; border-radius:50%; filter:blur(80px); opacity:.12; pointer-events:none; z-index:0; }
+.slide > * { position:relative; z-index:1; }
+.kbd-hint { position:fixed; top:20px; right:24px; font-size:11px; color:var(--text3); font-family:var(--mono); z-index:100; }
+kbd { display:inline-block; padding:2px 7px; border:1px solid var(--border); border-radius:4px; font-family:var(--mono); font-size:10px; color:var(--text3); }
+.steps { width:100%; max-width:900px; display:flex; flex-direction:column; gap:10px; }
+.step { display:flex; align-items:center; gap:16px; padding:14px 20px; background:var(--card); border:1px solid var(--border); border-radius:12px; }
+.step-num { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--warning)); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px; color:#000; flex-shrink:0; }
+.step-body { font-size:14px; line-height:1.5; }
+.ata-box { width:100%; max-width:860px; background:var(--card); border:1px solid var(--border); border-radius:20px; padding:40px 48px; }
+.ata-title { font-size:22px; font-weight:800; margin-bottom:6px; }
+.ata-sub { font-size:13px; color:var(--text3); margin-bottom:28px; font-family:var(--mono); }
+.ata-section { margin-bottom:20px; }
+.ata-section h4 { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.ata-section ul { list-style:disc inside; font-size:14px; color:var(--text2); line-height:1.8; }
+.ata-sign { margin-top:32px; display:flex; justify-content:flex-end; }
+.ata-sign-block { text-align:center; }
+.ata-sign-line { border-top:1px solid var(--border); width:260px; padding-top:10px; font-size:13px; color:var(--text2); }
+.ata-sign-name { font-weight:700; color:var(--text); }
+.ata-sign-role { font-size:11px; color:var(--text3); }
+</style>
+</head>
+<body>
+<div class="bg-deco" style="width:500px;height:500px;background:var(--accent);top:-100px;right:-100px;"></div>
+<div class="bg-deco" style="width:400px;height:400px;background:var(--purple);bottom:-100px;left:-100px;"></div>
+<div id="progress-bar"></div>
+<div class="kbd-hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navegar &nbsp;|&nbsp; <kbd>F</kbd> fullscreen</div>
+<div class="slides-wrap" id="slides">
+
+<!-- SLIDE 1 CAPA -->
+<div class="slide active" id="s0">
+  <div class="slide-tag">Squad Pigz</div>
+  <h1 style="text-align:center;max-width:800px;">Reuniao Semanal<br><span class="grad">com os Devs</span></h1>
+  <p style="margin-top:20px;text-align:center;max-width:500px;">Governanca, missoes e entregas &mdash; Semana 06 &middot; 15 Jun 2026</p>
+  <div style="margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+    <span class="badge" style="background:rgba(249,115,22,0.15);color:var(--accent)">15 Jun 2026</span>
+    <span class="badge" style="background:rgba(167,139,250,0.15);color:var(--purple)">Squad Pigz</span>
+    <span class="badge" style="background:rgba(96,165,250,0.15);color:var(--info)">Coordenacao de Projetos</span>
+  </div>
+</div>
+
+<!-- SLIDE 2 AGENDA -->
+<div class="slide" id="s1">
+  <div class="slide-tag">Pauta de Hoje</div>
+  <h2 style="margin-bottom:32px;">O que vamos <span class="accent">cobrir</span> hoje</h2>
+  <div class="card-grid cols-2" style="max-width:900px;">
+    <div class="card"><div class="card-icon">&#128202;</div><div class="card-title">Indicadores S5 &rarr; S6</div><div class="card-body">Dados reais do Linear: o que melhorou e o que ainda preocupa</div></div>
+    <div class="card"><div class="card-icon">&#128308;</div><div class="card-title">Seguranca Critica &mdash; SWAT</div><div class="card-body">5 vulnerabilidades CVSS 9.3 abertas exigem resposta imediata</div></div>
+    <div class="card"><div class="card-icon">&#9881;</div><div class="card-title">Entregas cobradas &mdash; Hoje</div><div class="card-body">Matriz de Gestao de Riscos + Linear em Fases por squad</div></div>
+    <div class="card"><div class="card-icon">&#128101;</div><div class="card-title">Proposta: Reuniao Semanal de Lideres</div><div class="card-body">Toda segunda com lideres de squad + Ryan para priorizacao de bugs</div></div>
+    <div class="card" style="grid-column:span 2;"><div class="card-icon">&#127991;</div><div class="card-title">50 Issues Urgent/High sem assignee</div><div class="card-body">PED-25, PED-26, PED-32 e mais 47 issues criticas sem dono &mdash; isso precisa mudar hoje</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 3 INDICADORES -->
+<div class="slide" id="s2">
+  <div class="slide-tag">Dados do Linear</div>
+  <h2 style="margin-bottom:28px;">&#128202; Indicadores da <span class="accent">Semana 5</span></h2>
+  <div class="card-grid cols-3" style="max-width:980px;">
+    <div class="card" style="text-align:center;border-color:rgba(52,211,153,0.3);">
+      <div class="bignumber" style="font-size:56px;background:linear-gradient(135deg,var(--success),#059669);-webkit-background-clip:text;">77</div>
+      <div class="card-title" style="margin-top:8px;">Issues Concluidas</div>
+      <div class="card-body">vs 7 da S4 &mdash; salto de 11x</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(248,113,113,0.3);">
+      <div class="bignumber" style="font-size:56px;background:linear-gradient(135deg,var(--danger),#dc2626);-webkit-background-clip:text;">158</div>
+      <div class="card-title" style="margin-top:8px;">Issues Criadas</div>
+      <div class="card-body">Backlog crescendo +81 issues/semana</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(251,191,36,0.3);">
+      <div class="bignumber" style="font-size:56px;background:linear-gradient(135deg,var(--warning),#d97706);-webkit-background-clip:text;">30</div>
+      <div class="card-title" style="margin-top:8px;">Bugs Urgent+High Ativos</div>
+      <div class="card-body">+3 vs S4 &mdash; tendencia de crescimento</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(248,113,113,0.3);">
+      <div class="bignumber" style="font-size:48px;background:linear-gradient(135deg,var(--danger),#dc2626);-webkit-background-clip:text;">88%</div>
+      <div class="card-title" style="margin-top:8px;">Sem Due Date</div>
+      <div class="card-body">87,8% das issues ativas sem prazo definido</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(96,165,250,0.3);">
+      <div class="bignumber" style="font-size:48px;background:linear-gradient(135deg,var(--info),#2563eb);-webkit-background-clip:text;">13%</div>
+      <div class="card-title" style="margin-top:8px;">Aderencia as Entregas</div>
+      <div class="card-body">37 Completed de 290 planejadas no Cycle 3</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(167,139,250,0.3);">
+      <div class="bignumber" style="font-size:48px;background:linear-gradient(135deg,var(--purple),#7c3aed);-webkit-background-clip:text;">12</div>
+      <div class="card-title" style="margin-top:8px;">In Progress + 7 dias</div>
+      <div class="card-body">Sem atualizacao: COM-4, PED-24 e mais 10</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4 SEGURANCA -->
+<div class="slide" id="s3">
+  <div class="slide-tag">&#128308; Urgencia Maxima</div>
+  <h2 style="margin-bottom:12px;">&#128272; Vulnerabilidades <span class="danger">Criticas &mdash; SWAT</span></h2>
+  <p style="margin-bottom:20px;text-align:center;max-width:720px;">5 falhas de seguranca com CVSS 9.3 confirmadas. Risco juridico (LGPD) e operacional imediato. Precisam de plano de acao hoje.</p>
+  <div style="width:100%;max-width:900px;background:var(--card);border:1px solid rgba(248,113,113,0.3);border-radius:16px;overflow:hidden;">
+    <table class="tbl">
+      <thead><tr><th>Issue</th><th>Tipo</th><th>Severidade</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">SWAT-201 a 222</span></td><td>IDOR cross-tenant</td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">CVSS 9.3</span></td><td><span class="danger">Backlog &mdash; sem dono</span></td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">SWAT</span></td><td>Rotas sem autenticacao (A2/A3)</td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Critico</span></td><td><span class="danger">Backlog &mdash; sem dono</span></td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">SWAT</span></td><td>Webhooks de pagamento sem HMAC</td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Critico</span></td><td><span class="danger">Backlog &mdash; sem dono</span></td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">SWAT</span></td><td>Exposicao de PII &mdash; violacao LGPD</td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Critico</span></td><td><span class="danger">Backlog &mdash; sem dono</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="hbox danger" style="margin-top:16px;"><strong style="color:var(--danger)">&#128308; Meta desta reuniao:</strong> <span style="color:var(--text2)"> definir responsavel e prazo de mitigacao para cada vulnerabilidade ainda hoje.</span></div>
+</div>
+
+<!-- SLIDE 5 ENTREGAS COBRADAS -->
+<div class="slide" id="s4">
+  <div class="slide-tag">Cobranca &middot; 15/06</div>
+  <h2 style="margin-bottom:12px;">&#9881; Entregas <span class="warn">cobradas hoje</span></h2>
+  <p style="margin-bottom:28px;text-align:center;max-width:700px;">Dois entregaveis foram comprometidos na reuniao S5 (10/06) com prazo para <strong style="color:var(--warning)">15/06 &mdash; hoje</strong>. Precisamos do status agora.</p>
+  <div class="item-list">
+    <div class="item">
+      <div class="item-dot" style="background:var(--danger)"></div>
+      <div><div class="item-text"><strong>Matriz de Gestao de Riscos</strong></div><div class="item-sub">Mapeamento dos principais riscos tecnicos e operacionais do squad &mdash; probabilidade, impacto e responsavel por mitigar cada risco.</div></div>
+    </div>
+    <div class="item">
+      <div class="item-dot" style="background:var(--warning)"></div>
+      <div><div class="item-text"><strong>Organizacao do Linear em Fases por Squad</strong></div><div class="item-sub">Estruturar o Linear com Milestones ou labels de fase (Fase 1 &middot; Fase 2 &middot; Fase 3) para todos os squads &mdash; cada projeto com due date e criterios de aceite definidos.</div></div>
+    </div>
+  </div>
+  <div class="hbox warn" style="margin-top:20px;"><strong style="color:var(--warning)">&#9888; Acao agora:</strong> <span style="color:var(--text2)"> quem ficou responsavel? Esta entregue? Se nao &mdash; novo prazo e novo responsavel definidos aqui.</span></div>
+</div>
+
+<!-- SLIDE 6 ISSUES SEM ASSIGNEE -->
+<div class="slide" id="s5">
+  <div class="slide-tag">Gargalo</div>
+  <h2 style="margin-bottom:12px;">&#128027; <span class="danger">50 issues</span> Urgent/High sem responsavel</h2>
+  <p style="margin-bottom:24px;text-align:center;max-width:700px;">Pior do que a S4 (39 issues). Exemplos criticos abertos desde 29 de abril &mdash; ha 47 dias sem dono.</p>
+  <div style="width:100%;max-width:900px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;">
+    <table class="tbl">
+      <thead><tr><th>Issue</th><th>Prioridade</th><th>Aberta ha</th><th>Assignee</th><th>Acao</th></tr></thead>
+      <tbody>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">PED-25</span></td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td><td><span class="danger">47 dias</span></td><td><span class="warn">&mdash; Ninguem &mdash;</span></td><td>Definir hoje</td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">PED-26</span></td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td><td><span class="danger">47 dias</span></td><td><span class="warn">&mdash; Ninguem &mdash;</span></td><td>Definir hoje</td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--accent)">PED-32</span></td><td><span class="badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgent</span></td><td><span class="danger">47 dias</span></td><td><span class="warn">&mdash; Ninguem &mdash;</span></td><td>Definir hoje</td></tr>
+        <tr><td><span style="font-family:var(--mono);color:var(--warning)">+ 47 issues</span></td><td colspan="3"><span style="color:var(--text3)">Urgent/High sem assignee no backlog</span></td><td>Distribuir por squad</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="hbox danger" style="margin-top:16px;"><strong style="color:var(--danger)">&#128308; Regra:</strong> <span style="color:var(--text2)"> bug levantado no reporte precisa ter dono. Sem assignee = nao existe para a lideranca.</span></div>
+</div>
+
+<!-- SLIDE 7 LINEAR -->
+<div class="slide" id="s6">
+  <div class="slide-tag">Governanca</div>
+  <h2 style="margin-bottom:12px;">&#128452; Linear e a <span class="accent">fonte unica de verdade</span></h2>
+  <p style="margin-bottom:28px;text-align:center;max-width:700px;">Toda issue precisa estar bem estruturada. O Linear alimenta o Pigz Coord &mdash; o reporte que a lideranca le toda semana.</p>
+  <div class="item-list">
+    <div class="item"><div class="item-dot" style="background:var(--accent)"></div><div><div class="item-text">Toda issue: <strong>titulo claro &middot; status atualizado &middot; assignee &middot; due date &middot; label de produto</strong></div><div class="item-sub">Issues sem esses campos serao cobradas individualmente todo reporte</div></div></div>
+    <div class="item"><div class="item-dot" style="background:var(--warning)"></div><div><div class="item-text">Bugs Urgent/High <strong>sem label de produto</strong> serao devolvidos antes de entrar no fluxo</div><div class="item-sub">27 de 30 bugs criticos ainda sem label &mdash; regra aprovada S5, deve ser aplicada a partir de hoje</div></div></div>
+    <div class="item"><div class="item-dot" style="background:var(--success)"></div><div><div class="item-text">Issues <strong>In Progress ha mais de 7 dias</strong> sem atualizacao sao sinalizadas</div><div class="item-sub">12 issues nessa situacao em S5 &mdash; COM-4, PED-24 entre as criticas</div></div></div>
+  </div>
+  <div class="hbox" style="margin-top:20px;"><strong style="color:var(--accent)">&#128204; Regra simples:</strong> <span style="color:var(--text2)"> se aconteceu, ta no Linear. Se ta no Linear, tem dono e tem data.</span></div>
+</div>
+
+<!-- SLIDE 8 REUNIAO LIDERES -->
+<div class="slide" id="s7">
+  <div class="slide-tag">Proposta &middot; Diretoria</div>
+  <h2 style="margin-bottom:12px;">&#128467; Reuniao Semanal <span class="info">de Lideres</span></h2>
+  <p style="margin-bottom:24px;text-align:center;max-width:720px;">Sugestao aprovada pela diretoria para fortalecer a governanca semanal de bugs e priorizacoes.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Toda segunda-feira</strong> &mdash; reuniao exclusiva com lideres de squad + Ryan</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Apresentacao dos bugs relatados</strong> que serao priorizados na semana &mdash; com dados do Linear</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Na reuniao:</strong> atribuir responsavel e data de correcao para o cliente &mdash; ao vivo, sem "vejo depois"</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Resultado:</strong> toda semana comeca com prioridades claras, donos definidos e prazo acordado</div></div>
+  </div>
+  <div class="hbox info" style="margin-top:20px;"><strong style="color:var(--info)">&#128161; Proximo passo:</strong> <span style="color:var(--text2)"> confirmar data e horario fixo com Ryan e lideres para comecar na proxima segunda.</span></div>
+</div>
+
+
+<!-- SLIDE 9 PEDIDO DA COORDENACAO -->
+<div class="slide" id="s8b">
+  <div class="slide-tag">Pedido da Coordenacao</div>
+  <h2 style="margin-bottom:12px;">&#128226; Pedido da Coordenacao &mdash; <span class="warn">Bugs desta Semana</span></h2>
+  <p style="margin-bottom:24px;text-align:center;max-width:720px;">A coordenacao solicita que, ao final desta semana, <strong>todos os bugs reportados</strong> estejam com responsavel, prazo e status atualizados no Linear.</p>
+  <div class="item-list">
+    <div class="item">
+      <div class="item-dot" style="background:var(--danger)"></div>
+      <div>
+        <div class="item-text"><strong>Todo bug Urgent/High aberto esta semana</strong> deve ganhar assignee e due date imediatamente</div>
+        <div class="item-sub">Sem dono = invisivel para a lideranca. Bugs sem responsavel serao escalados direto para o lider do squad.</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-dot" style="background:var(--warning)"></div>
+      <div>
+        <div class="item-text"><strong>COM-4, PED-24 e os 12 In Progress paralisados</strong> precisam de atualizacao de status ate quinta (19/06)</div>
+        <div class="item-sub">Issues paradas ha mais de 7 dias sem comentario ou atualizacao serao devolvidas para Backlog automaticamente.</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-dot" style="background:var(--accent)"></div>
+      <div>
+        <div class="item-text"><strong>Bugs criados sem label de produto</strong> serao devolvidos ao criador antes de entrar no fluxo de correcao</div>
+        <div class="item-sub">Regra vigente desde S5. Aplica-se a todos os squads a partir de hoje.</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-dot" style="background:var(--info)"></div>
+      <div>
+        <div class="item-text"><strong>Na proxima segunda (22/06)</strong> a coordenacao apresentara o status de todos os bugs desta semana na Reuniao de Lideres</div>
+        <div class="item-sub">O que nao tiver responsavel e prazo sera atribuido ao vivo, na frente de todos, na reuniao.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hbox" style="margin-top:16px;"><strong style="color:var(--accent)">&#128204; Resumo:</strong> <span style="color:var(--text2)"> bugs desta semana com dono + prazo + label = time funcionando bem. Sem isso, aparece no reporte S6 com nome do responsavel.</span></div>
+</div>
+
+<!-- SLIDE 10 PROXIMOS PASSOS -->
+<div class="slide" id="s9b">
+  <div class="slide-tag">Proximos Passos</div>
+  <h2 style="margin-bottom:24px;">&#9989; O que sai desta <span class="success">reuniao hoje</span></h2>
+  <div class="item-list">
+    <div class="item"><div class="item-dot" style="background:var(--danger)"></div><div><div class="item-text"><strong>Responsavel e prazo definidos para as 5 vulnerabilidades SWAT (CVSS 9.3)</strong></div><div class="item-sub">Mitigacao imediata &mdash; risco juridico e operacional</div></div></div>
+    <div class="item"><div class="item-dot" style="background:var(--warning)"></div><div><div class="item-text"><strong>Status das entregas do dia: Matriz de Riscos + Linear em Fases</strong></div><div class="item-sub">Confirmado entregue ou novo prazo + novo responsavel definidos aqui</div></div></div>
+    <div class="item"><div class="item-dot" style="background:var(--accent)"></div><div><div class="item-text"><strong>50 issues Urgent/High ganham assignee &mdash; distribuicao por squad</strong></div><div class="item-sub">PED-25, PED-26, PED-32 e demais criticas com dono definido hoje</div></div></div>
+    <div class="item"><div class="item-dot" style="background:var(--info)"></div><div><div class="item-text"><strong>Reuniao Semanal de Lideres confirmada &mdash; data e horario fixados</strong></div><div class="item-sub">Com Ryan + lideres de squad toda segunda para priorizacao de bugs</div></div></div>
+  </div>
+  <div class="hbox success" style="margin-top:16px;"><strong style="color:var(--success)">&#127919; Lembrete:</strong> <span style="color:var(--text2)"> o reporte S6 sai na sexta (20/06). O que for decidido hoje aparece la.</span></div>
+</div>
+
+<!-- SLIDE 10 ENCERRAMENTO -->
+<div class="slide" id="s10b">
+  <div class="slide-tag">Obrigado</div>
+  <h1 style="text-align:center;max-width:700px;">Vamos <span class="grad">construir</span> juntos &#128640;</h1>
+  <p style="margin-top:20px;text-align:center;max-width:500px;font-size:16px;">Linear organizado &middot; Bugs com dono &middot; Projetos com fases &middot; Riscos mapeados &middot; Seguranca em dia.<br><br><span style="color:var(--accent)">Essa e a base para a Pigz crescer com qualidade.</span></p>
+  <div style="margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+    <span class="badge" style="background:rgba(249,115,22,0.15);color:var(--accent);padding:8px 20px;font-size:13px;">Pigz Coord &middot; S6</span>
+    <span class="badge" style="background:rgba(52,211,153,0.15);color:var(--success);padding:8px 20px;font-size:13px;">Reporte: Sexta 20/06</span>
+    <span class="badge" style="background:rgba(96,165,250,0.15);color:var(--info);padding:8px 20px;font-size:13px;">Linear e a fonte unica</span>
+  </div>
+</div>
+
+<!-- SLIDE 11 ATA -->
+<div class="slide" id="s10">
+  <div class="slide-tag">Documento Oficial</div>
+  <div class="ata-box">
+    <div class="ata-title">&#128221; Ata de Reuniao &mdash; Devs Squad Pigz</div>
+    <div class="ata-sub">Semana 06 &middot; 15 de junho de 2026 &middot; 15h00 &middot; Formato: Remoto</div>
+    <div class="ata-section"><h4>Participantes</h4><ul><li>Desenvolvedores da Pigz</li></ul></div>
+    <div class="ata-section"><h4>Pautas discutidas</h4><ul>
+      <li>Indicadores da Semana 5 &mdash; dados do Linear apresentados</li>
+      <li>Seguranca Critica: 5 vulnerabilidades SWAT (CVSS 9.3) &mdash; responsaveis e prazos definidos</li>
+      <li>Cobranca das entregas do dia: Matriz de Gestao de Riscos + Organizacao do Linear em Fases</li>
+      <li>Distribuicao de owners para 50 issues Urgent/High sem assignee</li>
+      <li>Governanca Linear: regras de tagueamento e due date reafirmadas</li>
+      <li>Proposta de Reuniao Semanal de Lideres (toda segunda + Ryan) &mdash; aprovada</li>
+    </ul></div>
+    <div class="ata-section"><h4>Decisoes tomadas</h4><ul>
+      <li>Vulnerabilidades SWAT: responsavel e prazo de mitigacao definidos nesta reuniao</li>
+      <li>Entregas 15/06: status levantado &mdash; novo prazo atribuido se necessario</li>
+      <li>50 issues Urgent/High: donos distribuidos por squad nesta reuniao</li>
+      <li>Reuniao Semanal de Lideres: data e horario fixados a partir da proxima segunda</li>
+    </ul></div>
+    <div class="ata-sign"><div class="ata-sign-block"><div class="ata-sign-line"><div class="ata-sign-name">Carlos Krueger</div><div class="ata-sign-role">Coordenador de Projetos</div></div></div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="nav">
+  <button class="nav-btn" onclick="prevSlide()">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-counter" id="counter">1 / 12</div>
+  <button class="nav-btn" onclick="nextSlide()">&#8594;</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+const total = slides.length;
+let current = 0;
+const dotsEl = document.getElementById("dots");
+slides.forEach(function(_,i){ var d=document.createElement("div"); d.className="dot"+(i===0?" active":""); d.onclick=function(){goTo(i);}; dotsEl.appendChild(d); });
+function updateUI(){ document.getElementById("counter").textContent=(current+1)+" / "+total; document.getElementById("progress-bar").style.width=(((current+1)/total)*100)+"%"; document.querySelectorAll(".dot").forEach(function(d,i){d.classList.toggle("active",i===current);}); }
+function goTo(n){ slides[current].classList.remove("active"); slides[current].classList.add("exit"); current=n; slides[current].classList.add("active"); setTimeout(function(){document.querySelectorAll(".slide.exit").forEach(function(s){s.classList.remove("exit");});},460); updateUI(); }
+function nextSlide(){ if(current<total-1) goTo(current+1); }
+function prevSlide(){ if(current>0) goTo(current-1); }
+document.addEventListener("keydown",function(e){ if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" ") nextSlide(); if(e.key==="ArrowLeft"||e.key==="ArrowUp") prevSlide(); if(e.key==="f"||e.key==="F") document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); });
+var tx=0;
+document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;});
+document.addEventListener("touchend",function(e){ var dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50){if(dx<0)nextSlide();else prevSlide();} });
+updateUI();
+</script>
+</body>
+</html>
+
