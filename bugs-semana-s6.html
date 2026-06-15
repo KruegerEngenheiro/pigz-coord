@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bugs da Semana S6 | Squad Pigz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#0A0A0F; --card:#1A1A25; --border:rgba(255,255,255,0.07);
+  --accent:#F97316; --danger:#F87171; --warning:#FBBF24;
+  --success:#34D399; --info:#60A5FA; --purple:#A78BFA;
+  --text:#F1F1F5; --text2:#A0A0B0; --text3:#5A5A70;
+  --mono:"JetBrains Mono",monospace;
+}
+body { background:var(--bg); font-family:"Inter",sans-serif; color:var(--text); min-height:100vh; padding:48px 32px; }
+.wrap { max-width:1100px; margin:0 auto; }
+
+/* HEADER */
+.header { margin-bottom:40px; }
+.header-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:12px; }
+.header-title { font-size:28px; font-weight:900; }
+.header-title span { background:linear-gradient(135deg,var(--accent),var(--warning)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.badges { display:flex; gap:8px; flex-wrap:wrap; }
+.badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; font-family:var(--mono); }
+.header-sub { font-size:13px; color:var(--text3); margin-top:6px; }
+.print-btn { background:var(--accent); color:#000; border:none; border-radius:8px; padding:8px 20px; font-weight:700; font-size:13px; cursor:pointer; }
+.print-btn:hover { opacity:0.85; }
+
+/* STATS */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-bottom:40px; }
+.stat { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; text-align:center; }
+.stat-num { font-size:32px; font-weight:900; }
+.stat-label { font-size:11px; color:var(--text3); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+
+/* SECTION */
+.section { margin-bottom:48px; }
+.section-title { font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+.section-title::after { content:""; flex:1; height:1px; background:var(--border); }
+
+/* TABLE */
+.tbl-wrap { background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead tr { background:rgba(255,255,255,0.03); }
+th { padding:12px 16px; text-align:left; color:var(--text3); font-weight:600; font-size:11px; letter-spacing:1px; text-transform:uppercase; border-bottom:1px solid var(--border); }
+td { padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.03); vertical-align:middle; }
+tr:last-child td { border:none; }
+tr:hover td { background:rgba(255,255,255,0.02); }
+
+.id { font-family:var(--mono); color:var(--accent); font-size:12px; font-weight:600; white-space:nowrap; }
+.desc { color:var(--text); font-weight:500; max-width:320px; }
+.desc small { display:block; color:var(--text3); font-size:11px; margin-top:3px; font-weight:400; }
+.pri { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; font-family:var(--mono); white-space:nowrap; }
+.pri-urgent { background:rgba(248,113,113,0.15); color:var(--danger); }
+.pri-high { background:rgba(251,191,36,0.12); color:var(--warning); }
+.resp { font-weight:600; font-size:12px; white-space:nowrap; }
+.resp.empty { color:var(--danger); font-style:italic; }
+.date-input {
+  background:rgba(255,255,255,0.05); border:1px solid var(--border);
+  border-radius:6px; padding:5px 10px; color:var(--text);
+  font-family:var(--mono); font-size:12px; width:120px;
+  outline:none; cursor:pointer;
+}
+.date-input:focus { border-color:var(--accent); }
+.status-sel {
+  background:rgba(255,255,255,0.05); border:1px solid var(--border);
+  border-radius:6px; padding:5px 10px; color:var(--text);
+  font-size:11px; font-weight:600; outline:none; cursor:pointer; width:130px;
+}
+
+/* SIGNATURE */
+.sig-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px 40px; margin-top:48px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; }
+.sig-info p { font-size:13px; color:var(--text2); line-height:1.8; }
+.sig-block { text-align:center; }
+.sig-line { border-top:1px solid var(--border); width:240px; padding-top:10px; }
+.sig-name { font-weight:700; }
+.sig-role { font-size:11px; color:var(--text3); }
+
+@media print {
+  body { background:#fff; color:#000; padding:20px; }
+  .print-btn, .date-input, .status-sel { border:1px solid #ccc !important; background:#fff !important; color:#000 !important; }
+  .tbl-wrap, .stat, .sig-box { background:#fff !important; border:1px solid #ccc !important; }
+  th, td { color:#333 !important; }
+  .id, .desc { color:#000 !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-title">&#128027; Bugs da Semana &mdash; <span>S6</span></div>
+        <div class="header-sub">Entregavel semanal: lista de bugs com responsavel e data de correcao &middot; Semana 06 &middot; 15 a 20 Jun 2026</div>
+      </div>
+      <div class="badges">
+        <span class="badge" style="background:rgba(249,115,22,0.15);color:var(--accent)">15&ndash;20 Jun 2026</span>
+        <span class="badge" style="background:rgba(167,139,250,0.15);color:var(--purple)">Squad Pigz</span>
+        <span class="badge" style="background:rgba(52,211,153,0.15);color:var(--success)">S6</span>
+        <button class="print-btn" onclick="window.print()">&#128438; Exportar / Imprimir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" style="color:var(--danger)">223</div>
+      <div class="stat-label">Urgent/High Ativos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--warning)">131</div>
+      <div class="stat-label">Sem Assignee</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--danger)">168</div>
+      <div class="stat-label">Parados 7+ dias</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--info)">427</div>
+      <div class="stat-label">Sem Due Date</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--success)">36,8%</div>
+      <div class="stat-label">SWAT Cycle 3</div>
+    </div>
+  </div>
+
+  <!-- BLOCO 1: SWAT SEM ASSIGNEE -->
+  <div class="section">
+    <div class="section-title">&#128308; SWAT &mdash; Issues Criticas sem Responsavel (Definir Hoje com Gustavo)</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Bug / Descricao</th><th>Prioridade</th><th>Responsavel</th><th>Data de Correcao</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="id">SWAT-206</td>
+            <td class="desc">Credenciais / Cartao em texto puro<small>Risco de seguranca CRITICO &mdash; exposicao de dados sensiveis</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-189</td>
+            <td class="desc">NF-e iFood bloqueada por endereco sem cidade<small>Emissao fiscal &mdash; impacto em pedidos iFood</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-199</td>
+            <td class="desc">Centralizacao em horarios fora do expediente<small>Impacto operacional em periodos criticos</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-192</td>
+            <td class="desc">Problemas de ponto flutuante com dados<small>Erros de calculo em valores monetarios</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-219</td>
+            <td class="desc">GuestTokenRepository::findOrderToken(orderId)<small>Erro de token em pedidos de convidado</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-147</td>
+            <td class="desc">Estoque so decrementa em shippingType=TICKET<small>Falha de logica em tipos de entrega</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SWAT-194</td>
+            <td class="desc">Falta de manutencao em modulos do sistema<small>Divida tecnica acumulada &mdash; risco de instabilidade</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BLOCO 2: DUE DATE ESSA SEMANA -->
+  <div class="section">
+    <div class="section-title">&#128197; Prazo Esta Semana &mdash; Issues que Precisam Ser Entregues ate 20/06</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Bug / Descricao</th><th>Prioridade</th><th>Responsavel</th><th>Data de Correcao</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="id">COM-52</td>
+            <td class="desc">Criar CI/CD do projeto Pigz Pay<small>Infraestrutura &mdash; impacto em deploy</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td class="resp">A confirmar</td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">SP-4</td>
+            <td class="desc">Continuar implementacao: split do task.json<small>Arquitetura de tarefas</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td class="resp">A confirmar</td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">RHC-253</td>
+            <td class="desc">Erro com a cor da impressora<small>Bug de hardware/software na impressora</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td class="resp">A confirmar</td>
+            <td><input type="date" class="date-input" value="2026-06-18"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">RHC-264</td>
+            <td class="desc">Erro com a minha entrega<small>Problemas no fluxo de entrega</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td class="resp">A confirmar</td>
+            <td><input type="date" class="date-input" value="2026-06-18"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">FIN-92</td>
+            <td class="desc">Revisao de changelogs semanais<small>Governança de releases</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td class="resp">A confirmar</td>
+            <td><input type="date" class="date-input" value="2026-06-20"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">GES-9</td>
+            <td class="desc">Reuniao semanal de bugs com lideres de squad<small>Governança &mdash; proposta aprovada hoje</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td class="resp" style="color:var(--accent)">Coordenacao</td>
+            <td><input type="date" class="date-input" value="2026-06-16"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option selected>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BLOCO 3: MAIS ANTIGAS -->
+  <div class="section">
+    <div class="section-title">&#9200; Issues Mais Antigas &mdash; Urgent/High Paradas ha mais Tempo</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Bug / Descricao</th><th>Prioridade</th><th>Responsavel</th><th>Data de Correcao</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="id">FRONT-50</td>
+            <td class="desc">Atualizar PigzComanda para RN 0.80<small>Upgrade de versao &mdash; dependencia critica</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">BE-28</td>
+            <td class="desc">Relatorio Caixas Comanda - Pagamento zerado<small>Relatorio financeiro com dados incorretos</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">PROD-7</td>
+            <td class="desc">Integracao de pedidos iFood<small>Integracao critica com marketplace</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">FRONT-71</td>
+            <td class="desc">Tela bloqueada<small>Bloqueio de interface para usuario</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">FRONT-79</td>
+            <td class="desc">Caixa fechou sozinho na maquina &mdash; PigzPay<small>Falha critica no ponto de venda</small></td>
+            <td><span class="pri pri-urgent">Urgent</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">BE-35</td>
+            <td class="desc">Criacao de novo tipo de plano: Por Comissao<small>Feature critica para modelo de negocios</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">FRONT-44</td>
+            <td class="desc">Adicionar modal de senha<small>Seguranca de interface</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">PROD-475</td>
+            <td class="desc">Relatorio de Movimentacoes de Comanda<small>Relatorio operacional</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">BE-52</td>
+            <td class="desc">Rastreamento e registro de eventos<small>Observabilidade do sistema</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+          <tr>
+            <td class="id">BE-53</td>
+            <td class="desc">Endpoint de exportacao de dados<small>Exportacao de dados critica</small></td>
+            <td><span class="pri pri-high">High</span></td>
+            <td><span class="resp empty">A definir</span></td>
+            <td><input type="date" class="date-input"></td>
+            <td><select class="status-sel"><option>Em aberto</option><option>Em progresso</option><option>Concluido</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASSINATURA -->
+  <div class="sig-box">
+    <div class="sig-info">
+      <p><strong style="color:var(--accent)">Entregavel Semanal &mdash; Semana 06</strong><br>
+      Gerado em: 15 de junho de 2026<br>
+      Revisado com: Gustavo Carvalho (Lider SWAT)<br>
+      Fonte de dados: <strong>Linear &mdash; Squad Pigz</strong></p>
+    </div>
+    <div class="sig-block">
+      <div class="sig-line">
+        <div class="sig-name">Carlos Krueger</div>
+        <div class="sig-role">Coordenador de Projetos</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
