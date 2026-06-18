@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo dos Artigos — Pesquisa de Anterioridade | TCC PROFNIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #eef2f7;
+      color: #1e2d3d;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 36px auto 56px;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 48px rgba(0,0,0,0.10);
+    }
+
+    /* ── CABEÇALHO ── */
+    .header {
+      background: linear-gradient(135deg, #002366 0%, #003087 55%, #00509e 100%);
+      padding: 38px 50px 32px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content:''; position:absolute; top:-50px; right:-50px;
+      width:180px; height:180px; border-radius:50%;
+      background:rgba(255,255,255,0.05);
+    }
+    .badge {
+      display:inline-flex; align-items:center; gap:7px;
+      background:rgba(201,162,39,0.2);
+      border:1px solid rgba(201,162,39,0.45);
+      color:#f5d76e; font-size:11px; font-weight:700;
+      letter-spacing:1.2px; text-transform:uppercase;
+      padding:4px 14px; border-radius:20px; margin-bottom:14px;
+    }
+    .header h1 { font-size:22px; font-weight:800; line-height:1.3; margin-bottom:8px; }
+    .header h1 span { color:#f5d76e; }
+    .header p { font-size:13px; opacity:.82; max-width:560px; line-height:1.65; }
+    .header-meta { margin-top:18px; display:flex; flex-wrap:wrap; gap:10px; }
+    .meta-pill {
+      background:rgba(255,255,255,0.12);
+      padding:4px 14px; border-radius:20px;
+      font-size:11.5px; font-weight:500;
+    }
+
+    /* ── CORPO ── */
+    .body { padding:36px 50px 44px; }
+
+    /* ── INTRO ── */
+    .intro {
+      background:#f7f9fd;
+      border-left:4px solid #003087;
+      border-radius:0 12px 12px 0;
+      padding:16px 20px;
+      margin-bottom:32px;
+      font-size:13.5px;
+      color:#3a4e66;
+      line-height:1.8;
+    }
+    .intro strong { color:#003087; }
+
+    /* ── SECTION TITLE ── */
+    .sec-title {
+      font-size:11.5px; font-weight:700;
+      color:#003087; letter-spacing:1.3px;
+      text-transform:uppercase;
+      margin-bottom:18px;
+      padding-bottom:10px;
+      border-bottom:2px solid #dde8f5;
+      display:flex; align-items:center; gap:8px;
+    }
+
+    /* ── ARTIGO CARD ── */
+    .artigo-card {
+      border:1.5px solid #dde8f5;
+      border-radius:16px;
+      margin-bottom:20px;
+      overflow:hidden;
+    }
+    .artigo-header {
+      display:flex; align-items:stretch;
+      gap:0;
+    }
+    .artigo-num {
+      min-width:52px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px; font-weight:800;
+      color:#fff;
+      flex-shrink:0;
+    }
+    .a1 .artigo-num { background:linear-gradient(180deg,#1565c0,#1976d2); }
+    .a2 .artigo-num { background:linear-gradient(180deg,#2e7d32,#43a047); }
+    .a3 .artigo-num { background:linear-gradient(180deg,#e65100,#ef6c00); }
+    .a4 .artigo-num { background:linear-gradient(180deg,#00695c,#00897b); }
+    .a5 .artigo-num { background:linear-gradient(180deg,#6a1b9a,#8e24aa); }
+
+    .artigo-header-info {
+      flex:1; padding:18px 22px 14px;
+      border-bottom:1px solid #eef2f7;
+      background:#fafbff;
+    }
+    .artigo-title {
+      font-size:14px; font-weight:700;
+      color:#1a2e4a; line-height:1.45;
+      margin-bottom:5px;
+    }
+    .artigo-authors {
+      font-size:12px; color:#6b7a90;
+      margin-bottom:8px;
+    }
+    .artigo-link-row {
+      display:flex; align-items:center; gap:8px;
+    }
+    .artigo-link {
+      font-size:12px; font-weight:600;
+      color:#003087; text-decoration:none;
+      word-break:break-all;
+      border-bottom:1px dashed #003087;
+      padding-bottom:1px;
+    }
+    .artigo-link:hover { color:#0070c0; }
+    .verified { 
+      display:inline-flex; align-items:center; gap:4px;
+      background:#e8f5e9; color:#2e7d32;
+      font-size:10px; font-weight:700;
+      padding:2px 8px; border-radius:10px;
+      flex-shrink:0;
+    }
+
+    .artigo-body { padding:18px 22px 20px; }
+    .resumo-label {
+      font-size:11px; font-weight:700; color:#003087;
+      letter-spacing:0.8px; text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .resumo-text {
+      font-size:13.5px;
+      font-family:'Merriweather', serif;
+      color:#2c3e50;
+      line-height:1.85;
+      margin-bottom:14px;
+    }
+    .relevancia-row {
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .tag {
+      font-size:11px; font-weight:600;
+      padding:3px 10px; border-radius:10px;
+    }
+    .t-blue   { background:#e3f2fd; color:#1565c0; }
+    .t-green  { background:#e8f5e9; color:#2e7d32; }
+    .t-orange { background:#fff3e0; color:#e65100; }
+    .t-teal   { background:#e0f2f1; color:#00695c; }
+    .t-purple { background:#f3e5f5; color:#6a1b9a; }
+
+    /* ── BASES DE DADOS ── */
+    .bases-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-bottom:0;
+    }
+    .base-card {
+      border:1.5px solid #dde8f5;
+      border-radius:14px;
+      padding:16px 18px;
+    }
+    .base-icon { font-size:22px; margin-bottom:8px; }
+    .base-name {
+      font-size:13px; font-weight:700;
+      color:#003087; margin-bottom:5px;
+    }
+    .base-desc {
+      font-size:12.5px; color:#4a5f7a;
+      line-height:1.65;
+    }
+
+    /* ── ESTRATÉGIA ── */
+    .estrategia {
+      background:#f7f9fd;
+      border-radius:14px;
+      padding:22px 26px;
+      margin-top:28px;
+    }
+    .estrategia h4 {
+      font-size:13.5px; font-weight:700;
+      color:#003087; margin-bottom:14px;
+    }
+    .termo-list { list-style:none; }
+    .termo-list li {
+      display:flex; align-items:flex-start; gap:10px;
+      font-size:13px; color:#2c3e50;
+      padding:7px 0;
+      border-bottom:1px solid #dde8f5;
+      line-height:1.65;
+    }
+    .termo-list li:last-child { border-bottom:none; }
+    .termo-list li::before {
+      content:'🔍'; flex-shrink:0;
+      font-size:12px; margin-top:2px;
+    }
+    code {
+      background:#eef2f7;
+      color:#003087;
+      font-family:'Courier New', monospace;
+      font-size:12px;
+      padding:1px 6px;
+      border-radius:5px;
+    }
+
+    /* ── RODAPÉ ── */
+    .footer {
+      background:#f0f4fa;
+      border-top:1px solid #dde8f5;
+      padding:15px 50px;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:11.5px; color:#7a8a9a;
+    }
+    .footer strong { color:#003087; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- CABEÇALHO -->
+  <div class="header">
+    <div class="badge">📚 Pesquisa de Anterioridade — TCC PROFNIT</div>
+    <h1>Resumo dos Artigos Científicos<br><span>Base de Dados e Estratégia de Busca</span></h1>
+    <p>Documentação completa dos 5 artigos entregues, incluindo resumo de conteúdo, links de acesso direto verificados e fontes acadêmicas utilizadas na pesquisa bibliográfica.</p>
+    <div class="header-meta">
+      <span class="meta-pill">📅 Junho de 2026</span>
+      <span class="meta-pill">✅ 5 artigos verificados</span>
+      <span class="meta-pill">🔗 Links diretos</span>
+    </div>
+  </div>
+
+  <!-- CORPO -->
+  <div class="body">
+
+    <div class="intro">
+      Os artigos abaixo foram selecionados a partir de uma <strong>pesquisa bibliográfica estruturada</strong>
+      nas principais bases de dados científicas nacionais, com foco em três eixos temáticos:
+      <strong>(1)</strong> sistema eSocial e obrigações trabalhistas,
+      <strong>(2)</strong> inteligência artificial e tecnologia no setor público e
+      <strong>(3)</strong> proteção de dados e relações de trabalho.
+      Todos os links foram testados e confirmados como funcionais.
+    </div>
+
+    <!-- ── ARTIGOS ── -->
+    <div class="sec-title">📄 Artigos — Resumos e Acesso Direto</div>
+
+    <!-- ARTIGO 1 -->
+    <div class="artigo-card a1">
+      <div class="artigo-header">
+        <div class="artigo-num">1</div>
+        <div class="artigo-header-info">
+          <div class="artigo-title">Impactos e desafios do eSocial no ambiente contábil: análise sob a ótica da teoria contingencial</div>
+          <div class="artigo-authors">Dallabona, L. F.; Vigarani, M. — Revista Catarinense da Ciência Contábil, 2024</div>
+          <div class="artigo-link-row">
+            <a class="artigo-link" href="https://doi.org/10.16930/2237-766220243439" target="_blank">
+              🔗 https://doi.org/10.16930/2237-766220243439
+            </a>
+            <span class="verified">✔ Verificado</span>
+          </div>
+        </div>
+      </div>
+      <div class="artigo-body">
+        <div class="resumo-label">Resumo do Conteúdo</div>
+        <p class="resumo-text">
+          O artigo analisa de que forma o eSocial impactou os profissionais e escritórios de contabilidade,
+          utilizando a teoria contingencial como framework teórico. Os autores investigam como a introdução
+          do sistema gerou necessidade de adaptação das rotinas contábeis, atualização tecnológica e
+          reorganização dos processos internos. O estudo evidencia que o grau de impacto variou conforme
+          o porte e a estrutura prévia dos escritórios, confirmando a abordagem contingencial.
+        </p>
+        <div class="relevancia-row">
+          <span class="tag t-blue">📋 eSocial na contabilidade</span>
+          <span class="tag t-blue">🏢 Escritórios contábeis</span>
+          <span class="tag t-blue">⚙️ Impacto organizacional</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTIGO 2 -->
+    <div class="artigo-card a2">
+      <div class="artigo-header">
+        <div class="artigo-num">2</div>
+        <div class="artigo-header-info">
+          <div class="artigo-title">Desafios das organizações contábeis acerca do eSocial após sua implementação</div>
+          <div class="artigo-authors">Conceição, F. O.; Lima, L. F.; Martins, Z. B. — Revista de Contabilidade da UFBA, v.14 n.1, 2020</div>
+          <div class="artigo-link-row">
+            <a class="artigo-link" href="https://periodicos.ufba.br/index.php/rcontabilidade/article/view/32675" target="_blank">
+              🔗 periodicos.ufba.br/…/article/view/32675
+            </a>
+            <span class="verified">✔ Verificado</span>
+          </div>
+        </div>
+      </div>
+      <div class="artigo-body">
+        <div class="resumo-label">Resumo do Conteúdo</div>
+        <p class="resumo-text">
+          Com abordagem qualitativa e descritiva, o estudo examina os principais desafios enfrentados pelas
+          organizações contábeis após a entrada em vigor do eSocial. Os pesquisadores identificam dificuldades
+          relacionadas à adequação dos sistemas internos, ao treinamento de equipes, aos prazos de transmissão
+          e à qualificação cadastral dos funcionários. A pesquisa conclui que a maior barreira é a resistência
+          cultural e a falta de domínio técnico sobre as ferramentas exigidas pelo sistema.
+        </p>
+        <div class="relevancia-row">
+          <span class="tag t-green">⚠️ Desafios de implementação</span>
+          <span class="tag t-green">🧑‍💼 Departamento pessoal</span>
+          <span class="tag t-green">📊 Pesquisa qualitativa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTIGO 3 -->
+    <div class="artigo-card a3">
+      <div class="artigo-header">
+        <div class="artigo-num">3</div>
+        <div class="artigo-header-info">
+          <div class="artigo-title">eSocial: O sistema digital das obrigações trabalhistas</div>
+          <div class="artigo-authors">Canovas, L. S.; Santos, I. T. S.; Souza, E. R. — Revista Científica Unilago, v.1 n.1, 2021</div>
+          <div class="artigo-link-row">
+            <a class="artigo-link" href="https://revistas.unilago.edu.br/index.php/revista-cientifica/article/view/552" target="_blank">
+              🔗 revistas.unilago.edu.br/…/article/view/552
+            </a>
+            <span class="verified">✔ Verificado</span>
+          </div>
+        </div>
+      </div>
+      <div class="artigo-body">
+        <div class="resumo-label">Resumo do Conteúdo</div>
+        <p class="resumo-text">
+          O artigo apresenta uma análise abrangente do eSocial como sistema de escrituração digital das
+          obrigações fiscais, previdenciárias e trabalhistas. Discute os objetivos do sistema, seu funcionamento,
+          o cronograma de implantação e os efeitos práticos nas rotinas de contadores e empresas.
+          Os autores identificam como principal resultado que o eSocial, apesar de ainda em fase de atualizações,
+          já demonstra relevância significativa para a organização e fiscalização das relações de trabalho no Brasil.
+        </p>
+        <div class="relevancia-row">
+          <span class="tag t-orange">📘 Fundamentação teórica do eSocial</span>
+          <span class="tag t-orange">🏛️ Obrigações trabalhistas</span>
+          <span class="tag t-orange">📅 Cronograma de implantação</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTIGO 4 -->
+    <div class="artigo-card a4">
+      <div class="artigo-header">
+        <div class="artigo-num">4</div>
+        <div class="artigo-header-info">
+          <div class="artigo-title">Inteligência artificial nas organizações públicas brasileiras: heterogeneidades e capacidades em tecnologia da informação</div>
+          <div class="artigo-authors">Ribeiro, M. M.; Segatto, C. I. — Revista de Administração Pública (RAP), SciELO, v.59 n.1, 2025</div>
+          <div class="artigo-link-row">
+            <a class="artigo-link" href="https://www.scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/?format=html&lang=pt" target="_blank">
+              🔗 scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/
+            </a>
+            <span class="verified">✔ Verificado</span>
+          </div>
+        </div>
+      </div>
+      <div class="artigo-body">
+        <div class="resumo-label">Resumo do Conteúdo</div>
+        <p class="resumo-text">
+          A partir dos microdados da Pesquisa TIC Governo Eletrônico 2021, o estudo analisa a adoção de tecnologias
+          de inteligência artificial por organizações governamentais brasileiras. Os autores demonstram que a adoção
+          de IA no setor público ainda é restrita a um grupo pequeno de entidades e é heterogênea entre esferas
+          federal e estadual, sendo esse processo fortemente influenciado pelas capacidades em TI já existentes
+          em cada organização. O artigo contextualiza os desafios e oportunidades da IA governamental no Brasil.
+        </p>
+        <div class="relevancia-row">
+          <span class="tag t-teal">🤖 IA no setor público</span>
+          <span class="tag t-teal">🏛️ Governo Digital</span>
+          <span class="tag t-teal">📊 Dados empíricos nacionais</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTIGO 5 -->
+    <div class="artigo-card a5">
+      <div class="artigo-header">
+        <div class="artigo-num">5</div>
+        <div class="artigo-header-info">
+          <div class="artigo-title">Discriminação algorítmica nas relações de trabalho e princípios da Lei Geral de Proteção de Dados</div>
+          <div class="artigo-authors">Santos, R. C.; Graminho, V. M. C. — Revista Sequência (UFSC), SciELO, v.45 n.96, 2024</div>
+          <div class="artigo-link-row">
+            <a class="artigo-link" href="https://doi.org/10.5007/2177-7055.2024.e96294" target="_blank">
+              🔗 https://doi.org/10.5007/2177-7055.2024.e96294
+            </a>
+            <span class="verified">✔ Verificado</span>
+          </div>
+        </div>
+      </div>
+      <div class="artigo-body">
+        <div class="resumo-label">Resumo do Conteúdo</div>
+        <p class="resumo-text">
+          O artigo investiga se a Lei Geral de Proteção de Dados (LGPD) oferece instrumentos principiológicos
+          suficientes para limitar ou prevenir a discriminação de trabalhadores causada por sistemas automatizados
+          e algoritmos de inteligência artificial. Os autores analisam princípios como não discriminação,
+          transparência, responsabilização e direito à explicação, concluindo que a LGPD, quando bem aplicada,
+          constitui uma barreira normativa relevante para o uso abusivo de IA nas relações de trabalho.
+        </p>
+        <div class="relevancia-row">
+          <span class="tag t-purple">⚖️ LGPD e IA</span>
+          <span class="tag t-purple">🔐 Proteção de dados</span>
+          <span class="tag t-purple">🤖 Algoritmos e trabalho</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BASES DE DADOS ── -->
+    <div class="sec-title" style="margin-top:34px;">🗄️ Bases de Dados Utilizadas na Pesquisa</div>
+
+    <div class="bases-grid">
+      <div class="base-card">
+        <div class="base-icon">🌐</div>
+        <div class="base-name">SciELO Brasil</div>
+        <div class="base-desc">Principal repositório de periódicos científicos brasileiros de acesso aberto. Utilizado para localizar os artigos 4 e 5 (RAP e Sequência/UFSC).</div>
+      </div>
+      <div class="base-card">
+        <div class="base-icon">📖</div>
+        <div class="base-name">Portal de Periódicos CAPES</div>
+        <div class="base-desc">Base nacional que agrega periódicos nacionais e internacionais. Utilizado para validar o DOI e a indexação do artigo 1 (Revista Catarinense).</div>
+      </div>
+      <div class="base-card">
+        <div class="base-icon">🎓</div>
+        <div class="base-name">Google Scholar</div>
+        <div class="base-desc">Ferramenta de busca acadêmica utilizada para rastrear citações, confirmar autores e localizar artigos inicialmente identificados pelos títulos.</div>
+      </div>
+      <div class="base-card">
+        <div class="base-icon">🏫</div>
+        <div class="base-name">Periódicos UFBA</div>
+        <div class="base-desc">Portal de periódicos da Universidade Federal da Bahia. Utilizado para acesso direto ao artigo 2 (Revista de Contabilidade da UFBA).</div>
+      </div>
+      <div class="base-card">
+        <div class="base-icon">🏛️</div>
+        <div class="base-name">Revista Científica Unilago</div>
+        <div class="base-desc">Portal de periódicos da União das Faculdades dos Grandes Lagos. Utilizado para acesso direto ao artigo 3 sobre o sistema eSocial.</div>
+      </div>
+      <div class="base-card">
+        <div class="base-icon">🔗</div>
+        <div class="base-name">DOI.org</div>
+        <div class="base-desc">Sistema de identificadores digitais de objetos acadêmicos. Utilizado para resolver e confirmar os DOIs dos artigos 1 e 5 como links estáveis e permanentes.</div>
+      </div>
+    </div>
+
+    <!-- ── ESTRATÉGIA DE BUSCA ── -->
+    <div class="estrategia">
+      <h4>🔍 Estratégia de Busca — Termos Utilizados</h4>
+      <ul class="termo-list">
+        <li>
+          <code>"eSocial"</code> + <code>"impactos"</code> + <code>"contabilidade"</code> + <code>"teoria contingencial"</code>
+          — para localizar artigos sobre efeitos do sistema em escritórios contábeis
+        </li>
+        <li>
+          <code>"eSocial"</code> + <code>"desafios"</code> + <code>"implementação"</code> + <code>"organizações contábeis"</code>
+          — para artigos sobre dificuldades práticas pós-implantação
+        </li>
+        <li>
+          <code>"eSocial"</code> + <code>"obrigações trabalhistas"</code> + <code>"sistema digital"</code>
+          — para artigos de fundamentação teórica e funcionamento do sistema
+        </li>
+        <li>
+          <code>"inteligência artificial"</code> + <code>"organizações públicas"</code> + <code>"Brasil"</code> + <code>"capacidades em TI"</code>
+          — para artigos sobre IA aplicada ao setor público brasileiro
+        </li>
+        <li>
+          <code>"discriminação algorítmica"</code> + <code>"relações de trabalho"</code> + <code>"LGPD"</code>
+          — para artigos sobre proteção jurídica nas relações de trabalho mediadas por IA
+        </li>
+      </ul>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    <div><strong>TCC — PROFNIT</strong> | Chatbot Especialista em eSocial</div>
+    <div>Pesquisa de Anterioridade · Junho de 2026</div>
+  </div>
+
+</div>
+
+</body>
+</html>
