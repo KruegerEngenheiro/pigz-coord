@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATA de Reuniao -- Squad Pigz | 15/06/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --accent: #F97316; --danger: #DC2626; --warn: #D97706;
+    --success: #059669; --text: #111827; --text2: #374151;
+    --text3: #6B7280; --border: #E5E7EB; --bg: #F9FAFB; --white: #FFFFFF;
+  }
+  body { font-family: "Inter", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px; }
+  .page { max-width: 860px; margin: 0 auto; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .doc-header { background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 100%); padding: 40px 48px; position: relative; overflow: hidden; }
+  .doc-header::after { content: ""; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(249,115,22,0.15); }
+  .doc-type { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .doc-title { font-size: 28px; font-weight: 800; color: #F1F1F5; line-height: 1.2; margin-bottom: 8px; }
+  .doc-sub { font-size: 14px; color: #A0A0B0; margin-bottom: 24px; }
+  .meta-row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: #5A5A70; }
+  .meta-val { font-size: 13px; font-weight: 600; color: #E1E1EB; font-family: "JetBrains Mono", monospace; }
+  .doc-body { padding: 40px 48px; }
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); padding-bottom: 8px; border-bottom: 2px solid #FEE9D7; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-item { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+  .info-key { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .info-val { font-size: 14px; font-weight: 600; color: var(--text); }
+  .participants { display: flex; flex-wrap: wrap; gap: 8px; }
+  .participant-chip { display: flex; align-items: center; gap: 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 30px; padding: 6px 14px; font-size: 13px; font-weight: 500; }
+  .participant-avatar { width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #FBBF24); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #000; }
+  .topic-list { display: flex; flex-direction: column; gap: 10px; }
+  .topic { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
+  .topic-num { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #FBBF24); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #000; flex-shrink: 0; margin-top: 1px; }
+  .topic-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .topic-desc { font-size: 12px; color: var(--text3); line-height: 1.5; }
+  .decision-list { display: flex; flex-direction: column; gap: 10px; }
+  .decision { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 8px; border-left: 4px solid; }
+  .decision.critical { background: #FEF2F2; border-color: var(--danger); }
+  .decision.warn { background: #FFFBEB; border-color: var(--warn); }
+  .decision.info { background: #EFF6FF; border-color: #3B82F6; }
+  .decision.success { background: #ECFDF5; border-color: var(--success); }
+  .decision-icon { font-size: 20px; flex-shrink: 0; }
+  .decision-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .decision-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .decision-due { font-size: 11px; font-weight: 700; margin-top: 6px; font-family: "JetBrains Mono", monospace; }
+  .commitment-box { background: linear-gradient(135deg, #0A0A0F, #1A1A2E); border: 1px solid rgba(249,115,22,0.4); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; }
+  .commitment-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .commitment-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06); color: #F1F1F5; font-size: 14px; font-weight: 600; }
+  .commitment-item:last-child { border: none; }
+  .commitment-date { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 4px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; }
+  .bugs-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .bugs-tbl th { padding: 10px 14px; text-align: left; background: var(--bg); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); border-bottom: 2px solid var(--border); }
+  .bugs-tbl td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .bugs-tbl tr:last-child td { border: none; }
+  .resp-chip { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; background: rgba(249,115,22,0.08); color: var(--accent); border: 1px solid rgba(249,115,22,0.2); }
+  .sig-box { border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: var(--bg); max-width: 280px; }
+  .sig-line { border-bottom: 1px solid var(--text3); height: 48px; margin-bottom: 8px; }
+  .sig-name { font-size: 12px; font-weight: 600; color: var(--text); }
+  .sig-role { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .doc-footer { background: var(--bg); border-top: 1px solid var(--border); padding: 16px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text3); font-family: "JetBrains Mono", monospace; }
+  .print-btn { position: fixed; bottom: 32px; right: 32px; background: linear-gradient(135deg, var(--accent), #FBBF24); color: #000; border: none; border-radius: 50px; padding: 14px 28px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(249,115,22,0.4); transition: all .2s; display: flex; align-items: center; gap: 8px; }
+  .print-btn:hover { transform: translateY(-2px); }
+  @media print { body { background: white; padding: 0; } .page { box-shadow: none; border: none; border-radius: 0; } .print-btn { display: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-type">&#128203; Ata de Reuniao - Documento Oficial</div>
+    <div class="doc-title">Reuniao Semanal com os Devs</div>
+    <div class="doc-sub">Alinhamento de governanca, bugs da semana e responsabilidades -- Squad Pigz</div>
+    <div class="meta-row">
+      <div class="meta-item"><div class="meta-label">Data</div><div class="meta-val">15/06/2026</div></div>
+      <div class="meta-item"><div class="meta-label">Semana</div><div class="meta-val">S6 - Jun 2026</div></div>
+      <div class="meta-item"><div class="meta-label">Horario</div><div class="meta-val">15h00</div></div>
+      <div class="meta-item"><div class="meta-label">Documento</div><div class="meta-val">ATA-2026-S6-DEV</div></div>
+    </div>
+  </div>
+
+  <div class="doc-body">
+
+    <!-- 1. INFORMACOES GERAIS -->
+    <div class="section">
+      <div class="section-title">01 - Informacoes Gerais</div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">Organizacao</div><div class="info-val">Squad Pigz -- Coordenacao de Projetos</div></div>
+        <div class="info-item"><div class="info-key">Modalidade</div><div class="info-val">Reuniao Semanal de Alinhamento</div></div>
+        <div class="info-item"><div class="info-key">Convocado por</div><div class="info-val">Coordenacao de Projetos</div></div>
+        <div class="info-item"><div class="info-key">Prazo dos bugs definidos</div><div class="info-val" style="color:#DC2626;">Quinta-feira - 19/06/2026</div></div>
+      </div>
+    </div>
+
+    <!-- 2. PARTICIPANTES -->
+    <div class="section">
+      <div class="section-title">02 - Participantes</div>
+      <div class="participants">
+        <div class="participant-chip">
+          <div class="participant-avatar">CK</div>
+          Carlos Krueger <span style="font-size:11px;color:#9CA3AF;">(Coordenacao de Projetos)</span>
+        </div>
+        <div class="participant-chip">
+          <div class="participant-avatar" style="font-size:14px;background:linear-gradient(135deg,#1A1A2E,#3B3B6E);">&#128104;&#8205;&#128187;</div>
+          Desenvolvedores da Pigz
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PAUTA -->
+    <div class="section">
+      <div class="section-title">03 - Pauta Discutida</div>
+      <div class="topic-list">
+        <div class="topic">
+          <div class="topic-num">1</div>
+          <div>
+            <div class="topic-title">&#128202; Indicadores da Semana 5 -- dados do Linear</div>
+            <div class="topic-desc">Apresentacao dos KPIs da S5: 77 issues concluidas, 158 criadas, 30 bugs Urgent/High ativos, 88% sem due date e 13% de aderencia no Cycle 3.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">2</div>
+          <div>
+            <div class="topic-title">&#128274; Seguranca Critica -- SWAT (CVSS 9.3)</div>
+            <div class="topic-desc">Apresentacao das 5 vulnerabilidades criticas levantadas pelo squad SWAT: IDOR cross-tenant, rotas sem autenticacao, webhooks sem HMAC e exposicao de PII (LGPD). Definicao de responsaveis e prazo de mitigacao.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">3</div>
+          <div>
+            <div class="topic-title">&#9881; Cobranca das entregas de 15/06</div>
+            <div class="topic-desc">Verificacao do status das duas entregas comprometidas na reuniao S5: Matriz de Gestao de Riscos e Organizacao do Linear em Fases por squad.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">4</div>
+          <div>
+            <div class="topic-title">&#128027; Lista de bugs da semana com Gustavo Carvalho (lider SWAT)</div>
+            <div class="topic-desc">Priorizacao dos bugs da semana em conjunto com o lider do squad de bugs. Definicao de responsavel e prazo de correcao para cada item.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">5</div>
+          <div>
+            <div class="topic-title">&#128467; Proposta de Reuniao Semanal de Lideres</div>
+            <div class="topic-desc">Proposta aprovada: toda segunda-feira, reuniao com lideres de squad e Ryan para priorizacao dos bugs da semana, atribuicao de responsavel e data de correcao ao vivo.</div>
+          </div>
+        </div>
+        <div class="topic">
+          <div class="topic-num">6</div>
+          <div>
+            <div class="topic-title">&#127991; Governanca do Linear -- regras reafirmadas</div>
+            <div class="topic-desc">Reforco das regras: toda issue precisa ter assignee, due date e label de produto. Bugs Urgent/High sem label serao devolvidos ao criador antes de entrar no fluxo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BUGS DA SEMANA -->
+    <div class="section">
+      <div class="section-title">04 - Bugs da Semana -- Responsaveis e Prazos (ate 19/06)</div>
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+        <table class="bugs-tbl">
+          <thead>
+            <tr><th>#</th><th>Bug / Descricao</th><th>Responsavel</th><th>Prazo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Inconsistencia na Dashboard financeira e relatorio de vendas</td><td><span class="resp-chip">Elias</span></td><td>19/06/2026</td></tr>
+            <tr><td>2</td><td>Notas fiscais duplicadas</td><td><span class="resp-chip">Gustavo</span></td><td>19/06/2026</td></tr>
+            <tr><td>3</td><td>Erro ao gerar adicionais de planos</td><td><span class="resp-chip">Gustavo</span></td><td>19/06/2026</td></tr>
+            <tr><td>4</td><td>Banner nao exibindo nas lojas</td><td><span class="resp-chip">Iago</span></td><td>19/06/2026</td></tr>
+            <tr><td>5</td><td>Usuario sem permissao de pedido visualizando o pedido</td><td><span class="resp-chip">Bernardo</span></td><td>19/06/2026</td></tr>
+            <tr><td>6</td><td>Unidade dos relatorios aparecendo errado</td><td><span class="resp-chip">Bernardo</span></td><td>19/06/2026</td></tr>
+            <tr><td>7</td><td>NFs com erro de emissao em contingencia</td><td><span class="resp-chip">Gustavo</span></td><td>19/06/2026</td></tr>
+            <tr><td>8</td><td>Pedidos antigos permanecem em contingencia e NFC-e nao localizada na SEFAZ (RC-1456)</td><td><span class="resp-chip">Gustavo</span></td><td>19/06/2026</td></tr>
+            <tr><td>9</td><td>Inconsistencia entre Financeiro e Relatorio Detalhado (RC-1449)</td><td><span class="resp-chip">Gustavo</span></td><td>19/06/2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. DECISOES -->
+    <div class="section">
+      <div class="section-title">05 - Decisoes e Acoes</div>
+      <div class="decision-list">
+        <div class="decision critical">
+          <div class="decision-icon">&#128308;</div>
+          <div>
+            <div class="decision-title">9 bugs priorizados com responsavel e prazo definidos</div>
+            <div class="decision-desc">Lista oficial dos bugs da semana definida em conjunto com Gustavo Carvalho (lider SWAT) e lideres de squad. Todos com prazo ate 19/06.</div>
+            <div class="decision-due" style="color:var(--danger);">Prazo: quinta-feira, 19/06/2026</div>
+          </div>
+        </div>
+        <div class="decision warn">
+          <div class="decision-icon">&#128467;</div>
+          <div>
+            <div class="decision-title">Reuniao Semanal de Lideres aprovada -- toda segunda-feira</div>
+            <div class="decision-desc">A partir da proxima semana, toda segunda-feira havera reuniao com lideres de squad e Ryan para priorizacao dos bugs, atribuicao de responsavel e data de correcao ao vivo.</div>
+            <div class="decision-due" style="color:var(--warn);">Vigencia: a partir de 22/06/2026</div>
+          </div>
+        </div>
+        <div class="decision info">
+          <div class="decision-icon">&#127991;</div>
+          <div>
+            <div class="decision-title">Bugs Urgent/High sem label de produto serao devolvidos</div>
+            <div class="decision-desc">Regra reafirmada: issues criticas sem label de produto nao entram no fluxo de correcao. O criador recebe o bug de volta para tagueamento imediato.</div>
+            <div class="decision-due" style="color:#2563EB;">Vigencia: imediata</div>
+          </div>
+        </div>
+        <div class="decision success">
+          <div class="decision-icon">&#128204;</div>
+          <div>
+            <div class="decision-title">Linear como unica fonte de verdade -- reafirmado</div>
+            <div class="decision-desc">Todo bug, tarefa ou entrega precisa estar no Linear com assignee, due date e status atualizado. O Linear alimenta o Pigz Coord -- reporte semanal lido pela lideranca.</div>
+            <div class="decision-due" style="color:var(--success);">Vigencia: continua</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ASSINATURA -->
+    <div class="section">
+      <div class="section-title">06 - Assinatura</div>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:16px;">Ao assinar, o Coordenador confirma que a reuniao foi realizada e os compromissos aqui registrados foram assumidos pelo time.</p>
+      <div class="sig-box">
+        <div class="sig-line"></div>
+        <div class="sig-name">Carlos Krueger</div>
+        <div class="sig-role">Coordenador de Projetos</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>ATA-2026-S6-DEV - Squad Pigz - Pigz Coord</span>
+    <span>Emitida em: 18/06/2026</span>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">&#128424; Imprimir / Salvar PDF</button>
+</body>
+</html>
