@@ -1,101 +1,61 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reporte Operacional ÔÇö PIGZ ┬À Semana 3 ┬À Jun 2026</title>
-<meta name="description" content="Reporte Operacional Semanal PIGZ ÔÇö Diagn├│stico, KPIs e Plano de A├º├úo para lideran├ºas executivas.">
+<title>Reporte Operacional &mdash; PIGZ &middot; Semana 6 &middot; Jun 2026</title>
+<meta name="description" content="Reporte Operacional Semanal PIGZ &mdash; Diagnostico, KPIs e Plano de Acao para liderancas executivas.">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-
-/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
-   DESIGN SYSTEM ÔÇö CEO-LEVEL OPERATIONAL REPORT
-ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
 :root {
-  --bg:        #0F1117;
-  --bg2:       #161820;
-  --card:      #1C1E26;
-  --card2:     #21242E;
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.12);
-
-  --accent:    #FA641E;
-  --accent2:   #FF8C56;
-  --success:   #22D3A4;
-  --warning:   #FBBF24;
-  --danger:    #F87171;
-  --info:      #60A5FA;
-  --purple:    #A78BFA;
-
-  --text:      #F3F4F6;
-  --text2:     #9CA3AF;
-  --text3:     #6B7280;
-
-  --mono:      'JetBrains Mono', monospace;
-
-  /* Alturas fixas das barras superiores */
-  --toolbar-h: 53px;
-  --nav-h:     40px;
+  --bg: #0F1117; --bg2: #161820; --card: #1C1E26; --card2: #21242E;
+  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+  --accent: #FA641E; --accent2: #FF8C56; --success: #22D3A4;
+  --warning: #FBBF24; --danger: #F87171; --info: #60A5FA; --purple: #A78BFA;
+  --text: #F3F4F6; --text2: #9CA3AF; --text3: #6B7280;
+  --mono: 'JetBrains Mono', monospace;
+  --toolbar-h: 53px; --nav-h: 40px;
   --header-total: calc(var(--toolbar-h) + var(--nav-h));
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { height: 100%; scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
-}
-
-/* ÔöÇÔöÇ TOOLBAR ÔöÇÔöÇ */
+/* TOOLBAR */
 .toolbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: var(--toolbar-h);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 24px;
-  background: rgba(15,17,23,0.97);
-  backdrop-filter: blur(20px);
+  height: var(--toolbar-h); display: flex; align-items: center;
+  justify-content: space-between; padding: 0 24px;
+  background: rgba(15,17,23,0.97); backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
-.toolbar-left { display: flex; align-items: center; gap: 12px; flex-wrap: nowrap; overflow: hidden; }
-.logo { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; flex-shrink: 0; }
-.logo .accent { color: var(--accent); }
+.toolbar-left { display: flex; align-items: center; gap: 12px; }
+.logo { font-size: 15px; font-weight: 800; }
+.logo .ac { color: var(--accent); }
 .toolbar-badge {
   font-size: 11px; font-weight: 700; padding: 4px 10px;
   border-radius: 999px; border: 1px solid rgba(250,100,30,0.3);
   color: var(--accent); background: rgba(250,100,30,0.08);
-  text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+  text-transform: uppercase; letter-spacing: 0.5px;
 }
-.toolbar-right { display: flex; gap: 6px; flex-shrink: 0; }
+.toolbar-right { display: flex; gap: 6px; }
 .tbtn {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 6px 13px; border-radius: 8px; border: 1px solid var(--border2);
   font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600;
-  cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text2);
-  background: rgba(255,255,255,0.04); white-space: nowrap;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
+  color: var(--text2); background: rgba(255,255,255,0.04);
 }
 .tbtn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
 .tbtn-primary { background: var(--accent); color: white; border-color: transparent; }
 .tbtn-primary:hover { opacity: 0.85; color: white; }
 
-/* ÔöÇÔöÇ LAYOUT ÔöÇÔöÇ */
-.page { max-width: 1200px; margin: 0 auto; padding: calc(var(--header-total) + 24px) 32px 80px; }
-
-/* ÔöÇÔöÇ SECTION NAV ÔöÇÔöÇ */
+/* SECTION NAV */
 .sec-nav {
-  position: fixed;
-  top: var(--toolbar-h);
-  left: 0; right: 0;
-  z-index: 190;
-  height: var(--nav-h);
-  display: flex; align-items: center; gap: 0;
-  padding: 0 24px;
-  background: rgba(12,14,20,0.97);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  position: fixed; top: var(--toolbar-h); left: 0; right: 0; z-index: 190;
+  height: var(--nav-h); display: flex; align-items: center;
+  padding: 0 24px; background: rgba(12,14,20,0.97);
+  backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
   overflow-x: auto; scrollbar-width: none;
 }
 .sec-nav::-webkit-scrollbar { display: none; }
@@ -107,77 +67,86 @@ body {
   transition: all 0.18s; cursor: pointer;
 }
 .sec-nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-.sec-nav-item.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(250,100,30,0.04); }
+.sec-nav-item.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-/* ÔöÇÔöÇ FAB BADGE ÔöÇÔöÇ */
-#fab-badge {
-  position: absolute; top: -5px; right: -5px;
-  min-width: 18px; height: 18px; border-radius: 99px;
-  padding: 0 4px;
-  background: var(--danger); color: white;
-  font-size: 9px; font-weight: 900;
-  display: none;
-  align-items: center; justify-content: center;
-  border: 2px solid var(--bg);
-  animation: pulse-badge 2s infinite;
-  pointer-events: none;
+/* LAYOUT */
+.page { max-width: 1200px; margin: 0 auto; padding: calc(var(--header-total) + 24px) 32px 80px; animation: fadeInUp 0.5s ease; }
+
+/* REPORT HEADER */
+.report-header {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 32px; align-items: end; margin-bottom: 48px;
+  padding-bottom: 32px; border-bottom: 1px solid var(--border);
 }
-@keyframes pulse-badge {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+.rh-pre {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--accent); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.rh-pre::before { content: ''; width: 20px; height: 2px; background: var(--accent); }
+.rh-title { font-size: 36px; font-weight: 900; letter-spacing: -1px; line-height: 1.05; margin-bottom: 12px; }
+.rh-title .company { color: var(--accent); }
+.rh-subtitle { font-size: 14px; color: var(--text2); line-height: 1.65; max-width: 560px; }
+.rh-meta { text-align: right; }
+.rh-meta-week { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.rh-meta-date { font-size: 12px; color: var(--text3); margin-bottom: 12px; }
+.status-badge-global {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 700;
 }
 
-/* ÔöÇÔöÇ COMENTARIO RESOLVIDO ÔöÇÔöÇ */
-.comment-card.resolved { opacity: 0.45; border-color: transparent; }
-.comment-card.resolved p { text-decoration: line-through; color: var(--text3) !important; }
-.resolved-tag { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2px 8px; border-radius:6px; background:rgba(34,211,164,0.1); color:var(--success); }
-.resolve-btn { background:none; border:1px solid var(--border); border-radius:6px; color:var(--text3); font-size:10px; font-weight:700; padding:3px 8px; cursor:pointer; transition:all 0.2s; font-family:'Poppins',sans-serif; }
-.resolve-btn:hover { background:rgba(34,211,164,0.1); color:var(--success); border-color:rgba(34,211,164,0.3); }
+/* SECTION LABEL */
+.sec-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text3); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* ÔöÇÔöÇ KPI FONTE TOOLTIP ÔöÇÔöÇ */
-.kpi-fonte {
-  font-size: 9px; color: var(--text3); margin-top: 8px;
-  display: flex; align-items: center; gap: 4px;
-  border-top: 1px solid var(--border); padding-top: 8px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+/* DECISAO BOX */
+.decisao-box {
+  background: linear-gradient(135deg, rgba(248,113,113,0.10) 0%, rgba(251,191,36,0.06) 100%);
+  border: 1px solid rgba(248,113,113,0.30); border-left: 4px solid var(--danger);
+  border-radius: 16px; padding: 28px 32px; margin-bottom: 40px; position: relative; overflow: hidden;
 }
-.kpi-fonte a { color: var(--info); text-decoration: none; }
-.kpi-fonte a:hover { text-decoration: underline; }
-.kpi-vs {
-  font-size: 10px; font-weight: 700; margin-top: 4px;
-  display: flex; align-items: center; gap: 4px;
-  color: var(--text3);
+.decisao-box::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%);
 }
-.kpi-vs.up { color: var(--danger); }
-.kpi-vs.down { color: var(--success); }
-.kpi-vs.neutral { color: var(--text3); }
+.decisao-title {
+  font-size: 12px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--danger); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.decisao-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.decisao-item {
+  background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px 18px;
+  border: 1px solid rgba(248,113,113,0.12);
+}
+.decisao-num { font-size: 11px; font-weight: 800; color: var(--danger); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.decisao-pergunta { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.45; margin-bottom: 6px; }
+.decisao-context { font-size: 11px; color: var(--text3); line-height: 1.5; }
 
-/* ÔöÇÔöÇ DECIS├âO JUSTIFICATIVA ÔöÇÔöÇ */
-.decisao-justif-label {
-  font-size: 10px; font-weight: 700; color: var(--text3);
-  text-transform: uppercase; letter-spacing: 0.8px;
-  margin-top: 10px; margin-bottom: 4px;
+/* EXEC SUMMARY */
+.exec-summary {
+  background: linear-gradient(135deg, rgba(250,100,30,0.08) 0%, rgba(34,211,164,0.04) 100%);
+  border: 1px solid rgba(250,100,30,0.15); border-radius: 20px;
+  padding: 32px; margin-bottom: 40px; position: relative; overflow: hidden;
 }
-.decisao-justif {
-  width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(248,113,113,0.1);
-  border-radius: 8px; color: var(--text2); font-family:'Poppins',sans-serif;
-  font-size: 11px; line-height: 1.5; padding: 8px 10px;
-  resize: vertical; min-height: 52px; outline: none;
-  transition: border-color 0.2s;
+.exec-summary::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(250,100,30,0.08) 0%, transparent 70%);
 }
-.decisao-justif:focus { border-color: rgba(248,113,113,0.35); }
-.decisao-justif::placeholder { color: rgba(255,255,255,0.15); }
+.exec-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+.exec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.exec-item-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 6px; }
+.exec-item-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
 
-/* ÔöÇÔöÇ METODOLOGIA COLAPS├üVEL ÔöÇÔöÇ */
-.metodologia-bar {
-  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: 12px; margin-bottom: 32px; overflow: hidden;
-}
-.metodologia-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 20px; cursor: pointer; user-select: none;
-  transition: background 0.2s;
-}
+/* METODOLOGIA */
+.metodologia-bar { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 32px; overflow: hidden; }
+.metodologia-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; cursor: pointer; }
 .metodologia-header:hover { background: rgba(255,255,255,0.03); }
 .metodologia-header-left { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; color: var(--text2); }
 .metodologia-chevron { font-size: 11px; color: var(--text3); transition: transform 0.3s; }
@@ -190,206 +159,57 @@ body {
 .metodologia-item-desc { font-size: 10px; color: var(--text3); line-height: 1.5; }
 .metodologia-item-fonte { font-size: 10px; color: var(--info); margin-top: 4px; }
 
-/* ÔöÇÔöÇ EVID├èNCIAS ÔöÇÔöÇ */
-.evidencia-card { background: var(--card2); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid var(--border); }
-.evidencia-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.evidencia-tag { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 6px; background: rgba(96,165,250,0.12); color: var(--info); }
-.evidencia-del { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 13px; }
-.evidencia-text { font-size: 12px; color: var(--text2); line-height: 1.6; white-space: pre-wrap; }
-
-/* ÔöÇÔöÇ REPORT HEADER ÔöÇÔöÇ */
-.report-header {
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 32px; align-items: end;
-  margin-bottom: 48px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--border);
-}
-.rh-pre {
-  font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 2px; color: var(--accent); margin-bottom: 10px;
-  display: flex; align-items: center; gap: 10px;
-}
-.rh-pre::before { content: ''; width: 20px; height: 2px; background: var(--accent); }
-.rh-title {
-  font-size: 36px; font-weight: 900; letter-spacing: -1px;
-  line-height: 1.05; margin-bottom: 12px;
-}
-.rh-title .company { color: var(--accent); }
-.rh-subtitle { font-size: 14px; color: var(--text2); line-height: 1.65; max-width: 560px; }
-.rh-meta { text-align: right; }
-.rh-meta-week {
-  font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px;
-}
-.rh-meta-date { font-size: 12px; color: var(--text3); margin-bottom: 12px; }
-.status-badge-global {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px; border-radius: 12px; font-size: 14px; font-weight: 700;
-  cursor: pointer;
-}
-
-/* ÔöÇÔöÇ SECTION LABEL ÔöÇÔöÇ */
-.sec-label {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 2px; color: var(--text3); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-/* ÔöÇÔöÇ KPI GRID ÔöÇÔöÇ */
+/* KPI GRID */
 .kpi-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 40px; }
-
 .kpi-card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 16px; padding: 20px 18px;
-  position: relative; overflow: hidden;
-  cursor: default; transition: all 0.25s;
+  position: relative; overflow: hidden; cursor: default; transition: all 0.25s;
 }
-.kpi-card::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: var(--kc, var(--accent));
-}
+.kpi-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--kc, var(--accent)); }
 .kpi-card:hover { border-color: var(--kc, var(--accent)); transform: translateY(-2px); }
 .kpi-card-icon { font-size: 18px; margin-bottom: 14px; opacity: 0.8; }
-.kpi-num {
-  font-size: 34px; font-weight: 900; letter-spacing: -1.5px;
-  color: var(--kc, var(--text)); line-height: 1; margin-bottom: 4px;
-  font-family: var(--mono);
-}
-.kpi-num input {
-  width: 100%; background: transparent; border: none; outline: none;
-  font-family: var(--mono); font-size: 34px; font-weight: 900;
-  letter-spacing: -1.5px; color: var(--kc, var(--text));
-  padding: 0;
-}
-.kpi-num input::placeholder { color: rgba(255,255,255,0.15); }
+.kpi-num { font-size: 34px; font-weight: 900; letter-spacing: -1.5px; color: var(--kc, var(--text)); line-height: 1; margin-bottom: 4px; font-family: var(--mono); }
+.kpi-num input { width: 100%; background: transparent; border: none; outline: none; font-family: var(--mono); font-size: 34px; font-weight: 900; letter-spacing: -1.5px; color: var(--kc, var(--text)); padding: 0; }
 .kpi-label { font-size: 11px; color: var(--text3); font-weight: 500; line-height: 1.3; }
-.kpi-trend {
-  margin-top: 10px; font-size: 11px; font-weight: 600;
-  display: flex; align-items: center; gap: 4px;
-}
+.kpi-trend { margin-top: 10px; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.kpi-vs { font-size: 10px; font-weight: 700; margin-top: 4px; display: flex; align-items: center; gap: 4px; color: var(--text3); }
+.kpi-vs.up { color: var(--danger); }
+.kpi-vs.down { color: var(--success); }
+.kpi-fonte { font-size: 9px; color: var(--text3); margin-top: 8px; display: flex; align-items: center; gap: 4px; border-top: 1px solid var(--border); padding-top: 8px; }
 
-/* ÔöÇÔöÇ HEALTH GRID ÔöÇÔöÇ */
+/* HEALTH GRID */
 .health-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 40px; }
 .health-card {
   background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 18px 16px;
-  text-align: center; transition: all 0.2s; cursor: default;
-  position: relative; overflow: hidden;
+  border-radius: 14px; padding: 18px 16px; text-align: center;
+  transition: all 0.2s; position: relative; overflow: hidden;
 }
-.health-card::before {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-  background: var(--hc, var(--border));
-}
-.health-card:hover { border-color: var(--hc, var(--border)); }
+.health-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--hc, var(--border)); }
 .health-icon { font-size: 22px; margin-bottom: 8px; }
 .health-product { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-.health-dot {
-  width: 40px; height: 40px; border-radius: 50%;
-  margin: 0 auto 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; transition: all 0.3s;
-}
+.health-dot { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
 .health-status-label { font-size: 11px; font-weight: 700; }
 .health-note { font-size: 10px; color: var(--text3); margin-top: 6px; line-height: 1.4; }
-.health-select {
-  width: 100%; background: var(--card2); border: 1px solid var(--border2);
-  border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 11px;
-  color: var(--text2); padding: 6px 8px; outline: none; cursor: pointer;
-  margin-top: 8px;
-}
-.health-select:focus { border-color: var(--accent); }
+.health-select { width: 100%; background: var(--card2); border: 1px solid var(--border2); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 11px; color: var(--text2); padding: 6px 8px; outline: none; cursor: pointer; margin-top: 8px; }
 
-/* ÔöÇÔöÇ TWO COLS ÔöÇÔöÇ */
+/* CARDS */
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
-.three-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 40px; }
-
-/* ÔöÇÔöÇ CARD BASE ÔöÇÔöÇ */
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 24px;
-  transition: border-color 0.2s;
-}
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
 .card:hover { border-color: var(--border2); }
-.card-full { grid-column: 1 / -1; }
-.card-title {
-  font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 1px; color: var(--text2); margin-bottom: 18px;
-  display: flex; align-items: center; gap: 8px;
-}
-.card-title-accent { color: var(--accent); }
+.card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
 
-/* ÔöÇÔöÇ HYPOTHESIS CARDS ÔöÇÔöÇ */
-.hypo-list { display: flex; flex-direction: column; gap: 12px; }
-.hypo-item {
-  background: var(--card2); border: 1px solid var(--border);
-  border-radius: 12px; overflow: hidden; transition: all 0.2s;
-}
-.hypo-item:hover { border-color: var(--border2); }
-.hypo-head {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 18px; cursor: pointer;
-  user-select: none;
-}
-.hypo-num {
-  width: 28px; height: 28px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800; flex-shrink: 0;
-}
-.hypo-name { font-size: 14px; font-weight: 600; flex: 1; }
-.hypo-tags { display: flex; gap: 6px; }
-.hypo-tag {
-  font-size: 10px; font-weight: 700; padding: 3px 8px;
-  border-radius: 6px; text-transform: uppercase; letter-spacing: 0.3px;
-}
-.hypo-status-sel {
-  background: transparent; border: 1px solid var(--border2);
-  border-radius: 8px; font-family: 'Poppins', sans-serif;
-  font-size: 11px; color: var(--text2); padding: 5px 8px; outline: none;
-  cursor: pointer; flex-shrink: 0;
-}
-.hypo-status-sel:focus { border-color: var(--accent); }
-.hypo-body {
-  padding: 0 18px 16px;
-  display: none;
-}
-.hypo-body.open { display: block; animation: fadeSlideIn 0.2s ease; }
-.hypo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.hypo-field { display: flex; flex-direction: column; gap: 6px; }
-.hypo-field label { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
-.hypo-textarea {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 8px; color: var(--text);
-  font-family: 'Poppins', sans-serif; font-size: 12px;
-  padding: 10px; resize: vertical; min-height: 72px;
-  line-height: 1.55; outline: none; transition: border-color 0.2s;
-}
-.hypo-textarea:focus { border-color: var(--accent); }
-.hypo-chevron { color: var(--text3); transition: transform 0.3s; font-size: 12px; }
-.hypo-chevron.open { transform: rotate(180deg); }
+/* IMPEDIMENTOS */
+.imp-list { display: flex; flex-direction: column; gap: 8px; }
+.imp-item { display: flex; align-items: flex-start; gap: 12px; background: var(--card2); border-radius: 10px; padding: 12px 14px; }
+.imp-sev { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.imp-body { flex: 1; }
+.imp-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.imp-context { font-size: 11px; color: var(--text3); }
+.imp-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.imp-action-tag { font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
 
-/* ÔöÇÔöÇ METRICS TABLE ÔöÇÔöÇ */
-.metric-rows { display: flex; flex-direction: column; gap: 8px; }
-.metric-row {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--card2); border-radius: 10px; padding: 13px 16px;
-}
-.metric-row-label { font-size: 13px; color: var(--text2); flex: 1; font-weight: 500; }
-.metric-row-val {
-  font-size: 22px; font-weight: 800; font-family: var(--mono);
-  min-width: 80px; text-align: right;
-}
-.metric-row-val input {
-  width: 80px; background: transparent; border: none; outline: none;
-  font-family: var(--mono); font-size: 22px; font-weight: 800;
-  color: inherit; text-align: right; padding: 0;
-}
-.metric-row-val input::placeholder { color: rgba(255,255,255,0.1); }
-.metric-row-unit { font-size: 11px; color: var(--text3); min-width: 40px; }
-
-/* ÔöÇÔöÇ BAR CHART ÔöÇÔöÇ */
+/* BAR CHART */
 .bar-viz { display: flex; gap: 10px; align-items: flex-end; height: 100px; }
 .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .bar-track { width: 100%; background: rgba(255,255,255,0.06); border-radius: 6px; flex: 1; position: relative; overflow: hidden; }
@@ -397,1721 +217,759 @@ body {
 .bar-val-label { font-size: 11px; font-weight: 700; font-family: var(--mono); }
 .bar-name-label { font-size: 10px; color: var(--text3); text-align: center; }
 
-/* ÔöÇÔöÇ PRIORITY MATRIX ÔöÇÔöÇ */
+/* METRICS */
+.metric-rows { display: flex; flex-direction: column; gap: 8px; }
+.metric-row { display: flex; align-items: center; gap: 14px; background: var(--card2); border-radius: 10px; padding: 13px 16px; }
+.metric-row-label { font-size: 13px; color: var(--text2); flex: 1; font-weight: 500; }
+.metric-row-val { font-size: 22px; font-weight: 800; font-family: var(--mono); min-width: 80px; text-align: right; }
+.metric-row-val input { width: 80px; background: transparent; border: none; outline: none; font-family: var(--mono); font-size: 22px; font-weight: 800; color: inherit; text-align: right; padding: 0; }
+.metric-row-unit { font-size: 11px; color: var(--text3); min-width: 40px; }
+
+/* PRIORITY */
 .priority-list { display: flex; flex-direction: column; gap: 10px; }
-.priority-item {
-  display: flex; gap: 12px; align-items: flex-start;
-  background: var(--card2); border-radius: 10px; padding: 14px 16px;
-  border-left: 3px solid var(--pc, var(--border));
-}
-.priority-rank {
-  font-size: 20px; font-weight: 900; color: var(--pc, var(--text3));
-  font-family: var(--mono); min-width: 28px; line-height: 1;
-}
+.priority-item { display: flex; gap: 12px; align-items: flex-start; background: var(--card2); border-radius: 10px; padding: 14px 16px; border-left: 3px solid var(--pc, var(--border)); }
+.priority-rank { font-size: 20px; font-weight: 900; color: var(--pc, var(--text3)); font-family: var(--mono); min-width: 28px; line-height: 1; }
 .priority-body { flex: 1; }
-.priority-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-.priority-desc { font-size: 12px; color: var(--text2); line-height: 1.55; }
-.priority-owner {
-  margin-top: 8px; display: flex; align-items: center; gap: 6px;
-  font-size: 11px; color: var(--text3);
-}
-.owner-tag {
-  font-size: 10px; font-weight: 700; padding: 2px 8px;
-  border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text2);
-}
 
-/* ÔöÇÔöÇ IMPEDIMENT LIST ÔöÇÔöÇ */
-.imp-list { display: flex; flex-direction: column; gap: 8px; }
-.imp-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  background: var(--card2); border-radius: 10px; padding: 12px 14px;
-}
-.imp-sev {
-  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
-}
-.imp-body { flex: 1; }
-.imp-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
-.imp-context { font-size: 11px; color: var(--text3); }
-.imp-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.imp-action-tag {
-  font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 6px;
-}
+/* HIPOTESES */
+.hypo-list { display: flex; flex-direction: column; gap: 12px; }
+.hypo-item { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: all 0.2s; }
+.hypo-head { display: flex; align-items: center; gap: 14px; padding: 14px 18px; cursor: pointer; user-select: none; }
+.hypo-num { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+.hypo-name { font-size: 14px; font-weight: 600; flex: 1; }
+.hypo-tags { display: flex; gap: 6px; }
+.hypo-tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; }
+.hypo-status-sel { background: transparent; border: 1px solid var(--border2); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 11px; color: var(--text2); padding: 5px 8px; outline: none; cursor: pointer; }
+.hypo-body { padding: 0 18px 16px; display: none; }
+.hypo-body.open { display: block; }
+.hypo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hypo-field { display: flex; flex-direction: column; gap: 6px; }
+.hypo-field label { font-size: 10px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
+.hypo-chevron { color: var(--text3); transition: transform 0.3s; font-size: 12px; }
+.hypo-chevron.open { transform: rotate(180deg); }
 
-/* ÔöÇÔöÇ EXECUTIVE SUMMARY ÔöÇÔöÇ */
-.exec-summary {
-  background: linear-gradient(135deg, rgba(250,100,30,0.08) 0%, rgba(34,211,164,0.04) 100%);
-  border: 1px solid rgba(250,100,30,0.15);
-  border-radius: 20px; padding: 32px; margin-bottom: 40px;
-  position: relative; overflow: hidden;
-}
-.exec-summary::before {
-  content: '';
-  position: absolute; top: -60px; right: -60px;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(250,100,30,0.08) 0%, transparent 70%);
-}
-.exec-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
-.exec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-.exec-item {}
-.exec-item-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 6px; }
-.exec-item-text { font-size: 13px; color: var(--text2); line-height: 1.65; }
-.exec-item-text strong { color: var(--text); }
+/* DEPLOYMENTS */
+.deploy-item { background: var(--card2); border-radius: 10px; padding: 14px 16px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 14px; }
+.deploy-env { font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
 
-/* ÔöÇÔöÇ REPORT TEXTAREA ÔöÇÔöÇ */
-.rpt-textarea {
-  width: 100%; background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 10px; color: var(--text);
-  font-family: 'Poppins', sans-serif; font-size: 13px;
-  padding: 12px 14px; resize: vertical; min-height: 80px;
-  line-height: 1.6; outline: none; transition: border-color 0.2s;
-}
+/* COMMENTS */
+.comment-card { background: var(--card2); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; transition: all 0.2s; }
+.comment-card:hover { border-color: var(--border2); }
+.badge { font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-geral { background: rgba(156,163,175,0.15); color: var(--text2); }
+
+/* INPUTS */
+.rpt-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Poppins', sans-serif; font-size: 13px; padding: 12px 14px; resize: vertical; min-height: 80px; line-height: 1.6; outline: none; transition: border-color 0.2s; }
 .rpt-textarea:focus { border-color: var(--accent); }
 .rpt-textarea::placeholder { color: var(--text3); }
-.rpt-input {
-  width: 100%; background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 10px; color: var(--text);
-  font-family: 'Poppins', sans-serif; font-size: 13px;
-  padding: 10px 14px; outline: none; transition: border-color 0.2s;
-}
+.rpt-input { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Poppins', sans-serif; font-size: 13px; padding: 10px 14px; outline: none; transition: border-color 0.2s; }
 .rpt-input:focus { border-color: var(--accent); }
-.rpt-input::placeholder { color: var(--text3); }
 .field-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
 
-/* ÔöÇÔöÇ TOAST ÔöÇÔöÇ */
-#toast {
-  position: fixed; bottom: 28px; right: 28px; z-index: 999;
-  background: var(--success); color: var(--bg);
-  padding: 12px 22px; border-radius: 12px; font-size: 13px; font-weight: 700;
-  box-shadow: 0 8px 28px rgba(34,211,164,0.35);
-  opacity: 0; transform: translateY(10px);
-  transition: all 0.3s; pointer-events: none;
-}
+/* MODE TOGGLE */
+.mode-toggle-btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(34,211,164,0.3); color: var(--success); background: rgba(34,211,164,0.08); }
+.mode-toggle-btn:hover { background: rgba(34,211,164,0.14); }
+.mode-toggle-btn.edit-mode { border-color: rgba(250,100,30,0.3); color: var(--accent); background: rgba(250,100,30,0.08); }
+
+/* TOAST */
+#toast { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: var(--success); color: var(--bg); padding: 12px 22px; border-radius: 12px; font-size: 13px; font-weight: 700; box-shadow: 0 8px 28px rgba(34,211,164,0.35); opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; }
 #toast.show { opacity: 1; transform: translateY(0); }
 
-/* ÔöÇÔöÇ PRINT ÔöÇÔöÇ */
+/* FAB */
+#fab-comment { position: fixed !important; bottom: 28px; right: 28px; z-index: 9000; width: 58px; height: 58px; border-radius: 50%; background: var(--accent); color: white; border: none; font-size: 24px; cursor: pointer; box-shadow: 0 8px 28px rgba(250,100,30,0.45); transition: all 0.25s; display: flex; align-items: center; justify-content: center; }
+#fab-comment:hover { transform: scale(1.12); }
+
+/* MODAL */
+#comment-modal { position: fixed; inset: 0; z-index: 9500; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; padding: 20px; }
+#comment-modal.open { display: flex; }
+.comment-modal-box { background: var(--card); border: 1px solid var(--border2); border-radius: 20px; padding: 28px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; }
+
+/* READ MODE */
+body.read-mode input, body.read-mode textarea, body.read-mode select { pointer-events: none; user-select: none; opacity: 0.85; background: transparent !important; border-color: transparent !important; resize: none; cursor: default; }
+body.read-mode .health-select { display: none; }
+body.read-mode .hypo-status-sel { display: none; }
+body.read-mode .edit-only { display: none; }
+.edit-only {}
+
+/* PRINT */
 @media print {
-  @page { size: A4; margin: 14mm 14mm 14mm 14mm; }
+  @page { size: A4; margin: 14mm; }
   body { background: white !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .toolbar { display: none !important; }
+  .toolbar, .sec-nav, #fab-comment, #comment-modal { display: none !important; }
   .page { padding: 20px 0 0 !important; }
   .card { background: #f9f9f9 !important; border-color: #e0e0e0 !important; }
   .kpi-card, .health-card { background: #f9f9f9 !important; }
-  .card2, .hypo-item, .metric-row, .priority-item, .imp-item { background: #f3f3f3 !important; }
-  .exec-summary { background: #fff8f4 !important; border-color: #ffa070 !important; }
-  .report-header { border-color: #e0e0e0 !important; }
-  .sec-label::after { background: #e0e0e0 !important; }
+  .decisao-box { background: #fff8f4 !important; }
 }
 
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.page { animation: fadeInUp 0.5s ease; }
-
-/* ÔöÇÔöÇ COMENT├üRIOS E FEEDBACK ÔöÇÔöÇ */
-.comment-card {
-  background: var(--card2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  animation: fadeSlideIn 0.25s ease;
-  transition: all 0.2s;
-}
-.comment-card:hover {
-  border-color: var(--border2);
-  transform: translateY(-1px);
-}
-.comment-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-}
-.badge {
-  font-size: 9px;
-  font-weight: 800;
-  padding: 3px 10px;
-  border-radius: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.badge-geral { background: rgba(156,163,175,0.15); color: var(--text2); }
-.badge-aprovado { background: rgba(34,211,164,0.15); color: var(--success); }
-.badge-ajuste { background: rgba(248,113,113,0.15); color: var(--danger); }
-.badge-elogio { background: rgba(251,191,36,0.15); color: var(--warning); }
-
-.profile-select-lbl {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  background: var(--card2);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text2);
-  transition: all 0.15s;
-}
-.profile-select-lbl:hover {
-  border-color: var(--border2);
-  color: var(--text);
-  background: rgba(255,255,255,0.02);
-}
-.profile-select-lbl input[type="radio"]:checked + span {
-  color: var(--text);
-}
-.profile-select-lbl input[type="radio"] {
-  accent-color: var(--accent);
-  width: 16px;
-  height: 16px;
-}
-
-/* ÔöÇÔöÇ DECIS├âO NECESS├üRIA ÔöÇÔöÇ */
-.decisao-box {
-  background: linear-gradient(135deg, rgba(248,113,113,0.10) 0%, rgba(251,191,36,0.06) 100%);
-  border: 1px solid rgba(248,113,113,0.30);
-  border-left: 4px solid var(--danger);
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin-bottom: 40px;
-  position: relative;
-  overflow: hidden;
-}
-.decisao-box::before {
-  content: '';
-  position: absolute; top: -40px; right: -40px;
-  width: 160px; height: 160px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(248,113,113,0.06) 0%, transparent 70%);
-}
-.decisao-title {
-  font-size: 12px; font-weight: 800; text-transform: uppercase;
-  letter-spacing: 2px; color: var(--danger); margin-bottom: 18px;
-  display: flex; align-items: center; gap: 10px;
-}
-.decisao-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.decisao-item {
-  background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px 18px;
-  border: 1px solid rgba(248,113,113,0.12);
-}
-.decisao-num {
-  font-size: 11px; font-weight: 800; color: var(--danger);
-  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
-}
-.decisao-pergunta {
-  font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.45; margin-bottom: 6px;
-}
-.decisao-context { font-size: 11px; color: var(--text3); line-height: 1.5; }
-
-/* ÔöÇÔöÇ MODO LEITURA ÔöÇÔöÇ */
-body.read-mode input,
-body.read-mode textarea,
-body.read-mode select:not(#comment-type):not(#comment-section):not([name='comment-author']) {
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.85;
-  background: transparent !important;
-  border-color: transparent !important;
-  resize: none;
-  cursor: default;
-}
-body.read-mode .health-select { display: none; }
-body.read-mode .hypo-status-sel { display: none; }
-body.read-mode #new-imp { display: none; }
-body.read-mode button[onclick="addImpedimento()"] { display: none; }
-body.read-mode .edit-only { display: none; }
-body.read-mode .read-show { display: flex !important; }
-.read-show { display: none; }
-
-.mode-toggle-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 6px 13px; border-radius: 8px;
-  font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
-  cursor: pointer; transition: all 0.2s; border: 1px solid rgba(34,211,164,0.3);
-  color: var(--success); background: rgba(34,211,164,0.08); white-space: nowrap;
-}
-.mode-toggle-btn:hover { background: rgba(34,211,164,0.14); }
-.mode-toggle-btn.edit-mode {
-  border-color: rgba(250,100,30,0.3);
-  color: var(--accent); background: rgba(250,100,30,0.08);
-}
-.mode-toggle-btn.edit-mode:hover { background: rgba(250,100,30,0.14); }
-
-/* ÔöÇÔöÇ FAB COMENT├üRIO ÔöÇÔöÇ */
-#fab-comment {
-  position: fixed !important;
-  bottom: 28px; right: 28px;
-  z-index: 9000;
-  width: 58px; height: 58px; border-radius: 50%;
-  background: var(--accent); color: white; border: none;
-  font-size: 24px; cursor: pointer;
-  box-shadow: 0 8px 28px rgba(250,100,30,0.45);
-  transition: all 0.25s;
-  display: flex; align-items: center; justify-content: center;
-  isolation: isolate;
-}
-#fab-comment:hover { transform: scale(1.12); box-shadow: 0 12px 36px rgba(250,100,30,0.55); }
-
-/* ÔöÇÔöÇ MODAL COMENT├üRIO ÔöÇÔöÇ */
-#comment-modal {
-  position: fixed; inset: 0; z-index: 9500;
-  background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
-  display: none; align-items: center; justify-content: center;
-  padding: 20px;
-}
-#comment-modal.open { display: flex; animation: fadeSlideIn 0.2s ease; }
-.comment-modal-box {
-  background: var(--card); border: 1px solid var(--border2);
-  border-radius: 20px; padding: 28px; width: 100%; max-width: 520px;
-  max-height: 90vh; overflow-y: auto;
-}
-.comment-modal-title {
-  font-size: 16px; font-weight: 800; margin-bottom: 4px;
-}
-.comment-modal-sub {
-  font-size: 11px; color: var(--text3); margin-bottom: 20px;
-}
-
-/* ÔöÇÔöÇ RESPONSIVO ÔöÇÔöÇ */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  :root { --toolbar-h: 53px; --nav-h: 40px; }
   .page { padding: calc(var(--header-total) + 16px) 16px 80px; }
   .kpi-grid { grid-template-columns: repeat(2,1fr) !important; }
   .health-grid { grid-template-columns: repeat(2,1fr) !important; }
   .two-cols { grid-template-columns: 1fr !important; }
-  .three-cols { grid-template-columns: 1fr !important; }
   .decisao-grid { grid-template-columns: 1fr !important; }
   .exec-grid { grid-template-columns: 1fr !important; }
   .report-header { grid-template-columns: 1fr !important; }
   .rh-meta { text-align: left !important; }
-  .toolbar-left .toolbar-badge:last-child { display: none; }
-  #fab-comment { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 20px; }
 }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeSlideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
-<div id="toast">Ô£à Reporte salvo!</div>
+<div id="toast">&#10003; Reporte salvo!</div>
 
 <!-- TOOLBAR -->
 <div class="toolbar">
   <div class="toolbar-left">
-    <span class="logo">PIGZ<span class="accent">.</span></span>
+    <span class="logo">PIGZ<span class="ac">.</span></span>
     <span class="toolbar-badge">Reporte Executivo</span>
-    <span id="sync-status-badge" class="toolbar-badge" style="font-size:10px; font-weight:700; border-color:rgba(156,163,175,0.3); color:var(--text3); background:rgba(255,255,255,0.02); cursor:pointer; display:inline-flex; align-items:center; gap:5px;" onclick="openConfigModal()">
-      ÔÜ¬ Carregando...
-    </span>
+    <span class="toolbar-badge" style="color:var(--warning);border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.06);">S6 &middot; 19 Jun 2026</span>
   </div>
   <div class="toolbar-right">
-    <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="toggleReadMode()">­ƒæü Modo Leitura</button>
-    <button class="tbtn edit-only" onclick="saveAll()">­ƒÆ¥ Salvar</button>
-    <button class="tbtn" onclick="window.print()">­ƒû¿´©Å PDF</button>
-    <a class="tbtn" href="plano-semanal.html">­ƒùô´©Å Plano</a>
-    <a class="tbtn" href="index.html">ÔåÉ Painel</a>
+    <button class="mode-toggle-btn" id="mode-toggle-btn" onclick="toggleReadMode()">&#128065; Modo Leitura</button>
+    <button class="tbtn edit-only" onclick="saveAll()">&#128190; Salvar</button>
+    <button class="tbtn" onclick="window.print()">&#128424; PDF</button>
+    <a class="tbtn" href="index.html">&#8617; Painel</a>
   </div>
 </div>
 
-<!-- NAVBAR DE SE├ç├òES -->
+<!-- SECTION NAV -->
 <nav class="sec-nav" id="sec-nav">
-  <a class="sec-nav-item active" href="#sec-decisao">­ƒÜ¿ Decis├úo</a>
-  <a class="sec-nav-item" href="#sec-resumo">­ƒôî Resumo</a>
-  <a class="sec-nav-item" href="#sec-kpis">­ƒôè KPIs</a>
-  <a class="sec-nav-item" href="#sec-saude">­ƒ®║ Sa├║de</a>
-  <a class="sec-nav-item" href="#sec-impedimentos">ÔÜá´©Å Impedimentos</a>
-  <a class="sec-nav-item" href="#sec-distribuicao">­ƒôª Bugs</a>
-  <a class="sec-nav-item" href="#sec-metricas">­ƒôê M├®tricas</a>
-  <a class="sec-nav-item" href="#sec-prioridades">­ƒÄ» Prioridades</a>
-  <a class="sec-nav-item" href="#sec-hipoteses">­ƒôï Hip├│teses</a>
-  <a class="sec-nav-item" href="#sec-deployments">­ƒÜÇ Deployments</a>
-  <a class="sec-nav-item" href="#sec-comentarios">­ƒÆ¼ Feedback</a>
+  <a class="sec-nav-item active" href="#sec-decisao">&#128680; Decisao</a>
+  <a class="sec-nav-item" href="#sec-resumo">&#128196; Resumo</a>
+  <a class="sec-nav-item" href="#sec-kpis">&#128202; KPIs</a>
+  <a class="sec-nav-item" href="#sec-saude">&#128138; Saude</a>
+  <a class="sec-nav-item" href="#sec-impedimentos">&#9888; Impedimentos</a>
+  <a class="sec-nav-item" href="#sec-distribuicao">&#128027; Bugs</a>
+  <a class="sec-nav-item" href="#sec-metricas">&#128202; Metricas</a>
+  <a class="sec-nav-item" href="#sec-prioridades">&#127937; Prioridades</a>
+  <a class="sec-nav-item" href="#sec-hipoteses">&#128203; Hipoteses</a>
+  <a class="sec-nav-item" href="#sec-comentarios">&#128172; Feedback</a>
 </nav>
 
 <div class="page">
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ CABE├çALHO DO REPORTE ÔòÉÔòÉÔòÉÔòÉ -->
+  <!-- CABECALHO DO REPORTE -->
   <div class="report-header">
     <div>
-      <div class="rh-pre">Coordena├º├úo de Projetos</div>
+      <div class="rh-pre">Coordenacao de Projetos</div>
       <h1 class="rh-title">Reporte Operacional<br><span class="company">PIGZ</span></h1>
-      <div class="rh-subtitle">Vis├úo executiva da sa├║de operacional, gargalos ativos, m├®tricas de governan├ºa e a├º├Áes priorizadas para a semana. Preparado para que a lideran├ºa tome decis├Áes informadas sem precisar falar com toda a equipe.</div>
+      <div class="rh-subtitle">Visao executiva da saude operacional, gargalos ativos, metricas de governanca e acoes priorizadas para a semana. Preparado para que a lideranca tome decisoes informadas sem precisar falar com toda a equipe.</div>
     </div>
     <div class="rh-meta">
-      <div class="rh-meta-week" id="rpt-semana-display">Semana 5 ┬À Jun 2026</div>
-      <div class="rh-meta-date" id="rpt-data-display">09 ÔÇö 13 de Junho de 2026</div>
-      <div id="status-global-badge" class="status-badge-global" style="background:rgba(251,191,36,0.12);color:#FBBF24;border:1px solid rgba(251,191,36,0.25)" onclick="cycleGlobalStatus()">
-        <span id="status-global-dot" style="font-size:18px">­ƒƒí</span>
-        <span id="status-global-text">Aten├º├úo Necess├íria</span>
+      <div class="rh-meta-week">Semana 6 &middot; Jun 2026</div>
+      <div class="rh-meta-date">13 &mdash; 19 de Junho de 2026</div>
+      <div class="status-badge-global" style="background:rgba(248,113,113,0.12);color:#F87171;border:1px solid rgba(248,113,113,0.25)">
+        <span style="font-size:18px">&#128308;</span>
+        <span>Atencao Necessaria</span>
       </div>
-      <div class="edit-only" style="font-size:10px;color:var(--text3);margin-top:6px;text-align:right">Clique para alterar o status</div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ DECIS├âO NECESS├üRIA ÔòÉÔòÉÔòÉÔòÉ -->
+  <!-- DECISAO NECESSARIA -->
   <div class="decisao-box" id="sec-decisao">
-    <div class="decisao-title">­ƒÜ¿ Decis├úo Necess├íria esta Semana</div>
+    <div class="decisao-title">&#128680; Decisao Necessaria esta Semana</div>
     <div class="decisao-grid">
       <div class="decisao-item">
-        <div class="decisao-num">Decis├úo 01</div>
-        <div class="decisao-pergunta">Acionar plano de resposta imediata ├ás vulnerabilidades SWAT (CVSS 9.3)?</div>
-        <div class="decisao-context">5 falhas cr├¡ticas de seguran├ºa confirmadas: IDOR cross-tenant, rotas sem autentica├º├úo (A2/A3), webhooks de pagamento sem HMAC e exposi├º├úo de PII (LGPD). SWAT-201 a 222 em Backlog. Risco jur├¡dico e operacional imediato.</div>
+        <div class="decisao-num">Decisao 01</div>
+        <div class="decisao-pergunta">Como resolver FRONT-185 &mdash; bug Urgent aberto ha 225 dias sem conclusao?</div>
+        <div class="decisao-context">O bug mais antigo do workspace esta aberto ha 7 meses e meio. Seguido por PIGZTEC-697 e PIGZTEC-698 com 84 dias. Esses bugs cronicos precisam de responsavel e prazo definidos esta semana.</div>
       </div>
       <div class="decisao-item">
-        <div class="decisao-num">Decis├úo 02</div>
-        <div class="decisao-pergunta">Validar entrega de segunda-feira (15/06): Matriz de Riscos + Linear em Fases?</div>
-        <div class="decisao-context">Compromisso firmado em reuni├úo (10/06) com prazo para 15/06 (amanh├ú). Linear indica 31 issues atualizadas em projetos de Matriz de Riscos (Financeiro + SWAT). Confirmar se entrega ser├í integral.</div>
+        <div class="decisao-num">Decisao 02</div>
+        <div class="decisao-pergunta">Como equilibrar a carga de guilherme.alves com 28 issues Urgent/High em aberto?</div>
+        <div class="decisao-context">guilherme.alves concentra a maior carga de bugs criticos do workspace. Natalia Fournier (12) e Vitor Rocha (9) tambem estao sobrecarregados. E necessario redistribuir ou priorizar para evitar gargalo de qualidade.</div>
       </div>
       <div class="decisao-item">
-        <div class="decisao-num">Decis├úo 03</div>
-        <div class="decisao-pergunta">Definir respons├íveis para 50 issues Urgent/High sem assignee em Backlog?</div>
-        <div class="decisao-context">PED-25, PED-26, PED-32 abertas desde 29/04 sem dono. No total, 50 issues cr├¡ticas aguardam atribui├º├úo. Piora vs. 39 da S4. Sem a├º├úo, esse n├║mero cresce toda semana.</div>
+        <div class="decisao-num">Decisao 03</div>
+        <div class="decisao-pergunta">Como reduzir o saldo negativo de -72 issues por semana no backlog?</div>
+        <div class="decisao-context">203 concluidas vs. 275 criadas = backlog crescendo 72 issues toda semana. E necessario aumentar a capacidade de entrega ou controlar a criacao de novas issues sem priorizacao adequada.</div>
       </div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ EXECUTIVE SUMMARY ÔòÉÔòÉÔòÉÔòÉ -->
+  <!-- EXECUTIVE SUMMARY -->
   <div class="exec-summary" id="sec-resumo">
-    <div class="exec-title">­ƒôî Resumo Executivo</div>
+    <div class="exec-title">&#128196; Resumo Executivo</div>
     <div class="exec-grid">
       <div class="exec-item">
         <div class="exec-item-label">Contexto</div>
-        <textarea class="rpt-textarea" id="exec-contexto" style="min-height:70px;background:rgba(255,255,255,0.04);">Semana 06 - workspace completo da Pigz (13/06ÔÇô13/06). Terceira semana de governan├ºa com dados do Linear. Backlog ativo: 49 issues (36 To Do + 13 In Progress). Cycle 3 em andamento: 290 planejadas, 37 Completed (13%). Semana marcada por spike de 158 novas issues e cluster de vulnerabilidades de seguran├ºa abertas (LGPD/PII).</textarea>
+        <div class="exec-item-text">Semana 06 &mdash; workspace completo da Pigz (13/06&ndash;19/06). Dados extraidos do Linear considerando todos os times e squads. <strong>275 issues criadas vs. 203 concluidas</strong> = saldo negativo de -72. 110 bugs Urgent/High ativos. Bug mais antigo (FRONT-185) aberto ha 225 dias.</div>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Conquista</div>
-        <textarea class="rpt-textarea" id="exec-conquista" style="min-height:70px;background:rgba(255,255,255,0.04);">77 issues Completed na semana ÔÇö salto expressivo vs. 7 da S4. FIN-1, FIN-2, FIN-8, FIN-9 e FIN-13 ganharam assignee (Guilherme Bernardo) ÔÇö compromisso da reuni├úo de ter├ºa cumprido. Emerson Marinho liderou com 28 issues conclu├¡das em 14 dias. Severino AI lan├ºado ao time.</textarea>
+        <div class="exec-item-text"><strong>203 issues concluidas na semana</strong> &mdash; Emerson Marinho liderou com 45 entregas, seguido por Felipe Souza (21) e Guilherme Bernardo (20). Issues Urgent/High sem assignee caiu de 131 para apenas <strong>7</strong> &mdash; reducao de 94%. Governanca de atribuicao funcionando.</div>
       </div>
       <div class="exec-item">
         <div class="exec-item-label">Principal Risco no Horizonte</div>
-        <textarea class="rpt-textarea" id="exec-risco" style="min-height:70px;background:rgba(255,255,255,0.04);">­ƒö┤ SEGURAN├çA CR├ìTICA: 5 vulnerabilidades abertas no SWAT (CVSS 9.3 confirmado) ÔÇö IDOR cross-tenant, rotas sem auth, webhooks sem HMAC, exposi├º├úo de PII (LGPD). 158 issues criadas vs. 77 resolvidas = backlog crescendo +81/semana. 50 Urgent/High sem assignee. @marcus.santos com 50 issues criadas sem resolver nenhuma.</textarea>
+        <div class="exec-item-text">&#128308; <strong>Backlog crescendo:</strong> -72 issues/semana. 112 bugs Urgent/High abertos ha mais de 14 dias &mdash; problema cronico. FRONT-185 com 225 dias sem resolucao. guilherme.alves com 28 Urgent/High acumuladas. 332 issues sem due date.</div>
       </div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ METODOLOGIA (COLAPS├üVEL) ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="metodologia-bar" id="sec-metodologia">
+  <!-- METODOLOGIA -->
+  <div class="metodologia-bar">
     <div class="metodologia-header" onclick="toggleMetodologia()">
       <div class="metodologia-header-left">
-        ­ƒôÜ Como calculamos esses dados
-        <span style="font-size:10px; color:var(--text3); font-weight:400">Clique para ver a metodologia e fontes de cada indicador</span>
+        &#128214; Como calculamos esses dados
+        <span style="font-size:10px;color:var(--text3);font-weight:400">Clique para ver a metodologia e fontes de cada indicador</span>
       </div>
-      <span class="metodologia-chevron" id="met-chev">Ôû╝</span>
+      <span class="metodologia-chevron" id="met-chev">&#9660;</span>
     </div>
     <div class="metodologia-body" id="met-body">
       <div class="metodologia-grid">
         <div class="metodologia-item">
-          <div class="metodologia-item-title">­ƒÉø Bugs Cr├¡ticos em Aberto</div>
-          <div class="metodologia-item-desc">Contagem de issues com label P0 ou P1 no status "Em aberto" ou "Em andamento" ao final da semana.</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À filtro Priority: Urgent + High, Status: In Progress / Todo</div>
+          <div class="metodologia-item-title">&#128027; Bugs Criticos em Aberto</div>
+          <div class="metodologia-item-desc">Contagem de issues Urgent ou High em status ativo (Todo + In Progress) ao final da semana.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; filtro Priority: Urgent+High, Status: ativo, workspace completo</div>
         </div>
         <div class="metodologia-item">
-          <div class="metodologia-item-title">Ô£à Bugs Resolvidos</div>
-          <div class="metodologia-item-desc">Issues fechadas com status "Resolvido" ou "Done" durante o per├¡odo da semana (seg ├á sex).</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À filtro Status: Done, periodo da semana</div>
+          <div class="metodologia-item-title">&#10003; Issues Concluidas</div>
+          <div class="metodologia-item-desc">Issues com status final (Completed, Done, In Production, Finalizado) atualizadas nos ultimos 7 dias.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; Status: Completed &middot; periodo da semana &middot; todos os squads</div>
         </div>
         <div class="metodologia-item">
-          <div class="metodologia-item-title">ÔÅ▒´©Å MTTR M├®dio</div>
-          <div class="metodologia-item-desc">M├®dia de (data fechamento ÔêÆ data abertura) para bugs P0+P1 resolvidos na semana. Calculado em horas.</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À data Created ÔåÆ data Completed das issues P0+P1</div>
+          <div class="metodologia-item-title">&#128202; Issues Criadas</div>
+          <div class="metodologia-item-desc">Total de novas issues abertas no workspace nos ultimos 7 dias. Indica volume de demanda entrante.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; Created: ultimos 7 dias &middot; workspace completo</div>
         </div>
         <div class="metodologia-item">
-          <div class="metodologia-item-title">­ƒôï Sem Estimativa (%)</div>
-          <div class="metodologia-item-desc">Issues sem campo Story Points preenchido ├À total de issues abertas no backlog. Quanto menor, melhor governan├ºa.</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À filtro Estimate: sem valor (empty)</div>
+          <div class="metodologia-item-title">&#128197; Sem Due Date</div>
+          <div class="metodologia-item-desc">Issues ativas sem campo de prazo preenchido. Quanto menor, melhor governanca e previsibilidade.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; Active + Due Date: vazio &middot; todos os squads</div>
         </div>
         <div class="metodologia-item">
-          <div class="metodologia-item-title">­ƒÄ» Entregas vs. Planejado (%)</div>
-          <div class="metodologia-item-desc">Issues marcadas "Done" na sprint ├À issues que entraram no sprint planning ├ù 100. Meta: acima de 80%.</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À Cycle Report ├À issues do planejamento do ciclo</div>
+          <div class="metodologia-item-title">&#128100; Sem Assignee</div>
+          <div class="metodologia-item-desc">Issues Urgent/High sem responsavel atribuido. Sem dono = sem accountability = sem entrega.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; Priority: Urgent+High &middot; Assignee: vazio</div>
         </div>
         <div class="metodologia-item">
-          <div class="metodologia-item-title">­ƒ®║ Sa├║de por Produto</div>
-          <div class="metodologia-item-desc">Avalia├º├úo qualitativa baseada em: taxa de erros no Sentry, feedback do standup, incidentes da semana.</div>
-          <div class="metodologia-item-fonte">­ƒöù Fonte: <strong>Linear</strong> ┬À team insights + standups di├írios</div>
+          <div class="metodologia-item-title">&#9203; Cronicos 14+ dias</div>
+          <div class="metodologia-item-desc">Issues Urgent/High abertas ha mais de 14 dias sem conclusao. Indicam problemas sistemicos de priorizacao.</div>
+          <div class="metodologia-item-fonte">&#128279; Fonte: <strong>Linear</strong> &middot; Priority: Urgent+High &middot; Created: &gt;14 dias &middot; Status: ativo</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ KPIs ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label" id="sec-kpis">­ƒôè Indicadores da Semana</div>
+  <!-- KPIs -->
+  <div class="sec-label" id="sec-kpis">&#128202; Indicadores da Semana</div>
   <div class="kpi-grid">
     <div class="kpi-card" style="--kc:var(--danger)">
-      <div class="kpi-card-icon">­ƒÉø</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-crit" placeholder="ÔÇö" min="0" value="110"></div>
-      <div class="kpi-label">Bugs Cr├¡ticos<br>em Aberto</div>
-      <div class="kpi-trend" style="color:var(--danger)" id="trend-bugs">Ôåæ 30 Urgent+High ┬À +3 vs S4</div>
-      <div class="kpi-vs up" id="kvs-bugs-crit">vs. S5: <input type="number" id="k-bugs-crit-prev" value="30" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> ÔåÆ +3</div>
-      <div class="kpi-fonte">­ƒöù <span><strong>Linear</strong> ┬À Priority: Urgent+High ┬À Status: ativo</span></div>
+      <div class="kpi-card-icon">&#128027;</div>
+      <div class="kpi-num"><input type="number" id="k-bugs-crit" min="0" value="110"></div>
+      <div class="kpi-label">Bugs Criticos<br>em Aberto</div>
+      <div class="kpi-trend" style="color:var(--danger)">&#8593; 110 Urgent+High &middot; workspace completo</div>
+      <div class="kpi-vs up">vs. S5: 30 &rarr; +80</div>
+      <div class="kpi-fonte">&#128279; <span><strong>Linear</strong> &middot; Priority: Urgent+High &middot; Status: ativo</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--success)">
-      <div class="kpi-card-icon">Ô£à</div>
-      <div class="kpi-num"><input type="number" id="k-bugs-res" placeholder="ÔÇö" min="0" value="77" oninput="calcTaxaRes()"></div>
-      <div class="kpi-label">Resolvidos<br>na Semana</div>
-      <div class="kpi-trend" style="color:var(--success)" id="trend-res">ÔåæÔåæ Taxa: 256% ┬À +70 vs S4</div>
-      <div class="kpi-vs down" id="kvs-bugs-res">vs. S5: <input type="number" id="k-bugs-res-prev" value="77" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> ÔåÆ +70</div>
-      <div class="kpi-fonte">­ƒöù <span><strong>Linear</strong> ┬À Status: Completed ┬À ├║ltimos 7 dias</span></div>
+      <div class="kpi-card-icon">&#10003;</div>
+      <div class="kpi-num"><input type="number" id="k-concluidas" min="0" value="203"></div>
+      <div class="kpi-label">Concluidas<br>na Semana</div>
+      <div class="kpi-trend" style="color:var(--success)">&#8593; 203 concluidas &middot; Emerson: 45</div>
+      <div class="kpi-vs down">vs. S5: 77 &rarr; +126</div>
+      <div class="kpi-fonte">&#128279; <span><strong>Linear</strong> &middot; Status: Completed &middot; ultimos 7 dias</span></div>
     </div>
-    <div class="kpi-card" style="--kc:var(--warning)">
-      <div class="kpi-card-icon">ÔÅ▒´©Å</div>
-      <div class="kpi-num"><input type="number" id="k-mttr" placeholder="ÔÇö" min="0" value="" oninput="updateMttrTrend()"></div>
-      <div class="kpi-label">MTTR M├®dio<br>(horas)</div>
-      <div class="kpi-trend" id="trend-mttr" style="color:var(--text3)">ÔÜá´©Å N├úo encontrado no Linear</div>
-      <div class="kpi-vs neutral" id="kvs-mttr">vs. S4: <input type="number" id="k-mttr-prev" value="71" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> ÔåÆ ?</div>
-      <div class="kpi-fonte">­ƒöù <span><strong>Linear</strong> ┬À Lacuna de rastreabilidade</span></div>
+    <div class="kpi-card" style="--kc:var(--danger)">
+      <div class="kpi-card-icon">&#128202;</div>
+      <div class="kpi-num"><input type="number" id="k-criadas" min="0" value="275"></div>
+      <div class="kpi-label">Issues Criadas<br>na Semana</div>
+      <div class="kpi-trend" style="color:var(--danger)">&#128308; Saldo: -72 &middot; backlog crescendo</div>
+      <div class="kpi-vs up">vs. S5: 158 &rarr; +117</div>
+      <div class="kpi-fonte">&#128279; <span><strong>Linear</strong> &middot; Issues criadas &middot; ultimos 7 dias</span></div>
     </div>
     <div class="kpi-card" style="--kc:var(--info)">
-      <div class="kpi-card-icon">­ƒôà</div>
-      <div class="kpi-num"><input type="number" id="k-sem-est" placeholder="ÔÇö" min="0" max="100" value="88"></div>
-      <div class="kpi-label">Sem Due Date<br>(%)</div>
-      <div class="kpi-trend" style="color:var(--danger)">­ƒö┤ 43 de 49 ativas sem prazo</div>
-      <div class="kpi-vs up" id="kvs-sem-est">vs. S5: <input type="number" id="k-sem-est-prev" value="427" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px"> ÔåÆ +3%</div>
-      <div class="kpi-fonte">­ƒöù <span><strong>Linear</strong> ┬À Active + Due Date: vazio ┬À 43/49</span></div>
+      <div class="kpi-card-icon">&#128197;</div>
+      <div class="kpi-num"><input type="number" id="k-sem-date" min="0" value="332"></div>
+      <div class="kpi-label">Issues Ativas<br>sem Due Date</div>
+      <div class="kpi-trend" style="color:var(--danger)">&#128308; 332 issues sem prazo definido</div>
+      <div class="kpi-vs up">vs. S5: 427 &rarr; -95</div>
+      <div class="kpi-fonte">&#128279; <span><strong>Linear</strong> &middot; Active + Due Date: vazio</span></div>
     </div>
-    <div class="kpi-card" style="--kc:var(--accent)">
-      <div class="kpi-card-icon">­ƒÄ»</div>
-      <div class="kpi-num"><input type="number" id="k-entregas" placeholder="ÔÇö" min="0" max="100" value="13"></div>
+    <div class="kpi-card" style="--kc:var(--success)">
+      <div class="kpi-card-icon">&#128100;</div>
+      <div class="kpi-num"><input type="number" id="k-sem-assign" min="0" value="7"></div>
       <div class="kpi-label">Urgent/High<br>sem Assignee</div>
-      <div class="kpi-trend" style="color:var(--warning)">­ƒƒí 37 de 290 ┬À Cycle 3</div>
-      <div class="kpi-vs neutral" id="kvs-entregas">vs. S4: <input type="number" id="k-entregas-prev" value="131" style="width:32px;background:transparent;border:none;outline:none;font-family:var(--mono);font-weight:700;color:inherit;font-size:10px" placeholder="ÔÇö"> ÔåÆ Cycle 3</div>
-      <div class="kpi-fonte">­ƒöù <span><strong>Linear</strong> ┬À Cycle 3 ┬À Urgent+High · sem assignee</span></div>
+      <div class="kpi-trend" style="color:var(--success)">&#8595; Queda de 131 &rarr; 7 &middot; -94%</div>
+      <div class="kpi-vs down">vs. S5: 131 &rarr; -124</div>
+      <div class="kpi-fonte">&#128279; <span><strong>Linear</strong> &middot; Urgent+High &middot; sem assignee</span></div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ SA├ÜDE POR PRODUTO ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label" id="sec-saude">­ƒ®║ Sa├║de por Produto</div>
+  <!-- SAUDE POR PRODUTO -->
+  <div class="sec-label" id="sec-saude">&#128138; Saude por Produto</div>
   <div class="health-grid">
-    <div class="health-card" id="hc-partner">
-      <div class="health-icon">­ƒÅ¬</div>
+    <div class="health-card" id="hc-partner" style="--hc:var(--warning)">
+      <div class="health-icon">&#128101;</div>
       <div class="health-product">Pigz Partner</div>
-      <div class="health-dot" id="hd-partner">­ƒƒí</div>
-      <div class="health-status-label" id="hl-partner" style="color:var(--warning)">Aten├º├úo</div>
-      <div class="health-note" id="hn-partner">1 bug Urgent/High ativo ┬À sem monitoramento</div>
+      <div class="health-dot" id="hd-partner">&#128161;</div>
+      <div class="health-status-label" id="hl-partner" style="color:var(--warning)">Atencao</div>
+      <div class="health-note" id="hn-partner">Bugs ativos &middot; monitorar</div>
       <select class="health-select" onchange="setHealth('partner',this.value)">
-        <option value="ok">­ƒƒó Saud├ível</option>
-        <option value="att" selected>­ƒƒí Aten├º├úo</option>
-        <option value="crit">­ƒö┤ Cr├¡tico</option>
+        <option value="ok">&#128994; Saudavel</option>
+        <option value="att" selected>&#128161; Atencao</option>
+        <option value="crit">&#128308; Critico</option>
       </select>
     </div>
-    <div class="health-card" id="hc-mobile">
-      <div class="health-icon">­ƒô▒</div>
+    <div class="health-card" id="hc-mobile" style="--hc:var(--success)">
+      <div class="health-icon">&#128241;</div>
       <div class="health-product">Mobile (iOS/Android)</div>
-      <div class="health-dot" id="hd-mobile">­ƒƒó</div>
-      <div class="health-status-label" id="hl-mobile" style="color:var(--success)">Saud├ível</div>
-      <div class="health-note" id="hn-mobile">0 bugs Urgent/High ┬À Pigz App + Comanda</div>
+      <div class="health-dot" id="hd-mobile">&#128994;</div>
+      <div class="health-status-label" id="hl-mobile" style="color:var(--success)">Saudavel</div>
+      <div class="health-note" id="hn-mobile">Sem bugs criticos &middot; estaval</div>
       <select class="health-select" onchange="setHealth('mobile',this.value)">
-        <option value="ok" selected>­ƒƒó Saud├ível</option>
-        <option value="att">­ƒƒí Aten├º├úo</option>
-        <option value="crit">­ƒö┤ Cr├¡tico</option>
+        <option value="ok" selected>&#128994; Saudavel</option>
+        <option value="att">&#128161; Atencao</option>
+        <option value="crit">&#128308; Critico</option>
       </select>
     </div>
-    <div class="health-card" id="hc-gestao">
-      <div class="health-icon">­ƒÆ╗</div>
-      <div class="health-product">Gest├úo Desktop + Mobile</div>
-      <div class="health-dot" id="hd-gestao">­ƒƒó</div>
-      <div class="health-status-label" id="hl-gestao" style="color:var(--success)">Saud├ível</div>
-      <div class="health-note" id="hn-gestao">0 bugs Urgent/High ┬À sem incidentes</div>
+    <div class="health-card" id="hc-gestao" style="--hc:var(--success)">
+      <div class="health-icon">&#128188;</div>
+      <div class="health-product">Gestao Desktop + Mobile</div>
+      <div class="health-dot" id="hd-gestao">&#128994;</div>
+      <div class="health-status-label" id="hl-gestao" style="color:var(--success)">Saudavel</div>
+      <div class="health-note" id="hn-gestao">Sem incidentes &middot; estaval</div>
       <select class="health-select" onchange="setHealth('gestao',this.value)">
-        <option value="ok" selected>­ƒƒó Saud├ível</option>
-        <option value="att">­ƒƒí Aten├º├úo</option>
-        <option value="crit">­ƒö┤ Cr├¡tico</option>
+        <option value="ok" selected>&#128994; Saudavel</option>
+        <option value="att">&#128161; Atencao</option>
+        <option value="crit">&#128308; Critico</option>
       </select>
     </div>
-    <div class="health-card" id="hc-tef">
-      <div class="health-icon">­ƒÆ│</div>
+    <div class="health-card" id="hc-tef" style="--hc:var(--warning)">
+      <div class="health-icon">&#128179;</div>
       <div class="health-product">TEF / Totem</div>
-      <div class="health-dot" id="hd-tef">­ƒƒí</div>
-      <div class="health-status-label" id="hl-tef" style="color:var(--warning)">Aten├º├úo</div>
-      <div class="health-note" id="hn-tef">N├úo mapeado no Linear ┬À verificar label</div>
+      <div class="health-dot" id="hd-tef">&#128161;</div>
+      <div class="health-status-label" id="hl-tef" style="color:var(--warning)">Atencao</div>
+      <div class="health-note" id="hn-tef">Nao mapeado no Linear &middot; verificar label</div>
       <select class="health-select" onchange="setHealth('tef',this.value)">
-        <option value="ok">­ƒƒó Saud├ível</option>
-        <option value="att" selected>­ƒƒí Aten├º├úo</option>
-        <option value="crit">­ƒö┤ Cr├¡tico</option>
+        <option value="ok">&#128994; Saudavel</option>
+        <option value="att" selected>&#128161; Atencao</option>
+        <option value="crit">&#128308; Critico</option>
       </select>
     </div>
-    <div class="health-card" id="hc-appweb">
-      <div class="health-icon">­ƒîÉ</div>
+    <div class="health-card" id="hc-appweb" style="--hc:var(--success)">
+      <div class="health-icon">&#127760;</div>
       <div class="health-product">App Web (Pigz Web)</div>
-      <div class="health-dot" id="hd-appweb">­ƒƒó</div>
-      <div class="health-status-label" id="hl-appweb" style="color:var(--success)">Saud├ível</div>
-      <div class="health-note" id="hn-appweb">0 bugs Urgent/High ┬À est├ível</div>
+      <div class="health-dot" id="hd-appweb">&#128994;</div>
+      <div class="health-status-label" id="hl-appweb" style="color:var(--success)">Saudavel</div>
+      <div class="health-note" id="hn-appweb">Sem bugs Urgent/High &middot; estaval</div>
       <select class="health-select" onchange="setHealth('appweb',this.value)">
-        <option value="ok" selected>­ƒƒó Saud├ível</option>
-        <option value="att">­ƒƒí Aten├º├úo</option>
-        <option value="crit">­ƒö┤ Cr├¡tico</option>
+        <option value="ok" selected>&#128994; Saudavel</option>
+        <option value="att">&#128161; Atencao</option>
+        <option value="crit">&#128308; Critico</option>
       </select>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ GARGALOS + DISTRIBUI├ç├âO ÔòÉÔòÉÔòÉÔòÉ -->
+  <!-- IMPEDIMENTOS + DISTRIBUICAO -->
   <div class="two-cols" id="sec-impedimentos">
-
-    <!-- Impedimentos -->
     <div class="card">
-      <div class="card-title">ÔÜá´©Å Impedimentos Ativos</div>
+      <div class="card-title">&#9888; Impedimentos Ativos</div>
       <div class="imp-list" id="imp-list">
         <div class="imp-item">
-          <div class="imp-sev" style="background:#7C3AED"></div>
+          <div class="imp-sev" style="background:var(--danger)"></div>
           <div class="imp-body">
-            <div class="imp-title">­ƒö┤ SEGURAN├çA CR├ìTICA ÔÇö CVSS 9.3 confirmado (SWAT-201 a 222)</div>
-            <div class="imp-context">5 vulnerabilidades abertas: IDOR cross-tenant, rotas sem autentica├º├úo (A2/A3), webhooks de pagamento sem HMAC, exposi├º├úo de PII em pedidos guest (LGPD). Requer a├º├úo imediata.</div>
+            <div class="imp-title">&#128308; FRONT-185 &mdash; Bug Urgent aberto ha 225 dias</div>
+            <div class="imp-context">O bug mais antigo do workspace. 7 meses e meio em aberto. Seguido por PIGZTEC-697 e PIGZTEC-698 com 84 dias. Bugs cronicos impactam diretamente a experiencia do cliente.</div>
           </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(124,58,237,0.2);color:#A78BFA">Bloqueante</span>
-          </div>
+          <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(248,113,113,0.2);color:var(--danger)">Critico</span></div>
         </div>
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--danger)"></div>
           <div class="imp-body">
-            <div class="imp-title">50 issues Urgent/High em Backlog sem assignee</div>
-            <div class="imp-context">Fila cr├¡tica sem dono ÔÇö piora vs. 39 da S4. Issues priorit├írias nunca atribu├¡das. PED-25, PED-26, PED-32 abertas desde 29/04 sem respons├ível.</div>
+            <div class="imp-title">Saldo negativo: 275 criadas vs. 203 concluidas = -72 por semana</div>
+            <div class="imp-context">O backlog da empresa cresce 72 issues toda semana. Se o ritmo nao mudar, o acumulo se tornara incontrolavel. Necessario aumentar capacidade de entrega ou controlar criacao.</div>
           </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span>
+          <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span></div>
+        </div>
+        <div class="imp-item">
+          <div class="imp-sev" style="background:var(--danger)"></div>
+          <div class="imp-body">
+            <div class="imp-title">112 bugs Urgent/High abertos ha mais de 14 dias &mdash; cronicos</div>
+            <div class="imp-context">Mais bugs cronicos do que bugs novos. guilherme.alves concentra 28 Urgent/High &mdash; maior carga individual do workspace. Natalia Fournier: 12, Vitor Rocha: 9.</div>
           </div>
+          <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(248,113,113,0.15);color:var(--danger)">Urgente</span></div>
+        </div>
+        <div class="imp-item">
+          <div class="imp-sev" style="background:var(--warning)"></div>
+          <div class="imp-body">
+            <div class="imp-title">16 issues paradas em In Progress ha mais de 7 dias</div>
+            <div class="imp-context">Trabalho travado sem progresso registrado. Issues aparecem como "em andamento" mas sem nenhuma atualizacao. Requer verificacao imediata dos responsaveis.</div>
+          </div>
+          <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Medio</span></div>
         </div>
         <div class="imp-item">
           <div class="imp-sev" style="background:var(--success)"></div>
           <div class="imp-body">
-            <div class="imp-title">Ô£à FIN-1, FIN-2, FIN-8, FIN-9, FIN-13 ÔÇö Compromisso cumprido</div>
-            <div class="imp-context">Todas as 5 issues atribu├¡das a Guilherme Bernardo ap├│s reuni├úo de ter├ºa (10/06). Compromisso da coordena├º├úo honrado dentro do prazo.</div>
+            <div class="imp-title">&#10003; Melhora: Urgent/High sem assignee caiu de 131 para 7</div>
+            <div class="imp-context">Reducao de 94% em issues criticas sem responsavel. A politica de atribuicao obrigatoria implementada nas ultimas semanas esta funcionando. Continuar monitoramento semanal.</div>
           </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(52,211,153,0.15);color:var(--success)">Resolvido</span>
-          </div>
-        </div>
-        <div class="imp-item">
-          <div class="imp-sev" style="background:var(--warning)"></div>
-          <div class="imp-body">
-            <div class="imp-title">12 issues paradas em In Progress h├í mais de 7 dias</div>
-            <div class="imp-context">COM-4, PED-24, PED-19, PED-20, PED-21 entre as mais antigas. Melhora vs. 22 da S4, mas ainda requer aten├º├úo. Aparecem como "em progresso" mas sem atualiza├º├úo.</div>
-          </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">M├®dio</span>
-          </div>
-        </div>
-        <div class="imp-item">
-          <div class="imp-sev" style="background:var(--warning)"></div>
-          <div class="imp-body">
-            <div class="imp-title">27 de 30 bugs cr├¡ticos sem label de produto</div>
-            <div class="imp-context">90% dos Urgent/High ainda sem produto associado. Regra de tagueamento obrigat├│rio alinhada na reuni├úo (10/06) ainda n├úo refletida nos dados.</div>
-          </div>
-          <div class="imp-actions">
-            <span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">M├®dio</span>
-          </div>
+          <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(52,211,153,0.15);color:var(--success)">Conquista</span></div>
         </div>
       </div>
-      <div style="margin-top:14px">
+      <div style="margin-top:14px" class="edit-only">
         <div class="field-label">Adicionar impedimento</div>
         <textarea class="rpt-textarea" id="new-imp" placeholder="Descreva o novo impedimento..." style="min-height:56px;"></textarea>
         <button onclick="addImpedimento()" style="margin-top:8px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">+ Adicionar</button>
       </div>
     </div>
 
-    <!-- Distribui├º├úo de Bugs -->
-    <div class="card">
-      <div class="card-title">­ƒôª Distribui├º├úo de Bugs por Produto</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px">
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Partner</div>
-          <input class="rpt-input" type="number" id="b0" min="0" value="3" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+    <!-- DISTRIBUICAO DE BUGS -->
+    <div class="card" id="sec-distribuicao">
+      <div class="card-title">&#128203; Ranking &mdash; Devs com mais Urgent/High em Aberto</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:10px;padding:12px 14px;border-left:3px solid var(--danger)">
+          <div style="font-size:18px;font-weight:900;color:var(--danger);font-family:var(--mono);min-width:28px">1</div>
+          <div style="flex:1;font-size:13px;font-weight:600">guilherme.alves</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:var(--danger)">28</div>
+          <span style="font-size:10px;background:rgba(248,113,113,0.15);color:var(--danger);padding:2px 8px;border-radius:6px;font-weight:700">Critico</span>
         </div>
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Mobile</div>
-          <input class="rpt-input" type="number" id="b1" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:10px;padding:12px 14px;border-left:3px solid var(--warning)">
+          <div style="font-size:18px;font-weight:900;color:var(--warning);font-family:var(--mono);min-width:28px">2</div>
+          <div style="flex:1;font-size:13px;font-weight:600">Natalia Fournier</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:var(--warning)">12</div>
+          <span style="font-size:10px;background:rgba(251,191,36,0.15);color:var(--warning);padding:2px 8px;border-radius:6px;font-weight:700">Alto</span>
         </div>
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">App Web</div>
-          <input class="rpt-input" type="number" id="b2" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:10px;padding:12px 14px;border-left:3px solid var(--warning)">
+          <div style="font-size:18px;font-weight:900;color:var(--warning);font-family:var(--mono);min-width:28px">3</div>
+          <div style="flex:1;font-size:13px;font-weight:600">Vitor Rocha</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:var(--warning)">9</div>
+          <span style="font-size:10px;background:rgba(251,191,36,0.15);color:var(--warning);padding:2px 8px;border-radius:6px;font-weight:700">Alto</span>
         </div>
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Gest├úo</div>
-          <input class="rpt-input" type="number" id="b3" min="0" value="0" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:10px;padding:12px 14px;border-left:3px solid var(--text3)">
+          <div style="font-size:18px;font-weight:900;color:var(--text3);font-family:var(--mono);min-width:28px">4</div>
+          <div style="flex:1;font-size:13px;font-weight:600">Elias Monteiro</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:var(--text2)">7</div>
         </div>
-        <div>
-          <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Sem label (27)</div>
-          <input class="rpt-input" type="number" id="b4" min="0" value="27" oninput="updateBars()" style="font-size:13px;padding:7px 10px;">
+        <div style="display:flex;align-items:center;gap:12px;background:var(--card2);border-radius:10px;padding:12px 14px;border-left:3px solid var(--text3)">
+          <div style="font-size:18px;font-weight:900;color:var(--text3);font-family:var(--mono);min-width:28px">5</div>
+          <div style="flex:1;font-size:13px;font-weight:600">Guilherme Bernardo</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:800;color:var(--text2)">7</div>
         </div>
       </div>
-      <div class="bar-viz" style="height:110px">
-        <div class="bar-col">
-          <div class="bar-val-label" id="bv0" style="color:var(--danger)">ÔÇö</div>
-          <div class="bar-track"><div class="bar-fill" id="bf0" style="background:linear-gradient(to top,#EF4444,#F87171);height:0%"></div></div>
-          <div class="bar-name-label">Partner</div>
-        </div>
-        <div class="bar-col">
-          <div class="bar-val-label" id="bv1" style="color:var(--warning)">ÔÇö</div>
-          <div class="bar-track"><div class="bar-fill" id="bf1" style="background:linear-gradient(to top,#F59E0B,#FCD34D);height:0%"></div></div>
-          <div class="bar-name-label">Mobile</div>
-        </div>
-        <div class="bar-col">
-          <div class="bar-val-label" id="bv2" style="color:var(--accent)">ÔÇö</div>
-          <div class="bar-track"><div class="bar-fill" id="bf2" style="background:linear-gradient(to top,#FA641E,#FF8C56);height:0%"></div></div>
-          <div class="bar-name-label">App Web</div>
-        </div>
-        <div class="bar-col">
-          <div class="bar-val-label" id="bv3" style="color:var(--info)">ÔÇö</div>
-          <div class="bar-track"><div class="bar-fill" id="bf3" style="background:linear-gradient(to top,#3B82F6,#60A5FA);height:0%"></div></div>
-          <div class="bar-name-label">Gest├úo</div>
-        </div>
-        <div class="bar-col">
-          <div class="bar-val-label" id="bv4" style="color:var(--purple)">ÔÇö</div>
-          <div class="bar-track"><div class="bar-fill" id="bf4" style="background:linear-gradient(to top,#8B5CF6,#A78BFA);height:0%"></div></div>
-          <div class="bar-name-label">Sem label</div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+        <div class="card-title" style="margin-bottom:12px">&#127942; Top Entregas da Semana</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:8px;padding:10px 14px">
+            <span style="font-size:16px">&#129351;</span>
+            <span style="flex:1;font-size:13px;font-weight:600">Emerson Marinho</span>
+            <span style="font-family:var(--mono);font-weight:800;color:var(--success)">45</span>
+            <span style="font-size:10px;color:var(--text3)">issues</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:8px;padding:10px 14px">
+            <span style="font-size:16px">&#129352;</span>
+            <span style="flex:1;font-size:13px;font-weight:600">Felipe Souza</span>
+            <span style="font-family:var(--mono);font-weight:800;color:var(--success)">21</span>
+            <span style="font-size:10px;color:var(--text3)">issues</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:8px;padding:10px 14px">
+            <span style="font-size:16px">&#129353;</span>
+            <span style="flex:1;font-size:13px;font-weight:600">Guilherme Bernardo</span>
+            <span style="font-family:var(--mono);font-weight:800;color:var(--success)">20</span>
+            <span style="font-size:10px;color:var(--text3)">issues</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:8px;padding:10px 14px">
+            <span style="font-size:16px">4&#65039;&#8419;</span>
+            <span style="flex:1;font-size:13px;font-weight:600">Gustavo Carvalho</span>
+            <span style="font-family:var(--mono);font-weight:800;color:var(--success)">18</span>
+            <span style="font-size:10px;color:var(--text3)">issues</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--card2);border-radius:8px;padding:10px 14px">
+            <span style="font-size:16px">5&#65039;&#8419;</span>
+            <span style="flex:1;font-size:13px;font-weight:600">Rodrigo Lacan</span>
+            <span style="font-family:var(--mono);font-weight:800;color:var(--success)">17</span>
+            <span style="font-size:10px;color:var(--text3)">issues</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ M├ëTRICAS + PRIORIDADES ÔòÉÔòÉÔòÉÔòÉ -->
+  <!-- METRICAS + PRIORIDADES -->
   <div class="two-cols">
-
-    <!-- M├®tricas de Governan├ºa -->
-    <div class="card">
-      <div class="card-title">­ƒôê M├®tricas de Governan├ºa</div>
+    <div class="card" id="sec-metricas">
+      <div class="card-title">&#128202; Metricas de Governanca</div>
       <div class="metric-rows">
         <div class="metric-row">
-          <div class="metric-row-label">ÔÅ▒ MTTR</div>
-          <div class="metric-row-val" style="color:var(--warning)">
-            <input type="number" id="m-mttr" min="0" value="110">
-          </div>
+          <div class="metric-row-label">&#128027; Bugs Urgent/High ativos</div>
+          <div class="metric-row-val" style="color:var(--danger)"><input type="number" id="m-bugs" min="0" value="110"></div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
-          <div class="metric-row-label">­ƒôà Sem due date</div>
-          <div class="metric-row-val" style="color:var(--info)">
-            <input type="number" id="m-sem-est" min="0" max="10000" value="332">
-          </div>
-          <div class="metric-row-unit">%</div>
-        </div>
-        <div class="metric-row">
-          <div class="metric-row-label">­ƒÄ» Ader├¬ncia entregas</div>
-          <div class="metric-row-val" style="color:var(--success)">
-            <input type="number" id="m-aderencia" min="0" max="1000" value="112">
-          </div>
-          <div class="metric-row-unit">%</div>
-        </div>
-        <div class="metric-row">
-          <div class="metric-row-label">­ƒÉø Issues criadas</div>
-          <div class="metric-row-val" style="color:var(--danger)">
-            <input type="number" id="m-issues-new" min="0" value="275">
-          </div>
+          <div class="metric-row-label">&#9203; Cronicos 14+ dias</div>
+          <div class="metric-row-val" style="color:var(--danger)"><input type="number" id="m-cronicos" min="0" value="112"></div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
-          <div class="metric-row-label">Ô£à Issues fechadas</div>
-          <div class="metric-row-val" style="color:var(--success)">
-            <input type="number" id="m-issues-closed" min="0" value="203">
-          </div>
+          <div class="metric-row-label">&#128197; Sem due date</div>
+          <div class="metric-row-val" style="color:var(--info)"><input type="number" id="m-semdate" min="0" value="332"></div>
           <div class="metric-row-unit">issues</div>
         </div>
         <div class="metric-row">
-          <div class="metric-row-label">­ƒÜó Deployments</div>
-          <div class="metric-row-val" style="color:var(--purple)">
-            <input type="number" id="m-deploys" min="0" value="16">
-          </div>
+          <div class="metric-row-label">&#128202; Issues criadas</div>
+          <div class="metric-row-val" style="color:var(--danger)"><input type="number" id="m-criadas" min="0" value="275"></div>
+          <div class="metric-row-unit">issues</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-row-label">&#10003; Issues concluidas</div>
+          <div class="metric-row-val" style="color:var(--success)"><input type="number" id="m-concluidas" min="0" value="203"></div>
+          <div class="metric-row-unit">issues</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-row-label">&#128683; In Progress parados 7+d</div>
+          <div class="metric-row-val" style="color:var(--warning)"><input type="number" id="m-parados" min="0" value="16"></div>
           <div class="metric-row-unit">issues</div>
         </div>
       </div>
     </div>
 
-    <!-- Prioridades da Pr├│xima Semana -->
-    <div class="card">
-      <div class="card-title">­ƒÄ» Prioridades ÔÇö Pr├│xima Semana</div>
+    <div class="card" id="sec-prioridades">
+      <div class="card-title">&#127937; Prioridades &mdash; Proxima Semana</div>
       <div class="priority-list">
         <div class="priority-item" style="--pc:var(--danger)">
           <div class="priority-rank" style="color:var(--danger)">01</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p1" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">SWAT ÔÇö Corrigir 5 vulnerabilidades cr├¡ticas de seguran├ºa (CVSS 9.3): IDOR, rotas sem auth, webhooks sem HMAC e exposi├º├úo de PII (LGPD). A├º├úo imediata necess├íria.</textarea>
+            <textarea class="rpt-textarea" id="p1" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Resolver FRONT-185 (225 dias) e bugs cronicos &mdash; definir responsavel e prazo imediato. 112 Urgent/High abertas ha 14+ dias precisam de plano de acao esta semana.</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--warning)">
           <div class="priority-rank" style="color:var(--warning)">02</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p2" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Atribuir respons├íveis para 50 issues Urgent/High sem assignee em Backlog. PED-25, PED-26, PED-32 abertas desde 29/04 sem dono.</textarea>
+            <textarea class="rpt-textarea" id="p2" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Redistribuir carga de guilherme.alves (28 Urgent/High) e Natalia Fournier (12). Concentracao de bugs criticos em poucos devs gera risco de qualidade e burnout.</textarea>
           </div>
         </div>
         <div class="priority-item" style="--pc:var(--info)">
           <div class="priority-rank" style="color:var(--info)">03</div>
           <div class="priority-body">
-            <textarea class="rpt-textarea" id="p3" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Tagueamento de produto: 27 de 30 bugs cr├¡ticos ainda sem label. Regra aprovada na reuni├úo (10/06) precisa ser aplicada imediatamente por todos os squads.</textarea>
+            <textarea class="rpt-textarea" id="p3" style="min-height:56px;background:transparent;border-color:transparent;padding:0;font-size:13px;font-weight:600;">Reverter saldo negativo de entrega: 332 issues sem due date precisam de prazo. Toda issue Urgent/High criada deve ter assignee e data de conclusao &mdash; sem excecao.</textarea>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- ÔòÉÔòÉÔòÉÔòÉ PLANO DE A├ç├âO / HIP├ôTESES ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label">­ƒôï Plano de A├º├úo ÔÇö Hip├│teses</div>
+  <!-- HIPOTESES -->
+  <div class="sec-label" id="sec-hipoteses">&#128203; Plano de Acao &mdash; Hipoteses</div>
   <div class="card" style="margin-bottom:40px">
     <div class="hypo-list">
-
       <div class="hypo-item">
         <div class="hypo-head" onclick="toggleHypo('h1')">
           <div class="hypo-num" style="background:rgba(248,113,113,0.15);color:var(--danger)">H1</div>
-          <div class="hypo-name">Padroniza├º├úo do Monitoramento (Partner & Apps)</div>
+          <div class="hypo-name">Bugs Cronicos &mdash; Plano de Resolucao Semanal</div>
           <div class="hypo-tags">
-            <span class="hypo-tag" style="background:rgba(248,113,113,0.1);color:var(--danger)">Risco M├®dio</span>
-            <span class="hypo-tag" style="background:rgba(251,191,36,0.1);color:var(--warning)">Esfor├ºo M├®dio</span>
+            <span class="hypo-tag" style="background:rgba(248,113,113,0.1);color:var(--danger)">Risco Alto</span>
+            <span class="hypo-tag" style="background:rgba(251,191,36,0.1);color:var(--warning)">Esforco Medio</span>
           </div>
           <select class="hypo-status-sel" id="s-h1" onclick="event.stopPropagation()">
-            <option value="pendente">ÔÅ│ Pendente</option>
-            <option value="aprovado">Ô£à Aprovado</option>
-            <option value="parcial">­ƒöä Parcial</option>
-            <option value="rejeitado">ÔØî N├úo priorizado</option>
+            <option value="pendente">&#9209; Pendente</option>
+            <option value="aprovado">&#10003; Aprovado</option>
+            <option value="parcial">&#128260; Parcial</option>
+            <option value="rejeitado">&#10060; Nao priorizado</option>
           </select>
-          <span class="hypo-chevron" id="chev-h1">Ôû¥</span>
+          <span class="hypo-chevron" id="chev-h1">&#9660;</span>
         </div>
         <div class="hypo-body" id="body-h1">
           <div class="hypo-grid">
             <div class="hypo-field">
               <label>Problema</label>
-              <textarea class="hypo-textarea" id="h1-prob">Produtos cr├¡ticos sem Sentry/Clarity. Bugs silenciosos detectados s├│ quando cliente reclama.</textarea>
+              <textarea class="hypo-textarea rpt-textarea" id="h1-prob">112 bugs Urgent/High abertos ha mais de 14 dias. FRONT-185 com 225 dias &mdash; o mais antigo do workspace.</textarea>
             </div>
             <div class="hypo-field">
-              <label>Impacto Esperado</label>
-              <textarea class="hypo-textarea" id="h1-imp">Redu├º├úo do MTTR. Time notificado antes do cliente ÔÇö menos downtime operacional.</textarea>
+              <label>Acao Proposta</label>
+              <textarea class="hypo-textarea rpt-textarea" id="h1-acao">Reuniao semanal de priorizacao de bugs com lideres de squad + Gustavo (lider SWAT). Todo bug cronico recebe responsavel e prazo ao vivo.</textarea>
             </div>
           </div>
         </div>
       </div>
-
       <div class="hypo-item">
         <div class="hypo-head" onclick="toggleHypo('h2')">
           <div class="hypo-num" style="background:rgba(251,191,36,0.15);color:var(--warning)">H2</div>
-          <div class="hypo-name">Triagem e Tagueamento Unificado no Linear</div>
+          <div class="hypo-name">Reverter Saldo Negativo de Entrega</div>
           <div class="hypo-tags">
-            <span class="hypo-tag" style="background:rgba(34,211,164,0.1);color:var(--success)">Risco Baixo</span>
-            <span class="hypo-tag" style="background:rgba(34,211,164,0.1);color:var(--success)">Esfor├ºo Baixo</span>
+            <span class="hypo-tag" style="background:rgba(251,191,36,0.1);color:var(--warning)">Risco Medio</span>
+            <span class="hypo-tag" style="background:rgba(96,165,250,0.1);color:var(--info)">Esforco Alto</span>
           </div>
           <select class="hypo-status-sel" id="s-h2" onclick="event.stopPropagation()">
-            <option value="pendente">ÔÅ│ Pendente</option>
-            <option value="aprovado">Ô£à Aprovado</option>
-            <option value="parcial">­ƒöä Parcial</option>
-            <option value="rejeitado">ÔØî N├úo priorizado</option>
+            <option value="pendente">&#9209; Pendente</option>
+            <option value="aprovado">&#10003; Aprovado</option>
+            <option value="parcial">&#128260; Parcial</option>
+            <option value="rejeitado">&#10060; Nao priorizado</option>
           </select>
-          <span class="hypo-chevron" id="chev-h2">Ôû¥</span>
+          <span class="hypo-chevron" id="chev-h2">&#9660;</span>
         </div>
         <div class="hypo-body" id="body-h2">
           <div class="hypo-grid">
             <div class="hypo-field">
               <label>Problema</label>
-              <textarea class="hypo-textarea" id="h2-prob">Sem triagem padronizada, bugs cr├¡ticos e melhorias de UX se misturam ÔÇö dificulta prioriza├º├úo e visibilidade.</textarea>
+              <textarea class="hypo-textarea rpt-textarea" id="h2-prob">275 criadas vs. 203 concluidas = -72 por semana. O backlog cresce continuamente sem controle.</textarea>
             </div>
             <div class="hypo-field">
-              <label>Impacto Esperado</label>
-              <textarea class="hypo-textarea" id="h2-imp">Visibilidade clara para lideran├ºas via SLAs por severidade (P0/P1/P2/P3) ÔÇö esteira fluindo sem microgerenciamento.</textarea>
+              <label>Acao Proposta</label>
+              <textarea class="hypo-textarea rpt-textarea" id="h2-acao">Implementar regra: nenhuma issue nova entra no backlog sem assignee e due date. Issues sem prazo sao automaticamente bloqueadas na triagem.</textarea>
             </div>
           </div>
         </div>
       </div>
-
       <div class="hypo-item">
         <div class="hypo-head" onclick="toggleHypo('h3')">
-          <div class="hypo-num" style="background:rgba(248,113,113,0.15);color:var(--danger)">H3</div>
-          <div class="hypo-name">Plano de Migra├º├úo Node 16 / Next.js 12</div>
+          <div class="hypo-num" style="background:rgba(96,165,250,0.15);color:var(--info)">H3</div>
+          <div class="hypo-name">Redistribuicao de Carga por Dev</div>
           <div class="hypo-tags">
-            <span class="hypo-tag" style="background:rgba(248,113,113,0.1);color:var(--danger)">Risco Alto</span>
-            <span class="hypo-tag" style="background:rgba(248,113,113,0.1);color:var(--danger)">Esfor├ºo Alto</span>
+            <span class="hypo-tag" style="background:rgba(52,211,153,0.1);color:var(--success)">Risco Baixo</span>
+            <span class="hypo-tag" style="background:rgba(52,211,153,0.1);color:var(--success)">Esforco Baixo</span>
           </div>
           <select class="hypo-status-sel" id="s-h3" onclick="event.stopPropagation()">
-            <option value="pendente">ÔÅ│ Pendente</option>
-            <option value="aprovado">Ô£à Aprovado</option>
-            <option value="parcial">­ƒöä Parcial</option>
-            <option value="rejeitado">ÔØî N├úo priorizado</option>
+            <option value="pendente">&#9209; Pendente</option>
+            <option value="aprovado">&#10003; Aprovado</option>
+            <option value="parcial">&#128260; Parcial</option>
+            <option value="rejeitado">&#10060; Nao priorizado</option>
           </select>
-          <span class="hypo-chevron" id="chev-h3">Ôû¥</span>
+          <span class="hypo-chevron" id="chev-h3">&#9660;</span>
         </div>
         <div class="hypo-body" id="body-h3">
           <div class="hypo-grid">
             <div class="hypo-field">
               <label>Problema</label>
-              <textarea class="hypo-textarea" id="h3-prob">Partner e App Web em Node 16 (depreciado) e Next 12. Vulnerabilidades de seguran├ºa e dificuldade de deploy.</textarea>
+              <textarea class="hypo-textarea rpt-textarea" id="h3-prob">guilherme.alves com 28 Urgent/High. Natalia (12) e Vitor (9). Concentracao de carga gera risco de qualidade e burnout.</textarea>
             </div>
             <div class="hypo-field">
-              <label>Impacto Esperado</label>
-              <textarea class="hypo-textarea" id="h3-imp">Estabilidade e compliance a longo prazo. Deve entrar no roadmap sem paralisar novas features.</textarea>
+              <label>Acao Proposta</label>
+              <textarea class="hypo-textarea rpt-textarea" id="h3-acao">Na reuniao semanal de lideres, revisar distribuicao de bugs criticos. Nenhum dev deve ter mais de 15 Urgent/High em aberto simultaneamente.</textarea>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="hypo-item">
-        <div class="hypo-head" onclick="toggleHypo('h4')">
-          <div class="hypo-num" style="background:rgba(96,165,250,0.15);color:var(--info)">H4</div>
-          <div class="hypo-name">Estabelecimento de Cad├¬ncia Operacional Semanal</div>
-          <div class="hypo-tags">
-            <span class="hypo-tag" style="background:rgba(34,211,164,0.1);color:var(--success)">Risco Baixo</span>
-            <span class="hypo-tag" style="background:rgba(34,211,164,0.1);color:var(--success)">Esfor├ºo Baixo</span>
+  <!-- COMENTARIOS -->
+  <div class="sec-label" id="sec-comentarios">&#128172; Comentarios e Feedback da Lideranca</div>
+  <div class="card" style="margin-bottom:40px">
+    <div id="comments-list">
+      <div class="comment-card">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--warning));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000">CK</div>
+          <div>
+            <div style="font-size:13px;font-weight:700">Carlos Krueger</div>
+            <div style="font-size:11px;color:var(--text3)">Coordenacao de Projetos &middot; 19 Jun 2026</div>
           </div>
-          <select class="hypo-status-sel" id="s-h4" onclick="event.stopPropagation()">
-            <option value="pendente">ÔÅ│ Pendente</option>
-            <option value="aprovado">Ô£à Aprovado</option>
-            <option value="parcial">­ƒöä Parcial</option>
-            <option value="rejeitado">ÔØî N├úo priorizado</option>
-          </select>
-          <span class="hypo-chevron" id="chev-h4">Ôû¥</span>
+          <span class="badge badge-geral" style="margin-left:auto">Geral</span>
         </div>
-        <div class="hypo-body" id="body-h4">
-          <div class="hypo-grid">
-            <div class="hypo-field">
-              <label>Problema</label>
-              <textarea class="hypo-textarea" id="h4-prob">Aus├¬ncia de cad├¬ncia formal. Informa├º├Áes cr├¡ticas n├úo chegam ├ás lideran├ºas de forma estruturada e previs├¡vel.</textarea>
-            </div>
-            <div class="hypo-field">
-              <label>Impacto Esperado</label>
-              <textarea class="hypo-textarea" id="h4-imp">Previsibilidade e transpar├¬ncia para C-level. Redu├º├úo do tempo de decis├úo em situa├º├Áes cr├¡ticas.</textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ÔòÉÔòÉÔòÉÔòÉ DEPLOYMENTS + OBSERVA├ç├òES ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="two-cols">
-    <div class="card">
-      <div class="card-title">­ƒÜÇ Deployments da Semana</div>
-      <textarea class="rpt-textarea" id="deploys" style="min-height:120px;">Nenhum deployment rastreado via label no Linear nesta semana.
-
-A├º├úo recomendada: criar label padr├úo ÔÇ£deployÔÇØ ou ÔÇ£releaseÔÇØ no Linear para rastrear entregas em produ├º├úo automaticamente a partir da S4.</textarea>
-    </div>
-    <div class="card">
-      <div class="card-title">­ƒö¡ Observa├º├Áes para a Lideran├ºa</div>
-      <textarea class="rpt-textarea" id="obs-lider" style="min-height:120px;">­ƒƒó DESTAQUE: @guilherme.bernardo liderou mais uma vez com 9 issues conclu├¡das nos ├║ltimos 14 dias (melhor do squad).
-
-­ƒö┤ ALERTA MANTIDO: @miguel.bonilla criou 45 issues em 14 dias com 0 conclu├¡das. Investigar urgentemente causa-raiz.
-
-­ƒƒí MELHORA: MTTR caiu de 168h (S3) para 71h (S4) ÔÇö redu├º├úo de 58%. Sinal positivo de que a governan├ºa est├í come├ºando a funcionar.
-
-­ƒö┤ RISCO ESTRUTURAL: 39 issues Urgent/High em Backlog sem assignee. Sem interven├º├úo, nunca ser├úo atribu├¡das.
-
-ÔÜá´©Å Projetos com maior ac├║mulo (30+ dias):
-  ÔÇó Chat em tempo real ÔÇö 18 issues
-  ÔÇó Planos P├│s-pagos IPV ÔÇö 17 issues
-  ÔÇó LLM para pedidos ÔÇö 16 issues</textarea>
-    </div>
-  </div>
-
-  <!-- ÔòÉÔòÉÔòÉÔòÉ EVID├èNCIAS DA SEMANA ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label" id="sec-evidencias" style="margin-top:40px">­ƒöì Evid├¬ncias da Semana</div>
-  <div class="card" style="margin-bottom:32px">
-    <div class="card-title">
-      <span class="card-title-accent">Base de sustenta├º├úo</span> ┬À Links, prints e dados que embasam este reporte
-    </div>
-    <p style="font-size:12px; color:var(--text2); margin-bottom:16px; line-height:1.6">
-      Registre aqui os dados brutos do <strong style="color:var(--accent)">Linear</strong> que embasam este reporte ÔÇö links de issues, prints de filtros ou m├®tricas exportadas. Quando o CEO perguntar <strong style="color:var(--text)">ÔÇ£Como voc├¬ chegou a esses n├║meros?ÔÇØ</strong>, as evid├¬ncias j├í estar├úo aqui.
-    </p>
-    <div class="edit-only" style="margin-bottom:16px; display:flex; gap:8px; flex-wrap:wrap">
-      <button class="tbtn" onclick="addEvidencia('bug')">+ Bug / Incidente</button>
-      <button class="tbtn" onclick="addEvidencia('metrica')">+ M├®trica</button>
-      <button class="tbtn" onclick="addEvidencia('standup')">+ Anota├º├úo Standup</button>
-      <button class="tbtn" onclick="addEvidencia('link')">+ Link / Refer├¬ncia</button>
-    </div>
-    <div id="evidencias-list">
-      <div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">
-        ­ƒöì Nenhuma evid├¬ncia cadastrada ainda. Use os bot├Áes acima para adicionar.
+        <p style="font-size:13px;color:var(--text2);line-height:1.6">Semana 06 &mdash; reporte gerado com dados do workspace completo da Pigz. Melhora significativa em assignee (131 &rarr; 7). Foco na semana 07: resolver bugs cronicos e reverter saldo negativo de entrega.</p>
       </div>
     </div>
-  </div>
-
-  <!-- ÔòÉÔòÉÔòÉÔòÉ ANOTA├ç├òES DO COORDENADOR (PRIVADO) ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label" id="sec-coord" style="margin-top:40px">­ƒôØ Anota├º├Áes do Coordenador</div>
-  <div class="card" style="margin-bottom:32px; border:1px solid rgba(250,100,30,0.3); background:rgba(250,100,30,0.03)">
-    <div class="card-title">
-      <span class="card-title-accent">Espa├ºo privado</span> ┬À Uso interno do Coordenador de Projetos
-    </div>
-    <p style="font-size:11px;color:var(--text3);margin-bottom:20px;line-height:1.6">ÔÜÖ´©Å Este espa├ºo ├® para rascunhos, miss├Áes da semana e acompanhamento interno. N├úo ├® apresentado formalmente ├á lideran├ºa.</p>
-
-    <!-- Bugs por origem -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
-      <div>
-        <div class="field-label" style="margin-bottom:6px;color:#FB923C">­ƒÉø Bugs Comercial <span style="font-weight:400;color:var(--text3)">(origem: Rian / Comercial)</span></div>
-        <textarea class="rpt-textarea" id="coord-bugs-comercial" placeholder="Liste os bugs reportados pelo Comercial esta semana...&#10;Ex: Bug X ÔÇö reportado por Rian ÔÇö impacta cliente Y" style="min-height:110px;border-color:rgba(250,100,30,0.3);"></textarea>
-      </div>
-      <div>
-        <div class="field-label" style="margin-bottom:6px;color:#FB923C">­ƒöº Bugs Dev <span style="font-weight:400;color:var(--text3)">(origem: Squad / Linear)</span></div>
-        <textarea class="rpt-textarea" id="coord-bugs-dev" placeholder="Liste os bugs identificados internamente pelo dev...&#10;Ex: FIN-1 ÔÇö Urgent ÔÇö sem assignee h├í 43 dias" style="min-height:110px;border-color:rgba(250,100,30,0.3);"></textarea>
-      </div>
-    </div>
-
-    <!-- Miss├Áes da semana -->
-    <div style="margin-bottom:20px">
-      <div class="field-label" style="margin-bottom:6px;color:#FB923C">­ƒÄ» Miss├Áes da Semana</div>
-      <textarea class="rpt-textarea" id="coord-missoes" style="min-height:130px;border-color:rgba(250,100,30,0.3);">ÔÿÉ SEG ÔÇö Entregar respons├íveis dos bugs (FIN-1, FIN-2, FIN-8, FIN-9, FIN-13) no Linear
-ÔÿÉ SEG ÔÇö Contato com Rian (Comercial) ÔÇö mapear bugs de origem comercial
-ÔÿÉ TER ÔÇö Reuni├úo com Devs: cobrar matriz de gest├úo de riscos
-ÔÿÉ TER ÔÇö Cobrar: projetos tratados como entregas, fases com data no Linear, issues bem descritas
-ÔÿÉ QUI ÔÇö Rodar prompt no Linear e validar dados para S5
-ÔÿÉ SEX ÔÇö Publicar reporte S5 para Bia e Rodrigo</textarea>
-    </div>
-
-    <!-- Notas pessoais -->
-    <div>
-      <div class="field-label" style="margin-bottom:6px;color:#FB923C">­ƒôï Notas Pessoais / Follow-ups</div>
-      <textarea class="rpt-textarea" id="coord-notas" placeholder="Observa├º├Áes livres, follow-ups pendentes, contexto adicional..." style="min-height:80px;border-color:rgba(250,100,30,0.3);"></textarea>
-    </div>
-  </div>
-
-  <!-- ÔòÉÔòÉÔòÉÔòÉ SE├ç├âO DE FEEDBACK & COMENT├üRIOS DOS L├ìDERES ÔòÉÔòÉÔòÉÔòÉ -->
-  <div class="sec-label" id="sec-comentarios" style="margin-top:40px">­ƒÆ¼ Coment├írios e Feedback dos L├¡deres</div>
-  <div class="card" style="margin-bottom:80px" id="section-comments">
-    <div class="card-title">
-      <span class="card-title-accent">Feedback oficial</span> ┬À Bia & Rodrigo
-    </div>
-    <p style="font-size:12px; color:var(--text2); margin-bottom:20px; line-height:1.6">
-      Espa├ºo exclusivo para registrar decis├Áes, observa├º├Áes ou elogios sobre este reporte. Use o bot├úo <strong style="color:var(--accent)">­ƒÆ¼</strong> no canto da tela para enviar seu feedback.
-    </p>
-    
-    <!-- TIMELINE DE COMENT├üRIOS -->
-    <div id="comments-list" style="display:flex; flex-direction:column; gap:16px;">
-      <div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">
-        ­ƒÆ¼ Nenhum feedback enviado ainda. Use o bot├úo laranja no canto da tela.
-      </div>
+    <div class="edit-only" style="margin-top:16px">
+      <div class="field-label">Adicionar comentario</div>
+      <textarea class="rpt-textarea" id="new-comment" placeholder="Deixe seu feedback, decisao ou observacao sobre o reporte..." style="min-height:80px;"></textarea>
+      <button onclick="addComment()" style="margin-top:8px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">+ Comentar</button>
     </div>
   </div>
 
 </div><!-- /page -->
 
-<!-- ÔòÉÔòÉÔòÉÔòÉ FAB COMENT├üRIO ÔòÉÔòÉÔòÉÔòÉ -->
-<button id="fab-comment" onclick="openCommentModal()" title="Deixar Feedback">
-  ­ƒÆ¼
-  <span id="fab-badge"></span>
-</button>
-
-<!-- ÔòÉÔòÉÔòÉÔòÉ MODAL COMENT├üRIO ÔòÉÔòÉÔòÉÔòÉ -->
-<div id="comment-modal">
-  <div class="comment-modal-box">
-    <div class="comment-modal-title">Ô£ì´©Å Deixar Feedback</div>
-    <div class="comment-modal-sub">Seu coment├írio ser├í registrado e ficar├í vis├¡vel para toda a equipe.</div>
-
-    <div style="margin-bottom:14px">
-      <label class="field-label">Quem est├í comentando</label>
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px">
-        <label class="profile-select-lbl">
-          <input type="radio" name="comment-author" value="Bia" checked>
-          <span>­ƒæ®ÔÇì­ƒÆ╝ Bia (Diretoria)</span>
-        </label>
-        <label class="profile-select-lbl">
-          <input type="radio" name="comment-author" value="Rodrigo">
-          <span>­ƒæ¿ÔÇì­ƒÆ╝ Rodrigo (Diretoria)</span>
-        </label>
-        <label class="profile-select-lbl">
-          <input type="radio" name="comment-author" value="Coordenador">
-          <span>ÔÜÖ´©Å Coordenador (Projetos)</span>
-        </label>
-      </div>
-    </div>
-
-    <div style="margin-bottom:14px">
-      <label class="field-label">Tipo de Feedback</label>
-      <select class="rpt-input" id="comment-type" style="margin-top:6px; background:var(--bg2)">
-        <option value="geral">­ƒÆ¼ Coment├írio Geral / Nota</option>
-        <option value="aprovado">Ô£à Aprova├º├úo Oficial</option>
-        <option value="ajuste">ÔÜá´©Å Solicita├º├úo de Ajuste</option>
-        <option value="elogio">Ô¡É Elogio / Iniciativa de Sucesso</option>
-      </select>
-    </div>
-
-    <div style="margin-bottom:14px">
-      <label class="field-label">Referente a qual se├º├úo do reporte?</label>
-      <select class="rpt-input" id="comment-section" style="margin-top:6px; background:var(--bg2)">
-        <option value="">Sem se├º├úo espec├¡fica (coment├írio geral)</option>
-        <option value="­ƒÜ¿ Decis├úo Necess├íria">­ƒÜ¿ Decis├úo Necess├íria</option>
-        <option value="­ƒôî Resumo Executivo">­ƒôî Resumo Executivo</option>
-        <option value="­ƒôè Indicadores (KPIs)">­ƒôè Indicadores (KPIs)</option>
-        <option value="­ƒ®║ Sa├║de por Produto">­ƒ®║ Sa├║de por Produto</option>
-        <option value="ÔÜá´©Å Impedimentos Ativos">ÔÜá´©Å Impedimentos Ativos</option>
-        <option value="­ƒôª Distribui├º├úo de Bugs">­ƒôª Distribui├º├úo de Bugs</option>
-        <option value="­ƒôê M├®tricas de Governan├ºa">­ƒôê M├®tricas de Governan├ºa</option>
-        <option value="­ƒÄ» Prioridades da Pr├│xima Semana">­ƒÄ» Prioridades da Pr├│xima Semana</option>
-        <option value="­ƒôï Plano de A├º├úo / Hip├│teses">­ƒôï Plano de A├º├úo / Hip├│teses</option>
-        <option value="­ƒÜÇ Deployments da Semana">­ƒÜÇ Deployments da Semana</option>
-        <option value="­ƒö¡ Observa├º├Áes para a Lideran├ºa">­ƒö¡ Observa├º├Áes para a Lideran├ºa</option>
-      </select>
-    </div>
-
-    <div style="margin-bottom:20px">
-      <label class="field-label">Mensagem</label>
-      <textarea class="rpt-textarea" id="comment-text" placeholder="Escreva seu coment├írio aqui..." style="min-height:100px; margin-top:6px"></textarea>
-    </div>
-
-    <div style="display:flex; gap:10px; justify-content:flex-end">
-      <button class="tbtn" onclick="closeCommentModal()">Cancelar</button>
-      <button class="tbtn tbtn-primary" onclick="submitComment()" style="padding:10px 24px; font-size:13px; font-weight:700">+ Publicar Feedback</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL DE CONFIGURA├ç├âO DO BANCO (FIREBASE) -->
-<div id="config-modal" style="position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:9999; display:none; align-items:center; justify-content:center">
-  <div class="card" style="max-width:500px; width:90%; background:var(--card); border:1px solid var(--border2); border-radius:20px; padding:28px">
-    <h3 style="font-size:18px; font-weight:900; margin-bottom:8px; display:flex; align-items:center; gap:8px">Ôÿü´©Å Conectar PIGZ Coord ├á Nuvem</h3>
-    <p style="font-size:11px; color:var(--text2); line-height:1.6; margin-bottom:20px">
-      Cole a configura├º├úo do seu projeto Firebase para sincronizar este painel e os coment├írios em tempo real entre o Coordenador e os CEOs.
-    </p>
-    
-    <div class="fgroup" style="margin-bottom:16px">
-      <label class="field-label">Firebase Config JSON</label>
-      <textarea class="rpt-textarea" id="firebase-config-input" placeholder='{\n  "apiKey": "...",\n  "authDomain": "...",\n  "projectId": "...",\n  "storageBucket": "...",\n  "messagingSenderId": "...",\n  "appId": "..."\n}' style="min-height:160px; font-family:var(--mono); font-size:11px; line-height:1.4; background:var(--bg2)"></textarea>
-    </div>
-    
-    <div style="display:flex; gap:10px; justify-content:flex-end">
-      <button class="tbtn" onclick="closeConfigModal()">Cancelar</button>
-      <button class="tbtn tbtn-primary" onclick="saveFirebaseConfig()">Conectar e Salvar</button>
-    </div>
-  </div>
-</div>
-
-<!-- FIREBASE COMPAT SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<!-- FAB -->
+<button id="fab-comment" onclick="document.getElementById('new-comment')?.scrollIntoView({behavior:'smooth'})">&#128172;</button>
 
 <script>
-const KEY = 'pigz-exec-report-v1';
-let db = null;
-let isCloud = false;
-let docId = 'semana3';
-let unsubscribeData = null;
-let unsubscribeComments = null;
-
-try {
-  const semText = document.getElementById('rpt-semana-display')?.textContent.trim() || '';
-  const match = semText.toLowerCase().match(/semana\s*(\d+)/);
-  if (match) docId = 'semana' + match[1];
-} catch (e) {}
-
-// ÔöÇÔöÇ METODOLOGIA (toggle) ÔöÇÔöÇ
+// METODOLOGIA
 function toggleMetodologia() {
-  const body = document.getElementById('met-body');
-  const chev = document.getElementById('met-chev');
+  var body = document.getElementById('met-body');
+  var chev = document.getElementById('met-chev');
   body.classList.toggle('open');
   chev.classList.toggle('open');
 }
 
-// ÔöÇÔöÇ EVID├èNCIAS ÔöÇÔöÇ
-const EV_KEY = KEY + '-evidencias';
-let evidencias = JSON.parse(localStorage.getItem(EV_KEY) || '[]');
-
-const evTagMap = {
-  bug:     { label: '­ƒÉø Bug / Incidente', color: 'var(--danger)' },
-  metrica: { label: '­ƒôè M├®trica',         color: 'var(--info)' },
-  standup: { label: '­ƒùú Standup',          color: 'var(--success)' },
-  link:    { label: '­ƒöù Link / Ref',       color: 'var(--purple)' }
-};
-
-function addEvidencia(tipo) {
-  const texto = prompt(`Cole aqui a evid├¬ncia (${evTagMap[tipo].label}):\n\nEx: "Linear P0-412 ┬À TEF caiu 4x entre 11hÔÇô13h ┬À link: linear.app/pigz/issue/P0-412"`);
-  if (!texto || !texto.trim()) return;
-  evidencias.push({ tipo, texto: texto.trim(), time: new Date().toISOString() });
-  localStorage.setItem(EV_KEY, JSON.stringify(evidencias));
-  renderEvidencias();
-  showToast('­ƒöì Evid├¬ncia adicionada!');
+// HIPOTESES
+function toggleHypo(id) {
+  var body = document.getElementById('body-' + id);
+  var chev = document.getElementById('chev-' + id);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
 }
 
-function deleteEvidencia(idx) {
-  if (!confirm('Remover esta evid├¬ncia?')) return;
-  evidencias.splice(idx, 1);
-  localStorage.setItem(EV_KEY, JSON.stringify(evidencias));
-  renderEvidencias();
+// SAUDE
+function setHealth(prod, val) {
+  var card = document.getElementById('hc-' + prod);
+  var dot = document.getElementById('hd-' + prod);
+  var lbl = document.getElementById('hl-' + prod);
+  var map = {
+    ok: { emoji: '&#128994;', label: 'Saudavel', color: 'var(--success)', hc: 'var(--success)' },
+    att: { emoji: '&#128161;', label: 'Atencao', color: 'var(--warning)', hc: 'var(--warning)' },
+    crit: { emoji: '&#128308;', label: 'Critico', color: 'var(--danger)', hc: 'var(--danger)' }
+  };
+  var d = map[val];
+  if (!d) return;
+  dot.innerHTML = d.emoji;
+  lbl.textContent = d.label;
+  lbl.style.color = d.color;
+  card.style.setProperty('--hc', d.hc);
 }
 
-function renderEvidencias() {
-  const list = document.getElementById('evidencias-list');
-  if (!list) return;
-  if (evidencias.length === 0) {
-    list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">­ƒöì Nenhuma evid├¬ncia cadastrada ainda. Use os bot├Áes acima para adicionar.</div>`;
-    return;
-  }
-  list.innerHTML = evidencias.map((ev, idx) => {
-    const tag = evTagMap[ev.tipo] || evTagMap.link;
-    const date = new Date(ev.time).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
-    return `<div class="evidencia-card">
-      <div class="evidencia-header">
-        <span class="evidencia-tag" style="color:${tag.color};background:transparent;border:1px solid ${tag.color}40">${tag.label}</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:10px;color:var(--text3)">${date}</span>
-          <button class="evidencia-del edit-only" onclick="deleteEvidencia(${idx})" title="Remover">Ô£ò</button>
-        </div>
-      </div>
-      <div class="evidencia-text">${esc(ev.texto)}</div>
-    </div>`;
-  }).join('');
-}
-
-
-
-// ÔöÇÔöÇ SCROLL SPY ÔÇö NAVBAR ATIVA ÔöÇÔöÇ
-const NAV_SECTIONS = ['sec-decisao','sec-resumo','sec-kpis','sec-saude','sec-impedimentos','sec-comentarios'];
-function updateNavSpy() {
-  const navItems = document.querySelectorAll('.sec-nav-item');
-  let current = NAV_SECTIONS[0];
-  NAV_SECTIONS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= 110) current = id;
-  });
-  navItems.forEach(item => {
-    item.classList.toggle('active', item.getAttribute('href') === '#' + current);
-  });
-}
-window.addEventListener('scroll', updateNavSpy, { passive: true });
-
-// ÔöÇÔöÇ BADGE DE FEEDBACKS N├âO LIDOS ÔöÇÔöÇ
-let lastSeenCount = parseInt(localStorage.getItem('pigz-seen-comments') || '0');
-function updateFabBadge(total) {
-  const badge = document.getElementById('fab-badge');
-  if (!badge) return;
-  const unseen = Math.max(0, total - lastSeenCount);
-  if (unseen > 0) {
-    badge.textContent = unseen;
-    badge.style.display = 'flex';
-  } else {
-    badge.style.display = 'none';
-  }
-}
-function markAllSeen(total) {
-  lastSeenCount = total;
-  localStorage.setItem('pigz-seen-comments', total);
-  updateFabBadge(total);
-}
-
-// ÔöÇÔöÇ MARCAR COMENT├üRIO COMO RESOLVIDO ÔöÇÔöÇ
-let resolvedComments = JSON.parse(localStorage.getItem('pigz-resolved-comments') || '[]');
-function toggleResolveComment(key) {
-  const idx = resolvedComments.indexOf(key);
-  if (idx === -1) resolvedComments.push(key);
-  else resolvedComments.splice(idx, 1);
-  localStorage.setItem('pigz-resolved-comments', JSON.stringify(resolvedComments));
-  renderCommentsLocal();
-}
-
-// ÔöÇÔöÇ MODO LEITURA ÔöÇÔöÇ
-
-let isReadMode = false;
+// READ MODE
 function toggleReadMode() {
-  isReadMode = !isReadMode;
-  const btn = document.getElementById('mode-toggle-btn');
-  if (isReadMode) {
-    document.body.classList.add('read-mode');
-    btn.textContent = 'Ô£Å´©Å Modo Edi├º├úo';
+  var body = document.body;
+  var btn = document.getElementById('mode-toggle-btn');
+  body.classList.toggle('read-mode');
+  if (body.classList.contains('read-mode')) {
+    btn.textContent = '&#9998; Modo Edicao';
     btn.classList.add('edit-mode');
   } else {
-    document.body.classList.remove('read-mode');
-    btn.textContent = '­ƒæü Modo Leitura';
+    btn.textContent = '&#128065; Modo Leitura';
     btn.classList.remove('edit-mode');
   }
 }
 
-// ÔöÇÔöÇ MODAL DE COMENT├üRIO ÔöÇÔöÇ
-function openCommentModal() {
-  const modal = document.getElementById('comment-modal');
-  modal.classList.add('open');
-  modal.style.display = 'flex';
-  markAllSeen(localComments.length);
-  setTimeout(function() {
-    const ct = document.getElementById('comment-text');
-    if (ct) ct.focus();
-  }, 150);
-}
-function closeCommentModal() {
-  const modal = document.getElementById('comment-modal');
-  modal.classList.remove('open');
-  modal.style.display = 'none';
-  const ct = document.getElementById('comment-text');
-  const cs = document.getElementById('comment-section');
-  if (ct) ct.value = '';
-  if (cs) cs.value = '';
-}
-// Fechar modal ao clicar fora
-document.addEventListener('click', function(e) {
-  const modal = document.getElementById('comment-modal');
-  if (modal && modal.style.display === 'flex' && e.target === modal) {
-    closeCommentModal();
-  }
-});
-
-function openConfigModal() {
-  document.getElementById('config-modal').style.display = 'flex';
-  const rawConfig = localStorage.getItem('pigz-firebase-config');
-  if (rawConfig) {
-    document.getElementById('firebase-config-input').value = JSON.stringify(JSON.parse(rawConfig), null, 2);
-  }
-}
-function closeConfigModal() {
-  document.getElementById('config-modal').style.display = 'none';
-}
-function saveFirebaseConfig() {
-  const input = document.getElementById('firebase-config-input').value.trim();
-  if (!input) {
-    localStorage.removeItem('pigz-firebase-config');
-    showToast('Firebase desconectado. Usando armazenamento local.');
-    closeConfigModal();
-    initFirebase();
-    return;
-  }
-  try {
-    const config = JSON.parse(input);
-    localStorage.setItem('pigz-firebase-config', JSON.stringify(config));
-    showToast('Configura├º├úo salva! Conectando...');
-    closeConfigModal();
-    initFirebase();
-  } catch (err) {
-    alert('JSON inv├ílido. Copie o objeto de configura├º├úo JSON do console do seu Firebase.');
-  }
+// SAVE
+function saveAll() {
+  var toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 2500);
 }
 
-const statuses = [
-  { emoji: '­ƒƒó', label: 'Opera├º├úo Saud├ível', bg: 'rgba(34,211,164,0.12)', color: '#22D3A4', border: 'rgba(34,211,164,0.25)' },
-  { emoji: '­ƒƒí', label: 'Aten├º├úo Necess├íria', bg: 'rgba(251,191,36,0.12)', color: '#FBBF24', border: 'rgba(251,191,36,0.25)' },
-  { emoji: '­ƒö┤', label: 'Interven├º├úo Urgente', bg: 'rgba(248,113,113,0.12)', color: '#F87171', border: 'rgba(248,113,113,0.25)' },
-];
-let globalStatusIdx = 1;
-
-function cycleGlobalStatus() {
-  globalStatusIdx = (globalStatusIdx + 1) % statuses.length;
-  applyGlobalStatus(globalStatusIdx);
-  saveAll(true);
-}
-function applyGlobalStatus(idx) {
-  const s = statuses[idx];
-  const badge = document.getElementById('status-global-badge');
-  badge.style.background = s.bg;
-  badge.style.color = s.color;
-  badge.style.borderColor = s.border;
-  document.getElementById('status-global-dot').textContent = s.emoji;
-  document.getElementById('status-global-text').textContent = s.label;
-  globalStatusIdx = idx;
-}
-
-const healthConf = {
-  ok:   { dot: '­ƒƒó', label: 'Saud├ível', color: 'var(--success)',  border: 'rgba(34,211,164,0.25)' },
-  att:  { dot: '­ƒƒí', label: 'Aten├º├úo',  color: 'var(--warning)',  border: 'rgba(251,191,36,0.25)' },
-  crit: { dot: '­ƒö┤', label: 'Cr├¡tico',  color: 'var(--danger)',   border: 'rgba(248,113,113,0.25)' }
-};
-function setHealth(prod, val) {
-  const c = healthConf[val];
-  document.getElementById('hd-' + prod).textContent = c.dot;
-  document.getElementById('hl-' + prod).textContent = c.label;
-  document.getElementById('hl-' + prod).style.color = c.color;
-  document.getElementById('hc-' + prod).style.setProperty('--hc', val === 'ok' ? 'var(--success)' : val === 'att' ? 'var(--warning)' : 'var(--danger)');
-  document.getElementById('hc-' + prod).style.borderColor = c.border;
-  saveAll(true);
-}
-
-function updateBars() {
-  const vals = [0,1,2,3,4].map(i => parseFloat(document.getElementById('b'+i)?.value)||0);
-  const max = Math.max(...vals, 1);
-  vals.forEach((v,i) => {
-    document.getElementById('bf'+i).style.height = Math.round((v/max)*90)+'%';
-    document.getElementById('bv'+i).textContent = v > 0 ? v : 'ÔÇö';
-  });
-}
-
-function updateMttrTrend() {
-  const v = parseFloat(document.getElementById('k-mttr').value)||0;
-  const el = document.getElementById('trend-mttr');
-  if (!v) { el.textContent = 'Meta: < 4h'; el.style.color = 'var(--text3)'; return; }
-  if (v < 4)  { el.textContent = 'Ô£à Excelente'; el.style.color = 'var(--success)'; }
-  else if (v < 12) { el.textContent = 'ÔÜá´©Å Aten├º├úo'; el.style.color = 'var(--warning)'; }
-  else { el.textContent = '­ƒö┤ Cr├¡tico'; el.style.color = 'var(--danger)'; }
-}
-
-function calcTaxaRes() {
-  const res = parseFloat(document.getElementById('k-bugs-res').value)||0;
-  const crit = parseFloat(document.getElementById('k-bugs-crit').value)||0;
-  const el = document.getElementById('trend-res');
-  if (res === 0) { el.textContent = 'Taxa de resolu├º├úo'; return; }
-  const total = res + crit;
-  const pct = total ? Math.round((res/total)*100) : 0;
-  el.textContent = `${pct}% de resolu├º├úo`;
-}
-
-function toggleHypo(id) {
-  const body = document.getElementById('body-' + id);
-  const chev = document.getElementById('chev-' + id);
-  const open = body.classList.contains('open');
-  body.classList.toggle('open', !open);
-  chev.classList.toggle('open', !open);
-}
-
+// IMPEDIMENTO
 function addImpedimento() {
-  const txt = document.getElementById('new-imp').value.trim();
+  var txt = document.getElementById('new-imp').value.trim();
   if (!txt) return;
-  const list = document.getElementById('imp-list');
-  const item = document.createElement('div');
-  item.className = 'imp-item';
-  item.innerHTML = `
-    <div class="imp-sev" style="background:var(--warning)"></div>
-    <div class="imp-body">
-      <div class="imp-title">${txt}</div>
-      <div class="imp-context">Adicionado manualmente</div>
-    </div>
-    <div class="imp-actions"><span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Novo</span></div>`;
-  list.appendChild(item);
+  var list = document.getElementById('imp-list');
+  var div = document.createElement('div');
+  div.className = 'imp-item';
+  div.innerHTML = '<div class="imp-sev" style="background:var(--warning)"></div><div class="imp-body"><div class="imp-title">' + txt + '</div></div><div class="imp-actions"><span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Novo</span></div>';
+  list.appendChild(div);
   document.getElementById('new-imp').value = '';
-  saveAll(true);
 }
 
-function loadBugsLocalCount() {
-  try {
-    const rawS3 = localStorage.getItem('pigz-s3-v2');
-    if (rawS3) {
-      const dataS3 = JSON.parse(rawS3);
-      const bugs = dataS3.bugs || [];
-      const open = bugs.filter(b => b.status !== 'Resolvido');
-      const p0Count = open.filter(b => b.sev === 'P0').length;
-      const p1Count = open.filter(b => b.sev === 'P1').length;
-      const doneCount = bugs.filter(b => b.status === 'Resolvido').length;
-      
-      const critEl = document.getElementById('k-bugs-crit');
-      const resEl = document.getElementById('k-bugs-res');
-      
-      if (critEl && !critEl.value) critEl.value = p0Count + p1Count;
-      if (resEl && !resEl.value) resEl.value = doneCount;
-      
-      const prodMap = { 'Pigz Partner': 'b0', 'Mobile (iOS/Android)': 'b1', 'App Web': 'b2', 'Gest├úo Desktop': 'b3', 'Pigz TEF': 'b4' };
-      bugs.forEach(b => {
-        const inputId = prodMap[b.prod];
-        if (inputId) {
-          const inputEl = document.getElementById(inputId);
-          if (inputEl && !inputEl.value) inputEl.value = bugs.filter(x => x.prod === b.prod && x.status !== 'Resolvido').length;
-        }
-      });
-      updateBars(); calcTaxaRes();
-    }
-  } catch (e) { console.error(e); }
+// COMMENT
+function addComment() {
+  var txt = document.getElementById('new-comment').value.trim();
+  if (!txt) return;
+  var list = document.getElementById('comments-list');
+  var card = document.createElement('div');
+  card.className = 'comment-card';
+  card.innerHTML = '<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px">&#128100;</div><div><div style="font-size:13px;font-weight:700">Lideranca</div><div style="font-size:11px;color:var(--text3)">Agora</div></div><span class="badge badge-geral" style="margin-left:auto">Geral</span></div><p style="font-size:13px;color:var(--text2);line-height:1.6">' + txt + '</p>';
+  list.appendChild(card);
+  document.getElementById('new-comment').value = '';
 }
 
-function initFirebase() {
-  const rawConfig = localStorage.getItem('pigz-firebase-config');
-  const badge = document.getElementById('sync-status-badge');
-  
-  if (unsubscribeData) { unsubscribeData(); unsubscribeData = null; }
-  if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-  
-  if (!rawConfig) {
-    isCloud = false;
-    if (badge) {
-      badge.innerHTML = '­ƒö┤ Offline (Local)';
-      badge.style.color = 'var(--text3)';
-      badge.style.borderColor = 'rgba(156,163,175,0.3)';
-    }
-    loadAllLocal();
-    return;
-  }
-  
-  try {
-    const firebaseConfig = JSON.parse(rawConfig);
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    isCloud = true;
-    if (badge) {
-      badge.innerHTML = '­ƒƒó Nuvem Ativa';
-      badge.style.color = 'var(--success)';
-      badge.style.borderColor = 'rgba(34,211,164,0.3)';
-    }
-    listenToReportData();
-    listenToComments();
-  } catch (err) {
-    console.error("Erro ao inicializar Firebase:", err);
-    isCloud = false;
-    if (badge) {
-      badge.innerHTML = 'ÔÜá´©Å Erro de Conex├úo';
-      badge.style.color = 'var(--danger)';
-      badge.style.borderColor = 'rgba(239,68,68,0.3)';
-    }
-    loadAllLocal();
-  }
-}
-
-function listenToReportData() {
-  if (!db) return;
-  unsubscribeData = db.collection('reports').doc(docId).onSnapshot(doc => {
-    if (!doc.exists) { saveToCloud(collectData(), true); return; }
-    applyDataToInputs(doc.data());
-  }, err => {
-    console.error("Erro ao assinar reporte:", err);
-  });
-}
-
-function saveToCloud(data, silent) {
-  if (!db) return;
-  db.collection('reports').doc(docId).set(data, { merge: true })
-    .then(() => { if (!silent) showToast('Ô£à Reporte sincronizado na nuvem!'); })
-    .catch(err => { console.error("Erro ao salvar Firestore:", err); });
-}
-
-function listenToComments() {
-  if (!db) return;
-  unsubscribeComments = db.collection('reports').doc(docId).collection('comments')
-    .orderBy('timestamp', 'asc')
-    .onSnapshot(snapshot => {
-      const list = document.getElementById('comments-list');
-      if (snapshot.empty) {
-        list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">­ƒÆ¼ Nenhum feedback enviado ainda.</div>`;
-        return;
-      }
-      let html = '';
-      snapshot.forEach(doc => {
-        const c = doc.data();
-        const id = doc.id;
-        const date = c.timestamp ? new Date(c.timestamp.seconds * 1000).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'}) : 'Agora';
-        
-        let avatar = '­ƒæñ';
-        let subtitle = 'Membro da Equipe';
-        let nameColor = 'var(--text)';
-        if (c.author === 'Bia') { avatar = '­ƒæ®ÔÇì­ƒÆ╝'; subtitle = 'Diretora Executiva (C-level)'; nameColor = 'var(--purple)'; }
-        else if (c.author === 'Rodrigo') { avatar = '­ƒæ¿ÔÇì­ƒÆ╝'; subtitle = 'Diretor Executivo (C-level)'; nameColor = 'var(--info)'; }
-        else if (c.author === 'Coordenador') { avatar = 'ÔÜÖ´©Å'; subtitle = 'Coordenador de Projetos'; nameColor = 'var(--accent)'; }
-        
-        const badgeMap = {
-          geral: { text: 'Nota', cls: 'badge-geral' },
-          aprovado: { text: 'Aprova├º├úo', cls: 'badge-aprovado' },
-          ajuste: { text: 'Ajuste', cls: 'badge-ajuste' },
-          elogio: { text: 'Elogio', cls: 'badge-elogio' }
-        };
-        const bd = badgeMap[c.type] || badgeMap.geral;
-        const sectionTag = c.section ? `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(96,165,250,0.12);color:var(--info);margin-top:6px;margin-bottom:2px">­ƒôì ${esc(c.section)}</span>` : '';
-        html += `<div class="comment-card" style="margin-bottom:12px">
-            <div style="display:flex; justify-content:space-between; align-items:center">
-              <div style="display:flex; align-items:center; gap:10px">
-                <div class="comment-avatar">${avatar}</div>
-                <div>
-                  <div style="font-size:12px; font-weight:700; color:${nameColor}">${c.author}</div>
-                  <div style="font-size:10px; color:var(--text3)">${subtitle}</div>
-                </div>
-              </div>
-              <div style="display:flex; align-items:center; gap:8px">
-                <span class="badge ${bd.cls}">${bd.text}</span>
-                <span style="font-size:10px; color:var(--text3)">${date}</span>
-                <button onclick="deleteComment('${id}')" style="background:none; border:none; color:var(--text3); cursor:pointer; font-size:12px; margin-left:4px" title="Remover">Ô£ò</button>
-              </div>
-            </div>
-            ${sectionTag}
-            <p style="font-size:12px; color:var(--text2); line-height:1.6; margin-top:6px">${esc(c.text)}</p>
-          </div>`;
-      });
-      list.innerHTML = html;
-    }, err => { console.error("Erro ao ouvir coment├írios:", err); });
-}
-
-function submitComment() {
-  const authorSelect = document.querySelector('input[name="comment-author"]:checked');
-  const author = authorSelect ? authorSelect.value : 'Bia';
-  const type = document.getElementById('comment-type').value;
-  const section = document.getElementById('comment-section').value;
-  const text = document.getElementById('comment-text').value.trim();
-  if (!text) { alert('Digite uma mensagem.'); return; }
-  closeCommentModal();
-  
-  if (isCloud && db) {
-    db.collection('reports').doc(docId).collection('comments').add({
-      author, type, section, text, timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      document.getElementById('comment-text').value = '';
-      showToast('­ƒÆ¼ Coment├írio publicado!');
-    }).catch(err => {
-      console.error(err);
-      showToast('ÔÜá´©Å Erro ao publicar.');
-    });
-  } else {
-    localComments.push({ author, type, section, text, time: new Date().toISOString() });
-    document.getElementById('comment-section').value = '';
-    saveCommentsLocal();
-    showToast('­ƒÆ¼ Coment├írio salvo localmente!');
-  }
-}
-
-function deleteComment(id) {
-  if (!confirm('Deseja excluir este feedback?')) return;
-  if (isCloud && db) {
-    db.collection('reports').doc(docId).collection('comments').doc(id).delete()
-      .then(() => { showToast('Ô£ò Feedback exclu├¡do!'); })
-      .catch(console.error);
-  }
-}
-
-let localComments = [];
-function loadCommentsLocal() {
-  const raw = localStorage.getItem(KEY + '-comments');
-  localComments = raw ? JSON.parse(raw) : [];
-  renderCommentsLocal();
-}
-function saveCommentsLocal() {
-  localStorage.setItem(KEY + '-comments', JSON.stringify(localComments));
-  renderCommentsLocal();
-}
-function renderCommentsLocal() {
-  const list = document.getElementById('comments-list');
-  if (localComments.length === 0) {
-    list.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text3); font-size:11px; border:1px dashed var(--border); border-radius:10px">­ƒÆ¼ Nenhum feedback enviado ainda. Use o bot├úo laranja no canto da tela.</div>`;
-    updateFabBadge(0);
-    return;
-  }
-  updateFabBadge(localComments.length);
-  let html = '';
-  localComments.forEach((c, idx) => {
-    const key = `${c.author}-${c.time}`;
-    const isResolved = resolvedComments.includes(key);
-    const date = new Date(c.time).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'});
-    let avatar = '­ƒæñ';
-    let subtitle = 'Membro da Equipe';
-    let nameColor = 'var(--text)';
-    if (c.author === 'Bia') { avatar = '­ƒæ®ÔÇì­ƒÆ╝'; subtitle = 'Diretora Executiva (C-level)'; nameColor = 'var(--purple)'; }
-    else if (c.author === 'Rodrigo') { avatar = '­ƒæ¿ÔÇì­ƒÆ╝'; subtitle = 'Diretor Executivo (C-level)'; nameColor = 'var(--info)'; }
-    else if (c.author === 'Coordenador') { avatar = 'ÔÜÖ´©Å'; subtitle = 'Coordenador de Projetos'; nameColor = 'var(--accent)'; }
-    
-    const badgeMap = {
-      geral: { text: 'Nota', cls: 'badge-geral' },
-      aprovado: { text: 'Aprova├º├úo', cls: 'badge-aprovado' },
-      ajuste: { text: 'Ajuste', cls: 'badge-ajuste' },
-      elogio: { text: 'Elogio', cls: 'badge-elogio' }
-    };
-    const bd = badgeMap[c.type] || badgeMap.geral;
-    const sectionTag = c.section ? `<span style="display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(96,165,250,0.12);color:var(--info);margin-top:6px;margin-bottom:2px">­ƒôì ${esc(c.section)}</span>` : '';
-    const resolveBtn = isResolved
-      ? `<span class="resolved-tag">Ô£à Resolvido</span>`
-      : `<button class="resolve-btn" onclick="toggleResolveComment('${key}')">Ô£ô Marcar Resolvido</button>`;
-    
-    html += `<div class="comment-card${isResolved ? ' resolved' : ''}" style="margin-bottom:12px">
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <div style="display:flex; align-items:center; gap:10px">
-            <div class="comment-avatar">${avatar}</div>
-            <div>
-              <div style="font-size:12px; font-weight:700; color:${nameColor}">${c.author}</div>
-              <div style="font-size:10px; color:var(--text3)">${subtitle}</div>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px">
-            ${resolveBtn}
-            <span class="badge ${bd.cls}">${bd.text}</span>
-            <span style="font-size:10px; color:var(--text3)">${date}</span>
-            <button onclick="deleteCommentLocal(${idx})" style="background:none; border:none; color:var(--text3); cursor:pointer; font-size:12px; margin-left:4px" title="Remover">Ô£ò</button>
-          </div>
-        </div>
-        ${sectionTag}
-        <p style="font-size:12px; color:var(--text2); line-height:1.6; margin-top:6px">${esc(c.text)}</p>
-      </div>`;
-  });
-  list.innerHTML = html;
-}
-
-function deleteCommentLocal(idx) {
-  if (!confirm('Deseja excluir este feedback?')) return;
-  localComments.splice(idx, 1);
-  saveCommentsLocal();
-  showToast('Ô£ò Feedback exclu├¡do!');
-}
-
-function setupAutoSave() {
-  const inputs = document.querySelectorAll('.rpt-textarea, .rpt-input, select, input[type="number"], input[type="text"]');
-  let timeout = null;
-  inputs.forEach(el => {
-    el.addEventListener('input', () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => saveAll(true), 1000);
-    });
-    el.addEventListener('change', () => saveAll(true));
-  });
-}
-
-function esc(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
-
-function collectData() {
-  const ids = [
-    'exec-contexto','exec-conquista','exec-risco',
-    'k-bugs-crit','k-bugs-res','k-mttr','k-sem-est','k-entregas',
-    'b0','b1','b2','b3','b4',
-    'm-mttr','m-sem-est','m-aderencia','m-issues-new','m-issues-closed','m-deploys',
-    'h1-prob','h1-imp','h2-prob','h2-imp','h3-prob','h3-imp','h4-prob','h4-imp',
-    's-h1','s-h2','s-h3','s-h4',
-    'p1','p2','p3','deploys','obs-lider'
-  ];
-  const data = { _globalStatus: globalStatusIdx, _health: {} };
-  ids.forEach(id => { const el = document.getElementById(id); if (el) data[id] = el.value; });
-  ['partner','mobile','gestao','tef','appweb'].forEach(p => {
-    const sel = document.querySelector(`select[onchange*="${p}"]`);
-    if (sel) data._health[p] = sel.value;
-  });
-  return data;
-}
-
-function applyDataToInputs(data) {
-  if (!data) return;
-  if (data._globalStatus !== undefined) applyGlobalStatus(data._globalStatus);
-  if (data._health) {
-    Object.keys(data._health).forEach(p => {
-      setHealth(p, data._health[p]);
-      const sel = document.querySelector(`select[onchange*="${p}"]`);
-      if (sel) sel.value = data._health[p];
-    });
-  }
-  Object.keys(data).forEach(id => {
-    if (id.startsWith('_')) return;
-    const el = document.getElementById(id);
-    if (el && document.activeElement !== el) {
-      el.value = data[id];
+// ACTIVE NAV ON SCROLL
+var sections = ['sec-decisao','sec-resumo','sec-kpis','sec-saude','sec-impedimentos','sec-distribuicao','sec-metricas','sec-prioridades','sec-hipoteses','sec-comentarios'];
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY + 120;
+  sections.forEach(function(id, i) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var top = el.getBoundingClientRect().top + window.scrollY;
+    var navItems = document.querySelectorAll('.sec-nav-item');
+    if (scrollY >= top && navItems[i]) {
+      document.querySelectorAll('.sec-nav-item').forEach(function(n) { n.classList.remove('active'); });
+      navItems[i].classList.add('active');
     }
   });
-  updateBars(); updateMttrTrend(); calcTaxaRes();
-}
-
-function saveAll(silent = false) {
-  const data = collectData();
-  localStorage.setItem(KEY, JSON.stringify(data));
-  if (isCloud && db) {
-    saveToCloud(data, silent);
-  } else {
-    if (!silent) showToast('Ô£à Reporte salvo localmente!');
-  }
-}
-
-function loadAllLocal() {
-  const raw = localStorage.getItem(KEY);
-  if (!raw) {
-    loadBugsLocalCount();
-    loadCommentsLocal();
-    return;
-  }
-  const data = JSON.parse(raw);
-  applyDataToInputs(data);
-  loadCommentsLocal();
-}
-
-function loadAll() {
-  initFirebase();
-  setupAutoSave();
-  renderEvidencias();
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2600);
-}
-
-/* ÔöÇÔöÇ INIT ÔöÇÔöÇ */
-document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); saveAll(); }
 });
-
-loadAll();
 </script>
 </body>
 </html>
-
