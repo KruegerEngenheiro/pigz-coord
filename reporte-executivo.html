@@ -319,6 +319,49 @@ body.read-mode .edit-only { display: none; }
 </style>
 </head>
 <body>
+<!-- PROTECAO POR SENHA — PIGZ CONFIDENCIAL -->
+<div id="lock-screen" style="position:fixed;inset:0;z-index:999999;background:#0F1117;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Poppins',sans-serif">
+  <div style="width:100%;max-width:400px;text-align:center">
+    <div style="font-size:48px;margin-bottom:16px">&#128274;</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#FA641E;margin-bottom:12px">PIGZ Confidencial</div>
+    <div style="font-size:24px;font-weight:900;color:#F3F4F6;margin-bottom:8px;letter-spacing:-0.5px">Documento Restrito</div>
+    <div style="font-size:13px;color:#6B7280;margin-bottom:32px;line-height:1.6">Este documento contém informações confidenciais da PIGZ.<br>Insira a senha para acessar.</div>
+    <div style="background:#1C1E26;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 24px">
+      <input id="lock-input" type="password" placeholder="••••••••" autocomplete="off"
+        style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 16px;color:#F3F4F6;font-family:'Poppins',sans-serif;font-size:18px;text-align:center;letter-spacing:6px;outline:none;transition:border-color 0.2s;margin-bottom:12px"
+        onkeydown="if(event.key==='Enter')checkPwd()"
+        onfocus="this.style.borderColor='#FA641E'"
+        onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+      <button onclick="checkPwd()"
+        style="width:100%;padding:14px;background:#FA641E;color:white;border:none;border-radius:10px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.5px"
+        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+        Acessar &#8594;
+      </button>
+      <div id="lock-err" style="margin-top:12px;font-size:12px;color:#F87171;display:none">Senha incorreta. Tente novamente.</div>
+    </div>
+    <div style="margin-top:20px;font-size:11px;color:#374151">Acesso restrito — Lideranca PIGZ</div>
+  </div>
+</div>
+<script>
+(function(){
+  var H='28f67208e77cb8aab2f039995d86bc744be2739a1608854ff73f9ff35ffcf4e1';
+  var SK='pigz-auth-v1';
+  async function sha256(m){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(m));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+  function unlock(){document.getElementById('lock-screen').style.display='none';sessionStorage.setItem(SK,'1');}
+  if(sessionStorage.getItem(SK)==='1'){unlock();return;}
+  window.checkPwd=async function(){
+    var v=document.getElementById('lock-input').value;
+    var h=await sha256(v);
+    if(h===H){unlock();}
+    else{
+      var e=document.getElementById('lock-err');e.style.display='block';
+      var i=document.getElementById('lock-input');i.style.borderColor='#F87171';i.value='';i.focus();
+      setTimeout(function(){e.style.display='none';i.style.borderColor='rgba(255,255,255,0.1)';},3000);
+    }
+  };
+})();
+</script>
+
 
 <div id="toast">&#10003; Reporte salvo!</div>
 
