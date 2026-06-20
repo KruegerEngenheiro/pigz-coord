@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -848,128 +848,158 @@ body.read-mode .edit-only { display: none; }
   </div>
 
   <!-- COMENTARIOS -->
-  <div class="sec-label" id="sec-comentarios">&#128172; Comentarios e Feedback da Lideranca</div>
-  <div class="card" style="margin-bottom:40px">
-    <div id="comments-list">
-      <div class="comment-card">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--warning));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000">CK</div>
-          <div>
-            <div style="font-size:13px;font-weight:700">Carlos Krueger</div>
-            <div style="font-size:11px;color:var(--text3)">Coordenacao de Projetos &middot; 19 Jun 2026</div>
-          </div>
-          <span class="badge badge-geral" style="margin-left:auto">Geral</span>
-        </div>
-        <p style="font-size:13px;color:var(--text2);line-height:1.6">Semana 06 &mdash; reporte gerado com dados do workspace completo da Pigz. Melhora significativa em assignee (131 &rarr; 7). Foco na semana 07: resolver bugs cronicos e reverter saldo negativo de entrega.</p>
-      </div>
-    </div>
-    <div class="edit-only" style="margin-top:16px">
-      <div class="field-label">Adicionar comentario</div>
-      <textarea class="rpt-textarea" id="new-comment" placeholder="Deixe seu feedback, decisao ou observacao sobre o reporte..." style="min-height:80px;"></textarea>
-      <button onclick="addComment()" style="margin-top:8px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;">+ Comentar</button>
+  
+  <!-- SECAO COMENTARIOS / FEEDBACK -->
+  <div class="sec-label" id="sec-comentarios">&#128172; Comentarios e Feedback</div>
+  <div class="card" style="margin-bottom:40px" id="ann-geral">
+    <div style="text-align:center;padding:24px 0 8px;color:var(--text3);font-size:13px;line-height:1.8">
+      &#128172; Passe o mouse sobre qualquer secao do reporte e clique em <strong style="color:var(--accent)">Anotar</strong><br>
+      ou clique no botao laranja no canto inferior direito para ver todas as anotacoes.
     </div>
   </div>
 
 </div><!-- /page -->
 
+<!-- WHO ARE YOU MODAL -->
+<div id="who-modal" style="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.82);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:24px;padding:40px 32px;width:100%;max-width:400px;text-align:center;animation:fadeInUp 0.3s ease">
+    <div style="font-size:40px;margin-bottom:16px">&#128100;</div>
+    <div style="font-size:20px;font-weight:900;margin-bottom:6px">Quem esta anotando?</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:28px;line-height:1.55">Selecione sua identidade para que a anotacao apareca com seu nome e cor.</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button onclick="ANNS.pick('carlos')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.02);cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:var(--text);text-align:left;width:100%" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">
+        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;background:rgba(250,100,30,0.15);color:#FA641E;flex-shrink:0">CK</div>
+        <div><div style="font-size:15px;font-weight:700;color:#FA641E;margin-bottom:2px">Carlos Krueger</div><div style="font-size:11px;color:var(--text3)">Coordenacao de Projetos</div></div>
+      </button>
+      <button onclick="ANNS.pick('bianca')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.02);cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:var(--text);text-align:left;width:100%" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">
+        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;background:rgba(167,139,250,0.15);color:#A78BFA;flex-shrink:0">BI</div>
+        <div><div style="font-size:15px;font-weight:700;color:#A78BFA;margin-bottom:2px">Bianca</div><div style="font-size:11px;color:var(--text3)">Coordenacao</div></div>
+      </button>
+      <button onclick="ANNS.pick('rodrigo')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.02);cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:var(--text);text-align:left;width:100%" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">
+        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;background:rgba(96,165,250,0.15);color:#60A5FA;flex-shrink:0">RO</div>
+        <div><div style="font-size:15px;font-weight:700;color:#60A5FA;margin-bottom:2px">Rodrigo</div><div style="font-size:11px;color:var(--text3)">Gestao</div></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL PANEL -->
+<div id="ann-global" style="position:fixed;bottom:100px;right:28px;width:360px;max-height:520px;background:var(--card);border:1px solid var(--border2);border-radius:20px;z-index:8999;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.55);overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);background:rgba(250,100,30,0.05)">
+    <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:8px">&#128172; Todas as Anotacoes <span id="ann-total" style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;background:rgba(250,100,30,0.15);color:var(--accent)">0</span></div>
+    <button onclick="ANNS.toggleGlobal()" style="background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer">&times;</button>
+  </div>
+  <div id="ann-global-body" style="flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:6px;scrollbar-width:thin">
+    <div style="text-align:center;padding:40px 20px;color:var(--text3);font-size:12px;line-height:1.7">Nenhuma anotacao ainda.<br>Passe o mouse sobre uma secao e clique <strong>Anotar</strong>.</div>
+  </div>
+</div>
+
 <!-- FAB -->
-<button id="fab-comment" onclick="document.getElementById('new-comment')?.scrollIntoView({behavior:'smooth'})">&#128172;</button>
+<button id="ann-fab" onclick="ANNS.toggleGlobal()" title="Ver todas as anotacoes" style="position:fixed;bottom:28px;right:28px;z-index:9100;width:58px;height:58px;border-radius:50%;background:var(--accent);color:white;border:none;font-size:22px;cursor:pointer;box-shadow:0 8px 28px rgba(250,100,30,0.45);display:flex;align-items:center;justify-content:center;transition:all 0.25s;outline:none">
+  &#128172;
+  <div id="ann-badge" style="position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;border-radius:99px;padding:0 5px;background:var(--danger);color:white;font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;border:2px solid var(--bg);font-family:'JetBrains Mono',monospace"></div>
+</button>
+
+<style>
+.annotatable{position:relative;}
+.ann-btn{position:absolute;top:14px;right:14px;z-index:10;display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,0.10);color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.03);transition:all 0.2s;opacity:0;}
+.annotatable:hover .ann-btn{opacity:1;}
+.ann-btn:hover,.ann-btn.active{background:rgba(250,100,30,0.12);border-color:rgba(250,100,30,0.35);color:var(--accent);}
+.ann-btn.active{opacity:1 !important;}
+.ann-cnt{font-family:'JetBrains Mono',monospace;font-weight:800;}
+.ann-panel{display:none;margin-top:14px;padding-top:14px;border-top:2px solid rgba(250,100,30,0.2);}
+.ann-panel.open{display:block;}
+.ann-ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.ann-ph-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);}
+.ann-ph-close{background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:0 4px;}
+.ann-ph-close:hover{color:var(--text);}
+.ann-thread{display:flex;flex-direction:column;gap:8px;max-height:230px;overflow-y:auto;scrollbar-width:thin;margin-bottom:12px;}
+.ann-empty{text-align:center;padding:18px;color:var(--text3);font-size:12px;line-height:1.6;}
+.ann-item{display:flex;gap:10px;align-items:flex-start;}
+.ann-av{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.ann-bub{flex:1;border-radius:10px;padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
+.ann-bub-meta{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap;}
+.ann-bub-name{font-size:11px;font-weight:700;}
+.ann-bub-role{font-size:10px;color:var(--text3);}
+.ann-bub-time{font-size:10px;color:var(--text3);margin-left:auto;}
+.ann-bub-del{background:none;border:none;color:var(--text3);font-size:13px;cursor:pointer;padding:0 2px;transition:color 0.2s;}
+.ann-bub-del:hover{color:var(--danger);}
+.ann-bub-txt{font-size:13px;color:var(--text2);line-height:1.55;white-space:pre-wrap;}
+.ann-ta{width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.09);border-radius:10px;color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;padding:10px 12px;resize:none;min-height:58px;line-height:1.55;outline:none;transition:border-color 0.2s;}
+.ann-ta:focus{border-color:var(--accent);}
+.ann-ta::placeholder{color:var(--text3);font-size:11px;}
+.ann-send{margin-top:8px;padding:9px 18px;background:var(--accent);color:white;border:none;border-radius:10px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:opacity 0.2s;}
+.ann-send:hover{opacity:0.85;}
+.gp-sl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);padding:6px 0 4px;border-bottom:1px solid rgba(250,100,30,0.15);margin-top:8px;}
+.gp-sl:first-child{margin-top:0;}
+.gp-it{display:flex;gap:8px;align-items:flex-start;background:rgba(255,255,255,0.03);border-radius:10px;padding:10px 12px;}
+.gp-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;}
+@media print{.ann-btn,.ann-panel,#who-modal,#ann-global,#ann-fab{display:none !important;}}
+</style>
 
 <script>
-// METODOLOGIA
-function toggleMetodologia() {
-  var body = document.getElementById('met-body');
-  var chev = document.getElementById('met-chev');
-  body.classList.toggle('open');
-  chev.classList.toggle('open');
-}
-
-// HIPOTESES
-function toggleHypo(id) {
-  var body = document.getElementById('body-' + id);
-  var chev = document.getElementById('chev-' + id);
-  body.classList.toggle('open');
-  chev.classList.toggle('open');
-}
-
-// SAUDE
-function setHealth(prod, val) {
-  var card = document.getElementById('hc-' + prod);
-  var dot = document.getElementById('hd-' + prod);
-  var lbl = document.getElementById('hl-' + prod);
-  var map = {
-    ok: { emoji: '&#128994;', label: 'Saudavel', color: 'var(--success)', hc: 'var(--success)' },
-    att: { emoji: '&#128161;', label: 'Atencao', color: 'var(--warning)', hc: 'var(--warning)' },
-    crit: { emoji: '&#128308;', label: 'Critico', color: 'var(--danger)', hc: 'var(--danger)' }
-  };
-  var d = map[val];
-  if (!d) return;
-  dot.innerHTML = d.emoji;
-  lbl.textContent = d.label;
-  lbl.style.color = d.color;
-  card.style.setProperty('--hc', d.hc);
-}
-
-// READ MODE
-function toggleReadMode() {
-  var body = document.body;
-  var btn = document.getElementById('mode-toggle-btn');
-  body.classList.toggle('read-mode');
-  if (body.classList.contains('read-mode')) {
-    btn.textContent = '&#9998; Modo Edicao';
-    btn.classList.add('edit-mode');
-  } else {
-    btn.textContent = '&#128065; Modo Leitura';
-    btn.classList.remove('edit-mode');
+var ANNS=(function(){
+  var KEY='pigz-v1-'+window.location.pathname.replace(/[^a-z0-9]/gi,'_');
+  var U={carlos:{n:'Carlos Krueger',r:'Coord. Projetos',i:'CK',c:'#FA641E',b:'rgba(250,100,30,0.15)'},bianca:{n:'Bianca',r:'Coordenacao',i:'BI',c:'#A78BFA',b:'rgba(167,139,250,0.15)'},rodrigo:{n:'Rodrigo',r:'Gestao',i:'RO',c:'#60A5FA',b:'rgba(96,165,250,0.15)'}};
+  var SN={decisao:'Decisao Necessaria',resumo:'Resumo Executivo',kpis:'Indicadores KPIs',saude:'Saude por Produto',impedimentos:'Impedimentos',ranking:'Ranking Devs',metricas:'Metricas',prioridades:'Prioridades',hipoteses:'Hipoteses'};
+  var db={},cb=null;
+  function load(){try{db=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){db={};}}
+  function persist(){localStorage.setItem(KEY,JSON.stringify(db));}
+  function init(){
+    load();
+    var defs=[
+      {s:'.decisao-box',id:'decisao'},
+      {s:'.exec-summary',id:'resumo'},
+      {s:'.kpi-grid',id:'kpis'},
+      {s:'.health-grid',id:'saude'},
+      {s:'#sec-impedimentos > .card:first-child',id:'impedimentos'},
+      {s:'#sec-ranking',id:'ranking'},
+      {s:'#sec-metricas',id:'metricas'},
+      {s:'#sec-prioridades',id:'prioridades'},
+      {s:'.hypo-list',id:'hipoteses',up:true}
+    ];
+    defs.forEach(function(d){var el=document.querySelector(d.s);if(!el)return;if(d.up&&el.parentElement)el=el.parentElement;attach(el,d.id);});
+    tick2();
   }
-}
-
-// SAVE
-function saveAll() {
-  var toast = document.getElementById('toast');
-  toast.classList.add('show');
-  setTimeout(function() { toast.classList.remove('show'); }, 2500);
-}
-
-// IMPEDIMENTO
-function addImpedimento() {
-  var txt = document.getElementById('new-imp').value.trim();
-  if (!txt) return;
-  var list = document.getElementById('imp-list');
-  var div = document.createElement('div');
-  div.className = 'imp-item';
-  div.innerHTML = '<div class="imp-sev" style="background:var(--warning)"></div><div class="imp-body"><div class="imp-title">' + txt + '</div></div><div class="imp-actions"><span class="imp-action-tag" style="background:rgba(251,191,36,0.15);color:var(--warning)">Novo</span></div>';
-  list.appendChild(div);
-  document.getElementById('new-imp').value = '';
-}
-
-// COMMENT
-function addComment() {
-  var txt = document.getElementById('new-comment').value.trim();
-  if (!txt) return;
-  var list = document.getElementById('comments-list');
-  var card = document.createElement('div');
-  card.className = 'comment-card';
-  card.innerHTML = '<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px">&#128100;</div><div><div style="font-size:13px;font-weight:700">Lideranca</div><div style="font-size:11px;color:var(--text3)">Agora</div></div><span class="badge badge-geral" style="margin-left:auto">Geral</span></div><p style="font-size:13px;color:var(--text2);line-height:1.6">' + txt + '</p>';
-  list.appendChild(card);
-  document.getElementById('new-comment').value = '';
-}
-
-// ACTIVE NAV ON SCROLL
-var sections = ['sec-decisao','sec-resumo','sec-kpis','sec-saude','sec-impedimentos','sec-distribuicao','sec-metricas','sec-prioridades','sec-hipoteses','sec-comentarios'];
-window.addEventListener('scroll', function() {
-  var scrollY = window.scrollY + 120;
-  sections.forEach(function(id, i) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    var top = el.getBoundingClientRect().top + window.scrollY;
-    var navItems = document.querySelectorAll('.sec-nav-item');
-    if (scrollY >= top && navItems[i]) {
-      document.querySelectorAll('.sec-nav-item').forEach(function(n) { n.classList.remove('active'); });
-      navItems[i].classList.add('active');
-    }
-  });
-});
+  function attach(el,sid){
+    el.classList.add('annotatable');
+    var btn=document.createElement('button');btn.className='ann-btn';btn.id='ab-'+sid;
+    btn.innerHTML='&#128172; Anotar <span class="ann-cnt" id="ac-'+sid+'"></span>';
+    btn.onclick=function(e){e.stopPropagation();openP(sid);};
+    el.appendChild(btn);
+    var pnl=document.createElement('div');pnl.className='ann-panel';pnl.id='ap-'+sid;
+    pnl.innerHTML='<div class="ann-ph"><div class="ann-ph-title">&#128172; '+(SN[sid]||sid)+'</div><button class="ann-ph-close" onclick="ANNS.closeP(\''+sid+'\')">&#215;</button></div><div class="ann-thread" id="at-'+sid+'"></div><div><textarea class="ann-ta" id="ai-'+sid+'" placeholder="Sua anotacao sobre esta secao..."></textarea><button class="ann-send" onclick="ANNS.add(\''+sid+'\')">Enviar &#10148;</button></div>';
+    el.appendChild(pnl);tick(sid);
+  }
+  function openP(sid){
+    document.querySelectorAll('.ann-panel.open').forEach(function(p){p.classList.remove('open');});
+    var p=document.getElementById('ap-'+sid);if(!p)return;
+    p.classList.add('open');render(sid);
+    setTimeout(function(){var i=document.getElementById('ai-'+sid);if(i)i.focus();p.scrollIntoView({behavior:'smooth',block:'nearest'});},180);
+  }
+  function closeP(sid){var p=document.getElementById('ap-'+sid);if(p)p.classList.remove('open');}
+  function render(sid){
+    var t=document.getElementById('at-'+sid);if(!t)return;
+    var items=db[sid]||[];
+    if(!items.length){t.innerHTML='<div class="ann-empty">Sem anotacoes nesta secao ainda.</div>';return;}
+    t.innerHTML=items.map(function(a,i){var u=U[a.u]||{n:a.u,i:'?',c:'#888',b:'rgba(100,100,100,0.1)',r:''};return '<div class="ann-item"><div class="ann-av" style="background:'+u.b+';color:'+u.c+'">'+u.i+'</div><div class="ann-bub"><div class="ann-bub-meta"><span class="ann-bub-name" style="color:'+u.c+'">'+u.n+'</span><span class="ann-bub-role">'+u.r+'</span><span class="ann-bub-time">'+a.t+'</span><button class="ann-bub-del" onclick="ANNS.del(\''+sid+'\','+i+')">&#215;</button></div><div class="ann-bub-txt">'+esc(a.v)+'</div></div></div>';}).join('');
+    t.scrollTop=t.scrollHeight;
+  }
+  function add(sid){
+    var inp=document.getElementById('ai-'+sid);var txt=(inp&&inp.value.trim())||'';if(!txt)return;
+    cb=function(uid){if(!db[sid])db[sid]=[];var now=new Date();db[sid].push({u:uid,v:txt,t:now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' '+now.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})});persist();if(inp)inp.value='';render(sid);tick(sid);tick2();if(document.getElementById('ann-global').style.display==='flex')renderGlobal();};
+    document.getElementById('who-modal').style.display='flex';
+  }
+  function pick(uid){document.getElementById('who-modal').style.display='none';if(cb){cb(uid);cb=null;}}
+  function del(sid,idx){if(db[sid])db[sid].splice(idx,1);persist();render(sid);tick(sid);tick2();}
+  function tick(sid){var n=(db[sid]||[]).length;var c=document.getElementById('ac-'+sid);if(c)c.textContent=n>0?n:'';var b=document.getElementById('ab-'+sid);if(b)b.classList.toggle('active',n>0);}
+  function tick2(){var tot=0;Object.keys(db).forEach(function(k){tot+=(db[k]||[]).length;});var badge=document.getElementById('ann-badge');if(badge){badge.textContent=tot;badge.style.display=tot>0?'flex':'none';}var at=document.getElementById('ann-total');if(at)at.textContent=tot;}
+  function toggleGlobal(){var p=document.getElementById('ann-global');var isOpen=p.style.display==='flex';p.style.display=isOpen?'none':'flex';if(!isOpen)renderGlobal();}
+  function renderGlobal(){var body=document.getElementById('ann-global-body');var count=0;var html='';Object.keys(SN).forEach(function(sid){var items=db[sid]||[];if(!items.length)return;count+=items.length;html+='<div class="gp-sl">&#128279; '+SN[sid]+'</div>';items.forEach(function(a){var u=U[a.u]||{n:a.u,i:'?',c:'#888',b:'rgba(100,100,100,0.1)'};html+='<div class="gp-it"><div class="gp-av" style="background:'+u.b+';color:'+u.c+'">'+u.i+'</div><div style="flex:1"><div style="display:flex;gap:7px;align-items:center"><span style="font-size:11px;font-weight:700;color:'+u.c+'">'+u.n+'</span><span style="font-size:10px;color:var(--text3)">'+a.t+'</span></div><div style="font-size:12px;color:var(--text2);margin-top:3px">'+esc(a.v)+'</div></div></div>';});});body.innerHTML=html||'<div style="text-align:center;padding:40px 20px;color:var(--text3);font-size:12px;line-height:1.7">Nenhuma anotacao ainda.</div>';var at=document.getElementById('ann-total');if(at)at.textContent=count;}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+  return{init:init,pick:pick,openP:openP,closeP:closeP,add:add,del:del,toggleGlobal:toggleGlobal};
+})();
+document.addEventListener('DOMContentLoaded',function(){ANNS.init();});
 </script>
 </body>
 </html>
