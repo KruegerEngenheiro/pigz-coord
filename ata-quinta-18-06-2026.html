@@ -1,0 +1,1175 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata de Reuniao — PIGZ · 18/06/2026</title>
+<meta name="description" content="Ata Oficial da Reuniao Semanal de Quinta-Feira &mdash; PIGZ &middot; 19 de junho de 2026">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   VARIAVEIS E BASE
+   ═══════════════════════════════════════ */
+:root {
+  --bg: #0F1117; --bg2: #161820; --card: #1C1E26; --card2: #21242E;
+  --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
+  --accent: #FA641E; --success: #22D3A4; --warning: #FBBF24;
+  --danger: #F87171; --info: #60A5FA; --purple: #A78BFA;
+  --text: #F3F4F6; --text2: #9CA3AF; --text3: #6B7280;
+  --mono: 'JetBrains Mono', monospace;
+  --toolbar-h: 52px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+
+/* ═══════════════════════════════════════
+   TOOLBAR
+   ═══════════════════════════════════════ */
+.toolbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--toolbar-h); display: flex; align-items: center;
+  justify-content: space-between; padding: 0 24px;
+  background: rgba(15,17,23,0.97); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.toolbar-left { display: flex; align-items: center; gap: 12px; }
+.logo { font-size: 15px; font-weight: 800; }
+.logo .ac { color: var(--accent); }
+.tb-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tb-orange { border: 1px solid rgba(250,100,30,0.3); color: var(--accent); background: rgba(250,100,30,0.08); }
+.tb-green { border: 1px solid rgba(34,211,164,0.3); color: var(--success); background: rgba(34,211,164,0.06); }
+.toolbar-right { display: flex; gap: 6px; }
+.tbtn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 8px; border: 1px solid var(--border2); font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text2); background: rgba(255,255,255,0.04); }
+.tbtn:hover { background: rgba(255,255,255,0.08); color: var(--text); }
+.tbtn-primary { background: var(--accent); color: white; border-color: transparent; }
+.tbtn-primary:hover { opacity: 0.85; color: white; }
+
+/* ═══════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════ */
+.page { max-width: 900px; margin: 0 auto; padding: calc(var(--toolbar-h) + 32px) 32px 80px; animation: fadeInUp 0.45s ease; }
+
+/* ═══════════════════════════════════════
+   HEADER DO DOCUMENTO
+   ═══════════════════════════════════════ */
+.doc-header {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 24px; align-items: end; margin-bottom: 40px;
+  padding-bottom: 32px; border-bottom: 2px solid var(--border);
+}
+.doc-eyebrow {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px;
+  color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+}
+.doc-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent); }
+h1.doc-title { font-size: 32px; font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 10px; }
+h1.doc-title .highlight { color: var(--accent); }
+.doc-subtitle { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.doc-meta { text-align: right; }
+.doc-number { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.doc-date { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: var(--text); font-family: var(--mono); margin-bottom: 8px; }
+.doc-day { font-size: 12px; color: var(--text2); }
+
+/* ═══════════════════════════════════════
+   SECAO LABEL
+   ═══════════════════════════════════════ */
+.sec-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; color: var(--text3); margin-bottom: 16px; margin-top: 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ═══════════════════════════════════════
+   PARTICIPANTES
+   ═══════════════════════════════════════ */
+.participants-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 8px; }
+.participant-card {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 12px; text-align: center; transition: all 0.2s;
+}
+.participant-card:hover { border-color: var(--border2); }
+.participant-avatar {
+  width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; letter-spacing: -0.5px;
+}
+.participant-name { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+.participant-role { font-size: 10px; color: var(--text3); }
+.participant-new { font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: rgba(34,211,164,0.15); color: var(--success); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; display: inline-block; }
+
+/* ═══════════════════════════════════════
+   DASHBOARD DE MISSOES (STATUS COUNTER)
+   ═══════════════════════════════════════ */
+.mission-dashboard {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;
+}
+.dash-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 18px 16px; text-align: center; position: relative; overflow: hidden;
+}
+.dash-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--dc, var(--border)); }
+.dash-num { font-size: 32px; font-weight: 900; font-family: var(--mono); color: var(--dc, var(--text)); line-height: 1; margin-bottom: 6px; }
+.dash-label { font-size: 11px; color: var(--text3); font-weight: 500; }
+
+/* ═══════════════════════════════════════
+   PAUTAS
+   ═══════════════════════════════════════ */
+.topic-group { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 12px; }
+.topic-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; cursor: pointer; transition: background 0.2s;
+  border-bottom: 1px solid var(--border);
+}
+.topic-header:hover { background: rgba(255,255,255,0.02); }
+.topic-icon { font-size: 18px; flex-shrink: 0; }
+.topic-title { font-size: 14px; font-weight: 700; flex: 1; }
+.topic-count { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px; background: rgba(255,255,255,0.06); color: var(--text3); }
+.topic-chev { font-size: 11px; color: var(--text3); transition: transform 0.3s; }
+.topic-chev.open { transform: rotate(180deg); }
+.topic-body { display: none; }
+.topic-body.open { display: block; }
+.topic-point {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 20px; border-bottom: 1px solid var(--border);
+}
+.topic-point:last-child { border-bottom: none; }
+.topic-point-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+.topic-point-text { font-size: 13px; color: var(--text2); line-height: 1.6; flex: 1; }
+.topic-point-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; flex-shrink: 0; margin-top: 2px; }
+
+/* ═══════════════════════════════════════
+   DECISOES
+   ═══════════════════════════════════════ */
+.decisions-box {
+  background: linear-gradient(135deg, rgba(250,100,30,0.08), rgba(251,191,36,0.04));
+  border: 1px solid rgba(250,100,30,0.20); border-left: 4px solid var(--accent);
+  border-radius: 16px; padding: 24px 28px; margin-bottom: 8px;
+}
+.decision-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.decision-item:last-child { margin-bottom: 0; }
+.decision-num { font-size: 11px; font-weight: 800; color: var(--accent); min-width: 28px; font-family: var(--mono); }
+.decision-text { font-size: 13px; color: var(--text); font-weight: 500; line-height: 1.6; flex: 1; }
+
+/* ═══════════════════════════════════════
+   MISSOES / PLANO DE ACAO (HEROI)
+   ═══════════════════════════════════════ */
+.mission-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 20px 22px; margin-bottom: 10px;
+  border-left: 4px solid var(--mc, var(--border)); transition: all 0.2s;
+}
+.mission-card:hover { border-color: var(--mc, var(--border2)); }
+.mission-header { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+.mission-id { font-size: 11px; font-weight: 800; color: var(--text3); font-family: var(--mono); min-width: 36px; padding-top: 2px; }
+.mission-content { flex: 1; }
+.mission-title { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+.mission-context { font-size: 12px; color: var(--text3); line-height: 1.55; }
+.mission-footer { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.mission-field { display: flex; align-items: center; gap: 6px; }
+.mission-field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); }
+.mission-field-val { font-size: 12px; font-weight: 600; color: var(--text2); }
+.mission-divider { width: 1px; height: 14px; background: var(--border2); }
+.status-sel {
+  font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 700;
+  border: none; border-radius: 8px; padding: 4px 10px; cursor: pointer;
+  outline: none; transition: all 0.2s;
+}
+.status-sel.pendente { background: rgba(107,114,128,0.15); color: var(--text3); }
+.status-sel.em-andamento { background: rgba(96,165,250,0.15); color: var(--info); }
+.status-sel.concluido { background: rgba(34,211,164,0.15); color: var(--success); }
+.status-sel.bloqueado { background: rgba(248,113,113,0.15); color: var(--danger); }
+.status-sel.em-discussao { background: rgba(251,191,36,0.15); color: var(--warning); }
+
+/* PRIORITY */
+.prio-badge { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.prio-alta { background: rgba(248,113,113,0.15); color: var(--danger); }
+.prio-media { background: rgba(251,191,36,0.15); color: var(--warning); }
+.prio-baixa { background: rgba(107,114,128,0.15); color: var(--text3); }
+
+/* ═══════════════════════════════════════
+   PROXIMA REUNIAO
+   ═══════════════════════════════════════ */
+.next-meeting {
+  background: linear-gradient(135deg, rgba(34,211,164,0.06), rgba(96,165,250,0.04));
+  border: 1px solid rgba(34,211,164,0.18); border-radius: 16px;
+  padding: 24px 28px; margin-top: 8px;
+}
+.next-meeting-grid { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; }
+.next-meeting-date-box { text-align: center; background: rgba(34,211,164,0.1); border-radius: 12px; padding: 16px 22px; border: 1px solid rgba(34,211,164,0.2); }
+.next-meeting-day-num { font-size: 36px; font-weight: 900; font-family: var(--mono); color: var(--success); line-height: 1; }
+.next-meeting-month { font-size: 12px; font-weight: 700; color: var(--success); text-transform: uppercase; letter-spacing: 1px; }
+.next-meeting-weekday { font-size: 10px; color: var(--text3); margin-top: 4px; }
+.next-meeting-pauta { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.next-meeting-pauta:last-child { margin-bottom: 0; }
+.next-pauta-num { font-size: 11px; font-weight: 800; color: var(--success); font-family: var(--mono); min-width: 22px; }
+.next-pauta-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+/* ═══════════════════════════════════════
+   ASSINATURAS
+   ═══════════════════════════════════════ */
+.signatures-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+.signature-item { border-top: 1px solid var(--border2); padding-top: 10px; }
+.signature-name { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.signature-role { font-size: 10px; color: var(--text3); }
+.signature-space { height: 36px; }
+
+/* ═══════════════════════════════════════
+   ANNOTATIONS (igual ao reporte)
+   ═══════════════════════════════════════ */
+.annotatable { position: relative; }
+.ann-btn { position:absolute;top:14px;right:14px;z-index:10;display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;cursor:pointer;font-family:'Poppins',sans-serif;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,0.10);color:rgba(255,255,255,0.28);background:rgba(255,255,255,0.03);transition:all 0.2s;opacity:0;}
+.annotatable:hover .ann-btn{opacity:1;}
+.ann-btn:hover,.ann-btn.active{background:rgba(250,100,30,0.12);border-color:rgba(250,100,30,0.35);color:var(--accent);}
+.ann-btn.active{opacity:1 !important;}
+.ann-cnt{font-family:'JetBrains Mono',monospace;font-weight:800;}
+.ann-panel{display:none;margin-top:14px;padding-top:14px;border-top:2px solid rgba(250,100,30,0.2);}
+.ann-panel.open{display:block;}
+.ann-ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.ann-ph-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);}
+.ann-ph-close{background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:0 4px;}
+.ann-ph-close:hover{color:var(--text);}
+.ann-thread{display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto;scrollbar-width:thin;margin-bottom:10px;}
+.ann-empty{text-align:center;padding:14px;color:var(--text3);font-size:12px;}
+.ann-item{display:flex;gap:8px;}
+.ann-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.ann-bub{flex:1;border-radius:10px;padding:9px 11px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
+.ann-bub-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap;}
+.ann-bub-name{font-size:11px;font-weight:700;}
+.ann-bub-time{font-size:10px;color:var(--text3);margin-left:auto;}
+.ann-bub-del{background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;padding:0 2px;}
+.ann-bub-del:hover{color:var(--danger);}
+.ann-bub-txt{font-size:12px;color:var(--text2);line-height:1.5;white-space:pre-wrap;}
+.ann-ta{width:100%;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.09);border-radius:10px;color:var(--text);font-family:'Poppins',sans-serif;font-size:12px;padding:10px 12px;resize:none;min-height:54px;outline:none;transition:border-color 0.2s;}
+.ann-ta:focus{border-color:var(--accent);}
+.ann-send{margin-top:8px;padding:8px 16px;background:var(--accent);color:white;border:none;border-radius:9px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;cursor:pointer;}
+.ann-send:hover{opacity:0.85;}
+
+/* ═══════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════ */
+#toast{position:fixed;bottom:28px;right:100px;z-index:999;background:var(--success);color:var(--bg);padding:12px 22px;border-radius:12px;font-size:13px;font-weight:700;box-shadow:0 8px 28px rgba(34,211,164,0.35);opacity:0;transform:translateY(10px);transition:all 0.3s;pointer-events:none;}
+#toast.show{opacity:1;transform:translateY(0);}
+
+/* ═══════════════════════════════════════
+   FAB + GLOBAL PANEL
+   ═══════════════════════════════════════ */
+#ann-global{position:fixed;bottom:100px;right:28px;width:340px;max-height:480px;background:var(--card);border:1px solid var(--border2);border-radius:20px;z-index:8999;display:none;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.55);overflow:hidden;}
+#ann-global.open{display:flex;}
+.gp-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border);background:rgba(250,100,30,0.05);}
+.gp-head-title{font-size:13px;font-weight:800;}
+.gp-close{background:none;border:none;color:var(--text3);font-size:20px;cursor:pointer;}
+#gp-body{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:5px;scrollbar-width:thin;}
+.gp-sl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);padding:5px 0 3px;border-bottom:1px solid rgba(250,100,30,0.15);margin-top:7px;}
+.gp-sl:first-child{margin-top:0;}
+.gp-it{display:flex;gap:7px;background:rgba(255,255,255,0.03);border-radius:9px;padding:9px 11px;}
+.gp-av{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;}
+#ann-fab{position:fixed;bottom:28px;right:28px;z-index:9100;width:56px;height:56px;border-radius:50%;background:var(--accent);color:white;border:none;font-size:20px;cursor:pointer;box-shadow:0 8px 28px rgba(250,100,30,0.45);display:flex;align-items:center;justify-content:center;transition:all 0.25s;outline:none;}
+#ann-fab:hover{transform:scale(1.1);}
+#ann-badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:99px;padding:0 4px;background:var(--danger);color:white;font-size:10px;font-weight:900;display:none;align-items:center;justify-content:center;border:2px solid var(--bg);font-family:var(--mono);}
+
+/* ═══════════════════════════════════════
+   WHO MODAL
+   ═══════════════════════════════════════ */
+#who-modal{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.82);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px;}
+.who-box{background:var(--card);border:1px solid var(--border2);border-radius:24px;padding:40px 32px;width:100%;max-width:400px;text-align:center;animation:fadeInUp 0.3s ease;}
+.who-btn{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.02);cursor:pointer;transition:all 0.2s;font-family:'Poppins',sans-serif;color:var(--text);text-align:left;width:100%;margin-bottom:10px;}
+.who-btn:last-child{margin-bottom:0;}
+.who-btn:hover{background:rgba(255,255,255,0.05);transform:translateX(4px);}
+.who-av{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;}
+
+/* ═══════════════════════════════════════
+   PRINT STYLES (PDF FORMAL BRANCO)
+   ═══════════════════════════════════════ */
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  body { background: white !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 11pt; }
+  .toolbar, #ann-fab, #ann-global, #who-modal { display: none !important; }
+  .page { padding: 0 !important; max-width: 100% !important; animation: none !important; }
+  .doc-header { border-bottom: 2px solid #FA641E !important; margin-bottom: 24px !important; padding-bottom: 20px !important; }
+  h1.doc-title { font-size: 24pt !important; color: #111 !important; }
+  h1.doc-title .highlight { color: #FA641E !important; }
+  .doc-eyebrow { color: #FA641E !important; }
+  .doc-eyebrow::before { background: #FA641E !important; }
+  .doc-date { color: #111 !important; font-size: 20pt !important; }
+  .doc-day, .doc-number { color: #666 !important; }
+  .sec-label { color: #888 !important; margin-top: 20px !important; }
+  .sec-label::after { background: #ddd !important; }
+  .participant-card { background: #f8f8f8 !important; border-color: #e0e0e0 !important; }
+  .participant-name { color: #111 !important; }
+  .participant-role { color: #666 !important; }
+  .participant-avatar { border: 2px solid #ddd !important; }
+  .mission-dashboard { display: none !important; }
+  .topic-group { background: #f8f8f8 !important; border-color: #e0e0e0 !important; page-break-inside: avoid; }
+  .topic-header { border-bottom-color: #e0e0e0 !important; background: #f0f0f0 !important; }
+  .topic-title { color: #111 !important; }
+  .topic-count { background: #e0e0e0 !important; color: #666 !important; }
+  .topic-body { display: block !important; }
+  .topic-chev { display: none !important; }
+  .topic-point { border-bottom-color: #eee !important; }
+  .topic-point-text { color: #333 !important; }
+  .topic-point-dot { background: #FA641E !important; }
+  .decisions-box { background: #fff8f4 !important; border-color: #FA641E !important; page-break-inside: avoid; }
+  .decision-text { color: #111 !important; }
+  .decision-num { color: #FA641E !important; }
+  .mission-card { background: #f8f8f8 !important; border-color: #e0e0e0 !important; border-left-color: var(--mc, #FA641E) !important; page-break-inside: avoid; margin-bottom: 8px !important; }
+  .mission-title { color: #111 !important; }
+  .mission-context { color: #555 !important; }
+  .mission-field-label { color: #888 !important; }
+  .mission-field-val { color: #333 !important; }
+  .mission-footer { border-top-color: #e0e0e0 !important; }
+  .status-sel { border: 1px solid #ddd !important; background: #f0f0f0 !important; color: #333 !important; -webkit-appearance: none; appearance: none; padding: 4px 10px !important; }
+  .prio-badge { border: 1px solid #ddd !important; color: #555 !important; background: #f0f0f0 !important; }
+  .next-meeting { background: #f0faf7 !important; border-color: #22D3A4 !important; page-break-inside: avoid; }
+  .next-meeting-date-box { background: #d6f5ec !important; border-color: #22D3A4 !important; }
+  .next-meeting-day-num { color: #0f9d7a !important; }
+  .next-meeting-month { color: #0f9d7a !important; }
+  .next-meeting-pauta { background: #eafaf5 !important; }
+  .next-pauta-num { color: #0f9d7a !important; }
+  .next-pauta-text { color: #333 !important; }
+  .signature-item { border-top-color: #ccc !important; }
+  .signature-name { color: #111 !important; }
+  .signature-role { color: #666 !important; }
+  .ann-btn, .ann-panel { display: none !important; }
+  .participants-grid { grid-template-columns: repeat(5, 1fr) !important; }
+}
+
+/* ═══════════════════════════════════════
+   ANIMACOES
+   ═══════════════════════════════════════ */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ═══════════════════════════════════════
+   RESPONSIVO
+   ═══════════════════════════════════════ */
+@media (max-width: 800px) {
+  .page { padding: calc(var(--toolbar-h) + 16px) 16px 80px; }
+  .doc-header { grid-template-columns: 1fr; }
+  .doc-meta { text-align: left; }
+  .participants-grid { grid-template-columns: repeat(2, 1fr); }
+  .mission-dashboard { grid-template-columns: repeat(2, 1fr); }
+  .signatures-grid { grid-template-columns: 1fr 1fr; }
+  .next-meeting-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="toast">&#10003; Salvo!</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-left">
+    <span class="logo">PIGZ<span class="ac">.</span></span>
+    <span class="tb-badge tb-orange">Ata Oficial</span>
+    <span class="tb-badge tb-green">Reuniao de Quinta</span>
+  </div>
+  <div class="toolbar-right">
+    <button class="tbtn" onclick="expandAll()">&#9660; Expandir Tudo</button>
+    <button class="tbtn" onclick="window.print()">&#128424; Imprimir PDF</button>
+    <a class="tbtn" href="index.html">&#8617; Painel</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CABECALHO DO DOCUMENTO -->
+  <div class="doc-header">
+    <div>
+      <div class="doc-eyebrow">Reuniao Semanal</div>
+      <h1 class="doc-title">Ata Oficial<br><span class="highlight">PIGZ</span></h1>
+      <div class="doc-subtitle">Toda quinta-feira a empresa se reune para alinhar, decidir e sair com missoes claras. Esta ata e o registro oficial das decisoes e compromissos assumidos.</div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-number">Ata #01 &middot; 2026</div>
+      <div class="doc-date">19/06</div>
+      <div class="doc-day">Quinta-feira &middot; 2026</div>
+    </div>
+  </div>
+
+  <!-- PARTICIPANTES -->
+  <div class="sec-label">&#128101; Participantes</div>
+  <div class="participants-grid">
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(250,100,30,0.15);color:#FA641E">CK</div>
+      <div class="participant-name">Carlos Krueger</div>
+      <div class="participant-role">Coordenacao</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(167,139,250,0.15);color:#A78BFA">BI</div>
+      <div class="participant-name">Bianca</div>
+      <div class="participant-role">Coordenacao</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(96,165,250,0.15);color:#60A5FA">GU</div>
+      <div class="participant-name">Gustavo</div>
+      <div class="participant-role">Lider SWAT</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(34,211,164,0.15);color:#22D3A4">LE</div>
+      <div class="participant-name">Leo</div>
+      <div class="participant-role">Infraestrutura</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(251,191,36,0.15);color:#FBBF24">LA</div>
+      <div class="participant-name">Lacan</div>
+      <div class="participant-role">Back-end</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(248,113,113,0.15);color:#F87171">GI</div>
+      <div class="participant-name">Guilherme</div>
+      <div class="participant-role">Financeiro</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(96,165,250,0.15);color:#60A5FA">OS</div>
+      <div class="participant-name">Oscar</div>
+      <div class="participant-role">Dev / Dados</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(34,211,164,0.15);color:#22D3A4">EM</div>
+      <div class="participant-name">Emerson</div>
+      <div class="participant-role">Dev</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(250,100,30,0.15);color:#FA641E">JP</div>
+      <div class="participant-name">Joao Paulo</div>
+      <div class="participant-role">Squad Onboard</div>
+    </div>
+    <div class="participant-card">
+      <div class="participant-avatar" style="background:rgba(34,211,164,0.15);color:#22D3A4">LS</div>
+      <div class="participant-name">Lucas Sadek</div>
+      <div class="participant-role">Back-end</div>
+      <div class="participant-new">&#10024; Novo</div>
+    </div>
+  </div>
+
+  <!-- PAUTAS -->
+  <div class="sec-label" style="margin-top:40px">&#128203; Pautas Discutidas</div>
+
+  <!-- PAUTA 1: MCP -->
+  <div class="topic-group annotatable" id="pauta-mcp">
+    <div class="topic-header" onclick="toggleTopic('mcp')">
+      <div class="topic-icon">&#129302;</div>
+      <div class="topic-title">MCP &mdash; Agente e Logs</div>
+      <div class="topic-count">2 pontos</div>
+      <span class="topic-chev" id="chev-mcp">&#9660;</span>
+    </div>
+    <div class="topic-body open" id="body-mcp">
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Gustavo informou, conforme alinhamento com Bianca, a necessidade de envolver outros colaboradores no desenvolvimento para conclusao do <strong>agente MCP</strong>.</div>
+        <span class="topic-point-tag" style="background:rgba(248,113,113,0.12);color:#F87171">Urgente</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Permanece <strong>pendente</strong> a resolucao do problema de logs levantado na reuniao de 11/06/2026. Lacan e Gustavo sao os responsaveis.</div>
+        <span class="topic-point-tag" style="background:rgba(251,191,36,0.12);color:#FBBF24">Carregado</span>
+      </div>
+    </div>
+    <button class="ann-btn" id="ann-btn-mcp" onclick="ANN.open('mcp')">&#128172; Anotar <span class="ann-cnt" id="ann-cnt-mcp"></span></button>
+    <div class="ann-panel" id="ann-panel-mcp">
+      <div class="ann-ph"><div class="ann-ph-title">&#128172; MCP</div><button class="ann-ph-close" onclick="ANN.close('mcp')">&times;</button></div>
+      <div class="ann-thread" id="ann-thread-mcp"></div>
+      <div><textarea class="ann-ta" id="ann-inp-mcp" placeholder="Anotacao sobre MCP..."></textarea><button class="ann-send" onclick="ANN.add('mcp')">Enviar &#10148;</button></div>
+    </div>
+  </div>
+
+  <!-- PAUTA 2: SAIPOS -->
+  <div class="topic-group annotatable" id="pauta-saipos">
+    <div class="topic-header" onclick="toggleTopic('saipos')">
+      <div class="topic-icon">&#128683;</div>
+      <div class="topic-title">Saipos &mdash; Indisponibilidade e Modo Offline</div>
+      <div class="topic-count">4 pontos</div>
+      <span class="topic-chev" id="chev-saipos">&#9660;</span>
+    </div>
+    <div class="topic-body open" id="body-saipos">
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">A Saipos enfrentou <strong>indisponibilidade em seu sistema</strong>. A empresa estabeleceu prazo de 20 dias para conclusao da funcionalidade offline.</div>
+        <span class="topic-point-tag" style="background:rgba(248,113,113,0.12);color:#F87171">Impacto</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Discussao levantada: isso abre um precedente. <strong>A PIGZ tem recursos para aplicar a mesma solucao de reembolso que a Saipos fez?</strong> Ponto a ser analisado.</div>
+        <span class="topic-point-tag" style="background:rgba(251,191,36,0.12);color:#FBBF24">Em discussao</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Leo recomendou que a <strong>primeira versao do modo offline nao seja excessivamente robusta</strong>, evitando aumento de complexidade e dificuldades de manutencao e correcao.</div>
+        <span class="topic-point-tag" style="background:rgba(96,165,250,0.12);color:#60A5FA">Recomendacao</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Plano de acao para incidentes:</strong> necessidade de criacao de um mapa de riscos e definicao de procedimentos para situacoes de indisponibilidade de APIs criticas (Comanda).</div>
+        <span class="topic-point-tag" style="background:rgba(248,113,113,0.12);color:#F87171">Critico</span>
+      </div>
+    </div>
+    <button class="ann-btn" id="ann-btn-saipos" onclick="ANN.open('saipos')">&#128172; Anotar <span class="ann-cnt" id="ann-cnt-saipos"></span></button>
+    <div class="ann-panel" id="ann-panel-saipos">
+      <div class="ann-ph"><div class="ann-ph-title">&#128172; Saipos</div><button class="ann-ph-close" onclick="ANN.close('saipos')">&times;</button></div>
+      <div class="ann-thread" id="ann-thread-saipos"></div>
+      <div><textarea class="ann-ta" id="ann-inp-saipos" placeholder="Anotacao sobre Saipos / Modo Offline..."></textarea><button class="ann-send" onclick="ANN.add('saipos')">Enviar &#10148;</button></div>
+    </div>
+  </div>
+
+  <!-- PAUTA 3: BILL -->
+  <div class="topic-group annotatable" id="pauta-bill">
+    <div class="topic-header" onclick="toggleTopic('bill')">
+      <div class="topic-icon">&#128179;</div>
+      <div class="topic-title">BILL &mdash; Portal de Beneficios, SSO e Logs</div>
+      <div class="topic-count">4 pontos</div>
+      <span class="topic-chev" id="chev-bill">&#9660;</span>
+    </div>
+    <div class="topic-body open" id="body-bill">
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">O projeto BILL esta seguindo as diretrizes e demandas registradas no <strong>Linear</strong>.</div>
+        <span class="topic-point-tag" style="background:rgba(34,211,164,0.12);color:#22D3A4">Em andamento</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Continuidade do desenvolvimento do <strong>novo front-end do Portal de Beneficios</strong>.</div>
+        <span class="topic-point-tag" style="background:rgba(96,165,250,0.12);color:#60A5FA">Dev</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Andamento da implementacao do <strong>SSO</strong> (Single Sign-On).</div>
+        <span class="topic-point-tag" style="background:rgba(96,165,250,0.12);color:#60A5FA">Dev</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Lacan assumiu</strong> a responsabilidade pelo desenvolvimento dos Logs da Pigz, atuando em conjunto com Gustavo.</div>
+        <span class="topic-point-tag" style="background:rgba(251,191,36,0.12);color:#FBBF24">Definido</span>
+      </div>
+    </div>
+    <button class="ann-btn" id="ann-btn-bill" onclick="ANN.open('bill')">&#128172; Anotar <span class="ann-cnt" id="ann-cnt-bill"></span></button>
+    <div class="ann-panel" id="ann-panel-bill">
+      <div class="ann-ph"><div class="ann-ph-title">&#128172; BILL</div><button class="ann-ph-close" onclick="ANN.close('bill')">&times;</button></div>
+      <div class="ann-thread" id="ann-thread-bill"></div>
+      <div><textarea class="ann-ta" id="ann-inp-bill" placeholder="Anotacao sobre BILL..."></textarea><button class="ann-send" onclick="ANN.add('bill')">Enviar &#10148;</button></div>
+    </div>
+  </div>
+
+  <!-- PAUTA 4: FINANCEIRO / SQUADS / INFRA -->
+  <div class="topic-group annotatable" id="pauta-geral">
+    <div class="topic-header" onclick="toggleTopic('geral')">
+      <div class="topic-icon">&#127960;</div>
+      <div class="topic-title">Financeiro, Squads, Infra e Monitoramento</div>
+      <div class="topic-count">7 pontos</div>
+      <span class="topic-chev" id="chev-geral">&#9660;</span>
+    </div>
+    <div class="topic-body open" id="body-geral">
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Guilherme</strong> relatou problemas relacionados aos <strong>repasses financeiros</strong>. Foi proposta a criacao de um planejamento estruturado para resolucao.</div>
+        <span class="topic-point-tag" style="background:rgba(248,113,113,0.12);color:#F87171">Financeiro</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Oscar</strong> apresentou automacoes para coleta e tratamento de dados do GitHub e informou a criacao de uma nova squad dedicada ao projeto <strong>Fidelidade</strong>.</div>
+        <span class="topic-point-tag" style="background:rgba(167,139,250,0.12);color:#A78BFA">Nova Squad</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Squad Onboard</strong> definida: Joao Paulo sera o responsavel pela squad, relacionada a facilidade de uso pelo cliente (ex: Pigz Pay).</div>
+        <span class="topic-point-tag" style="background:rgba(167,139,250,0.12);color:#A78BFA">Nova Squad</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Bianca destacou que o desenvolvimento esta em estagio avancado pela <strong>autonomia concedida as equipes</strong>. Front-end possui menor complexidade que Back-end.</div>
+        <span class="topic-point-tag" style="background:rgba(96,165,250,0.12);color:#60A5FA">Contexto</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Sugestao de criacao de um <strong>ambiente local dedicado para testes em tempo real</strong>. Leo confirmou a viabilidade de ambiente com deploy automatico, eliminando execucao integral do projeto local.</div>
+        <span class="topic-point-tag" style="background:rgba(34,211,164,0.12);color:#22D3A4">Infra</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text"><strong>Lacan</strong> sugeriu implantacao de um <strong>orquestrador de containers</strong> para facilitar a gestao dos ambientes. Primeiros testes com ambientes descartaveis.</div>
+        <span class="topic-point-tag" style="background:rgba(34,211,164,0.12);color:#22D3A4">Infra</span>
+      </div>
+      <div class="topic-point">
+        <div class="topic-point-dot"></div>
+        <div class="topic-point-text">Leo identificou nos logs <strong>registros possivelmente relacionados ao uso de ferramentas de Vibing Code</strong>, incluindo retornos de processos de criacao automatica de chamados no Linear. Necessidade de monitoramento continuo reforçada.</div>
+        <span class="topic-point-tag" style="background:rgba(248,113,113,0.12);color:#F87171">Atencao</span>
+      </div>
+    </div>
+    <button class="ann-btn" id="ann-btn-geral" onclick="ANN.open('geral')">&#128172; Anotar <span class="ann-cnt" id="ann-cnt-geral"></span></button>
+    <div class="ann-panel" id="ann-panel-geral">
+      <div class="ann-ph"><div class="ann-ph-title">&#128172; Geral</div><button class="ann-ph-close" onclick="ANN.close('geral')">&times;</button></div>
+      <div class="ann-thread" id="ann-thread-geral"></div>
+      <div><textarea class="ann-ta" id="ann-inp-geral" placeholder="Anotacao..."></textarea><button class="ann-send" onclick="ANN.add('geral')">Enviar &#10148;</button></div>
+    </div>
+  </div>
+
+  <!-- DECISOES TOMADAS -->
+  <div class="sec-label">&#9989; Decisoes Tomadas</div>
+  <div class="decisions-box annotatable" id="dec-box">
+    <div class="decision-item">
+      <div class="decision-num">D01</div>
+      <div class="decision-text">Lacan e o responsavel oficial pelos <strong>Logs da Pigz</strong>, atuando em conjunto com Gustavo.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-num">D02</div>
+      <div class="decision-text"><strong>Joao Paulo</strong> lidera a nova Squad Onboard, focada em facilidade de uso do produto pelo cliente (Pigz Pay e afins).</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-num">D03</div>
+      <div class="decision-text">Nova squad <strong>Fidelidade</strong> criada por Oscar para automatizacao e tratamento de dados do GitHub.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-num">D04</div>
+      <div class="decision-text">Primeira versao do <strong>Modo Offline</strong> nao deve ser excessivamente robusta (recomendacao Leo) &mdash; evitar complexidade desnecessaria.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-num">D05</div>
+      <div class="decision-text">E necessario criar um <strong>Plano de Acao para Incidentes</strong> com mapa de riscos e procedimentos para indisponibilidade de APIs criticas.</div>
+    </div>
+    <button class="ann-btn" id="ann-btn-dec" onclick="ANN.open('dec')">&#128172; Anotar <span class="ann-cnt" id="ann-cnt-dec"></span></button>
+    <div class="ann-panel" id="ann-panel-dec">
+      <div class="ann-ph"><div class="ann-ph-title">&#128172; Decisoes</div><button class="ann-ph-close" onclick="ANN.close('dec')">&times;</button></div>
+      <div class="ann-thread" id="ann-thread-dec"></div>
+      <div><textarea class="ann-ta" id="ann-inp-dec" placeholder="Anotacao sobre as decisoes..."></textarea><button class="ann-send" onclick="ANN.add('dec')">Enviar &#10148;</button></div>
+    </div>
+  </div>
+
+  <!-- PLANO DE ACAO -->
+  <div class="sec-label" style="margin-top:40px">&#127937; Plano de Acao &mdash; Missoes Definidas</div>
+
+  <!-- DASHBOARD DE STATUS -->
+  <div class="mission-dashboard">
+    <div class="dash-card" style="--dc:var(--danger)">
+      <div class="dash-num" id="cnt-pendente">0</div>
+      <div class="dash-label">&#9209; Pendente</div>
+    </div>
+    <div class="dash-card" style="--dc:var(--info)">
+      <div class="dash-num" id="cnt-em-andamento">0</div>
+      <div class="dash-label">&#9654; Em Andamento</div>
+    </div>
+    <div class="dash-card" style="--dc:var(--warning)">
+      <div class="dash-num" id="cnt-em-discussao">0</div>
+      <div class="dash-label">&#128172; Em Discussao</div>
+    </div>
+    <div class="dash-card" style="--dc:var(--success)">
+      <div class="dash-num" id="cnt-concluido">0</div>
+      <div class="dash-label">&#10003; Concluido</div>
+    </div>
+  </div>
+
+  <!-- MISSOES -->
+  <div id="missions-container">
+
+    <div class="mission-card" style="--mc:var(--danger)" id="m01">
+      <div class="mission-header">
+        <div class="mission-id">M01</div>
+        <div class="mission-content">
+          <div class="mission-title">Envolver colaboradores para conclusao do Agente MCP</div>
+          <div class="mission-context">Gustavo identificou a necessidade, alinhada com Bianca. O desenvolvimento do agente MCP requer mais maos para ser concluido dentro do prazo esperado.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Gustavo</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">A definir</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-alta">Alta Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m01', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--danger)" id="m02">
+      <div class="mission-header">
+        <div class="mission-id">M02</div>
+        <div class="mission-content">
+          <div class="mission-title">Resolver problema de Logs do MCP (pendente desde 11/06)</div>
+          <div class="mission-context">Este item esta em aberto desde a reuniao anterior. Lacan assumiu junto com Gustavo. Nao pode seguir mais uma semana sem resolucao.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Lacan + Gustavo</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">26/06/2026</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-alta">Alta Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m02', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--warning)" id="m03">
+      <div class="mission-header">
+        <div class="mission-id">M03</div>
+        <div class="mission-content">
+          <div class="mission-title">Criar Plano de Acao para Incidentes + Mapa de Riscos</div>
+          <div class="mission-context">Definir procedimentos formais para situacoes de indisponibilidade de APIs criticas (especialmente a Comanda). A Saipos mostrou que esse risco e real.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">A definir</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">26/06/2026</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-alta">Alta Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m03', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--warning)" id="m04">
+      <div class="mission-header">
+        <div class="mission-id">M04</div>
+        <div class="mission-content">
+          <div class="mission-title">Avaliar viabilidade: PIGZ pode aplicar solucao de reembolso similar a Saipos?</div>
+          <div class="mission-context">A indisponibilidade da Saipos abriu um precedente. A empresa precisa analisar se tem recursos para oferecer uma solucao equivalente em caso de falha.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Bianca + Guilherme</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">26/06/2026</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-media">Media Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m04', this)">
+            <option value="pendente">&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao" selected>&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--info)" id="m05">
+      <div class="mission-header">
+        <div class="mission-id">M05</div>
+        <div class="mission-content">
+          <div class="mission-title">Criar ambiente de testes com deploy automatico (descartavel)</div>
+          <div class="mission-context">Leo confirmou a viabilidade. Ambiente dedicado para testes em tempo real, sem necessidade de execucao local completa. Lacan sugeriu orquestrador de containers.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Leo + Lacan</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">A definir</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-media">Media Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m05', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--danger)" id="m06">
+      <div class="mission-header">
+        <div class="mission-id">M06</div>
+        <div class="mission-content">
+          <div class="mission-title">Criar planejamento estruturado para resolucao dos repasses financeiros</div>
+          <div class="mission-context">Guilherme relatou problemas nos repasses financeiros. A situacao precisa de um plano documentado e com prazo definido para resolucao.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Guilherme</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">26/06/2026</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-alta">Alta Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m06', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--info)" id="m07">
+      <div class="mission-header">
+        <div class="mission-id">M07</div>
+        <div class="mission-content">
+          <div class="mission-title">Investigar logs com possivel uso de Vibing Code / criacao automatica de chamados</div>
+          <div class="mission-context">Leo identificou registros suspeitos nos logs. Criar chamados automaticamente no Linear via Vibing Code pode gerar ruido e comprometer a rastreabilidade.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Leo</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">26/06/2026</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-media">Media Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel" onchange="updateStatus('m07', this)">
+            <option value="pendente" selected>&#9209; Pendente</option>
+            <option value="em-andamento">&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mission-card" style="--mc:var(--success)" id="m08">
+      <div class="mission-header">
+        <div class="mission-id">M08</div>
+        <div class="mission-content">
+          <div class="mission-title">Integrar Lucas Sadek ao time &mdash; apresentacao e onboarding</div>
+          <div class="mission-context">Lucas Sadek foi apresentado oficialmente como novo integrante da equipe de Back-end. Garantir que o onboarding seja completo e o colaborador esteja alinhado com os processos.</div>
+        </div>
+      </div>
+      <div class="mission-footer">
+        <div class="mission-field">
+          <span class="mission-field-label">&#128100; Responsavel</span>
+          <span class="mission-field-val">Bianca + Lider Back-end</span>
+        </div>
+        <div class="mission-divider"></div>
+        <div class="mission-field">
+          <span class="mission-field-label">&#128197; Prazo</span>
+          <span class="mission-field-val">Esta semana</span>
+        </div>
+        <div class="mission-divider"></div>
+        <span class="prio-badge prio-media">Media Prioridade</span>
+        <div style="margin-left:auto">
+          <select class="status-sel em-andamento" onchange="updateStatus('m08', this)">
+            <option value="pendente">&#9209; Pendente</option>
+            <option value="em-andamento" selected>&#9654; Em Andamento</option>
+            <option value="em-discussao">&#128172; Em Discussao</option>
+            <option value="concluido">&#10003; Concluido</option>
+            <option value="bloqueado">&#128683; Bloqueado</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /missions-container -->
+
+  <!-- PROXIMA REUNIAO -->
+  <div class="sec-label">&#128197; Proxima Reuniao</div>
+  <div class="next-meeting">
+    <div class="next-meeting-grid">
+      <div class="next-meeting-date-box">
+        <div class="next-meeting-day-num">26</div>
+        <div class="next-meeting-month">Jun</div>
+        <div class="next-meeting-weekday">Quinta-feira</div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--success)">&#128203; Pautas previstas para a proxima reuniao</div>
+        <div class="next-meeting-pauta">
+          <div class="next-pauta-num">01</div>
+          <div class="next-pauta-text"><strong>Review das Missoes desta ata</strong> &mdash; status de cada M01 a M08</div>
+        </div>
+        <div class="next-meeting-pauta">
+          <div class="next-pauta-num">02</div>
+          <div class="next-pauta-text"><strong>Plano de Acao para Incidentes</strong> &mdash; apresentar mapa de riscos elaborado</div>
+        </div>
+        <div class="next-meeting-pauta">
+          <div class="next-pauta-num">03</div>
+          <div class="next-pauta-text"><strong>Financeiro</strong> &mdash; planejamento de Guilherme para repasses</div>
+        </div>
+        <div class="next-meeting-pauta">
+          <div class="next-pauta-num">04</div>
+          <div class="next-pauta-text"><strong>Viabilidade modo offline + reembolso</strong> &mdash; posicao de Bianca e Guilherme</div>
+        </div>
+        <div class="next-meeting-pauta">
+          <div class="next-pauta-num">05</div>
+          <div class="next-pauta-text"><strong>Update MCP + Logs</strong> &mdash; Lacan e Gustavo apresentam progresso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSINATURAS -->
+  <div class="sec-label">&#9997; Registro</div>
+  <div class="signatures-grid">
+    <div class="signature-item">
+      <div class="signature-space"></div>
+      <div class="signature-name">Carlos Krueger</div>
+      <div class="signature-role">Coordenacao de Projetos</div>
+    </div>
+    <div class="signature-item">
+      <div class="signature-space"></div>
+      <div class="signature-name">Bianca</div>
+      <div class="signature-role">Coordenacao</div>
+    </div>
+    <div class="signature-item">
+      <div class="signature-space"></div>
+      <div class="signature-name">Gustavo</div>
+      <div class="signature-role">Lider Tecnico</div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;font-size:11px;color:var(--text3);text-align:center;line-height:1.7">
+    Documento gerado em 20/06/2026 &middot; Reuniao realizada em 18/06/2026 &middot;
+    <strong style="color:var(--accent)">Principio: toda reuniao termina com missao, dono e prazo definidos.</strong>
+  </div>
+
+</div><!-- /page -->
+
+<!-- WHO MODAL -->
+<div id="who-modal" style="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.82);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px">
+  <div class="who-box">
+    <div style="font-size:36px;margin-bottom:14px">&#128100;</div>
+    <div style="font-size:18px;font-weight:900;margin-bottom:6px">Quem esta anotando?</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:24px">Selecione sua identidade.</div>
+    <button onclick="ANN.pick('carlos')" class="who-btn"><div class="who-av" style="background:rgba(250,100,30,0.15);color:#FA641E">CK</div><div><div style="font-size:14px;font-weight:700;color:#FA641E">Carlos Krueger</div><div style="font-size:11px;color:var(--text3)">Coordenacao</div></div></button>
+    <button onclick="ANN.pick('bianca')" class="who-btn"><div class="who-av" style="background:rgba(167,139,250,0.15);color:#A78BFA">BI</div><div><div style="font-size:14px;font-weight:700;color:#A78BFA">Bianca</div><div style="font-size:11px;color:var(--text3)">Coordenacao</div></div></button>
+    <button onclick="ANN.pick('rodrigo')" class="who-btn"><div class="who-av" style="background:rgba(96,165,250,0.15);color:#60A5FA">RO</div><div><div style="font-size:14px;font-weight:700;color:#60A5FA">Rodrigo</div><div style="font-size:11px;color:var(--text3)">Gestao</div></div></button>
+  </div>
+</div>
+
+<!-- GLOBAL PANEL -->
+<div id="ann-global">
+  <div class="gp-head"><div class="gp-head-title">&#128172; Anotacoes <span id="gp-tot" style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(250,100,30,0.15);color:var(--accent);margin-left:6px">0</span></div><button class="gp-close" onclick="ANN.toggleG()">&times;</button></div>
+  <div id="gp-body"><div style="text-align:center;padding:32px 16px;color:var(--text3);font-size:12px;line-height:1.7">Nenhuma anotacao ainda.<br>Passe o mouse sobre uma secao e clique <strong>Anotar</strong>.</div></div>
+</div>
+
+<!-- FAB -->
+<button id="ann-fab" onclick="ANN.toggleG()" style="position:relative">
+  &#128172;
+  <div id="ann-badge"></div>
+</button>
+
+<script>
+// BASE FUNCTIONS
+function toggleTopic(id) {
+  var b = document.getElementById('body-' + id);
+  var c = document.getElementById('chev-' + id);
+  if (b) b.classList.toggle('open');
+  if (c) c.classList.toggle('open');
+}
+function expandAll() {
+  document.querySelectorAll('.topic-body').forEach(function(b) { b.classList.add('open'); });
+  document.querySelectorAll('.topic-chev').forEach(function(c) { c.classList.add('open'); });
+}
+
+// STATUS SYSTEM
+var missionIds = ['m01','m02','m03','m04','m05','m06','m07','m08'];
+function updateStatus(id, sel) {
+  var v = sel.value;
+  sel.className = 'status-sel ' + v;
+  var card = document.getElementById(id);
+  var colorMap = { pendente: 'var(--danger)', 'em-andamento': 'var(--info)', 'em-discussao': 'var(--warning)', concluido: 'var(--success)', bloqueado: 'var(--danger)' };
+  if (card && colorMap[v]) card.style.setProperty('--mc', colorMap[v]);
+  updateDashboard();
+}
+function updateDashboard() {
+  var counts = { pendente: 0, 'em-andamento': 0, 'em-discussao': 0, concluido: 0 };
+  missionIds.forEach(function(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    var sel = card.querySelector('.status-sel');
+    if (sel && counts[sel.value] !== undefined) counts[sel.value]++;
+  });
+  var el;
+  el = document.getElementById('cnt-pendente'); if (el) el.textContent = counts['pendente'];
+  el = document.getElementById('cnt-em-andamento'); if (el) el.textContent = counts['em-andamento'];
+  el = document.getElementById('cnt-em-discussao'); if (el) el.textContent = counts['em-discussao'];
+  el = document.getElementById('cnt-concluido'); if (el) el.textContent = counts['concluido'];
+}
+
+// ANNOTATION SYSTEM
+var ANN = (function() {
+  var KEY = 'pigz-ata-18062026';
+  var U = {
+    carlos: {n:'Carlos Krueger',i:'CK',c:'#FA641E',b:'rgba(250,100,30,0.15)'},
+    bianca: {n:'Bianca',i:'BI',c:'#A78BFA',b:'rgba(167,139,250,0.15)'},
+    rodrigo: {n:'Rodrigo',i:'RO',c:'#60A5FA',b:'rgba(96,165,250,0.15)'}
+  };
+  var SN = {mcp:'MCP',saipos:'Saipos',bill:'BILL',geral:'Geral',dec:'Decisoes'};
+  var db = {}; var cb = null;
+  function load() { try { db = JSON.parse(localStorage.getItem(KEY)||'{}'); } catch(e) { db = {}; } }
+  function persist() { localStorage.setItem(KEY, JSON.stringify(db)); }
+
+  function open(sid) {
+    document.querySelectorAll('.ann-panel.open').forEach(function(p){ p.classList.remove('open'); });
+    var p = document.getElementById('ann-panel-' + sid);
+    if (!p) return;
+    p.classList.add('open');
+    render(sid);
+    setTimeout(function(){
+      var i = document.getElementById('ann-inp-' + sid);
+      if (i) i.focus();
+      p.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 160);
+  }
+  function close(sid) { var p = document.getElementById('ann-panel-' + sid); if (p) p.classList.remove('open'); }
+
+  function render(sid) {
+    var t = document.getElementById('ann-thread-' + sid); if (!t) return;
+    var items = db[sid] || [];
+    if (!items.length) { t.innerHTML = '<div class="ann-empty">Sem anotacoes. Escreva a primeira!</div>'; return; }
+    t.innerHTML = items.map(function(a, i) {
+      var u = U[a.u] || {n:a.u,i:'?',c:'#888',b:'rgba(100,100,100,0.1)'};
+      return '<div class="ann-item"><div class="ann-av" style="background:'+u.b+';color:'+u.c+'">'+u.i+'</div>' +
+        '<div class="ann-bub"><div class="ann-bub-meta"><span class="ann-bub-name" style="color:'+u.c+'">'+u.n+'</span>' +
+        '<span class="ann-bub-time">'+a.t+'</span>' +
+        '<button class="ann-bub-del" onclick="ANN.del(\''+sid+'\','+i+')">&#215;</button></div>' +
+        '<div class="ann-bub-txt">'+esc(a.v)+'</div></div></div>';
+    }).join('');
+    t.scrollTop = t.scrollHeight;
+  }
+
+  function add(sid) {
+    var inp = document.getElementById('ann-inp-' + sid);
+    var txt = (inp && inp.value.trim()) || ''; if (!txt) return;
+    cb = function(uid) {
+      if (!db[sid]) db[sid] = [];
+      var now = new Date();
+      db[sid].push({u:uid,v:txt,t:now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' '+now.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})});
+      persist();
+      if (inp) inp.value = '';
+      render(sid); tick(sid); tick2();
+    };
+    document.getElementById('who-modal').style.display = 'flex';
+  }
+
+  function pick(uid) {
+    document.getElementById('who-modal').style.display = 'none';
+    if (cb) { cb(uid); cb = null; }
+  }
+
+  function del(sid, idx) {
+    if (db[sid]) db[sid].splice(idx, 1);
+    persist(); render(sid); tick(sid); tick2();
+  }
+
+  function tick(sid) {
+    var n = (db[sid]||[]).length;
+    var c = document.getElementById('ann-cnt-' + sid); if (c) c.textContent = n > 0 ? n : '';
+    var b = document.getElementById('ann-btn-' + sid); if (b) b.classList.toggle('active', n > 0);
+  }
+
+  function tick2() {
+    var tot = 0; Object.keys(db).forEach(function(k){ tot += (db[k]||[]).length; });
+    var badge = document.getElementById('ann-badge');
+    if (badge) { badge.textContent = tot; badge.style.display = tot > 0 ? 'flex' : 'none'; }
+    var gt = document.getElementById('gp-tot'); if (gt) gt.textContent = tot;
+  }
+
+  function toggleG() {
+    var p = document.getElementById('ann-global');
+    var isOpen = p.classList.contains('open');
+    p.classList.toggle('open');
+    if (!isOpen) renderG();
+  }
+
+  function renderG() {
+    var body = document.getElementById('gp-body');
+    var count = 0; var html = '';
+    Object.keys(SN).forEach(function(sid) {
+      var items = db[sid] || []; if (!items.length) return;
+      count += items.length;
+      html += '<div class="gp-sl">&#128279; ' + SN[sid] + '</div>';
+      items.forEach(function(a) {
+        var u = U[a.u] || {n:a.u,i:'?',c:'#888',b:'rgba(100,100,100,0.1)'};
+        html += '<div class="gp-it"><div class="gp-av" style="background:'+u.b+';color:'+u.c+'">'+u.i+'</div>' +
+          '<div style="flex:1"><div style="display:flex;gap:6px;align-items:center"><span style="font-size:11px;font-weight:700;color:'+u.c+'">'+u.n+'</span>' +
+          '<span style="font-size:10px;color:var(--text3)">'+a.t+'</span></div>' +
+          '<div style="font-size:12px;color:var(--text2);margin-top:2px">'+esc(a.v)+'</div></div></div>';
+      });
+    });
+    body.innerHTML = html || '<div style="text-align:center;padding:32px 16px;color:var(--text3);font-size:12px;line-height:1.7">Nenhuma anotacao ainda.</div>';
+    var gt = document.getElementById('gp-tot'); if (gt) gt.textContent = count;
+  }
+
+  function init() {
+    load();
+    ['mcp','saipos','bill','geral','dec'].forEach(function(sid) { tick(sid); });
+    tick2();
+  }
+
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+
+  return { open:open, close:close, add:add, pick:pick, del:del, toggleG:toggleG, init:init };
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateDashboard();
+  ANN.init();
+  // Sync all status selects colors on load
+  missionIds.forEach(function(id) {
+    var card = document.getElementById(id);
+    if (!card) return;
+    var sel = card.querySelector('.status-sel');
+    if (sel) updateStatus(id, sel);
+  });
+});
+</script>
+</body>
+</html>
