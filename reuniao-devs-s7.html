@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunião Semanal Devs — PIGZ · Semana 7 · 23/06/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0D0F14;--card:#161820;--card2:#1C1E26;
+  --accent:#FA641E;--success:#22D3A4;--warning:#FBBF24;
+  --danger:#F87171;--info:#60A5FA;--purple:#A78BFA;
+  --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
+  --border:rgba(255,255,255,0.07);--mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;}
+
+/* CONTROLES */
+.controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;align-items:center;gap:10px;background:rgba(22,24,32,0.97);
+  border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:10px 20px;backdrop-filter:blur(20px);}
+.cb{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text2);
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:7px 16px;
+  border-radius:999px;cursor:pointer;transition:all 0.2s;}
+.cb:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.cb.pr{background:var(--accent);color:white;border-color:transparent;}
+.cb.pr:hover{opacity:0.85;}
+.sc{font-size:12px;font-weight:700;color:var(--text3);font-family:var(--mono);min-width:52px;text-align:center;}
+.pb{width:100px;height:3px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;}
+.pf{height:100%;background:var(--accent);border-radius:999px;transition:width 0.4s ease;}
+
+/* SLIDES */
+.sc-wrap{width:100vw;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  align-items:center;padding:56px 80px;animation:fi 0.3s ease;}
+.slide.active{display:flex;}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* HEADER */
+.sh{position:absolute;top:32px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;}
+.sh-logo{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:2px;}
+.sh-info{font-size:11px;color:var(--text3);font-family:var(--mono);}
+
+/* TITLE BLOCK */
+.tb{margin-bottom:32px;text-align:center;}
+.tb-eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin-bottom:10px;}
+.tb h2{font-size:40px;font-weight:900;letter-spacing:-1.5px;line-height:1.05;}
+.tb .sub{font-size:14px;color:var(--text2);margin-top:8px;}
+
+/* CAPA */
+.capa{background:linear-gradient(135deg,#0D0F14 0%,#150F22 50%,#0F1A14 100%);}
+.capa-logo{font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:36px;display:flex;align-items:center;gap:12px;}
+.capa-logo::before,.capa-logo::after{content:'';width:28px;height:2px;background:var(--accent);}
+.capa-title{font-size:76px;font-weight:900;letter-spacing:-4px;line-height:0.9;text-align:center;margin-bottom:24px;}
+.capa-title .hl{color:var(--accent);}
+.capa-date{font-size:15px;color:var(--text3);font-family:var(--mono);margin-bottom:40px;}
+.capa-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.cp{font-size:12px;font-weight:700;padding:8px 18px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);color:var(--text2);}
+.cp.ac{background:rgba(248,113,113,0.1);border-color:rgba(248,113,113,0.3);color:var(--danger);}
+.cp.ok{background:rgba(34,211,164,0.08);border-color:rgba(34,211,164,0.25);color:var(--success);}
+
+/* AGENDA */
+.agenda-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:880px;}
+.ag{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 24px;
+  display:flex;gap:18px;align-items:flex-start;}
+.ag-num{font-size:46px;font-weight:900;font-family:var(--mono);color:var(--accent);opacity:0.22;line-height:1;min-width:54px;}
+.ag-title{font-size:17px;font-weight:800;margin-bottom:5px;}
+.ag-sub{font-size:12px;color:var(--text2);line-height:1.5;}
+
+/* ALERTAS S6 */
+.alert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;max-width:960px;}
+.alc{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:32px 28px;text-align:center;position:relative;overflow:hidden;}
+.alc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--ac,var(--accent));}
+.alc-val{font-size:68px;font-weight:900;font-family:var(--mono);color:var(--ac,var(--accent));line-height:1;margin-bottom:10px;}
+.alc-label{font-size:14px;font-weight:700;color:var(--text2);line-height:1.4;}
+.alc-sub{font-size:11px;color:var(--text3);margin-top:6px;}
+.alc-tag{font-size:12px;font-weight:700;margin-top:12px;padding:4px 14px;border-radius:999px;display:inline-block;}
+
+/* RANKING */
+.rank-list{width:100%;max-width:820px;display:flex;flex-direction:column;gap:10px;}
+.ri{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:16px 22px;display:flex;align-items:center;gap:18px;}
+.ri.r1{border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.03);}
+.ri.r2{border-color:rgba(156,163,175,0.25);}
+.ri.r3{border-color:rgba(180,120,60,0.25);}
+.ri-pos{font-size:22px;min-width:36px;text-align:center;}
+.ri-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.ri-name{font-size:16px;font-weight:800;flex:1;}
+.ri-squad{font-size:11px;color:var(--text3);margin-top:2px;}
+.ri-bar{flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;margin:0 10px;}
+.ri-bar-fill{height:100%;border-radius:999px;}
+.ri-val{font-size:28px;font-weight:900;font-family:var(--mono);}
+.ri-unit{font-size:10px;color:var(--text3);text-align:right;margin-top:2px;}
+
+/* GARGALOS */
+.gargalo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;width:100%;max-width:960px;}
+.gg{background:var(--card);border:1px solid rgba(248,113,113,0.12);border-radius:18px;padding:26px 28px;}
+.gg-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--danger);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.gr{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:10px;}
+.gr:last-child{margin-bottom:0;}
+.gr-name{font-size:14px;font-weight:700;flex:1;}
+.gr-val{font-size:22px;font-weight:900;font-family:var(--mono);color:var(--danger);}
+.gr-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;}
+
+/* PRIORIDADES */
+.prio-list{width:100%;max-width:860px;display:flex;flex-direction:column;gap:12px;}
+.pi{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--pc,var(--accent));
+  border-radius:14px;padding:20px 24px;display:flex;gap:18px;align-items:flex-start;}
+.pi-num{font-size:13px;font-weight:800;font-family:var(--mono);color:var(--pc,var(--accent));min-width:30px;margin-top:2px;}
+.pi-text{font-size:15px;font-weight:700;flex:1;line-height:1.4;}
+.pi-sub{font-size:12px;color:var(--text3);margin-top:6px;line-height:1.5;}
+.pi-prio{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;margin-left:auto;flex-shrink:0;}
+
+/* CONQUISTAS */
+.win-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:960px;}
+.wc{background:var(--card);border:1px solid rgba(34,211,164,0.15);border-radius:18px;padding:26px 22px;text-align:center;}
+.wc-icon{font-size:36px;margin-bottom:12px;}
+.wc-val{font-size:40px;font-weight:900;font-family:var(--mono);color:var(--success);line-height:1;margin-bottom:8px;}
+.wc-label{font-size:13px;font-weight:700;color:var(--text2);line-height:1.4;}
+
+/* FIM */
+.fim-wrap{text-align:center;}
+.fim-big{font-size:80px;font-weight:900;letter-spacing:-4px;line-height:0.9;margin-bottom:20px;}
+.fim-big .hl{color:var(--accent);}
+.fim-sub{font-size:16px;color:var(--text2);max-width:520px;line-height:1.65;margin:0 auto 36px;}
+.fim-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.fp{font-size:12px;font-weight:700;padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);color:var(--text2);}
+.fp.hl{background:var(--accent);color:white;border-color:transparent;}
+</style>
+</head>
+<body>
+
+<div class="sc-wrap">
+
+<!-- ══════════════════════════
+     SLIDE 1 — CAPA
+══════════════════════════ -->
+<div class="slide capa active" id="s1">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">23/06/2026 · Segunda-Feira · 10h00</span></div>
+  <div class="capa-logo">Reunião Semanal de Devs</div>
+  <div class="capa-title">Dev<span class="hl">s</span><br>Meeting</div>
+  <div class="capa-date">Semana 7 &nbsp;·&nbsp; 23 de Junho de 2026</div>
+  <div class="capa-pills">
+    <span class="cp ac">⚠ 110 Bugs Críticos em Aberto</span>
+    <span class="cp">203 Issues Entregues (S6)</span>
+    <span class="cp">275 Issues Criadas</span>
+    <span class="cp" style="border-color:rgba(248,113,113,0.3);color:var(--danger)">Saldo: −72 / semana</span>
+    <span class="cp ok">✓ S. Assignee: 131 → 7 (−94%)</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 2 — AGENDA
+══════════════════════════ -->
+<div class="slide" id="s2">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Semana 7 · Devs Meeting</span></div>
+  <div class="tb"><div class="tb-eye">Pauta de hoje</div><h2>O que vamos ver</h2></div>
+  <div class="agenda-grid">
+    <div class="ag"><div class="ag-num">01</div><div><div class="ag-title">Retrospecto S6</div><div class="ag-sub">Números reais extraídos do Linear — o que entregamos e o que ficou para trás</div></div></div>
+    <div class="ag"><div class="ag-num">02</div><div><div class="ag-title">🏆 Ranking de Devs</div><div class="ag-sub">Top 5 entregas da semana passada e ranking de bugs críticos por dev</div></div></div>
+    <div class="ag"><div class="ag-num">03</div><div><div class="ag-title">⚠ Gargalos Ativos</div><div class="ag-sub">Bugs crônicos, backlog crescendo e issues travadas em In Progress</div></div></div>
+    <div class="ag"><div class="ag-num">04</div><div><div class="ag-title">🎯 Prioridades S7</div><div class="ag-sub">O que precisamos resolver esta semana para não repetir os problemas de S6</div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 3 — NUMEROS S6
+══════════════════════════ -->
+<div class="slide" id="s3">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Reporte S6 · 13–19/06/2026</span></div>
+  <div class="tb"><div class="tb-eye">Semana 6 — Dados do Linear</div><h2>Números da Semana Passada</h2><div class="sub">Fonte: Linear · workspace completo · período 13/06–19/06/2026</div></div>
+  <div class="alert-grid">
+    <div class="alc" style="--ac:var(--success)">
+      <div class="alc-val">203</div>
+      <div class="alc-label">Issues Entregues</div>
+      <div class="alc-sub">Emerson: 45 · Felipe: 21 · Guilherme B: 20</div>
+      <div class="alc-tag" style="background:rgba(34,211,164,0.12);color:var(--success)">✓ Concluídas</div>
+    </div>
+    <div class="alc" style="--ac:var(--danger)">
+      <div class="alc-val">275</div>
+      <div class="alc-label">Issues Criadas</div>
+      <div class="alc-sub">Saldo negativo: −72 por semana · backlog crescendo</div>
+      <div class="alc-tag" style="background:rgba(248,113,113,0.12);color:var(--danger)">🔴 Saldo −72</div>
+    </div>
+    <div class="alc" style="--ac:var(--danger)">
+      <div class="alc-val">110</div>
+      <div class="alc-label">Bugs Urgent/High Abertos</div>
+      <div class="alc-sub">112 crônicos (+14 dias) · FRONT-185: 225 dias sem resolução</div>
+      <div class="alc-tag" style="background:rgba(248,113,113,0.12);color:var(--danger)">⚠ Atenção</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 4 — RANKING ENTREGAS
+══════════════════════════ -->
+<div class="slide" id="s4">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">🏆 Ranking · Issues Concluídas S6</span></div>
+  <div class="tb"><div class="tb-eye">🏆 Top Devs da Semana 6</div><h2>Quem mais entregou</h2><div class="sub">Issues concluídas · 13/06–19/06 · Linear workspace completo</div></div>
+  <div class="rank-list">
+    <div class="ri r1">
+      <div class="ri-pos">🥇</div>
+      <div class="ri-av" style="background:rgba(251,191,36,0.15);color:#FBBF24">EM</div>
+      <div style="flex:1"><div class="ri-name">Emerson Marinho de Sousa</div><div class="ri-squad">PigzForce CRM</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:100%;background:#FBBF24"></div></div>
+      <div><div class="ri-val" style="color:#FBBF24">45</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri r2">
+      <div class="ri-pos">🥈</div>
+      <div class="ri-av" style="background:rgba(34,211,164,0.12);color:#22D3A4">FS</div>
+      <div style="flex:1"><div class="ri-name">Felipe Souza</div><div class="ri-squad">BILL</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:47%;background:#9CA3AF"></div></div>
+      <div><div class="ri-val" style="color:#9CA3AF">21</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri r3">
+      <div class="ri-pos">🥉</div>
+      <div class="ri-av" style="background:rgba(96,165,250,0.12);color:#60A5FA">GB</div>
+      <div style="flex:1"><div class="ri-name">Guilherme Bernardo</div><div class="ri-squad">BILL</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:44%;background:#B47A3C"></div></div>
+      <div><div class="ri-val" style="color:#B47A3C">20</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri" style="display:grid;grid-template-columns:36px 44px 1fr auto auto;gap:16px;align-items:center">
+      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-family:var(--mono);font-weight:800">4</div>
+      <div class="ri-av" style="background:rgba(250,100,30,0.12);color:#FA641E">GC</div>
+      <div><div class="ri-name">Gustavo Carvalho</div><div class="ri-squad">S.W.A.T</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:40%;background:var(--accent)"></div></div>
+      <div><div class="ri-val" style="color:var(--text2);font-size:24px">18</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri" style="display:grid;grid-template-columns:36px 44px 1fr auto auto;gap:16px;align-items:center">
+      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-family:var(--mono);font-weight:800">5</div>
+      <div class="ri-av" style="background:rgba(167,139,250,0.12);color:#A78BFA">RL</div>
+      <div><div class="ri-name">Rodrigo Lacan</div><div class="ri-squad">BILL / Logs Pigz</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:38%;background:var(--purple)"></div></div>
+      <div><div class="ri-val" style="color:var(--text2);font-size:24px">17</div><div class="ri-unit">issues</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 5 — RANKING BUGS (quem concentra críticos)
+══════════════════════════ -->
+<div class="slide" id="s5">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">⚠ Ranking · Bugs Urgent/High por Dev</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--danger)">⚠ Concentração de Bugs Críticos</div><h2>Devs com mais Urgent/High em Aberto</h2><div class="sub">Quem precisa de suporte ou redistribuição · dados S6</div></div>
+  <div class="rank-list">
+    <div class="ri" style="border-color:rgba(248,113,113,0.4);background:rgba(248,113,113,0.04)">
+      <div class="ri-pos" style="color:var(--danger);font-size:18px;font-weight:900;font-family:var(--mono)">1</div>
+      <div class="ri-av" style="background:rgba(248,113,113,0.15);color:var(--danger)">GA</div>
+      <div style="flex:1"><div class="ri-name">guilherme.alves</div><div class="ri-squad" style="color:var(--danger)">CONCENTRAÇÃO CRÍTICA — redistribuir urgente</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:100%;background:var(--danger)"></div></div>
+      <div><div class="ri-val" style="color:var(--danger)">28</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri" style="border-color:rgba(251,191,36,0.3)">
+      <div class="ri-pos" style="color:var(--warning);font-size:18px;font-weight:900;font-family:var(--mono)">2</div>
+      <div class="ri-av" style="background:rgba(251,191,36,0.15);color:var(--warning)">NF</div>
+      <div style="flex:1"><div class="ri-name">Natália Fournier</div><div class="ri-squad" style="color:var(--warning)">Carga alta — monitorar</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:43%;background:var(--warning)"></div></div>
+      <div><div class="ri-val" style="color:var(--warning)">12</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri" style="border-color:rgba(251,191,36,0.2)">
+      <div class="ri-pos" style="color:var(--warning);font-size:18px;font-weight:900;font-family:var(--mono)">3</div>
+      <div class="ri-av" style="background:rgba(251,191,36,0.10);color:var(--warning)">VR</div>
+      <div style="flex:1"><div class="ri-name">Vitor Rocha</div><div class="ri-squad">Monitorar</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:32%;background:var(--warning)"></div></div>
+      <div><div class="ri-val" style="color:var(--warning)">9</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri">
+      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-weight:800;font-family:var(--mono)">4</div>
+      <div class="ri-av" style="background:rgba(107,114,128,0.12);color:var(--text3)">El</div>
+      <div style="flex:1"><div class="ri-name">Elias Monteiro</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:25%;background:var(--text3)"></div></div>
+      <div><div class="ri-val" style="color:var(--text2);font-size:22px">7</div><div class="ri-unit">issues</div></div>
+    </div>
+    <div class="ri">
+      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-weight:800;font-family:var(--mono)">5</div>
+      <div class="ri-av" style="background:rgba(107,114,128,0.12);color:var(--text3)">GBe</div>
+      <div style="flex:1"><div class="ri-name">Guilherme Bernardo</div></div>
+      <div class="ri-bar"><div class="ri-bar-fill" style="width:25%;background:var(--text3)"></div></div>
+      <div><div class="ri-val" style="color:var(--text2);font-size:22px">7</div><div class="ri-unit">issues</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 6 — GARGALOS
+══════════════════════════ -->
+<div class="slide" id="s6">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">⚠ Gargalos · Impedimentos Ativos S6</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--danger)">⚠ Gargalos Identificados</div><h2>O que está travando a entrega</h2></div>
+  <div class="gargalo-grid">
+    <div class="gg">
+      <div class="gg-title">🔴 Bugs Crônicos (dados do reporte)</div>
+      <div class="gr">
+        <span class="gr-badge" style="background:rgba(248,113,113,0.15);color:var(--danger)">225 DIAS</span>
+        <span class="gr-name">FRONT-185 — bug mais antigo do workspace</span>
+      </div>
+      <div class="gr">
+        <span class="gr-badge" style="background:rgba(248,113,113,0.12);color:var(--danger)">84 DIAS</span>
+        <span class="gr-name">PIGZTEC-697 e PIGZTEC-698</span>
+      </div>
+      <div class="gr">
+        <span class="gr-badge" style="background:rgba(251,191,36,0.12);color:var(--warning)">14+ DIAS</span>
+        <span class="gr-name">112 issues Urgent/High sem resolução</span>
+      </div>
+    </div>
+    <div class="gg">
+      <div class="gg-title">📉 Backlog & Governança</div>
+      <div class="gr">
+        <span style="font-size:22px;font-weight:900;font-family:var(--mono);color:var(--danger)">−72</span>
+        <span class="gr-name">issues/semana · 275 criadas vs. 203 entregues</span>
+      </div>
+      <div class="gr">
+        <span style="font-size:22px;font-weight:900;font-family:var(--mono);color:var(--info)">332</span>
+        <span class="gr-name">issues ativas sem due date definida</span>
+      </div>
+      <div class="gr">
+        <span style="font-size:22px;font-weight:900;font-family:var(--mono);color:var(--warning)">16</span>
+        <span class="gr-name">issues paradas em In Progress (+7 dias)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 7 — CONQUISTA S6
+══════════════════════════ -->
+<div class="slide" id="s7">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">✓ Conquistas · Semana 6</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--success)">✓ O que melhorou na S6</div><h2>Conquistas que devemos manter</h2><div class="sub">Resultados positivos do trabalho da semana passada</div></div>
+  <div class="win-grid">
+    <div class="wc">
+      <div class="wc-icon">📉</div>
+      <div class="wc-val">−94%</div>
+      <div class="wc-label">Urgent/High sem Assignee<br>131 → apenas 7</div>
+    </div>
+    <div class="wc">
+      <div class="wc-icon">🚀</div>
+      <div class="wc-val">203</div>
+      <div class="wc-label">Issues entregues na semana<br>vs. 77 na Semana 5</div>
+    </div>
+    <div class="wc">
+      <div class="wc-icon">🏆</div>
+      <div class="wc-val">+126</div>
+      <div class="wc-label">Crescimento de entrega<br>vs. semana anterior</div>
+    </div>
+  </div>
+  <div style="margin-top:24px;padding:16px 24px;background:rgba(34,211,164,0.06);border:1px solid rgba(34,211,164,0.2);border-radius:14px;font-size:14px;color:var(--text2);max-width:700px;text-align:center;line-height:1.6">
+    A política de <strong style="color:var(--success)">atribuição obrigatória</strong> implementada nas últimas semanas está funcionando.<br>
+    Continuar o monitoramento semanal desta métrica.
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 8 — PRIORIDADES S7
+══════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">🎯 Missões · Semana 7</span></div>
+  <div class="tb"><div class="tb-eye">Plano de Ação</div><h2>Prioridades desta Semana</h2><div class="sub">Direto do reporte executivo S6 — o que a liderança espera desta semana</div></div>
+  <div class="prio-list">
+    <div class="pi" style="--pc:var(--danger)">
+      <div class="pi-num">P01</div>
+      <div style="flex:1">
+        <div class="pi-text">Resolver FRONT-185 (225 dias) e bugs crônicos — responsável e prazo esta semana</div>
+        <div class="pi-sub">112 Urgent/High abertas há +14 dias. PIGZTEC-697 e PIGZTEC-698 com 84 dias. Todo bug crônico precisa de dono e data hoje.</div>
+      </div>
+      <span class="pi-prio" style="background:rgba(248,113,113,0.12);color:var(--danger)">CRÍTICO</span>
+    </div>
+    <div class="pi" style="--pc:var(--warning)">
+      <div class="pi-num">P02</div>
+      <div style="flex:1">
+        <div class="pi-text">Redistribuir carga de guilherme.alves (28) e Natália Fournier (12) — risco de burnout</div>
+        <div class="pi-sub">Concentração de bugs críticos em poucos devs gera risco de qualidade. Redistribuir ou priorizar com os líderes de squad.</div>
+      </div>
+      <span class="pi-prio" style="background:rgba(251,191,36,0.12);color:var(--warning)">URGENTE</span>
+    </div>
+    <div class="pi" style="--pc:var(--info)">
+      <div class="pi-num">P03</div>
+      <div style="flex:1">
+        <div class="pi-text">Reverter saldo negativo: toda issue Urgent/High criada deve ter assignee + due date</div>
+        <div class="pi-sub">332 issues sem prazo. 275 criadas vs. 203 entregues = −72/semana. Sem controle da criação, o backlog se torna incontrolável.</div>
+      </div>
+      <span class="pi-prio" style="background:rgba(96,165,250,0.12);color:var(--info)">ALTA</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 9 — ENCERRAMENTO
+══════════════════════════ -->
+<div class="slide" id="s9" style="background:linear-gradient(135deg,#0D0F14,#120F1E,#0F150D)">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Semana 7 · 2026</span></div>
+  <div class="fim-wrap">
+    <div class="fim-big">Mão na<br><span class="hl">Massa!</span></div>
+    <div class="fim-sub">Semana 7 começa agora. Foco nos bugs crônicos, redistribuição de carga e governança do backlog. Linear é nossa fonte de verdade — tudo registrado lá.</div>
+    <div class="fim-pills">
+      <span class="fp hl">P01 · FRONT-185 — responsável hoje</span>
+      <span class="fp">P02 · Redistribuir guilherme.alves</span>
+      <span class="fp">P03 · 332 issues sem due date</span>
+      <span class="fp">Quinta · Reunião Geral PIGZ</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /sc-wrap -->
+
+<!-- CONTROLES -->
+<div class="controls">
+  <button class="cb" onclick="prev()">← Anterior</button>
+  <div class="pb"><div class="pf" id="prog"></div></div>
+  <span class="sc" id="cnt">1 / 9</span>
+  <button class="cb pr" onclick="next()">Próximo →</button>
+  <button class="cb" onclick="window.print()" title="Imprimir / PDF">⎙</button>
+</div>
+
+<script>
+var T=9,C=1;
+function show(n){
+  document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('cnt').textContent=n+' / '+T;
+  document.getElementById('prog').style.width=((n/T)*100)+'%';
+  C=n;
+}
+function next(){if(C<T)show(C+1);}
+function prev(){if(C>1)show(C-1);}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+  if(e.key==='Home')show(1);
+  if(e.key==='End')show(T);
+});
+show(1);
+</script>
+</body>
+</html>
