@@ -239,47 +239,42 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 </div>
 
 <!-- ══════════════════════════
-     SLIDE 5 — RANKING BUGS (quem concentra críticos)
+     SLIDE 5 — CONCENTRAÇÃO DE CARGA (sem exposição individual)
 ══════════════════════════ -->
 <div class="slide" id="s5">
-  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">⚠ Ranking · Bugs Urgent/High por Dev</span></div>
-  <div class="tb"><div class="tb-eye" style="color:var(--danger)">⚠ Concentração de Bugs Críticos</div><h2>Devs com mais Urgent/High em Aberto</h2><div class="sub">Quem precisa de suporte ou redistribuição · dados S6</div></div>
-  <div class="rank-list">
-    <div class="ri" style="border-color:rgba(248,113,113,0.4);background:rgba(248,113,113,0.04)">
-      <div class="ri-pos" style="color:var(--danger);font-size:18px;font-weight:900;font-family:var(--mono)">1</div>
-      <div class="ri-av" style="background:rgba(248,113,113,0.15);color:var(--danger)">GA</div>
-      <div style="flex:1"><div class="ri-name">guilherme.alves</div><div class="ri-squad" style="color:var(--danger)">CONCENTRAÇÃO CRÍTICA — redistribuir urgente</div></div>
-      <div class="ri-bar"><div class="ri-bar-fill" style="width:100%;background:var(--danger)"></div></div>
-      <div><div class="ri-val" style="color:var(--danger)">28</div><div class="ri-unit">issues</div></div>
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">⚠ Redistribuição de Carga · S6</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--warning)">⚠ Ponto de Atenção do Time</div><h2>Concentração de Bugs Críticos</h2><div class="sub">110 issues Urgent/High abertas — a carga está concentrada em poucos devs. Precisamos redistribuir.</div></div>
+  <div style="width:100%;max-width:880px;display:flex;flex-direction:column;gap:14px">
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+      <div style="background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2);border-radius:16px;padding:24px;text-align:center">
+        <div style="font-size:52px;font-weight:900;font-family:var(--mono);color:var(--danger);line-height:1">110</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-top:8px">Bugs Urgent/High<br>em aberto</div>
+      </div>
+      <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:16px;padding:24px;text-align:center">
+        <div style="font-size:52px;font-weight:900;font-family:var(--mono);color:var(--warning);line-height:1">3</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-top:8px">Devs com carga<br>acima do limite</div>
+      </div>
+      <div style="background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.2);border-radius:16px;padding:24px;text-align:center">
+        <div style="font-size:52px;font-weight:900;font-family:var(--mono);color:var(--info);line-height:1">49</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-top:8px">Issues sem assignee<br>ou sem responsável</div>
+      </div>
     </div>
-    <div class="ri" style="border-color:rgba(251,191,36,0.3)">
-      <div class="ri-pos" style="color:var(--warning);font-size:18px;font-weight:900;font-family:var(--mono)">2</div>
-      <div class="ri-av" style="background:rgba(251,191,36,0.15);color:var(--warning)">NF</div>
-      <div style="flex:1"><div class="ri-name">Natália Fournier</div><div class="ri-squad" style="color:var(--warning)">Carga alta — monitorar</div></div>
-      <div class="ri-bar"><div class="ri-bar-fill" style="width:43%;background:var(--warning)"></div></div>
-      <div><div class="ri-val" style="color:var(--warning)">12</div><div class="ri-unit">issues</div></div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 24px">
+      <div style="font-size:13px;font-weight:700;color:var(--warning);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px">⚠ Problema</div>
+      <div style="font-size:15px;font-weight:600;line-height:1.6;color:var(--text2)">Bugs críticos estão concentrados em <strong style="color:var(--text)">poucos membros do time</strong>, criando risco de qualidade e sobrecarga. Isso não é culpa de quem recebeu — é um <strong style="color:var(--warning)">problema de distribuição</strong> que precisamos resolver juntos.</div>
     </div>
-    <div class="ri" style="border-color:rgba(251,191,36,0.2)">
-      <div class="ri-pos" style="color:var(--warning);font-size:18px;font-weight:900;font-family:var(--mono)">3</div>
-      <div class="ri-av" style="background:rgba(251,191,36,0.10);color:var(--warning)">VR</div>
-      <div style="flex:1"><div class="ri-name">Vitor Rocha</div><div class="ri-squad">Monitorar</div></div>
-      <div class="ri-bar"><div class="ri-bar-fill" style="width:32%;background:var(--warning)"></div></div>
-      <div><div class="ri-val" style="color:var(--warning)">9</div><div class="ri-unit">issues</div></div>
+
+    <div style="background:var(--card);border:1px solid rgba(34,211,164,0.15);border-radius:16px;padding:22px 24px">
+      <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px">✓ Ação desta semana</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text2);align-items:flex-start"><span style="color:var(--success);font-weight:800;flex-shrink:0">→</span><span>Cada líder de squad <strong style="color:var(--text)">revisa as issues atribuídas ao seu time esta semana</strong> e redistribui onde houver sobrecarga</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text2);align-items:flex-start"><span style="color:var(--success);font-weight:800;flex-shrink:0">→</span><span>Bugs sem assignee devem ser <strong style="color:var(--text)">atribuídos hoje no Linear</strong> — nenhum Urgent/High pode ficar sem dono</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text2);align-items:flex-start"><span style="color:var(--success);font-weight:800;flex-shrink:0">→</span><span>Meta: <strong style="color:var(--text)">nenhum dev com mais de 10 Urgent/High ao mesmo tempo</strong> — acima disso, redistribuir obrigatoriamente</span></div>
+      </div>
     </div>
-    <div class="ri">
-      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-weight:800;font-family:var(--mono)">4</div>
-      <div class="ri-av" style="background:rgba(107,114,128,0.12);color:var(--text3)">El</div>
-      <div style="flex:1"><div class="ri-name">Elias Monteiro</div></div>
-      <div class="ri-bar"><div class="ri-bar-fill" style="width:25%;background:var(--text3)"></div></div>
-      <div><div class="ri-val" style="color:var(--text2);font-size:22px">7</div><div class="ri-unit">issues</div></div>
-    </div>
-    <div class="ri">
-      <div class="ri-pos" style="color:var(--text3);font-size:16px;font-weight:800;font-family:var(--mono)">5</div>
-      <div class="ri-av" style="background:rgba(107,114,128,0.12);color:var(--text3)">GBe</div>
-      <div style="flex:1"><div class="ri-name">Guilherme Bernardo</div></div>
-      <div class="ri-bar"><div class="ri-bar-fill" style="width:25%;background:var(--text3)"></div></div>
-      <div><div class="ri-val" style="color:var(--text2);font-size:22px">7</div><div class="ri-unit">issues</div></div>
-    </div>
+
   </div>
 </div>
 
@@ -387,9 +382,67 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 </div>
 
 <!-- ══════════════════════════
-     SLIDE 9 — ENCERRAMENTO
+     SLIDE 9 — GOVERNANÇA LINEAR
 ══════════════════════════ -->
-<div class="slide" id="s9" style="background:linear-gradient(135deg,#0D0F14,#120F1E,#0F150D)">
+<div class="slide" id="s9">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">📋 Linear · Regras de Uso</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--accent)">📋 Uso do Linear</div><h2>Regras que não negociamos</h2><div class="sub">Todo dev deve seguir estas regras em toda issue criada ou atualizada — sem exceção</div></div>
+
+  <div style="width:100%;max-width:960px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+
+    <div style="background:var(--card);border:1px solid rgba(248,113,113,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--danger)">
+      <div style="font-size:24px;margin-bottom:10px">👤</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">Responsável</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Toda issue <strong style="color:var(--text)">obrigatoriamente</strong> deve ter um assignee. Issue sem dono = issue invisível. Nenhum Urgent/High pode ficar sem responsável por mais de <strong style="color:var(--danger)">2 horas</strong>.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(248,113,113,0.12);color:var(--danger);display:inline-block">OBRIGATÓRIO</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(251,191,36,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--warning)">
+      <div style="font-size:24px;margin-bottom:10px">📅</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">Data Prevista (Due Date)</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Toda issue deve ter uma <strong style="color:var(--text)">data de conclusão estimada</strong>. Sem prazo não há compromisso. 332 issues ainda sem due date — isso muda esta semana.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(251,191,36,0.12);color:var(--warning);display:inline-block">OBRIGATÓRIO</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(96,165,250,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--info)">
+      <div style="font-size:24px;margin-bottom:10px">⏱</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">SLA por Prioridade</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">
+        <div style="margin-bottom:4px"><span style="color:var(--danger);font-weight:700">🔴 Urgent:</span> resolução em até <strong style="color:var(--text)">24h</strong></div>
+        <div style="margin-bottom:4px"><span style="color:var(--warning);font-weight:700">🟡 High:</span> resolução em até <strong style="color:var(--text)">3 dias</strong></div>
+        <div style="margin-bottom:4px"><span style="color:var(--info);font-weight:700">🔵 Medium:</span> resolução em até <strong style="color:var(--text)">7 dias</strong></div>
+        <div><span style="color:var(--text3);font-weight:700">⚪ Low:</span> resolução em até <strong style="color:var(--text)">15 dias</strong></div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(167,139,250,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--purple)">
+      <div style="font-size:24px;margin-bottom:10px">📊</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">Estimativa de Esforço</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Use o campo <strong style="color:var(--text)">Estimate</strong> em toda issue. Isso nos permite medir velocidade real do time e planejar a capacidade semanal com precisão.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(167,139,250,0.12);color:var(--purple);display:inline-block">RECOMENDADO</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(34,211,164,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--success)">
+      <div style="font-size:24px;margin-bottom:10px">🔄</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">Status Atualizado</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Mova a issue pelo ciclo correto: <strong style="color:var(--text)">Todo → In Progress → In Review → Done</strong>. Nunca deixe uma issue em <em>In Progress</em> por mais de <strong style="color:var(--warning)">3 dias sem atualização</strong>.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(34,211,164,0.12);color:var(--success);display:inline-block">OBRIGATÓRIO</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(250,100,30,0.2);border-radius:16px;padding:20px 18px;border-top:3px solid var(--accent)">
+      <div style="font-size:24px;margin-bottom:10px">🏷️</div>
+      <div style="font-size:15px;font-weight:800;margin-bottom:8px">Labels &amp; Descrição</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6">Toda issue precisa de <strong style="color:var(--text)">descrição clara do problema</strong> e labels corretas. Issue sem contexto gera retrabalho. Se você recebeu uma issue sem descrição, <strong style="color:var(--accent)">devolva para quem criou</strong> antes de trabalhar.</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;background:rgba(250,100,30,0.12);color:var(--accent);display:inline-block">RECOMENDADO</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     SLIDE 10 — ENCERRAMENTO
+══════════════════════════ -->
+<div class="slide" id="s10" style="background:linear-gradient(135deg,#0D0F14,#120F1E,#0F150D)">
   <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Semana 7 · 2026</span></div>
   <div class="fim-wrap">
     <div class="fim-big">Mão na<br><span class="hl">Massa!</span></div>
@@ -415,7 +468,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 </div>
 
 <script>
-var T=9,C=1;
+var T=10,C=1;
 function show(n){
   document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('active');});
   document.getElementById('s'+n).classList.add('active');
@@ -431,6 +484,7 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Home')show(1);
   if(e.key==='End')show(T);
 });
+// Alias s9 antigo -> agora s10
 show(1);
 </script>
 </body>
