@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata — Reunião Semanal de Devs · Semana 7 · PIGZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pigz: #FA641E;
+    --dark: #0F1117;
+    --text: #1a1a2e;
+    --muted: #64748B;
+    --border: #E2E8F0;
+    --danger: #DC2626;
+    --warning: #D97706;
+    --success: #059669;
+    --info: #2563EB;
+    --bg: #F8FAFC;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  @media print {
+    body { background: white !important; }
+    .no-print { display: none !important; }
+    .page { box-shadow: none !important; margin: 0 !important; }
+    section { break-inside: avoid; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 40px 20px 80px;
+  }
+
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* TOPO PIGZ */
+  .gov-header {
+    background: linear-gradient(135deg, #0F1117 0%, #1A1D27 100%);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .gov-logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--pigz);
+    letter-spacing: -1px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .gov-meta {
+    text-align: right;
+  }
+  .gov-meta .doc-type {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+  .gov-meta .doc-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* FAIXA LARANJA */
+  .accent-bar {
+    background: var(--pigz);
+    height: 4px;
+  }
+
+  /* TITULO DA ATA */
+  .ata-header {
+    padding: 40px 48px 32px;
+    border-bottom: 2px solid var(--border);
+  }
+  .ata-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--pigz);
+    margin-bottom: 10px;
+  }
+  .ata-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  /* GRID DE METADADOS */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+  }
+  .meta-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .meta-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+
+  /* PRESENTES */
+  .presentes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .presente-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .presente-tag .av {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800;
+    color: white;
+  }
+
+  /* CONTEÚDO */
+  .content {
+    padding: 36px 48px;
+  }
+
+  section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--pigz);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FEE4D8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-num {
+    background: var(--pigz);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* NÚMEROS DESTAQUE */
+  .numbers-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .num-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .num-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .num-card.verde::before { background: var(--success); }
+  .num-card.vermelho::before { background: var(--danger); }
+  .num-card.amarelo::before { background: var(--warning); }
+  .num-val {
+    font-size: 36px;
+    font-weight: 900;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .num-card.verde .num-val { color: var(--success); }
+  .num-card.vermelho .num-val { color: var(--danger); }
+  .num-card.amarelo .num-val { color: var(--warning); }
+  .num-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .num-sub {
+    font-size: 10px;
+    color: #94A3B8;
+    margin-top: 4px;
+  }
+
+  /* RANKING */
+  .rank-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .rank-table th {
+    background: #F8FAFC;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .rank-table tr:last-child td { border-bottom: none; }
+  .rank-table tr:hover td { background: #FAFAFA; }
+  .medal { font-size: 16px; }
+  .dev-av {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .issues-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* PONTOS DE PAUTA */
+  .pauta-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .pauta-header {
+    background: #F8FAFC;
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pauta-num {
+    background: var(--dark);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .pauta-body {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.7;
+  }
+
+  /* DELIBERAÇÕES / ENCAMINHAMENTOS */
+  .encaminhamento {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .enc-prio {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 1px;
+  }
+  .enc-prio.critico { background: #FEE2E2; color: var(--danger); }
+  .enc-prio.urgente { background: #FEF3C7; color: var(--warning); }
+  .enc-prio.alta    { background: #DBEAFE; color: var(--info); }
+  .enc-text { font-size: 13px; color: #374151; line-height: 1.6; }
+  .enc-text strong { color: var(--dark); }
+  .enc-prazo {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* REGRAS LINEAR */
+  .regras-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .regra {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .regra-icon { font-size: 20px; flex-shrink: 0; }
+  .regra-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .regra-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .obrigatorio { font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
+  .obr-r { background: #FEE2E2; color: var(--danger); }
+  .obr-g { background: #D1FAE5; color: var(--success); }
+  .obr-b { background: #DBEAFE; color: var(--info); }
+  .obr-y { background: #FEF3C7; color: var(--warning); }
+  .obr-o { background: #FEF3C7; color: var(--pigz); }
+
+  /* ASSINATURA */
+  .assinatura-section {
+    padding: 32px 48px;
+    border-top: 2px solid var(--border);
+    background: #FAFAFA;
+  }
+  .assinatura-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .assinatura-box {
+    display: flex;
+    align-items: flex-end;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .assinatura-left { flex: 1; min-width: 280px; }
+  .sig-line {
+    border-bottom: 2px solid var(--dark);
+    margin-bottom: 8px;
+    height: 48px;
+    position: relative;
+  }
+  .sig-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .sig-cargo {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .sig-empresa {
+    font-size: 11px;
+    color: var(--pigz);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .assinatura-right {
+    text-align: right;
+  }
+  .doc-info {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .doc-info strong { color: var(--dark); }
+
+  /* RODAPÉ */
+  .page-footer {
+    background: var(--dark);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .page-footer span {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+  .page-footer .pigz-mark {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--pigz);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* BOTÃO IMPRIMIR */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--pigz);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(250,100,30,0.35);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .print-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- CABEÇALHO GOV PIGZ -->
+  <div class="gov-header">
+    <div class="gov-logo">PIGZ</div>
+    <div class="gov-meta">
+      <div class="doc-type">Documento Oficial</div>
+      <div class="doc-title">Coordenação de Projetos & Tecnologia</div>
+    </div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <!-- TÍTULO DA ATA -->
+  <div class="ata-header">
+    <div class="ata-label">ATA DE REUNIÃO</div>
+    <div class="ata-title">Reunião Semanal de Devs<br>Semana 7 — 2026</div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Data</div>
+        <div class="meta-value">23 de Junho de 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Horário</div>
+        <div class="meta-value">10h00 — Segunda-feira</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Modalidade</div>
+        <div class="meta-value">Google Meet — Remota</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Facilitador</div>
+        <div class="meta-value">Carlos Krueger</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Referência</div>
+        <div class="meta-value">Reporte Executivo S6</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Fonte de Dados</div>
+        <div class="meta-value">Linear — workspace completo</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="meta-label" style="margin-bottom:10px;">Participantes presentes</div>
+      <div class="presentes-grid">
+        <div class="presente-tag"><div class="av" style="background:#FA641E">CK</div>Carlos Krueger — Coord.</div>
+        <div class="presente-tag"><div class="av" style="background:#FBBF24">EM</div>Emerson Marinho — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#22D3A4">FS</div>Felipe Souza — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#60A5FA">GB</div>Guilherme Bernardo — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#FA641E">GC</div>Gustavo Carvalho — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#A78BFA">RL</div>Rodrigo Lacan — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#F472B6">NF</div>Natália Fournier — Dev</div>
+        <div class="presente-tag"><div class="av" style="background:#34D399">GA</div>Guilherme Alves — Dev</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="content">
+
+    <!-- 1. PAUTA -->
+    <section>
+      <div class="section-title"><span class="section-num">1</span> Pauta da Reunião</div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">01</span> Retrospecto da Semana 6 (S6)</div>
+        <div class="pauta-body">Apresentação dos números reais extraídos do Linear referentes ao período de 13 a 19 de junho de 2026. Análise de issues entregues, criadas e saldo de backlog.</div>
+      </div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">02</span> Ranking de Devs — Top Entregas S6</div>
+        <div class="pauta-body">Apresentação do ranking de issues concluídas por desenvolvedor durante a Semana 6, com destaque para os 5 maiores contribuidores.</div>
+      </div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">03</span> Concentração de Carga e Redistribuição</div>
+        <div class="pauta-body">Análise da concentração de bugs críticos em poucos membros do time e plano de redistribuição para a Semana 7.</div>
+      </div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">04</span> Gargalos Ativos e Bugs Crônicos</div>
+        <div class="pauta-body">Identificação de impedimentos ativos: bugs crônicos abertos há mais de 14 dias, issues travadas em In Progress e backlog com saldo negativo.</div>
+      </div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">05</span> Prioridades da Semana 7 (S7)</div>
+        <div class="pauta-body">Definição das três missões críticas da semana, alinhadas ao reporte executivo S6 apresentado à liderança.</div>
+      </div>
+
+      <div class="pauta-item">
+        <div class="pauta-header"><span class="pauta-num">06</span> Regras de Governança do Linear</div>
+        <div class="pauta-body">Reforço das regras não negociáveis de uso da ferramenta Linear como sistema nervoso central da gestão do time.</div>
+      </div>
+    </section>
+
+    <!-- 2. NÚMEROS S6 -->
+    <section>
+      <div class="section-title"><span class="section-num">2</span> Números da Semana 6 — Dados do Linear</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Período: 13/06/2026 a 19/06/2026 · Fonte: Linear workspace completo</p>
+
+      <div class="numbers-row">
+        <div class="num-card verde">
+          <div class="num-val">203</div>
+          <div class="num-label">Issues Entregues</div>
+          <div class="num-sub">Emerson: 45 · Felipe: 21 · Guilherme B: 20</div>
+        </div>
+        <div class="num-card vermelho">
+          <div class="num-val">275</div>
+          <div class="num-label">Issues Criadas</div>
+          <div class="num-sub">Saldo negativo: −72 por semana</div>
+        </div>
+        <div class="num-card vermelho">
+          <div class="num-val">110</div>
+          <div class="num-label">Bugs Urgent/High Abertos</div>
+          <div class="num-sub">112 crônicos (+14 dias)</div>
+        </div>
+      </div>
+
+      <div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:14px 16px;font-size:13px;color:#7F1D1D;margin-top:4px;">
+        ⚠ <strong>Alerta:</strong> O saldo de −72 issues/semana indica que o backlog está crescendo sistematicamente. Se mantido, torna-se incontrolável em poucas semanas.
+      </div>
+    </section>
+
+    <!-- 3. CONQUISTAS S6 -->
+    <section>
+      <div class="section-title"><span class="section-num">3</span> Conquistas da Semana 6</div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--success)">−94%</div>
+          <div style="font-size:12px;font-weight:600;color:#064E3B;margin-top:6px;">Urgent/High sem Assignee<br><span style="font-weight:400">131 → apenas 7</span></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--success)">203</div>
+          <div style="font-size:12px;font-weight:600;color:#064E3B;margin-top:6px;">Issues entregues<br><span style="font-weight:400">vs. 77 na Semana 5</span></div>
+        </div>
+        <div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;color:var(--success)">+126</div>
+          <div style="font-size:12px;font-weight:600;color:#064E3B;margin-top:6px;">Crescimento de entrega<br><span style="font-weight:400">vs. semana anterior</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;padding:12px 16px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;font-size:13px;color:#064E3B;">
+        ✓ A política de <strong>atribuição obrigatória</strong> implementada nas últimas semanas está funcionando. Manter o monitoramento semanal desta métrica.
+      </div>
+    </section>
+
+    <!-- 4. RANKING -->
+    <section>
+      <div class="section-title"><span class="section-num">4</span> Ranking de Devs — Issues Concluídas S6</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">13/06 a 19/06/2026 · Linear workspace completo</p>
+
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th style="width:40px">#</th>
+            <th>Desenvolvedor</th>
+            <th>Squad</th>
+            <th style="text-align:center">Issues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#FFFBEB">
+            <td><span class="medal">🥇</span></td>
+            <td><div class="dev-av" style="background:#FBBF24">EM</div><strong>Emerson Marinho de Sousa</strong></td>
+            <td>PigzForce CRM</td>
+            <td style="text-align:center"><span class="issues-num" style="color:#D97706">45</span></td>
+          </tr>
+          <tr>
+            <td><span class="medal">🥈</span></td>
+            <td><div class="dev-av" style="background:#22D3A4">FS</div>Felipe Souza</td>
+            <td>BILL</td>
+            <td style="text-align:center"><span class="issues-num" style="color:#6B7280">21</span></td>
+          </tr>
+          <tr>
+            <td><span class="medal">🥉</span></td>
+            <td><div class="dev-av" style="background:#60A5FA">GB</div>Guilherme Bernardo</td>
+            <td>BILL</td>
+            <td style="text-align:center"><span class="issues-num" style="color:#6B7280">20</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#9CA3AF">4</td>
+            <td><div class="dev-av" style="background:#FA641E">GC</div>Gustavo Carvalho</td>
+            <td>S.W.A.T</td>
+            <td style="text-align:center"><span class="issues-num" style="color:#6B7280">18</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#9CA3AF">5</td>
+            <td><div class="dev-av" style="background:#A78BFA">RL</div>Rodrigo Lacan</td>
+            <td>BILL / Logs Pigz</td>
+            <td style="text-align:center"><span class="issues-num" style="color:#6B7280">17</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 5. GARGALOS -->
+    <section>
+      <div class="section-title"><span class="section-num">5</span> Gargalos e Impedimentos Identificados</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+        <div style="border:1px solid #FECACA;border-radius:10px;padding:16px;">
+          <div style="font-size:12px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">🔴 Bugs Crônicos</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="background:#FEE2E2;color:var(--danger);font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap">225 DIAS</span>
+              <span>FRONT-185 — bug mais antigo do workspace</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="background:#FEE2E2;color:var(--danger);font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap">84 DIAS</span>
+              <span>PIGZTEC-697 e PIGZTEC-698</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="background:#FEF3C7;color:var(--warning);font-size:10px;font-weight:800;padding:2px 8px;border-radius:4px;white-space:nowrap">14+ DIAS</span>
+              <span>112 issues Urgent/High sem resolução</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div style="font-size:12px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">📉 Backlog & Governança</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--danger);font-size:16px;min-width:40px">−72</span>
+              <span>issues/semana · 275 criadas vs. 203 entregues</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--info);font-size:16px;min-width:40px">332</span>
+              <span>issues ativas sem due date definida</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:13px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--warning);font-size:16px;min-width:40px">16</span>
+              <span>issues paradas em In Progress (+7 dias)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. ENCAMINHAMENTOS -->
+    <section>
+      <div class="section-title"><span class="section-num">6</span> Encaminhamentos e Prioridades — Semana 7</div>
+
+      <div class="encaminhamento">
+        <span class="enc-prio critico">CRÍTICO · P01</span>
+        <div>
+          <div class="enc-text"><strong>Resolver FRONT-185 (225 dias aberto) e todos os bugs crônicos</strong> — cada bug Urgent/High aberto há mais de 14 dias deve receber responsável e data de conclusão imediatamente.</div>
+          <div class="enc-prazo">📅 Prazo: até 23/06/2026 (hoje) · Responsável: Líderes de squad</div>
+        </div>
+      </div>
+
+      <div class="encaminhamento">
+        <span class="enc-prio urgente">URGENTE · P02</span>
+        <div>
+          <div class="enc-text"><strong>Redistribuir carga de bugs críticos</strong> — concentração identificada em Guilherme Alves (28 bugs) e Natália Fournier (12 bugs). Meta: nenhum dev com mais de 10 Urgent/High simultaneamente.</div>
+          <div class="enc-prazo">📅 Prazo: até 24/06/2026 · Responsável: Líderes de squad</div>
+        </div>
+      </div>
+
+      <div class="encaminhamento">
+        <span class="enc-prio alta">ALTA · P03</span>
+        <div>
+          <div class="enc-text"><strong>Reverter saldo negativo do backlog</strong> — toda issue Urgent/High criada a partir de agora deve ter assignee e due date no momento da criação. As 332 issues sem prazo devem ser corrigidas esta semana.</div>
+          <div class="enc-prazo">📅 Prazo: até 27/06/2026 · Responsável: Todo o time</div>
+        </div>
+      </div>
+
+      <div class="encaminhamento">
+        <span class="enc-prio alta">ALTA · P04</span>
+        <div>
+          <div class="enc-text"><strong>Reforço das regras de governança do Linear</strong> — todos os devs devem seguir obrigatoriamente: assignee, due date, SLA por prioridade, status atualizado e labels corretas em toda issue.</div>
+          <div class="enc-prazo">📅 Vigência: imediata · Responsável: Todo o time</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. REGRAS LINEAR -->
+    <section>
+      <div class="section-title"><span class="section-num">7</span> Regras de Governança do Linear — Reafirmadas</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Todo dev deve seguir estas regras em toda issue criada ou atualizada — sem exceção.</p>
+
+      <div class="regras-grid">
+        <div class="regra">
+          <div class="regra-icon">👤</div>
+          <div>
+            <div class="regra-title">Responsável (Assignee)</div>
+            <div class="regra-desc">Toda issue obrigatoriamente deve ter assignee. Nenhum Urgent/High pode ficar sem responsável por mais de 2 horas.</div>
+            <span class="obrigatorio obr-r">OBRIGATÓRIO</span>
+          </div>
+        </div>
+        <div class="regra">
+          <div class="regra-icon">📅</div>
+          <div>
+            <div class="regra-title">Data Prevista (Due Date)</div>
+            <div class="regra-desc">Toda issue deve ter data de conclusão estimada. 332 issues ainda sem due date — isso muda esta semana.</div>
+            <span class="obrigatorio obr-r">OBRIGATÓRIO</span>
+          </div>
+        </div>
+        <div class="regra">
+          <div class="regra-icon">⏱</div>
+          <div>
+            <div class="regra-title">SLA por Prioridade</div>
+            <div class="regra-desc">🔴 Urgent: 24h · 🟡 High: 3 dias · 🔵 Medium: 7 dias · ⚪ Low: 15 dias</div>
+            <span class="obrigatorio obr-b">OBRIGATÓRIO</span>
+          </div>
+        </div>
+        <div class="regra">
+          <div class="regra-icon">🔄</div>
+          <div>
+            <div class="regra-title">Status Atualizado</div>
+            <div class="regra-desc">Mover: Todo → In Progress → In Review → Done. Nunca deixar em In Progress por mais de 3 dias sem atualização.</div>
+            <span class="obrigatorio obr-g">OBRIGATÓRIO</span>
+          </div>
+        </div>
+        <div class="regra">
+          <div class="regra-icon">📊</div>
+          <div>
+            <div class="regra-title">Estimativa de Esforço</div>
+            <div class="regra-desc">Usar o campo Estimate em toda issue para medir velocidade real e planejar capacidade semanal.</div>
+            <span class="obrigatorio obr-y">RECOMENDADO</span>
+          </div>
+        </div>
+        <div class="regra">
+          <div class="regra-icon">🏷️</div>
+          <div>
+            <div class="regra-title">Labels & Descrição</div>
+            <div class="regra-desc">Toda issue com descrição clara e labels corretas. Issue sem contexto = retrabalho. Devolver para quem criou se faltar informação.</div>
+            <span class="obrigatorio obr-o">RECOMENDADO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. PRÓXIMA REUNIÃO -->
+    <section>
+      <div class="section-title"><span class="section-num">8</span> Próximos Passos</div>
+      <div style="background:#F8FAFC;border:1px solid var(--border);border-radius:10px;padding:16px 20px;font-size:13px;color:#374151;line-height:1.8;">
+        <div>📅 <strong>Quinta-feira, 26/06/2026</strong> — Reunião Geral PIGZ (todas as áreas)</div>
+        <div>📋 <strong>Semana 7 (23–27/06)</strong> — Execução das prioridades P01, P02 e P03 definidas nesta reunião</div>
+        <div>📊 <strong>Sexta-feira, 27/06</strong> — Reporte semanal executivo S7 à liderança</div>
+        <div>🔁 <strong>Segunda-feira, 30/06</strong> — Reunião Semanal de Devs S8 · 10h00</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ASSINATURA -->
+  <div class="assinatura-section">
+    <div class="assinatura-title">Assinaturas</div>
+    <div class="assinatura-box">
+      <div class="assinatura-left">
+        <div class="sig-line"></div>
+        <div class="sig-name">Carlos Krueger</div>
+        <div class="sig-cargo">Coordenador de Projetos & Tecnologia</div>
+        <div class="sig-empresa">PIGZ Tecnologia</div>
+      </div>
+      <div class="assinatura-right">
+        <div class="doc-info">
+          <div><strong>Documento:</strong> ATA-S7-2026-DEVS</div>
+          <div><strong>Emitido em:</strong> 23 de Junho de 2026</div>
+          <div><strong>Slides:</strong> reuniao-devs-s7.html</div>
+          <div><strong>Classificação:</strong> Uso Interno</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="page-footer">
+    <span>ATA-S7-2026-DEVS · PIGZ Tecnologia · Uso Interno</span>
+    <span class="pigz-mark">PIGZ</span>
+  </div>
+
+</div>
+
+<!-- BOTÃO IMPRIMIR -->
+<button class="print-btn no-print" onclick="window.print()">
+  ⎙ Salvar como PDF
+</button>
+
+</body>
+</html>
