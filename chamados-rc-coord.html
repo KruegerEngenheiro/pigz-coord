@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamados RC — Relacionamento | PIGZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pigz: #FA641E;
+    --pigz-dark: #E04F0A;
+    --pigz-light: #FFF4EF;
+    --dark: #0F1117;
+    --card: #1A1D27;
+    --border: rgba(255,255,255,0.07);
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+
+    --fiscal: #10B981;    --fiscal-bg: rgba(16,185,129,0.1);
+    --relat:  #6366F1;    --relat-bg:  rgba(99,102,241,0.1);
+    --fin:    #F59E0B;    --fin-bg:    rgba(245,158,11,0.1);
+    --pos:    #3B82F6;    --pos-bg:    rgba(59,130,246,0.1);
+    --del:    #EC4899;    --del-bg:    rgba(236,72,153,0.1);
+    --ia:     #8B5CF6;    --ia-bg:     rgba(139,92,246,0.1);
+    --outros: #64748B;    --outros-bg: rgba(100,116,139,0.1);
+    --partner:#FA641E;    --partner-bg:rgba(250,100,30,0.1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0F1117 0%, #1A1D27 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .logo { display:flex; align-items:center; gap:14px; }
+  .logo-badge {
+    background: var(--pigz);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 10px;
+    letter-spacing: -0.5px;
+  }
+  .logo-text { font-size: 15px; color: var(--muted); font-weight: 500; }
+  .header-meta { text-align: right; }
+  .header-meta .data { font-size: 13px; color: var(--muted); }
+  .header-meta .total-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--pigz-light); color: var(--pigz);
+    font-weight: 700; font-size: 13px;
+    padding: 4px 12px; border-radius: 20px; margin-top: 6px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1A1D27 0%, #0F1117 100%);
+    padding: 48px 48px 36px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 800;
+    background: linear-gradient(90deg, #fff, var(--pigz));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .hero p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    padding: 24px 48px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    display: flex; flex-direction: column;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    min-width: 120px;
+    flex: 1;
+  }
+  .stat-num { font-size: 26px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* CONTENT */
+  .content { padding: 36px 48px; }
+
+  /* SEÇÃO */
+  .section { margin-bottom: 40px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .section-title { font-size: 16px; font-weight: 700; }
+  .section-count {
+    margin-left: auto;
+    font-size: 12px; font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    opacity: 0.85;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 12px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    transition: all 0.2s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+  .card:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .card-id {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-id a {
+    color: inherit; text-decoration: none;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .card-id a:hover { text-decoration: underline; }
+  .card-title {
+    font-size: 13px; font-weight: 500;
+    color: var(--text); line-height: 1.5;
+  }
+  .card-client {
+    margin-top: 8px;
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  /* Partner cards especiais */
+  .card-partner .card-id { color: var(--partner); }
+  .card-partner::before { background: var(--partner); }
+  .partner-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--partner-bg);
+    color: var(--partner);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+  .partner-link:hover { background: rgba(250,100,30,0.2); }
+
+  /* Cores por categoria */
+  .fiscal   .card-id { color: var(--fiscal); }
+  .fiscal   .card::before, .fiscal.card::before { background: var(--fiscal); }
+  .relatorio .card-id { color: var(--relat); }
+  .relatorio .card::before, .relatorio.card::before { background: var(--relat); }
+  .financeiro .card-id { color: var(--fin); }
+  .financeiro .card::before, .financeiro.card::before { background: var(--fin); }
+  .sistema .card-id { color: var(--pos); }
+  .sistema .card::before, .sistema.card::before { background: var(--pos); }
+  .delivery .card-id { color: var(--del); }
+  .delivery .card::before, .delivery.card::before { background: var(--del); }
+  .ia-wpp .card-id { color: var(--ia); }
+  .ia-wpp .card::before, .ia-wpp.card::before { background: var(--ia); }
+  .outros .card-id { color: var(--outros); }
+  .outros .card::before, .outros.card::before { background: var(--outros); }
+
+  /* Categoria ícones e cores na seção */
+  .fiscal    .section-icon { background: var(--fiscal-bg); }
+  .relatorio .section-icon { background: var(--relat-bg); }
+  .financeiro .section-icon { background: var(--fin-bg); }
+  .sistema   .section-icon { background: var(--pos-bg); }
+  .delivery  .section-icon { background: var(--del-bg); }
+  .ia-wpp    .section-icon { background: var(--ia-bg); }
+  .outros    .section-icon { background: var(--outros-bg); }
+  .partner-sec .section-icon { background: var(--partner-bg); }
+
+  .fiscal    .section-title { color: var(--fiscal); }
+  .relatorio .section-title { color: var(--relat); }
+  .financeiro .section-title { color: var(--fin); }
+  .sistema   .section-title { color: var(--pos); }
+  .delivery  .section-title { color: var(--del); }
+  .ia-wpp    .section-title { color: var(--ia); }
+  .outros    .section-title { color: var(--outros); }
+  .partner-sec .section-title { color: var(--partner); }
+
+  .fiscal    .section-count { background: var(--fiscal-bg); color: var(--fiscal); }
+  .relatorio .section-count { background: var(--relat-bg); color: var(--relat); }
+  .financeiro .section-count { background: var(--fin-bg); color: var(--fin); }
+  .sistema   .section-count { background: var(--pos-bg); color: var(--pos); }
+  .delivery  .section-count { background: var(--del-bg); color: var(--del); }
+  .ia-wpp    .section-count { background: var(--ia-bg); color: var(--ia); }
+  .outros    .section-count { background: var(--outros-bg); color: var(--outros); }
+  .partner-sec .section-count { background: var(--partner-bg); color: var(--partner); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .header, .hero, .stats-bar, .content { padding-left: 20px; padding-right: 20px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 10px; }
+    .hero h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-badge">PIGZ</div>
+    <div class="logo-text">Relacionamento com Cliente<br><strong style="color:var(--text)">Chamados RC — Levantamento</strong></div>
+  </div>
+  <div class="header-meta">
+    <div class="data" id="dataHoje"></div>
+    <div class="total-badge">📋 35 chamados mapeados</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Chamados Recebidos via Chat & WhatsApp</h1>
+  <p>Levantamento de chamados RC identificados nas conversas. Organizados por categoria para facilitar atribuição e acompanhamento.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num" style="color:var(--pigz)">35</div>
+    <div class="stat-label">Total de Chamados</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--fiscal)">8</div>
+    <div class="stat-label">Fiscal / NF</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--relat)">6</div>
+    <div class="stat-label">Relatórios</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--fin)">4</div>
+    <div class="stat-label">Financeiro</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--pos)">6</div>
+    <div class="stat-label">POS / Sistema</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--del)">5</div>
+    <div class="stat-label">Delivery / Pedidos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num" style="color:var(--partner)">6</div>
+    <div class="stat-label">Portal Partner</div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- FISCAL / NF -->
+  <div class="section fiscal">
+    <div class="section-header">
+      <div class="section-icon">🧾</div>
+      <div class="section-title">Fiscal & Notas Fiscais</div>
+      <div class="section-count">8 chamados</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1435 <a href="https://linear.app/pigz/issue/RC-1435" target="_blank">↗</a></div>
+        <div class="card-title">Pedidos iFood chegando sem informação de cidade/UF e impedindo emissão de NF</div>
+        <div class="card-client">🏪 Dois90 Caçari</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1446 <a href="https://linear.app/pigz/issue/RC-1446" target="_blank">↗</a></div>
+        <div class="card-title">Emissão de XML em arquivo ZIP (Notas Fiscais Autorizadas e Canceladas)</div>
+        <div class="card-client">🏪 Padaria Pão e Arte</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1453 <a href="https://linear.app/pigz/issue/RC-1453" target="_blank">↗</a></div>
+        <div class="card-title">Falha na emissão de NFC-e — Rejeição 787</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1454 <a href="https://linear.app/pigz/issue/RC-1454" target="_blank">↗</a></div>
+        <div class="card-title">Emissão de NF-e com data de competência</div>
+        <div class="card-client">🏪 Comanda Simone (#4569187)</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1488 <a href="https://linear.app/pigz/issue/RC-1488" target="_blank">↗</a></div>
+        <div class="card-title">Delivery — Emissão de NF-e/NFC-e (idPress incorreto + validação fiscal)</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1490 <a href="https://linear.app/pigz/issue/RC-1490" target="_blank">↗</a></div>
+        <div class="card-title">Solicitação de apoio para emissão de Nota de Devolução de Venda</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1495 <a href="https://linear.app/pigz/issue/RC-1495" target="_blank">↗</a></div>
+        <div class="card-title">Contestação da Exigência de CPF para Emissão de NF</div>
+      </div>
+
+      <div class="card fiscal">
+        <div class="card-id">#RC-1477 <a href="https://linear.app/pigz/issue/RC-1477" target="_blank">↗</a></div>
+        <div class="card-title">Extração de relatório diário de faturamento para fins jurídicos</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RELATÓRIOS / DASHBOARD -->
+  <div class="section relatorio">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div class="section-title">Relatórios & Dashboard</div>
+      <div class="section-count">6 chamados</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1452 <a href="https://linear.app/pigz/issue/RC-1452" target="_blank">↗</a></div>
+        <div class="card-title">Divergência entre relatório de vendas e vendas realizadas</div>
+      </div>
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1459 <a href="https://linear.app/pigz/issue/RC-1459" target="_blank">↗</a></div>
+        <div class="card-title">Divergência no Dashboard de vendas</div>
+      </div>
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1460 <a href="https://linear.app/pigz/issue/RC-1460" target="_blank">↗</a></div>
+        <div class="card-title">Relatório de desempenho por garçom</div>
+        <div class="card-client">🏪 Festival Brasil Sabor</div>
+      </div>
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1462 <a href="https://linear.app/pigz/issue/RC-1462" target="_blank">↗</a></div>
+        <div class="card-title">Relatório Detalhado com período superior a 1 ano</div>
+      </div>
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1471 <a href="https://linear.app/pigz/issue/RC-1471" target="_blank">↗</a></div>
+        <div class="card-title">Solicitação de Relatório de Produtos com Estoque Crítico</div>
+      </div>
+
+      <div class="card relatorio">
+        <div class="card-id">#RC-1464 <a href="https://linear.app/pigz/issue/RC-1464" target="_blank">↗</a></div>
+        <div class="card-title">Total de vendas não está sendo exibido na impressão do comprovante no Gestão Desktop</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FINANCEIRO / REPASSES -->
+  <div class="section financeiro">
+    <div class="section-header">
+      <div class="section-icon">💰</div>
+      <div class="section-title">Financeiro & Repasses</div>
+      <div class="section-count">4 chamados</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card financeiro">
+        <div class="card-id">#RC-1443 <a href="https://linear.app/pigz/issue/RC-1443" target="_blank">↗</a></div>
+        <div class="card-title">Divergência em descontos de mensalidade e solicitação de esclarecimento dos repasses</div>
+      </div>
+
+      <div class="card financeiro">
+        <div class="card-id">#RC-1458 <a href="https://linear.app/pigz/issue/RC-1458" target="_blank">↗</a></div>
+        <div class="card-title">Divergência nas datas de vencimento das faturas</div>
+      </div>
+
+      <div class="card financeiro">
+        <div class="card-id">#RC-1465 <a href="https://linear.app/pigz/issue/RC-1465" target="_blank">↗</a></div>
+        <div class="card-title">Divergência no valor de repasse recebido</div>
+        <div class="card-client">🏪 Prato Cheio</div>
+      </div>
+
+      <div class="card financeiro">
+        <div class="card-id">#RC-1478 <a href="https://linear.app/pigz/issue/RC-1478" target="_blank">↗</a></div>
+        <div class="card-title">Validação de desconto indevido de mensalidade</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POS / SISTEMA -->
+  <div class="section sistema">
+    <div class="section-header">
+      <div class="section-icon">🖥️</div>
+      <div class="section-title">POS & Sistema</div>
+      <div class="section-count">6 chamados</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1439 <a href="https://linear.app/pigz/issue/RC-1439" target="_blank">↗</a></div>
+        <div class="card-title">POS altera automaticamente o tipo de atendimento de Comanda para Balcão</div>
+      </div>
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1440 <a href="https://linear.app/pigz/issue/RC-1440" target="_blank">↗</a></div>
+        <div class="card-title">Erro ao ativar produto mesmo com estoque</div>
+      </div>
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1442 <a href="https://linear.app/pigz/issue/RC-1442" target="_blank">↗</a></div>
+        <div class="card-title">Correção de pagamento em comanda fechada com taxa de serviço não recebida</div>
+      </div>
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1448 <a href="https://linear.app/pigz/issue/RC-1448" target="_blank">↗</a></div>
+        <div class="card-title">Banner não exibido na loja</div>
+        <div class="card-client">🏪 Sushi Tancredo</div>
+      </div>
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1463 <a href="https://linear.app/pigz/issue/RC-1463" target="_blank">↗</a></div>
+        <div class="card-title">Erro ao gerar adicional no Plano anual do Pigz para Eventos</div>
+      </div>
+
+      <div class="card sistema">
+        <div class="card-id">#RC-1496 <a href="https://linear.app/pigz/issue/RC-1496" target="_blank">↗</a></div>
+        <div class="card-title">Divergência na senha exibida entre Totem/POS e computador</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DELIVERY / PEDIDOS -->
+  <div class="section delivery">
+    <div class="section-header">
+      <div class="section-icon">🛵</div>
+      <div class="section-title">Delivery & Pedidos</div>
+      <div class="section-count">5 chamados</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card delivery">
+        <div class="card-id">#RC-1417 <a href="https://linear.app/pigz/issue/RC-1417" target="_blank">↗</a></div>
+        <div class="card-title">Erro ao finalizar pedido para delivery</div>
+      </div>
+
+      <div class="card delivery">
+        <div class="card-id">#RC-1461 <a href="https://linear.app/pigz/issue/RC-1461" target="_blank">↗</a></div>
+        <div class="card-title">Divergência na identificação do entregador — possível inconsistência de alocação</div>
+        <div class="card-client">📦 Pedido #41616524</div>
+      </div>
+
+      <div class="card delivery">
+        <div class="card-id">#RC-1479 <a href="https://linear.app/pigz/issue/RC-1479" target="_blank">↗</a></div>
+        <div class="card-title">Possível duplicidade de pedido na integração Pigz x EasyFood</div>
+        <div class="card-client">📦 Pedido 41835234</div>
+      </div>
+
+      <div class="card delivery">
+        <div class="card-id">#RC-1497 <a href="https://linear.app/pigz/issue/RC-1497" target="_blank">↗</a></div>
+        <div class="card-title">Botão de solicitar entregador não aparece após confirmação do pedido</div>
+      </div>
+
+      <div class="card delivery">
+        <div class="card-id">#RC-1485 <a href="https://linear.app/pigz/issue/RC-1485" target="_blank">↗</a></div>
+        <div class="card-title">Sugestão de melhoria no lançamento de múltiplos itens</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IA / WHATSAPP -->
+  <div class="section ia-wpp">
+    <div class="section-header">
+      <div class="section-icon">🤖</div>
+      <div class="section-title">IA & WhatsApp</div>
+      <div class="section-count">1 chamado</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card ia-wpp">
+        <div class="card-id">#RC-1436 <a href="https://linear.app/pigz/issue/RC-1436" target="_blank">↗</a></div>
+        <div class="card-title">Relato de comportamentos da IA de atendimento via WhatsApp</div>
+        <div class="card-client">🏪 RN Açaiteria e Sorveteria</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PORTAL PARTNER (sem RC) -->
+  <div class="section partner-sec">
+    <div class="section-header">
+      <div class="section-icon">🔗</div>
+      <div class="section-title">Portal Partner — Chamados sem RC</div>
+      <div class="section-count">6 links</div>
+    </div>
+    <div class="cards-grid">
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-405</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/405/support/64418475-bac1-46f4-a1a0-5a8647a09020" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-8292</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/8292/support/8ac9b9d3-84d0-48f5-85e0-250065c41865" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-5726 · Chamado 1</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/5726/support/cc8433bf-784b-4f62-8cd8-9afb56566218" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-5726 · Chamado 2</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/5726/support/15792e5c-9228-4d1f-bf9e-08f7e0085383" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-303 · Chamado 1</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/303/support/d6a4e16c-df17-4e12-a425-086d10310d91" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+      <div class="card card-partner">
+        <div class="card-id">Merchant ID-303 · Chamado 2</div>
+        <div class="card-title">Chamado via portal Partner — sem número RC atribuído</div>
+        <a class="partner-link" href="https://partner.pigz.com.br/merchant/303/support/f4a2a99d-f274-4165-813a-9901027e12b7" target="_blank">🔗 Abrir no Partner</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  PIGZ Coordenação de Projetos · Carlos Krueger · Levantamento de chamados recebidos via Chat & WhatsApp
+</div>
+
+<script>
+  document.getElementById('dataHoje').textContent =
+    new Date().toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+</script>
+</body>
+</html>
