@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa Executivo — Squad PIGZ · 24/06/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0F14;--card:#161820;--card2:#1C1E26;
+  --pigz:#FA641E;--success:#22D3A4;--warning:#FBBF24;
+  --danger:#F87171;--info:#60A5FA;--purple:#A78BFA;
+  --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
+  --border:rgba(255,255,255,0.07);--mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;}
+
+/* CONTROLES */
+.controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;align-items:center;gap:10px;background:rgba(22,24,32,0.97);
+  border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:10px 20px;backdrop-filter:blur(20px);}
+.cb{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text2);
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:7px 16px;
+  border-radius:999px;cursor:pointer;transition:all 0.2s;}
+.cb:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.cb.pr{background:var(--pigz);color:white;border-color:transparent;}
+.sc{font-size:12px;font-weight:700;color:var(--text3);font-family:var(--mono);min-width:56px;text-align:center;}
+.pb{width:110px;height:3px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;}
+.pf{height:100%;background:var(--pigz);border-radius:999px;transition:width 0.4s ease;}
+
+/* SLIDES */
+.sc-wrap{width:100vw;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  align-items:center;padding:68px 80px 80px;animation:fi 0.3s ease;}
+.slide.active{display:flex;}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.sh{position:absolute;top:28px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;}
+.sh-logo{font-size:12px;font-weight:800;color:var(--pigz);letter-spacing:2px;}
+.sh-info{font-size:11px;color:var(--text3);font-family:var(--mono);}
+
+.tb{margin-bottom:26px;text-align:center;}
+.tb-eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--pigz);margin-bottom:8px;}
+.tb h2{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1.05;}
+.tb .sub{font-size:13px;color:var(--text2);margin-top:7px;line-height:1.6;}
+
+/* ─── CAPA ─── */
+.capa{background:linear-gradient(135deg,#0D0F14 0%,#160F20 50%,#0F1812 100%);}
+.capa-logo{font-size:12px;font-weight:800;letter-spacing:4px;text-transform:uppercase;
+  color:var(--pigz);margin-bottom:28px;display:flex;align-items:center;gap:14px;}
+.capa-logo::before,.capa-logo::after{content:'';width:30px;height:2px;background:var(--pigz);}
+.capa-title{font-size:64px;font-weight:900;letter-spacing:-4px;line-height:.88;text-align:center;margin-bottom:20px;}
+.capa-title .hl{color:var(--pigz);}
+.capa-date{font-size:14px;color:var(--text3);font-family:var(--mono);margin-bottom:34px;}
+.pills{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;}
+.pill{font-size:11px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);color:var(--text2);}
+.pill.r{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3);color:var(--danger);}
+.pill.w{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.25);color:var(--warning);}
+.pill.p{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple);}
+
+/* ─── BIG NUMBERS GRID ─── */
+.bn-grid{display:grid;gap:12px;width:100%;max-width:920px;}
+.bn-grid.g4{grid-template-columns:repeat(4,1fr);}
+.bn-grid.g3{grid-template-columns:repeat(3,1fr);}
+.bn-grid.g7{grid-template-columns:repeat(7,1fr);}
+.bn{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 16px;text-align:center;position:relative;overflow:hidden;}
+.bn::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac,var(--pigz));}
+.bn-val{font-size:46px;font-weight:900;font-family:var(--mono);color:var(--ac,var(--pigz));line-height:1;margin-bottom:7px;}
+.bn-val.sm{font-size:32px;}
+.bn-label{font-size:11px;font-weight:700;color:var(--text2);line-height:1.4;}
+.bn-pct{font-size:10px;color:var(--text3);margin-top:4px;}
+
+/* ─── BAR CHART ─── */
+.bar-chart{width:100%;max-width:860px;display:flex;flex-direction:column;gap:9px;}
+.bar-row{display:flex;align-items:center;gap:12px;}
+.bar-label{font-size:12px;font-weight:600;min-width:200px;text-align:right;color:var(--text2);}
+.bar-track{flex:1;height:28px;background:rgba(255,255,255,0.04);border-radius:7px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;padding:0 10px;
+  font-size:11px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap;}
+.bar-num{font-family:var(--mono);font-size:13px;font-weight:900;min-width:38px;text-align:right;}
+.bar-pct{font-size:10px;color:var(--text3);min-width:38px;}
+
+/* ─── BLOCOS ─── */
+.blocos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%;max-width:920px;}
+.bloco{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px 22px;}
+.bloco-val{font-size:58px;font-weight:900;font-family:var(--mono);line-height:1;margin-bottom:8px;}
+.bloco-title{font-size:15px;font-weight:800;margin-bottom:10px;}
+.bloco-pct{font-size:11px;font-weight:700;display:inline-block;padding:3px 10px;border-radius:6px;margin-bottom:14px;}
+.bloco-items{display:flex;flex-direction:column;gap:6px;}
+.bloco-item{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);}
+.bloco-item:last-child{border-bottom:none;}
+.bloco-item span:last-child{font-family:var(--mono);font-weight:700;color:var(--text);}
+
+/* ─── ONDA LIST ─── */
+.onda-list{width:100%;max-width:900px;display:flex;flex-direction:column;gap:12px;}
+.onda{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--oc,var(--pigz));
+  border-radius:14px;padding:20px 24px;display:flex;gap:18px;align-items:flex-start;}
+.onda-tag{flex-shrink:0;font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;margin-top:2px;white-space:nowrap;}
+.onda-body{flex:1;}
+.onda-title{font-size:15px;font-weight:800;margin-bottom:5px;}
+.onda-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.onda-meta{font-family:var(--mono);font-size:24px;font-weight:900;flex-shrink:0;color:var(--oc,var(--pigz));}
+
+/* ─── FRENTES ─── */
+.frente-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:920px;}
+.fr{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;}
+.fr-val{font-size:36px;font-weight:900;font-family:var(--mono);color:var(--pigz);line-height:1;margin-bottom:6px;}
+.fr-label{font-size:11px;font-weight:700;color:var(--text2);line-height:1.4;}
+.fr-note{font-size:10px;color:var(--text3);margin-top:3px;}
+
+/* ─── FIM ─── */
+.fim{text-align:center;}
+.fim-big{font-size:72px;font-weight:900;letter-spacing:-4px;line-height:.88;margin-bottom:18px;}
+.fim-big .hl{color:var(--pigz);}
+.fim-sub{font-size:14px;color:var(--text2);max-width:600px;line-height:1.7;margin:0 auto 28px;}
+.fim-ondas{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.fo{font-size:12px;font-weight:700;padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.1);color:var(--text2);}
+.fo.ac{background:var(--pigz);color:white;border-color:transparent;}
+</style>
+</head>
+<body>
+<div class="sc-wrap">
+
+<!-- ══ SLIDE 1 ─ CAPA ══ -->
+<div class="slide capa active" id="s1">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">24/06/2026 · Semana 7 · Mapa Executivo</span></div>
+  <div class="capa-logo">Squad PIGZ</div>
+  <div class="capa-title">Mapa<br><span class="hl">Executivo</span></div>
+  <div class="capa-date">Governança · Ownership · Classificação &nbsp;·&nbsp; 24/06/2026</div>
+  <div class="pills">
+    <span class="pill r">573 issues válidas</span>
+    <span class="pill r">203 sem assignee</span>
+    <span class="pill r">352 sem label</span>
+    <span class="pill w">155 sem prioridade</span>
+    <span class="pill p">Problema central: governança da fila</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2 ─ RESULTADO GERAL ══ -->
+<div class="slide" id="s2">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Resultado Geral · 573 issues</span></div>
+  <div class="tb"><div class="tb-eye">Panorama do Backlog</div><h2>Resultado Geral</h2><div class="sub">Base completa após filtro · excluindo Nova Funcionalidade e Melhoria</div></div>
+  <div class="bn-grid g4" style="margin-bottom:14px;">
+    <div class="bn" style="--ac:var(--danger)">
+      <div class="bn-val">573</div>
+      <div class="bn-label">Issues Totais</div>
+      <div class="bn-pct">Base válida do Squad</div>
+    </div>
+    <div class="bn" style="--ac:var(--warning)">
+      <div class="bn-val">203</div>
+      <div class="bn-label">Sem Assignee</div>
+      <div class="bn-pct">35% da base</div>
+    </div>
+    <div class="bn" style="--ac:var(--purple)">
+      <div class="bn-val">352</div>
+      <div class="bn-label">Sem Label</div>
+      <div class="bn-pct">61% da base</div>
+    </div>
+    <div class="bn" style="--ac:var(--info)">
+      <div class="bn-val">155</div>
+      <div class="bn-label">Sem Prioridade</div>
+      <div class="bn-pct">27% da base</div>
+    </div>
+  </div>
+  <div class="bn-grid g3" style="max-width:720px;">
+    <div class="bn" style="--ac:var(--pigz)">
+      <div class="bn-val sm">361</div>
+      <div class="bn-label">Em Fila Ativa</div>
+      <div class="bn-pct">63% — triage, backlog, todo, in progress...</div>
+    </div>
+    <div class="bn" style="--ac:#A78BFA">
+      <div class="bn-val sm">151</div>
+      <div class="bn-label">In Production</div>
+      <div class="bn-pct">26% — sustentação/pós-entrega</div>
+    </div>
+    <div class="bn" style="--ac:var(--text3)">
+      <div class="bn-val sm">61</div>
+      <div class="bn-label">Encerradas</div>
+      <div class="bn-pct">11% — completed, canceled, duplicate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3 ─ TRÊS BLOCOS ══ -->
+<div class="slide" id="s3">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Blocos Executivos · Squad PIGZ</span></div>
+  <div class="tb"><div class="tb-eye">Leitura Estrutural</div><h2>O Estoque em Três Blocos</h2><div class="sub">Forma clara de ler onde está concentrado o volume hoje</div></div>
+  <div class="blocos">
+
+    <div class="bloco" style="border-color:rgba(250,100,30,.2)">
+      <div class="bloco-val" style="color:var(--pigz)">361</div>
+      <div class="bloco-title">Fila Ativa</div>
+      <div class="bloco-pct" style="background:rgba(250,100,30,.1);color:var(--pigz)">63% da base</div>
+      <div class="bloco-items">
+        <div class="bloco-item"><span>Backlog</span><span>113</span></div>
+        <div class="bloco-item"><span>Triage</span><span>68</span></div>
+        <div class="bloco-item"><span>To Do</span><span>53</span></div>
+        <div class="bloco-item"><span>Test Application</span><span>45</span></div>
+        <div class="bloco-item"><span>In Progress / Review</span><span>~82</span></div>
+      </div>
+    </div>
+
+    <div class="bloco" style="border-color:rgba(167,139,250,.2)">
+      <div class="bloco-val" style="color:var(--purple)">151</div>
+      <div class="bloco-title">Sustentação / Pós-Entrega</div>
+      <div class="bloco-pct" style="background:rgba(167,139,250,.1);color:var(--purple)">26% da base</div>
+      <div class="bloco-items">
+        <div class="bloco-item"><span>In Production (variações)</span><span>151</span></div>
+        <div class="bloco-item" style="color:var(--text3);font-size:11px;"><span colspan="2">Issues reportadas pós-entrega<br>muitas sem triagem ou dono</span></div>
+      </div>
+    </div>
+
+    <div class="bloco" style="border-color:rgba(156,163,175,.15)">
+      <div class="bloco-val" style="color:var(--text3)">61</div>
+      <div class="bloco-title">Encerramento / Limpeza</div>
+      <div class="bloco-pct" style="background:rgba(156,163,175,.1);color:var(--text3)">11% da base</div>
+      <div class="bloco-items">
+        <div class="bloco-item"><span>Completed / Finalizado</span><span>35</span></div>
+        <div class="bloco-item"><span>Duplicate</span><span>15</span></div>
+        <div class="bloco-item"><span>Canceled</span><span>11</span></div>
+        <div class="bloco-item" style="color:var(--warning);font-size:11px;font-weight:600;"><span>⚠ Ainda "vivos" na leitura gerencial</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SLIDE 4 ─ ISSUES SEM DONO ══ -->
+<div class="slide" id="s4">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">⚠ Ownership · 203 issues sem assignee</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--warning)">⚠ Mapa de Ownership</div><h2>203 Issues Sem Responsável</h2><div class="sub">35% da base sem dono — o problema começa antes da execução</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;max-width:900px;">
+
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--warning);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Por status — onde estão os órfãos</div>
+      <div class="bar-chart" style="max-width:100%;">
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">Backlog</div>
+          <div class="bar-track"><div class="bar-fill" style="width:69%;background:linear-gradient(90deg,#1e3a5f,#60A5FA)">70</div></div>
+          <div class="bar-num" style="color:#60A5FA">70</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">Triage</div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%;background:linear-gradient(90deg,#7c2d12,#FA641E)">66</div></div>
+          <div class="bar-num" style="color:var(--pigz)">66</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">In Production</div>
+          <div class="bar-track"><div class="bar-fill" style="width:39%;background:linear-gradient(90deg,#4c1d95,#A78BFA)">40</div></div>
+          <div class="bar-num" style="color:var(--purple)">40</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">Duplicate</div>
+          <div class="bar-track"><div class="bar-fill" style="width:12%;background:rgba(156,163,175,.3)">12</div></div>
+          <div class="bar-num" style="color:var(--text3)">12</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">Test Application</div>
+          <div class="bar-track"><div class="bar-fill" style="width:6%;background:linear-gradient(90deg,#065f46,#22D3A4)">6</div></div>
+          <div class="bar-num" style="color:var(--success)">6</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label" style="min-width:140px;">Demais</div>
+          <div class="bar-track"><div class="bar-fill" style="width:9%;background:rgba(255,255,255,.1)">~9</div></div>
+          <div class="bar-num" style="color:var(--text3)">~9</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Labels nessas issues sem dono</div>
+      <div style="background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.15);border-radius:14px;padding:18px 20px;margin-bottom:12px;">
+        <div style="font-size:42px;font-weight:900;font-family:var(--mono);color:var(--danger)">157</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text2);margin-top:4px;">sem label dentre as 203 órfãs</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px;">impossível triar sem categoria</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">bolt</span><span style="font-family:var(--mono);font-weight:700">11</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Tech › Front</span><span style="font-family:var(--mono);font-weight:700">10</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Tech › Back</span><span style="font-family:var(--mono);font-weight:700">8</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 12px;background:var(--card);border-radius:8px;border:1px solid var(--border)">
+          <span style="color:var(--text2)">Tipo › Bug</span><span style="font-family:var(--mono);font-weight:700">8</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SLIDE 5 ─ RECORTE POR FRENTE ══ -->
+<div class="slide" id="s5">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Recorte por Frente/Produto · Squad PIGZ</span></div>
+  <div class="tb"><div class="tb-eye">Leitura Temática — parcial</div><h2>Distribuição por Frente e Produto</h2><div class="sub">Leitura ainda limitada: <strong style="color:var(--danger)">61% da base não tem label</strong> — dados parciais dos blocos identificáveis</div></div>
+  <div class="frente-grid" style="margin-bottom:16px;">
+    <div class="fr" style="border-color:rgba(248,113,113,.25);">
+      <div class="fr-val" style="color:var(--danger)">68</div>
+      <div class="fr-label">Tipo › Bug</div>
+      <div class="fr-note">maior bloco visível</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">26</div>
+      <div class="fr-label">Pigz App</div>
+      <div class="fr-note">mobile</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">23</div>
+      <div class="fr-label">Pigz Web</div>
+      <div class="fr-note">web</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">19</div>
+      <div class="fr-label">Pigz Comanda</div>
+      <div class="fr-note">POS</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">19</div>
+      <div class="fr-label">Partner</div>
+      <div class="fr-note">portal</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">15</div>
+      <div class="fr-label">bolt</div>
+      <div class="fr-note">—</div>
+    </div>
+    <div class="fr">
+      <div class="fr-val">13</div>
+      <div class="fr-label">Gestão Desktop</div>
+      <div class="fr-note">desktop</div>
+    </div>
+    <div class="fr" style="background:rgba(248,113,113,.05);border-color:rgba(248,113,113,.2);">
+      <div class="fr-val" style="color:var(--danger)">352</div>
+      <div class="fr-label" style="color:var(--danger)">Sem Label</div>
+      <div class="fr-note" style="color:var(--danger)">61% — não classificados</div>
+    </div>
+  </div>
+  <div style="background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);border-radius:12px;padding:14px 20px;font-size:13px;color:var(--warning);max-width:860px;text-align:center;">
+    ⚠ A base visível está puxada por <strong>sustentação/bug</strong> e distribuída entre App, Web, POS e Partner — mas sem padronização suficiente para uma leitura temática definitiva até que as 352 sem label sejam classificadas.
+  </div>
+</div>
+
+<!-- ══ SLIDE 6 ─ LIMPEZA RÁPIDA ══ -->
+<div class="slide" id="s6">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">🧹 Limpeza Rápida · Núcleo da Desorganização</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--warning)">Higienização da Base</div><h2>Onde está o Núcleo da Desorganização</h2><div class="sub">Esses grupos se sobrepõem — não são somáveis, mas formam o centro do problema</div></div>
+  <div style="width:100%;max-width:880px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+
+    <div style="background:rgba(156,163,175,.05);border:1px solid rgba(156,163,175,.15);border-radius:16px;padding:22px 20px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🗑 Limpeza Imediata</div>
+      <div style="font-size:40px;font-weight:900;font-family:var(--mono);color:var(--text3);line-height:1;margin-bottom:10px;">61</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">Issues <strong style="color:var(--text)">já encerradas</strong> — completed, finalizado, canceled e duplicates — que ainda aparecem na leitura gerencial. Devem ser removidas do radar principal <strong style="color:var(--warning)">esta semana.</strong></div>
+    </div>
+
+    <div style="background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.15);border-radius:16px;padding:22px 20px;">
+      <div style="font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">🏷️ Sem Label</div>
+      <div style="font-size:40px;font-weight:900;font-family:var(--mono);color:var(--purple);line-height:1;margin-bottom:10px;">352</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">61% da base sem categoria. Sem label, triagem é manual, subjetiva e lenta. Impede leitura por frente/produto e qualquer análise gerencial sistemática.</div>
+    </div>
+
+    <div style="background:rgba(96,165,250,.05);border:1px solid rgba(96,165,250,.15);border-radius:16px;padding:22px 20px;">
+      <div style="font-size:11px;font-weight:700;color:var(--info);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">📊 Sem Prioridade</div>
+      <div style="font-size:40px;font-weight:900;font-family:var(--mono);color:var(--info);line-height:1;margin-bottom:10px;">155</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">27% da base sem sinalização de urgência. Sem prioridade definida, a sequência de execução fica a critério de quem abre o Linear — não da estratégia do produto.</div>
+    </div>
+
+    <div style="background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.15);border-radius:16px;padding:22px 20px;">
+      <div style="font-size:11px;font-weight:700;color:var(--warning);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">👤 Sem Responsável</div>
+      <div style="font-size:40px;font-weight:900;font-family:var(--mono);color:var(--warning);line-height:1;margin-bottom:10px;">203</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">35% sem dono — concentrados em Backlog (70) e Triage (66). Issue sem assignee é issue invisível. Nenhuma avança sem responsável claro.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SLIDE 7 ─ CONCLUSÃO + 4 ONDAS ══ -->
+<div class="slide" id="s7">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">🎯 Conclusão Executiva · Plano em 4 Ondas</span></div>
+  <div class="tb"><div class="tb-eye">Conclusão Executiva</div><h2>Governança antes de Priorização</h2><div class="sub">O problema central não é capacidade de execução — é governança da fila</div></div>
+  <div class="onda-list">
+
+    <div class="onda" style="--oc:var(--text3)">
+      <div class="onda-tag" style="background:rgba(156,163,175,.1);color:var(--text3)">ONDA 1</div>
+      <div class="onda-body">
+        <div class="onda-title">Limpar o que já deveria sair do radar</div>
+        <div class="onda-desc">Remover duplicates, canceled e finalizados da leitura gerencial ativa. São 61 issues que poluem o painel sem agregar nenhuma informação útil.</div>
+      </div>
+      <div class="onda-meta">61</div>
+    </div>
+
+    <div class="onda" style="--oc:var(--warning)">
+      <div class="onda-tag" style="background:rgba(251,191,36,.1);color:var(--warning)">ONDA 2</div>
+      <div class="onda-body">
+        <div class="onda-title">Atribuir dono ao que está órfão</div>
+        <div class="onda-desc">Começar por Triage (66) e Backlog (70) — os dois maiores blocos sem assignee. Nenhuma issue em Triage pode ficar sem dono por mais de 48h.</div>
+      </div>
+      <div class="onda-meta">203</div>
+    </div>
+
+    <div class="onda" style="--oc:var(--purple)">
+      <div class="onda-tag" style="background:rgba(167,139,250,.1);color:var(--purple)">ONDA 3</div>
+      <div class="onda-body">
+        <div class="onda-title">Rotular e priorizar a base cega</div>
+        <div class="onda-desc">Classificar as 352 sem label e definir prioridade para as 155 sem sinalização. Sem isso, não há triagem sistemática possível.</div>
+      </div>
+      <div class="onda-meta">352</div>
+    </div>
+
+    <div class="onda" style="--oc:var(--pigz)">
+      <div class="onda-tag" style="background:rgba(250,100,30,.1);color:var(--pigz)">ONDA 4</div>
+      <div class="onda-body">
+        <div class="onda-title">Refazer a priorização executiva por frente/produto</div>
+        <div class="onda-desc">Somente após as ondas 1, 2 e 3 a carteira estará legível o suficiente para uma priorização estratégica real por App, Web, POS, Partner e demais frentes.</div>
+      </div>
+      <div class="onda-meta">→</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SLIDE 8 ─ ENCERRAMENTO ══ -->
+<div class="slide" id="s8" style="background:linear-gradient(135deg,#0D0F14,#130E1E,#0E1510)">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Semana 7 · 24/06/2026</span></div>
+  <div class="fim">
+    <div class="fim-big">Base<br><span class="hl">Legível.</span></div>
+    <div class="fim-sub">573 issues sem padronização não é um problema de volume. É um problema de processo. Com governança ativa, a carteira se torna gerenciável em dias — não semanas.</div>
+    <div class="fim-ondas">
+      <span class="fo ac">Onda 1 · Limpar 61 encerradas</span>
+      <span class="fo">Onda 2 · Atribuir 203 órfãs</span>
+      <span class="fo">Onda 3 · Rotular 352 sem label</span>
+      <span class="fo">Onda 4 · Priorização por frente</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /sc-wrap -->
+
+<!-- CONTROLES -->
+<div class="controls">
+  <button class="cb" onclick="prev()">← Anterior</button>
+  <div class="pb"><div class="pf" id="prog"></div></div>
+  <span class="sc" id="cnt">1 / 8</span>
+  <button class="cb pr" onclick="next()">Próximo →</button>
+  <button class="cb" onclick="window.print()" title="PDF">⎙</button>
+</div>
+
+<script>
+var T=8,C=1;
+function show(n){
+  document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('cnt').textContent=n+' / '+T;
+  document.getElementById('prog').style.width=((n/T)*100)+'%';
+  C=n;
+}
+function next(){if(C<T)show(C+1);}
+function prev(){if(C>1)show(C-1);}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+  if(e.key==='Home')show(1);
+  if(e.key==='End')show(T);
+});
+show(1);
+</script>
+</body>
+</html>
