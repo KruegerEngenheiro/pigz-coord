@@ -6,14 +6,20 @@
 <meta http-equiv="refresh" content="300">
 <title>Dashboard · Operação Bug Zero · PIGZ</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}</style>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}
+a{color:inherit;}
+</style>
 </head>
 <body>
+
+<!-- HEADER -->
 <div style="background:linear-gradient(135deg,#0F1117,#1A1D27);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);">
   <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:900;color:#FA641E;">PIGZ</div>
-  <div>
-    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Operação Bug Zero · Dashboard Live</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600;">Atualizado: 24/06/2026, 19:04:17 · Fonte: Linear RC + RHC · Auto-refresh 5min</div>
+  <div style="text-align:center">
+    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Operação Bug Zero · Dashboard de Progresso</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600;">📡 Atualizado: 24/06/2026, 19:21:44 · Fonte: Linear RC + RHC · Auto-refresh 5min</div>
   </div>
   <div style="text-align:right;">
     <div style="font-size:11px;color:rgba(255,255,255,.35)">Coordenação</div>
@@ -23,9 +29,10 @@
 <div style="height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA)"></div>
 
 <div style="padding:28px 40px 0">
-  <!-- HERO -->
+
+  <!-- HERO STATS -->
   <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;">
-    <div style="background:#161820;border:1px solid rgba(250,100,30,.2);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
+    <div style="background:#161820;border:1px solid rgba(250,100,30,.2);border-radius:20px;padding:24px;">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FA641E;margin-bottom:10px;">🎯 Meta — 240 bugs até 15/07</div>
       <div style="font-size:52px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#FA641E;line-height:1">4<span style="font-size:24px;color:#6B7280">/232</span></div>
       <div style="font-size:13px;color:#9CA3AF;margin:8px 0 12px">cards concluídos do sprint</div>
@@ -39,6 +46,7 @@
       <div style="margin-top:10px;font-size:11px;padding:6px 10px;border-radius:6px;background:rgba(251,191,36,.08);color:#FBBF24">
         ⚠ Ritmo abaixo do tempo decorrido
       </div>
+      <div style="margin-top:8px;font-size:11px;padding:6px 10px;border-radius:6px;background:rgba(251,191,36,.06);color:#FBBF24;">⚠ 7 card(s) não encontrados — ver seção abaixo</div>
     </div>
     
     <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #38BDF8;border-radius:20px;padding:20px 16px;text-align:center">
@@ -94,8 +102,8 @@
     </div>
   </div>
 
-  <!-- DEVS -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <!-- CARDS DOS DEVS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
     
     <div style="background:#161820;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#38BDF8"></div>
@@ -107,21 +115,21 @@
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;font-family:monospace;color:#38BDF8;line-height:1">0%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">14d · 08/07</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">14d restantes · 08/07</div>
         </div>
       </div>
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
         <div style="height:100%;background:#38BDF8;border-radius:6px;width:0%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span>✅ <strong style="color:#F3F4F6">0</strong> / 37 do sprint</span>
-        <span>🔴 6 urgentes · 🟡 14 high · ▶ 0 em progresso</span>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:6px;">
+        <span>✅ <strong style="color:#F3F4F6">0</strong> concluídos / <strong style="color:#F3F4F6">37</strong> do sprint</span>
+        <span>🔴 6 urg · 🟠 14 high · ▶ 0 em progresso</span>
       </div>
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
         ⚠ 6 urgentes em aberto
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="font-size:11px;color:#4B5563">Nenhuma entrega ainda</div>
@@ -158,21 +166,24 @@
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;font-family:monospace;color:#22D3A4;line-height:1">0%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
         </div>
       </div>
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
         <div style="height:100%;background:#22D3A4;border-radius:6px;width:0%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span>✅ <strong style="color:#F3F4F6">0</strong> / 50 do sprint</span>
-        <span>🔴 7 urgentes · 🟡 19 high · ▶ 4 em progresso</span>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:6px;">
+        <span>✅ <strong style="color:#F3F4F6">0</strong> concluídos / <strong style="color:#F3F4F6">50</strong> do sprint</span>
+        <span>🔴 7 urg · 🟠 19 high · ▶ 4 em progresso</span>
       </div>
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
         ⚠ 7 urgentes em aberto
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div style="background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.15);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:11px;color:#FBBF24;">
+        ❌ 6 card(s) não encontrados no Linear: <span style="font-family:monospace">RHC-201, RHC-220, RHC-212, RHC-179, RHC-150, RHC-135</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="font-size:11px;color:#4B5563">Nenhuma entrega ainda</div>
@@ -209,21 +220,21 @@
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;font-family:monospace;color:#F472B6;line-height:1">4%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
         </div>
       </div>
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
         <div style="height:100%;background:#F472B6;border-radius:6px;width:4%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span>✅ <strong style="color:#F3F4F6">3</strong> / 75 do sprint</span>
-        <span>🔴 30 urgentes · 🟡 33 high · ▶ 0 em progresso</span>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:6px;">
+        <span>✅ <strong style="color:#F3F4F6">3</strong> concluídos / <strong style="color:#F3F4F6">75</strong> do sprint</span>
+        <span>🔴 30 urg · 🟠 33 high · ▶ 0 em progresso</span>
       </div>
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
         ⚠ 30 urgentes em aberto
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
@@ -275,21 +286,24 @@
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;font-family:monospace;color:#FA641E;line-height:1">1%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
         </div>
       </div>
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
         <div style="height:100%;background:#FA641E;border-radius:6px;width:1%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span>✅ <strong style="color:#F3F4F6">1</strong> / 70 do sprint</span>
-        <span>🔴 9 urgentes · 🟡 12 high · ▶ 2 em progresso</span>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:6px;">
+        <span>✅ <strong style="color:#F3F4F6">1</strong> concluídos / <strong style="color:#F3F4F6">70</strong> do sprint</span>
+        <span>🔴 9 urg · 🟠 12 high · ▶ 2 em progresso</span>
       </div>
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
         ⚠ 9 urgentes em aberto
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+      <div style="background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.15);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:11px;color:#FBBF24;">
+        ❌ 1 card(s) não encontrados no Linear: <span style="font-family:monospace">RC-1469</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
@@ -321,9 +335,33 @@
       </div>
     </div>
   </div>
+
+  <!-- CARDS AUSENTES -->
+  
+  <div style="background:#161820;border:1px solid rgba(251,191,36,.15);border-radius:16px;padding:20px 24px;margin-bottom:24px">
+    <div style="font-size:12px;font-weight:700;color:#FBBF24;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">⚠ Cards não encontrados no Linear (7)</div>
+    <div style="font-size:11px;color:#6B7280;margin-bottom:14px">Constam no documento do sprint mas não foram localizados nos times RC ou RHC. Verificar manualmente.</div>
+    <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);">
+      <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:6px;background:rgba(34,211,164,0.12);color:#22D3A4;white-space:nowrap">GA</span>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#F3F4F6;margin-bottom:4px;">Guilherme Alves</div>
+        <div style="font-size:11px;font-family:monospace;color:#FBBF24;">RHC-201 · RHC-220 · RHC-212 · RHC-179 · RHC-150 · RHC-135</div>
+        <div style="font-size:10px;color:#6B7280;margin-top:3px;">Verificar manualmente no Linear — ID pode estar diferente ou card ainda não criado</div>
+      </div>
+    </div><div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);">
+      <span style="font-size:11px;font-weight:800;padding:3px 10px;border-radius:6px;background:rgba(250,100,30,0.12);color:#FA641E;white-space:nowrap">GC</span>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#F3F4F6;margin-bottom:4px;">Gustavo Carvalho</div>
+        <div style="font-size:11px;font-family:monospace;color:#FBBF24;">RC-1469</div>
+        <div style="font-size:10px;color:#6B7280;margin-top:3px;">Verificar manualmente no Linear — ID pode estar diferente ou card ainda não criado</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div style="margin-top:40px;padding:16px 40px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
+<!-- RODAPÉ -->
+<div style="padding:16px 40px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
   <div style="font-size:11px;color:#4B5563">PIGZ · Operação Bug Zero · Coordenação: Carlos Krueger · Meta: 240 bugs até 15/07/2026 · Fonte: Linear RC + RHC</div>
   <div style="font-family:'JetBrains Mono',monospace;font-weight:900;color:#FA641E;font-size:12px">PIGZ</div>
 </div>
