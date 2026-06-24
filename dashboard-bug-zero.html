@@ -6,110 +6,99 @@
 <meta http-equiv="refresh" content="300">
 <title>Dashboard · Operação Bug Zero · PIGZ</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;min-height:100vh;padding:0 0 60px;}
-a{color:inherit;text-decoration:none;}
-</style>
+<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}</style>
 </head>
 <body>
-
-<!-- HEADER -->
 <div style="background:linear-gradient(135deg,#0F1117,#1A1D27);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);">
   <div style="font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:900;color:#FA641E;">PIGZ</div>
   <div>
-    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Operação Bug Zero · Dashboard de Progresso</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600;">Atualizado em 24/06/2026, 18:48:24 · Auto-refresh a cada 5min</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Operação Bug Zero · Dashboard Live</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600;">Atualizado: 24/06/2026, 19:04:17 · Fonte: Linear RC + RHC · Auto-refresh 5min</div>
   </div>
   <div style="text-align:right;">
-    <div style="font-size:11px;color:rgba(255,255,255,.35);margin-bottom:2px;">Coordenação</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.35)">Coordenação</div>
     <div style="font-size:13px;font-weight:700;color:#FA641E;">Carlos Krueger</div>
   </div>
 </div>
-<div style="height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA);"></div>
+<div style="height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA)"></div>
 
-<!-- HERO STATS -->
-<div style="padding:28px 40px 0;">
+<div style="padding:28px 40px 0">
+  <!-- HERO -->
   <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:14px;margin-bottom:24px;">
-
-    <!-- PROGRESSO GERAL -->
     <div style="background:#161820;border:1px solid rgba(250,100,30,.2);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FA641E;margin-bottom:10px;">🎯 Meta da Operação</div>
-      <div style="font-size:52px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#FA641E;line-height:1;">39<span style="font-size:24px;color:#6B7280">/230</span></div>
-      <div style="font-size:13px;color:#9CA3AF;margin:8px 0 12px;">cards concluídos · meta: 240</div>
-      <div style="background:rgba(255,255,255,.06);border-radius:6px;height:8px;overflow:hidden;">
-        <div style="height:100%;background:linear-gradient(90deg,#FA641E,#FBBF24);width:17%;border-radius:6px;"></div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FA641E;margin-bottom:10px;">🎯 Meta — 240 bugs até 15/07</div>
+      <div style="font-size:52px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#FA641E;line-height:1">4<span style="font-size:24px;color:#6B7280">/232</span></div>
+      <div style="font-size:13px;color:#9CA3AF;margin:8px 0 12px">cards concluídos do sprint</div>
+      <div style="background:rgba(255,255,255,.06);border-radius:6px;height:8px;overflow:hidden">
+        <div style="height:100%;background:linear-gradient(90deg,#FA641E,#FBBF24);width:2%;border-radius:6px"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-top:6px;">
-        <span><strong style="color:#F3F4F6">17%</strong> concluído</span>
-        <span>Sprint: <strong style="color:#F3F4F6">5%</strong> decorrido</span>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-top:6px">
+        <span>Sprint: <strong style="color:#F3F4F6">2%</strong> concluído</span>
+        <span>Tempo: <strong style="color:#F3F4F6">5%</strong> decorrido</span>
       </div>
-      <div style="margin-top:10px;font-size:11px;color:#22D3A4;background:rgba(34,211,164,.08);border-radius:6px;padding:6px 10px;">✓ No ritmo certo para bater a meta</div>
+      <div style="margin-top:10px;font-size:11px;padding:6px 10px;border-radius:6px;background:rgba(251,191,36,.08);color:#FBBF24">
+        ⚠ Ritmo abaixo do tempo decorrido
+      </div>
     </div>
-
-    <!-- STATS RÁPIDOS -->
     
-    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #38BDF8;border-radius:20px;padding:20px 16px;text-align:center;">
-      <div style="font-size:11px;font-weight:700;color:#38BDF8;margin-bottom:8px;">JP</div>
-      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#38BDF8;line-height:1;">0%</div>
-      <div style="font-size:11px;color:#6B7280;margin:6px 0;">0/37 cards</div>
-      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px;">
+    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #38BDF8;border-radius:20px;padding:20px 16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;color:#38BDF8;margin-bottom:8px">JP</div>
+      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#38BDF8;line-height:1">0%</div>
+      <div style="font-size:11px;color:#6B7280;margin:6px 0">0/37 cards</div>
+      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px">
         <div style="height:100%;background:#38BDF8;width:0%"></div>
       </div>
       <div style="font-size:11px;font-weight:700;color:#22D3A4">14d · 08/07</div>
     </div>
-    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #22D3A4;border-radius:20px;padding:20px 16px;text-align:center;">
-      <div style="font-size:11px;font-weight:700;color:#22D3A4;margin-bottom:8px;">GA</div>
-      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#22D3A4;line-height:1;">4%</div>
-      <div style="font-size:11px;color:#6B7280;margin:6px 0;">2/50 cards</div>
-      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px;">
-        <div style="height:100%;background:#22D3A4;width:4%"></div>
+    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #22D3A4;border-radius:20px;padding:20px 16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;color:#22D3A4;margin-bottom:8px">GA</div>
+      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#22D3A4;line-height:1">0%</div>
+      <div style="font-size:11px;color:#6B7280;margin:6px 0">0/50 cards</div>
+      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px">
+        <div style="height:100%;background:#22D3A4;width:0%"></div>
       </div>
       <div style="font-size:11px;font-weight:700;color:#22D3A4">21d · 15/07</div>
     </div>
-    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #F472B6;border-radius:20px;padding:20px 16px;text-align:center;">
-      <div style="font-size:11px;font-weight:700;color:#F472B6;margin-bottom:8px;">VR</div>
-      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#F472B6;line-height:1;">10%</div>
-      <div style="font-size:11px;color:#6B7280;margin:6px 0;">7/73 cards</div>
-      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px;">
-        <div style="height:100%;background:#F472B6;width:10%"></div>
+    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #F472B6;border-radius:20px;padding:20px 16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;color:#F472B6;margin-bottom:8px">VR</div>
+      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#F472B6;line-height:1">4%</div>
+      <div style="font-size:11px;color:#6B7280;margin:6px 0">3/75 cards</div>
+      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px">
+        <div style="height:100%;background:#F472B6;width:4%"></div>
       </div>
       <div style="font-size:11px;font-weight:700;color:#22D3A4">21d · 15/07</div>
     </div>
-    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #FA641E;border-radius:20px;padding:20px 16px;text-align:center;">
-      <div style="font-size:11px;font-weight:700;color:#FA641E;margin-bottom:8px;">GC</div>
-      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#FA641E;line-height:1;">43%</div>
-      <div style="font-size:11px;color:#6B7280;margin:6px 0;">30/70 cards</div>
-      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px;">
-        <div style="height:100%;background:#FA641E;width:43%"></div>
+    <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-top:3px solid #FA641E;border-radius:20px;padding:20px 16px;text-align:center">
+      <div style="font-size:11px;font-weight:700;color:#FA641E;margin-bottom:8px">GC</div>
+      <div style="font-size:36px;font-weight:900;font-family:'JetBrains Mono',monospace;color:#FA641E;line-height:1">1%</div>
+      <div style="font-size:11px;color:#6B7280;margin:6px 0">1/70 cards</div>
+      <div style="background:rgba(255,255,255,.05);border-radius:4px;height:6px;overflow:hidden;margin-bottom:8px">
+        <div style="height:100%;background:#FA641E;width:1%"></div>
       </div>
       <div style="font-size:11px;font-weight:700;color:#22D3A4">21d · 15/07</div>
-    </div>
-
-  </div>
-
-  <!-- TIMELINE DO SPRINT -->
-  <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px 24px;margin-bottom:24px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-      <div style="font-size:12px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.8px;">📅 Sprint 24/06 → 15/07</div>
-      <div style="font-size:12px;font-weight:700;color:#F3F4F6;">Dia 1 de 21 · João Paulo entrega em <span style="color:#38BDF8">14d</span></div>
-    </div>
-    <div style="background:rgba(255,255,255,.05);border-radius:6px;height:14px;overflow:hidden;position:relative;">
-      <div style="height:100%;background:linear-gradient(90deg,#FA641E55,#FA641E);width:5%;border-radius:6px;"></div>
-      <!-- Marcador JP -->
-      <div style="position:absolute;top:0;bottom:0;width:2px;background:#38BDF8;left:67%;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:10px;color:#4B5563;margin-top:4px;font-family:'JetBrains Mono',monospace;">
-      <span>24/06</span><span style="color:#38BDF8">JP 08/07</span><span>15/07</span>
     </div>
   </div>
 
-  <!-- CARDS DOS DEVS -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+  <!-- TIMELINE -->
+  <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px 24px;margin-bottom:24px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-size:12px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.8px">📅 Sprint 24/06 → 15/07 · Dia 1 de 21</div>
+      <div style="font-size:12px;font-weight:700;color:#F3F4F6">João Paulo entrega em <span style="color:#38BDF8">14d</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.05);border-radius:6px;height:14px;overflow:hidden;position:relative">
+      <div style="height:100%;background:linear-gradient(90deg,#FA641E55,#FA641E);width:5%;border-radius:6px"></div>
+      <div style="position:absolute;top:0;bottom:0;width:2px;background:#38BDF8;left:67%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:#4B5563;margin-top:4px;font-family:'JetBrains Mono',monospace">
+      <span>24/06 Início</span><span style="color:#38BDF8">⬆ JP 08/07</span><span>15/07 Meta</span>
+    </div>
+  </div>
+
+  <!-- DEVS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
     
     <div style="background:#161820;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#38BDF8"></div>
-
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
         <div style="width:48px;height:48px;border-radius:50%;background:rgba(56,189,248,0.12);color:#38BDF8;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0">JP</div>
         <div style="flex:1">
@@ -118,43 +107,42 @@ a{color:inherit;text-decoration:none;}
         </div>
         <div style="text-align:right">
           <div style="font-size:28px;font-weight:900;font-family:monospace;color:#38BDF8;line-height:1">0%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">14d restantes · 08/07</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">14d · 08/07</div>
         </div>
       </div>
-
-      <!-- BARRA DE PROGRESSO -->
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
-        <div style="height:100%;background:#38BDF8;border-radius:6px;width:0%;transition:width 1s;"></div>
+        <div style="height:100%;background:#38BDF8;border-radius:6px;width:0%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span><strong style="color:#F3F4F6">0</strong> concluídos de <strong style="color:#F3F4F6">37</strong> do sprint</span>
-        <span>🔴 6 urgentes · 🟡 14 high · 📋 37 abertos</span>
+        <span>✅ <strong style="color:#F3F4F6">0</strong> / 37 do sprint</span>
+        <span>🔴 6 urgentes · 🟡 14 high · ▶ 0 em progresso</span>
       </div>
-
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
-        ⚠ 6 urgentes ainda abertos 
+        ⚠ 6 urgentes em aberto
       </div>
-
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="font-size:11px;color:#4B5563">Nenhuma entrega ainda</div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos urgentes</div>
+          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos na fila</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1404</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Análise de Ocorrência nas Mesas/Tablets</span>
+        <a href="https://linear.app/pigz/issue/RC-1391" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1391</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Problema recorrente na balança (USB/COM não reconhecido após reiniciar o computador)">Problema recorrente na balança (USB/COM não reconhecido após reiniciar o computador)</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1391</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Problema recorrente na balança (USB/COM não reconhecido após reiniciar o computador)</span>
+        <a href="https://linear.app/pigz/issue/RC-963" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-963</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Travamento recorrente em nova máquina - Restaurante Pesqueiro Irmãos Furco">Travamento recorrente em nova máquina - Restaurante Pesqueiro Irmãos Furco</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1351</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Impressora nao esta funcionando porfavor verificar</span>
-        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
+        <a href="https://linear.app/pigz/issue/RC-894" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-894</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Problemas e feedbacks após atualização do módulo Comandas">Problemas e feedbacks após atualização do módulo Comandas</span>
+        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">High</span>
       </div>
         </div>
       </div>
@@ -162,7 +150,6 @@ a{color:inherit;text-decoration:none;}
 
     <div style="background:#161820;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#22D3A4"></div>
-
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
         <div style="width:48px;height:48px;border-radius:50%;background:rgba(34,211,164,0.12);color:#22D3A4;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0">GA</div>
         <div style="flex:1">
@@ -170,52 +157,43 @@ a{color:inherit;text-decoration:none;}
           <div style="font-size:11px;color:#6B7280">Sênior · Linha Core · Partner · Gestão · Web · App · Integrações</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#22D3A4;line-height:1">4%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
+          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#22D3A4;line-height:1">0%</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
         </div>
       </div>
-
-      <!-- BARRA DE PROGRESSO -->
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
-        <div style="height:100%;background:#22D3A4;border-radius:6px;width:4%;transition:width 1s;"></div>
+        <div style="height:100%;background:#22D3A4;border-radius:6px;width:0%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span><strong style="color:#F3F4F6">2</strong> concluídos de <strong style="color:#F3F4F6">50</strong> do sprint</span>
-        <span>🔴 7 urgentes · 🟡 19 high · 📋 47 abertos</span>
+        <span>✅ <strong style="color:#F3F4F6">0</strong> / 50 do sprint</span>
+        <span>🔴 7 urgentes · 🟡 19 high · ▶ 4 em progresso</span>
       </div>
-
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
-        ⚠ 7 urgentes ainda abertos 
+        ⚠ 7 urgentes em aberto
       </div>
-
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
-          <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#22D3A4;font-weight:700;min-width:72px">RHC-236</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Chamado de teste (histórico de chamados)</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#22D3A4;font-weight:700;min-width:72px">RHC-237</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">chamado de teste (histórico de chamados)</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div>
+          <div style="font-size:11px;color:#4B5563">Nenhuma entrega ainda</div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos urgentes</div>
+          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos na fila</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1445</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Erro ao imprimir os pedidos que vão para cozinha</span>
+        <a href="https://linear.app/pigz/issue/RC-1445" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1445</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Erro ao imprimir os pedidos que vão para cozinha">Erro ao imprimir os pedidos que vão para cozinha</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1340</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Erro no Lançamento de Pedidos</span>
+        <a href="https://linear.app/pigz/issue/RC-648" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-648</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Bugs encontrados no Bar Brahma - Produtos (18/10 - 25/10):">Bugs encontrados no Bar Brahma - Produtos (18/10 - 25/10):</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1274</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Bairro não aparece no checkout do delivery</span>
-        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
+        <a href="https://linear.app/pigz/issue/RC-1001" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1001</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Pigz Gestão não solicita a senha administrativa na remoção da taxa de serviço">Pigz Gestão não solicita a senha administrativa na remoção da taxa de serviço</span>
+        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">High</span>
       </div>
         </div>
       </div>
@@ -223,7 +201,6 @@ a{color:inherit;text-decoration:none;}
 
     <div style="background:#161820;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#F472B6"></div>
-
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
         <div style="width:48px;height:48px;border-radius:50%;background:rgba(244,114,182,0.12);color:#F472B6;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0">VR</div>
         <div style="flex:1">
@@ -231,60 +208,58 @@ a{color:inherit;text-decoration:none;}
           <div style="font-size:11px;color:#6B7280">Sênior · Núcleo Financeiro · Stone · Estoque · iFood/Bee · Race Conditions</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#F472B6;line-height:1">10%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
+          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#F472B6;line-height:1">4%</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
         </div>
       </div>
-
-      <!-- BARRA DE PROGRESSO -->
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
-        <div style="height:100%;background:#F472B6;border-radius:6px;width:10%;transition:width 1s;"></div>
+        <div style="height:100%;background:#F472B6;border-radius:6px;width:4%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span><strong style="color:#F3F4F6">7</strong> concluídos de <strong style="color:#F3F4F6">73</strong> do sprint</span>
-        <span>🔴 30 urgentes · 🟡 34 high · 📋 74 abertos</span>
+        <span>✅ <strong style="color:#F3F4F6">3</strong> / 75 do sprint</span>
+        <span>🔴 30 urgentes · 🟡 33 high · ▶ 0 em progresso</span>
       </div>
-
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
-        ⚠ 30 urgentes ainda abertos 
+        ⚠ 30 urgentes em aberto
       </div>
-
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px">RC-710</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Mudança do Link de cortesias - LÉO MENDES PRODUÇÕES</span>
+        <a href="https://linear.app/pigz/issue/RC-1244" target="_blank"
+           style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px;text-decoration:none">RC-1244</a>
+        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Divergência no financeiro – Multiplicação de pedido e venda não contabilizada">Divergência no financeiro – Multiplicação de pedido e venda não contabilizada</span>
         <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px">RC-1132</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Erro de valores entre máquina e pedido na hora do pagamento.</span>
+        <a href="https://linear.app/pigz/issue/RC-1132" target="_blank"
+           style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px;text-decoration:none">RC-1132</a>
+        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Erro de valores entre máquina e pedido na hora do pagamento.">Erro de valores entre máquina e pedido na hora do pagamento.</span>
         <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px">RC-1244</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Divergência no financeiro – Multiplicação de pedido e venda não contabilizada</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px">RC-1248</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Ingresso vendido a mais do total liberado</span>
+        <a href="https://linear.app/pigz/issue/RC-1515" target="_blank"
+           style="font-family:monospace;color:#F472B6;font-weight:700;min-width:72px;text-decoration:none">RC-1515</a>
+        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Falha de segurança expõe dados de outros pedidos">Falha de segurança expõe dados de outros pedidos</span>
         <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
       </div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos urgentes</div>
+          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos na fila</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1467</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">ALTERAÇÃO DE ESTOQUE</span>
+        <a href="https://linear.app/pigz/issue/RC-1513" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1513</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="[FIX] Padronizar amount para Apple/Google Pay (mesmo fix de SWAT-101)">[FIX] Padronizar amount para Apple/Google Pay (mesmo fix de SWAT-101)</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1459</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Divergência no Dashbord de vendas</span>
+        <a href="https://linear.app/pigz/issue/RC-1502" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1502</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="[FIX] Race condition webhook Stone — pagamento não registrado">[FIX] Race condition webhook Stone — pagamento não registrado</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1513</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">[FIX] Padronizar amount para Apple/Google Pay (mesmo fix de SWAT-101)</span>
-        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
+        <a href="https://linear.app/pigz/issue/RC-651" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-651</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Estoque não descontando nas vendas">Estoque não descontando nas vendas</span>
+        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">High</span>
       </div>
         </div>
       </div>
@@ -292,7 +267,6 @@ a{color:inherit;text-decoration:none;}
 
     <div style="background:#161820;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:24px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#FA641E"></div>
-
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
         <div style="width:48px;height:48px;border-radius:50%;background:rgba(250,100,30,0.12);color:#FA641E;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0">GC</div>
         <div style="flex:1">
@@ -300,73 +274,58 @@ a{color:inherit;text-decoration:none;}
           <div style="font-size:11px;color:#6B7280">Pleno · Frente do Parceiro · Relatórios · Exportações · NF · UI Partner</div>
         </div>
         <div style="text-align:right">
-          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#FA641E;line-height:1">43%</div>
-          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d restantes · 15/07</div>
+          <div style="font-size:28px;font-weight:900;font-family:monospace;color:#FA641E;line-height:1">1%</div>
+          <div style="font-size:10px;color:#22D3A4;font-weight:700">21d · 15/07</div>
         </div>
       </div>
-
-      <!-- BARRA DE PROGRESSO -->
       <div style="background:rgba(255,255,255,.06);border-radius:6px;height:10px;margin-bottom:10px;overflow:hidden;">
-        <div style="height:100%;background:#FA641E;border-radius:6px;width:43%;transition:width 1s;"></div>
+        <div style="height:100%;background:#FA641E;border-radius:6px;width:1%"></div>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280;margin-bottom:14px;">
-        <span><strong style="color:#F3F4F6">30</strong> concluídos de <strong style="color:#F3F4F6">70</strong> do sprint</span>
-        <span>🔴 17 urgentes · 🟡 18 high · 📋 87 abertos</span>
+        <span>✅ <strong style="color:#F3F4F6">1</strong> / 70 do sprint</span>
+        <span>🔴 9 urgentes · 🟡 12 high · ▶ 2 em progresso</span>
       </div>
-
       
       <div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:11px;color:#F87171;">
-        ⚠ 17 urgentes ainda abertos 
+        ⚠ 9 urgentes em aberto
       </div>
-
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
         <div>
           <div style="font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">✓ Últimas entregas</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#FA641E;font-weight:700;min-width:72px">RC-767</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Relatório detalhado com mais de 1 ano.</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#FA641E;font-weight:700;min-width:72px">RC-773</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Solicitação de lsita de pedidos de cliente da loja - Cliente em expecifico</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#FA641E;font-weight:700;min-width:72px">RC-778</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Falha na Inutilização de Notas Fiscais - Galpão 95</span>
-        <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
-      </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#FA641E;font-weight:700;min-width:72px">RC-779</span>
-        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Falha na Inutilização de Notas Fiscais - Galpão 95</span>
+        <a href="https://linear.app/pigz/issue/RC-1133" target="_blank"
+           style="font-family:monospace;color:#FA641E;font-weight:700;min-width:72px;text-decoration:none">RC-1133</a>
+        <span style="color:#6B7280;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="https://chat.helpapp.com.br/app/accounts/3/conversations/63687?messageId=1352432">https://chat.helpapp.com.br/app/accounts/3/conversations/63687?messageId=1352432</span>
         <span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:rgba(34,211,164,.12);color:#22D3A4">✓ CONCLUÍDA</span>
       </div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos urgentes</div>
+          <div style="font-size:10px;font-weight:700;color:#F87171;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">⚡ Próximos na fila</div>
           <div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1495</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Contestação da Exigência de CPF para Emissão de NF</span>
+        <a href="https://linear.app/pigz/issue/RC-1415" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1415</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Falha em pedidos via IA não chegam ao sistema">Falha em pedidos via IA não chegam ao sistema</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RC-1506</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Definir solução paliativa para emissão de nota de devolução</span>
+        <a href="https://linear.app/pigz/issue/RC-1495" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-1495</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Contestação da Exigência de CPF para Emissão de NF">Contestação da Exigência de CPF para Emissão de NF</span>
         <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
       </div><div style="display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px;">
-        <span style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px">RHC-268</span>
-        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Impressora não está imprimindo cupom fiscal no PDV</span>
-        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">Urgent</span>
+        <a href="https://linear.app/pigz/issue/RC-526" target="_blank"
+           style="font-family:monospace;color:#F87171;font-weight:700;min-width:72px;text-decoration:none">RC-526</a>
+        <span style="color:#9CA3AF;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Campo de CFOP X ICMS - com retorno de Erro pre-cadastral">Campo de CFOP X ICMS - com retorno de Erro pre-cadastral</span>
+        <span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:rgba(248,113,113,.12);color:#F87171;white-space:nowrap">High</span>
       </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- RODAPÉ -->
-<div style="margin-top:40px;padding:16px 40px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center;">
-  <div style="font-size:11px;color:#4B5563;">PIGZ · Operação Bug Zero · Carlos Krueger — Coordenação · Meta: 240 bugs até 15/07/2026</div>
-  <div style="font-family:'JetBrains Mono',monospace;font-weight:900;color:#FA641E;font-size:12px;">PIGZ</div>
+<div style="margin-top:40px;padding:16px 40px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
+  <div style="font-size:11px;color:#4B5563">PIGZ · Operação Bug Zero · Coordenação: Carlos Krueger · Meta: 240 bugs até 15/07/2026 · Fonte: Linear RC + RHC</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-weight:900;color:#FA641E;font-size:12px">PIGZ</div>
 </div>
-
 </body>
 </html>
