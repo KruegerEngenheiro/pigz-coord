@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operação Bug Zero — PIGZ · Sprint 24/06–15/07/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0F14;--card:#161820;--card2:#1C1E26;
+  --pigz:#FA641E;--success:#22D3A4;--warning:#FBBF24;
+  --danger:#F87171;--info:#60A5FA;--purple:#A78BFA;
+  --text:#F3F4F6;--text2:#9CA3AF;--text3:#6B7280;
+  --border:rgba(255,255,255,0.07);--mono:'JetBrains Mono',monospace;
+  --jp:#38BDF8;--ga:#22D3A4;--vr:#F472B6;--gc:#FA641E;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;}
+
+.controls{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;align-items:center;gap:10px;background:rgba(22,24,32,0.97);
+  border:1px solid rgba(255,255,255,0.09);border-radius:999px;padding:10px 20px;backdrop-filter:blur(20px);}
+.cb{background:none;border:1px solid rgba(255,255,255,0.12);color:var(--text2);
+  font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:7px 16px;
+  border-radius:999px;cursor:pointer;transition:all 0.2s;}
+.cb:hover{background:rgba(255,255,255,0.08);color:var(--text);}
+.cb.pr{background:var(--pigz);color:white;border-color:transparent;}
+.sc{font-size:12px;font-weight:700;color:var(--text3);font-family:var(--mono);min-width:56px;text-align:center;}
+.pb{width:120px;height:3px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;}
+.pf{height:100%;background:var(--pigz);border-radius:999px;transition:width 0.4s ease;}
+
+.sc-wrap{width:100vw;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  align-items:center;padding:68px 80px 80px;animation:fi 0.3s ease;}
+.slide.active{display:flex;}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.sh{position:absolute;top:28px;left:60px;right:60px;display:flex;align-items:center;justify-content:space-between;}
+.sh-logo{font-size:12px;font-weight:800;color:var(--pigz);letter-spacing:2px;}
+.sh-info{font-size:11px;color:var(--text3);font-family:var(--mono);}
+
+.tb{margin-bottom:24px;text-align:center;}
+.tb-eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--pigz);margin-bottom:8px;}
+.tb h2{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1.05;}
+.tb .sub{font-size:13px;color:var(--text2);margin-top:7px;line-height:1.5;}
+
+/* CAPA */
+.capa{background:radial-gradient(ellipse at 60% 40%,#1a0a2e 0%,#0D0F14 60%,#0a1a0f 100%);}
+.capa-op{font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--pigz);
+  margin-bottom:20px;display:flex;align-items:center;gap:14px;}
+.capa-op::before,.capa-op::after{content:'';width:30px;height:2px;background:var(--pigz);}
+.capa-title{font-size:72px;font-weight:900;letter-spacing:-5px;line-height:.85;text-align:center;margin-bottom:16px;}
+.capa-title .hl{color:var(--pigz);}
+.capa-title .hl2{color:var(--success);}
+.capa-date{font-size:14px;color:var(--text3);font-family:var(--mono);margin-bottom:32px;}
+.capa-pills{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;}
+.pill{font-size:11px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);color:var(--text2);}
+.pill.r{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.3);color:var(--danger);}
+.pill.g{background:rgba(34,211,164,.08);border-color:rgba(34,211,164,.25);color:var(--success);}
+.pill.w{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.25);color:var(--warning);}
+.pill.p{background:rgba(167,139,250,.08);border-color:rgba(167,139,250,.25);color:var(--purple);}
+
+/* REGRAS */
+.regras-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:920px;}
+.rg{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 20px;position:relative;overflow:hidden;}
+.rg::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--rc,var(--pigz));}
+.rg-icon{font-size:28px;margin-bottom:12px;}
+.rg-title{font-size:14px;font-weight:800;margin-bottom:8px;}
+.rg-desc{font-size:11px;color:var(--text2);line-height:1.6;}
+.rg-tag{font-size:9px;font-weight:800;padding:3px 8px;border-radius:4px;margin-top:10px;display:inline-block;}
+
+/* OVERVIEW DO TIME */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;max-width:940px;}
+.dev-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px 18px;text-align:center;position:relative;overflow:hidden;}
+.dev-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.dev-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:900;margin:0 auto 12px;color:white;}
+.dev-name{font-size:14px;font-weight:800;margin-bottom:4px;}
+.dev-nivel{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:14px;display:inline-block;}
+.dev-num{font-size:36px;font-weight:900;font-family:var(--mono);line-height:1;margin-bottom:4px;}
+.dev-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.dev-sub{font-size:11px;color:var(--text3);margin-top:6px;}
+.dev-prazo{font-size:11px;font-weight:700;margin-top:8px;padding:4px 10px;border-radius:6px;display:inline-block;}
+
+/* SPRINT TABLE */
+.sprint-wrap{width:100%;max-width:880px;}
+.sprint-section{margin-bottom:14px;}
+.sprint-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;padding:8px 14px;border-radius:8px;}
+.sprint-head-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;}
+.sprint-head-count{font-family:var(--mono);font-size:11px;font-weight:700;margin-left:auto;}
+.sprint-rows{display:flex;flex-direction:column;gap:4px;}
+.sr{display:grid;grid-template-columns:90px 1fr 50px 80px;gap:10px;align-items:center;
+  padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;}
+.sr:hover{border-color:rgba(255,255,255,.12);}
+.sr-id{font-family:var(--mono);font-weight:700;font-size:11px;}
+.sr-title{color:var(--text2);line-height:1.4;}
+.sr-est{text-align:center;font-family:var(--mono);font-weight:700;color:var(--text3);}
+.sr-prazo{text-align:right;font-size:10px;color:var(--text3);font-family:var(--mono);}
+
+/* TIMELINE */
+.timeline{width:100%;max-width:900px;}
+.tl-dev{margin-bottom:18px;}
+.tl-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.tl-bar{display:flex;height:36px;border-radius:8px;overflow:hidden;gap:2px;}
+.tl-seg{display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:rgba(255,255,255,.8);}
+.tl-dates{display:flex;justify-content:space-between;font-size:9px;color:var(--text3);font-family:var(--mono);margin-top:4px;padding:0 2px;}
+
+/* FIM */
+.fim-wrap{text-align:center;}
+.fim-big{font-size:72px;font-weight:900;letter-spacing:-4px;line-height:.88;margin-bottom:18px;}
+.fim-big .hl{color:var(--pigz);}
+.fim-big .hl2{color:var(--success);}
+.fim-sub{font-size:14px;color:var(--text2);max-width:600px;line-height:1.7;margin:0 auto 28px;}
+.fim-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.fp{font-size:12px;font-weight:700;padding:9px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.1);color:var(--text2);}
+.fp.ac{background:var(--pigz);color:white;border-color:transparent;}
+.fp.g{background:var(--success);color:#0D0F14;border-color:transparent;}
+</style>
+</head>
+<body>
+<div class="sc-wrap">
+
+<!-- ══ S1 CAPA ══ -->
+<div class="slide capa active" id="s1">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">24/06/2026 → 15/07/2026 · Operação Tática</span></div>
+  <div class="capa-op">Squad PIGZ</div>
+  <div class="capa-title">Operação<br><span class="hl">Bug</span> <span class="hl2">Zero</span></div>
+  <div class="capa-date">Manual do Desenvolvedor &nbsp;·&nbsp; Sprint 24/06 → 15/07/2026</div>
+  <div class="capa-pills">
+    <span class="pill r">🎯 Meta: 240 bugs até 15/07</span>
+    <span class="pill">4 desenvolvedores</span>
+    <span class="pill">230 chamados mapeados</span>
+    <span class="pill w">War Room ativo</span>
+    <span class="pill g">✓ IA como copiloto</span>
+  </div>
+</div>
+
+<!-- ══ S2 REGRAS DE OPERAÇÃO ══ -->
+<div class="slide" id="s2">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Regras de Operação · Bug Zero</span></div>
+  <div class="tb"><div class="tb-eye">Como vamos operar</div><h2>Regras da Operação</h2><div class="sub">Começo, meio e fim — sem gargalos, sem tarefas administrativas cegas</div></div>
+  <div class="regras-grid">
+
+    <div class="rg" style="--rc:var(--danger)">
+      <div class="rg-icon">⚡</div>
+      <div class="rg-title">War Room · Zero Espera</div>
+      <div class="rg-desc">Todos conectados em ambiente contínuo — físico no auditório ou sala de áudio virtual. Travou ou precisa de review de PR? <strong style="color:var(--text)">Abre o microfone na hora.</strong> Comunicação instantânea, sem fila de mensagem.</div>
+      <span class="rg-tag" style="background:rgba(248,113,113,.1);color:var(--danger)">OBRIGATÓRIO</span>
+    </div>
+
+    <div class="rg" style="--rc:var(--purple)">
+      <div class="rg-icon">🤖</div>
+      <div class="rg-title">Pair Programming com IA</div>
+      <div class="rg-desc"><strong style="color:var(--text)">Você é o Piloto, a IA é o Copiloto.</strong> Use a IA para diagnóstico, localização do arquivo problemático e geração da proposta de fix. Não é esperado escrever correções do zero — use inteligência para acelerar.</div>
+      <span class="rg-tag" style="background:rgba(167,139,250,.1);color:var(--purple)">INCENTIVADO</span>
+    </div>
+
+    <div class="rg" style="--rc:var(--success)">
+      <div class="rg-icon">🧪</div>
+      <div class="rg-title">QA + Suporte · Divisão Clara</div>
+      <div class="rg-desc"><strong style="color:var(--text)">Suporte:</strong> resolve cards de dúvidas simples e faz validação UAT de bugs menores, relatórios e UI.<br><strong style="color:var(--text)">QA:</strong> apenas bugs críticos e fluxos core — pagamentos, NF, checkout. QA informa o cliente quando a correção está em produção.</div>
+      <span class="rg-tag" style="background:rgba(34,211,164,.1);color:var(--success)">DEFINIDO</span>
+    </div>
+
+    <div class="rg" style="--rc:var(--warning)">
+      <div class="rg-icon">🧬</div>
+      <div class="rg-title">Fórmula de Priorização</div>
+      <div class="rg-desc">Cada card foi estimado com a fórmula:<br><strong style="color:var(--text)">T = Investigação + Codificação + Teste + Risco de Deploy</strong><br>A distribuição entre devs seguiu esta lógica — não é feeling, é engenharia de alocação.</div>
+      <span class="rg-tag" style="background:rgba(251,191,36,.1);color:var(--warning)">BASE DO SPRINT</span>
+    </div>
+
+    <div class="rg" style="--rc:var(--info)">
+      <div class="rg-icon">🧪</div>
+      <div class="rg-title">Testes Unitários com IA</div>
+      <div class="rg-desc">Não obrigatório, mas <strong style="color:var(--text)">fortemente incentivado</strong> que cada correção inclua testes unitários automatizados. A IA pode gerar os testes — aproveite. Qualidade não é obstáculo, é acelerador.</div>
+      <span class="rg-tag" style="background:rgba(96,165,250,.1);color:var(--info)">RECOMENDADO</span>
+    </div>
+
+    <div class="rg" style="--rc:var(--pigz)">
+      <div class="rg-icon">🏁</div>
+      <div class="rg-title">Meta & SLA</div>
+      <div class="rg-desc"><strong style="color:var(--danger)">🔴 Urgent:</strong> 24h · <strong style="color:var(--warning)">🟡 High:</strong> 48h<br>Meta do Squad: <strong style="color:var(--success)">Zerar 240 bugs até 15/07/2026.</strong><br>Viável com o processo acima — sem perda de tempo em triagem cega.</div>
+      <span class="rg-tag" style="background:rgba(250,100,30,.1);color:var(--pigz)">META GLOBAL</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ S3 OVERVIEW DO TIME ══ -->
+<div class="slide" id="s3">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Time · Distribuição de Carga</span></div>
+  <div class="tb"><div class="tb-eye">Workload Distribuído</div><h2>Quatro Linhas de Atuação</h2><div class="sub">Cada dev com frente especializada — duas linhas complementares em cada par</div></div>
+  <div class="team-grid">
+
+    <div class="dev-card" style="border-color:rgba(56,189,248,.2)">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--jp)"></div>
+      <div class="dev-av" style="background:rgba(56,189,248,.15);color:var(--jp)">JP</div>
+      <div class="dev-name">João Paulo</div>
+      <div class="dev-nivel" style="background:rgba(56,189,248,.1);color:var(--jp)">Pleno</div>
+      <div class="dev-num" style="color:var(--jp)">37</div>
+      <div class="dev-label">chamados · 86h</div>
+      <div class="dev-sub">Física · POS · Comanda<br>Totem · Mesa · Hardware</div>
+      <div class="dev-prazo" style="background:rgba(56,189,248,.1);color:var(--jp)">Entrega: 08/07</div>
+    </div>
+
+    <div class="dev-card" style="border-color:rgba(34,211,164,.2)">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--ga)"></div>
+      <div class="dev-av" style="background:rgba(34,211,164,.15);color:var(--ga)">GA</div>
+      <div class="dev-name">Guilherme Alves</div>
+      <div class="dev-nivel" style="background:rgba(34,211,164,.1);color:var(--ga)">Sênior</div>
+      <div class="dev-num" style="color:var(--ga)">50</div>
+      <div class="dev-label">chamados · 136h</div>
+      <div class="dev-sub">Core · Partner · Gestão<br>Web · App · Integrações</div>
+      <div class="dev-prazo" style="background:rgba(34,211,164,.1);color:var(--ga)">Entrega: 15/07</div>
+    </div>
+
+    <div class="dev-card" style="border-color:rgba(244,114,182,.2)">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--vr)"></div>
+      <div class="dev-av" style="background:rgba(244,114,182,.15);color:var(--vr)">VR</div>
+      <div class="dev-name">Vitor Rocha</div>
+      <div class="dev-nivel" style="background:rgba(244,114,182,.1);color:var(--vr)">Sênior</div>
+      <div class="dev-num" style="color:var(--vr)">73</div>
+      <div class="dev-label">chamados · 136h</div>
+      <div class="dev-sub">Pagamentos · Estoque<br>Stone · iFood · Race Cond.</div>
+      <div class="dev-prazo" style="background:rgba(244,114,182,.1);color:var(--vr)">Entrega: 15/07</div>
+    </div>
+
+    <div class="dev-card" style="border-color:rgba(250,100,30,.2)">
+      <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--gc)"></div>
+      <div class="dev-av" style="background:rgba(250,100,30,.15);color:var(--gc)">GC</div>
+      <div class="dev-name">Gustavo Carvalho</div>
+      <div class="dev-nivel" style="background:rgba(250,100,30,.1);color:var(--gc)">Pleno</div>
+      <div class="dev-num" style="color:var(--gc)">70</div>
+      <div class="dev-label">chamados · 136h</div>
+      <div class="dev-sub">Relatórios · Exports<br>UI Partner · NF · Links</div>
+      <div class="dev-prazo" style="background:rgba(250,100,30,.1);color:var(--gc)">Entrega: 15/07</div>
+    </div>
+
+  </div>
+  <div style="margin-top:18px;display:flex;gap:20px;font-size:12px;color:var(--text2);">
+    <div>📊 <strong style="color:var(--text)">230</strong> chamados mapeados no total</div>
+    <div>⏱ <strong style="color:var(--text)">494h</strong> de trabalho estimado</div>
+    <div>🎯 Meta: <strong style="color:var(--success)">240 bugs zerados até 15/07</strong></div>
+  </div>
+</div>
+
+<!-- ══ S4 JOÃO PAULO ══ -->
+<div class="slide" id="s4">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info" style="color:var(--jp)">João Paulo · Linha Operacional e Física</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--jp)">Pleno · 37 Chamados · 86h</div><h2>João Paulo — Linha Física</h2><div class="sub">POS · Comanda · Totem · Mesa · Pigz Pay · Hardware &nbsp;·&nbsp; Entrega: <strong style="color:var(--jp)">08/07/2026</strong></div></div>
+  <div class="sprint-wrap">
+    <div class="sprint-section">
+      <div class="sprint-head" style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.15)">
+        <span style="color:var(--danger)">🔴 Urgentes</span>
+        <div class="sprint-head-title" style="color:var(--danger)">SLA Crítico · média 2.5h/card</div>
+        <div class="sprint-head-count" style="color:var(--danger)">6 cards</div>
+      </div>
+      <div class="sprint-rows">
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1391</span><span class="sr-title">Balança USB/COM não reconhecida</span><span class="sr-est">2.5h</span><span class="sr-prazo">24/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-963</span><span class="sr-title">Travamento em nova máquina (POS)</span><span class="sr-est">2.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-992</span><span class="sr-title">Instabilidade e erro na impressão (POS)</span><span class="sr-est">2.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-659</span><span class="sr-title">Cartão Removido (Pigz Pay)</span><span class="sr-est">2.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1404</span><span class="sr-title">Tablets limitando comandas (Mesa)</span><span class="sr-est">2.5h</span><span class="sr-prazo">26/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1351</span><span class="sr-title">Impressora não funciona</span><span class="sr-est">2.5h</span><span class="sr-prazo">26/06</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+      <div style="background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:11px;color:var(--warning);font-weight:700;margin-bottom:6px;">🟠 Alta Prioridade · 14 cards · 27–03/07</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8;">RC-894 · RC-941 · RC-686 · RC-709 · RC-760 · RC-786 · RC-1099 · RC-1111 · RC-1228 · RC-1315 · RC-1348 · RC-1407 · RC-1474 · RC-1494</div>
+      </div>
+      <div style="background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.15);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:11px;color:var(--info);font-weight:700;margin-bottom:6px;">🟡 Média · 7 cards &nbsp;|&nbsp; 🟢 Baixa · 10 cards · 03–08/07</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8;">RC-1366 · RC-1321 · RC-543 · RC-740 · RC-929 · RC-1252 · RC-1432 + RC-1220 · RC-650 · RC-1227 · RC-1235 · RC-1242 · RC-1390 · RC-1434 · RC-1447 · RC-1450 · RC-1498</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S5 GUILHERME ALVES ══ -->
+<div class="slide" id="s5">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info" style="color:var(--ga)">Guilherme Alves · Linha Core e Estrutural</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--ga)">Sênior · 50 Chamados · 136h</div><h2>Guilherme Alves — Linha Core</h2><div class="sub">Partner · Gestão Desktop/Mobile · Pigz Web · App · Integrações Externas &nbsp;·&nbsp; Entrega: <strong style="color:var(--ga)">15/07/2026</strong></div></div>
+  <div class="sprint-wrap">
+    <div class="sprint-section">
+      <div class="sprint-head" style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.15)">
+        <span style="color:var(--danger)">🔴 Urgentes</span>
+        <div class="sprint-head-title" style="color:var(--danger)">média 2h/card</div>
+        <div class="sprint-head-count" style="color:var(--danger)">7 cards · até 26/06</div>
+      </div>
+      <div class="sprint-rows">
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1445</span><span class="sr-title">Erro ao imprimir pedidos para cozinha</span><span class="sr-est">2h</span><span class="sr-prazo">24/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-648</span><span class="sr-title">Bugs em produtos Bar Brahma</span><span class="sr-est">6h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1340</span><span class="sr-title">Falha na seleção de forma de pagamento</span><span class="sr-est">2h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1089</span><span class="sr-title">Delivery só exibe retirada</span><span class="sr-est">2h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1157</span><span class="sr-title">Duplicação via Apple Pay</span><span class="sr-est">2h</span><span class="sr-prazo">26/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1195</span><span class="sr-title">Erro com entregador Bee Delivery</span><span class="sr-est">2h</span><span class="sr-prazo">26/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1274</span><span class="sr-title">Bairro não aparece no checkout</span><span class="sr-est">2h</span><span class="sr-prazo">26/06</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+      <div style="background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.15);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:11px;color:var(--warning);font-weight:700;margin-bottom:6px;">🟠 Alta Prioridade · 19 cards · 27/06–06/07</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8;">RC-1001 · RC-1497 · RC-977 · RC-866 · RC-561 · RC-532 · RC-656 · RC-668 · RC-669 · RC-680 · RC-964 · RC-1022 · RC-1031 · RC-1117 · RC-1198 · RC-1213 · RC-1261 · RC-1284 · RC-1400</div>
+      </div>
+      <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.15);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:11px;color:var(--purple);font-weight:700;margin-bottom:6px;">🟡 Média + Arquitetura · 24 cards · 07–15/07</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8;">RC-435 · RC-1032 · RC-1255 · RC-1511 · RC-736 · RC-722 · RC-785 · RC-835 · RC-863 · RC-914 · RC-1121 · RC-1205 · RC-1479 + RC-523 · RC-940 · RC-902 (6h) · RC-997 (5h)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S6 VITOR ROCHA ══ -->
+<div class="slide" id="s6">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info" style="color:var(--vr)">Vitor Rocha · Risco Sistêmico e Integrações Críticas</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--vr)">Sênior · 73 Chamados · 136h</div><h2>Vitor Rocha — Núcleo Financeiro</h2><div class="sub">Pagamentos Stone · Estoque · iFood/Bee · Race Conditions · Root-API &nbsp;·&nbsp; Entrega: <strong style="color:var(--vr)">15/07/2026</strong></div></div>
+  <div class="sprint-wrap">
+    <div class="sprint-section">
+      <div class="sprint-head" style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.15)">
+        <span style="color:var(--danger)">🔴 Urgentes</span>
+        <div class="sprint-head-title" style="color:var(--danger)">SLA Crítico · maior pressão técnica</div>
+        <div class="sprint-head-count" style="color:var(--danger)">31 cards · até 03/07</div>
+      </div>
+      <div class="sprint-rows">
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1515</span><span class="sr-title">⚠ Falha de segurança — expõe dados de outros pedidos</span><span class="sr-est">2.5h</span><span class="sr-prazo">24/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1502</span><span class="sr-title">Pagamento não registrado — webhook assíncrono Stone</span><span class="sr-est">3h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1513</span><span class="sr-title">[FIX] Padronizar amount para Apple/Google Pay</span><span class="sr-est">2h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1132</span><span class="sr-title">Erro de valores entre máquina e pedido</span><span class="sr-est">2h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-771</span><span class="sr-title">Falha ao solicitar entregador sob demanda</span><span class="sr-est">2h</span><span class="sr-prazo">26/06</span></div>
+      </div>
+    </div>
+    <div style="background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.12);border-radius:10px;padding:11px 14px;margin-top:6px;">
+      <div style="font-size:11px;color:var(--warning);font-weight:700;margin-bottom:5px;">+ 26 urgentes restantes até 03/07: RC-854 · RC-893 · RC-943 · RC-976 · RC-1004 · RC-1196 · RC-1214 · RC-1408 · RC-1467 · RC-1459 · RC-1505 · RC-1514 · RC-1512 · RC-1503 · RC-1504 · RC-1370 · RC-1301 · RC-1283 · RC-1100 · RC-1093 · RC-960 · RC-944 · RC-927 · RC-876 · RC-769 · RC-317</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+      <div style="background:rgba(96,165,250,.05);border:1px solid rgba(96,165,250,.12);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:11px;color:var(--info);font-weight:700;margin-bottom:5px;">🟠 Alta · 35 cards · 04–14/07</div>
+        <div style="font-size:11px;color:var(--text2);">RC-1244 · RC-1192 · RC-651 · RC-807 · RC-918 · RC-953 · RC-1060 · RC-1106 · RC-1130 · RC-1145 · RC-1265 · RC-1394 · RC-1473 · RC-1461 · RC-1452 · RC-1413 + 19 mais</div>
+      </div>
+      <div style="background:rgba(34,211,164,.05);border:1px solid rgba(34,211,164,.12);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:11px;color:var(--success);font-weight:700;margin-bottom:5px;">🟡 Média · 9 cards · 15/07</div>
+        <div style="font-size:11px;color:var(--text2);">RC-1131 · RC-1367 · RC-1443 · RC-1186 · RC-888 · RC-737 · RC-1184 · RC-975 · RC-1236</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S7 GUSTAVO CARVALHO ══ -->
+<div class="slide" id="s7">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info" style="color:var(--gc)">Gustavo Carvalho · Interface, Dados e Experiência do Parceiro</span></div>
+  <div class="tb"><div class="tb-eye" style="color:var(--gc)">Pleno · 70 Chamados · 136h</div><h2>Gustavo Carvalho — Frente do Parceiro</h2><div class="sub">Relatórios · Exportações · NF · Links de Pagamento · UI Partner &nbsp;·&nbsp; Entrega: <strong style="color:var(--gc)">15/07/2026</strong></div></div>
+  <div class="sprint-wrap">
+    <div class="sprint-section">
+      <div class="sprint-head" style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.15)">
+        <span style="color:var(--danger)">🔴 Urgentes</span>
+        <div class="sprint-head-title" style="color:var(--danger)">SLA Visual/Acesso</div>
+        <div class="sprint-head-count" style="color:var(--danger)">10 cards · até 30/06</div>
+      </div>
+      <div class="sprint-rows">
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1415</span><span class="sr-title">Pedidos via IA não aparecem no painel da loja</span><span class="sr-est">2h</span><span class="sr-prazo">24/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1518</span><span class="sr-title">Tela de login parceiro em branco — Crash Visual</span><span class="sr-est">1.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1495</span><span class="sr-title">Erros nos dados de emissão de NF-e/NFC-e</span><span class="sr-est">2.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-979</span><span class="sr-title">Menu de navegação sumiu em telas menores</span><span class="sr-est">1.5h</span><span class="sr-prazo">25/06</span></div>
+        <div class="sr"><span class="sr-id" style="color:var(--danger)">RC-1506</span><span class="sr-title">Botão "Salvar Configurações" desabilitado</span><span class="sr-est">1.5h</span><span class="sr-prazo">26/06</span></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+      <div style="background:rgba(251,191,36,.05);border:1px solid rgba(251,191,36,.12);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:11px;color:var(--warning);font-weight:700;margin-bottom:5px;">🟠 Alta · 20 cards · 30/06–07/07</div>
+        <div style="font-size:11px;color:var(--text2);line-height:1.8;">RC-526 · RC-1278 · RC-1414 · RC-1087 · RC-922 · RC-989 · RC-1517 + 13 relatórios (RC-1523 · RC-1420 · RC-1229 · RC-1200 · RC-1159 · RC-1126 · RC-937 · RC-1405 · RC-966 · RC-1481 · RC-1496 · RC-1469 · RC-1454)</div>
+      </div>
+      <div style="background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.12);border-radius:10px;padding:11px 14px;">
+        <div style="font-size:11px;color:var(--purple);font-weight:700;margin-bottom:5px;">🟡 Média · 40 cards · 07–15/07</div>
+        <div style="font-size:11px;color:var(--text2);">RC-1231 · RC-1398 · RC-1516 · RC-901 + 36 relatórios e exportações financeiras até 15/07</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S8 TIMELINE ══ -->
+<div class="slide" id="s8">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">📅 Cronograma · 24/06 → 15/07/2026</span></div>
+  <div class="tb"><div class="tb-eye">Visão de Prazo</div><h2>Linha do Tempo da Operação</h2><div class="sub">3 semanas · 4 devs · 230 chamados → 240 bugs zerados</div></div>
+  <div class="timeline">
+
+    <div class="tl-dev">
+      <div class="tl-name" style="color:var(--jp)">
+        <span style="background:rgba(56,189,248,.15);color:var(--jp);padding:3px 10px;border-radius:6px;font-size:10px;">JP</span>
+        João Paulo · Pleno · Linha Física
+      </div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="width:15%;background:rgba(248,113,113,.7)">Urg.</div>
+        <div class="tl-seg" style="width:38%;background:rgba(251,191,36,.6)">Alta (26–03/07)</div>
+        <div class="tl-seg" style="width:28%;background:rgba(96,165,250,.5)">Média</div>
+        <div class="tl-seg" style="width:19%;background:rgba(156,163,175,.4)">Baixa</div>
+      </div>
+      <div class="tl-dates"><span>24/06</span><span>26/06</span><span>03/07</span><span style="color:var(--jp);font-weight:700">✓ 08/07</span><span>15/07</span></div>
+    </div>
+
+    <div class="tl-dev">
+      <div class="tl-name" style="color:var(--ga)">
+        <span style="background:rgba(34,211,164,.15);color:var(--ga);padding:3px 10px;border-radius:6px;font-size:10px;">GA</span>
+        Guilherme Alves · Sênior · Linha Core
+      </div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="width:10%;background:rgba(248,113,113,.7)">Urg.</div>
+        <div class="tl-seg" style="width:40%;background:rgba(251,191,36,.6)">Alta (27/06–06/07)</div>
+        <div class="tl-seg" style="width:30%;background:rgba(167,139,250,.5)">Média</div>
+        <div class="tl-seg" style="width:20%;background:rgba(34,211,164,.4)">Arq.</div>
+      </div>
+      <div class="tl-dates"><span>24/06</span><span>26/06</span><span>06/07</span><span>11/07</span><span style="color:var(--ga);font-weight:700">✓ 15/07</span></div>
+    </div>
+
+    <div class="tl-dev">
+      <div class="tl-name" style="color:var(--vr)">
+        <span style="background:rgba(244,114,182,.15);color:var(--vr);padding:3px 10px;border-radius:6px;font-size:10px;">VR</span>
+        Vitor Rocha · Sênior · Núcleo Financeiro
+      </div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="width:44%;background:rgba(248,113,113,.75)">🔴 31 Urgentes (até 03/07)</div>
+        <div class="tl-seg" style="width:42%;background:rgba(251,191,36,.6)">35 Altas (04–14/07)</div>
+        <div class="tl-seg" style="width:14%;background:rgba(96,165,250,.5)">Méd.</div>
+      </div>
+      <div class="tl-dates"><span>24/06</span><span>30/06</span><span>03/07</span><span>10/07</span><span style="color:var(--vr);font-weight:700">✓ 15/07</span></div>
+    </div>
+
+    <div class="tl-dev">
+      <div class="tl-name" style="color:var(--gc)">
+        <span style="background:rgba(250,100,30,.15);color:var(--gc);padding:3px 10px;border-radius:6px;font-size:10px;">GC</span>
+        Gustavo Carvalho · Pleno · Frente do Parceiro
+      </div>
+      <div class="tl-bar">
+        <div class="tl-seg" style="width:12%;background:rgba(248,113,113,.7)">Urg.</div>
+        <div class="tl-seg" style="width:26%;background:rgba(251,191,36,.6)">Alta (30/06–07/07)</div>
+        <div class="tl-seg" style="width:62%;background:rgba(167,139,250,.5)">40 Relatórios e Exports (07–15/07)</div>
+      </div>
+      <div class="tl-dates"><span>24/06</span><span>30/06</span><span>07/07</span><span>11/07</span><span style="color:var(--gc);font-weight:700">✓ 15/07</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ S9 ENCERRAMENTO ══ -->
+<div class="slide" id="s9" style="background:radial-gradient(ellipse at 50% 60%,#1a0a2e 0%,#0D0F14 60%)">
+  <div class="sh"><span class="sh-logo">PIGZ</span><span class="sh-info">Operação Bug Zero · 2026</span></div>
+  <div class="fim-wrap">
+    <div class="fim-big">Bug<br><span class="hl2">Zero.</span></div>
+    <div class="fim-sub">Não é uma limpeza de backlog — é uma operação com início, meio e fim. IA como copiloto, War Room ativo, QA e Suporte divididos. <strong style="color:var(--text)">230 chamados distribuídos, 240 bugs no radar.</strong> A meta é 15 de julho.</div>
+    <div class="fim-pills">
+      <span class="fp g">João Paulo · 08/07</span>
+      <span class="fp">Guilherme · 15/07</span>
+      <span class="fp">Vitor · 15/07</span>
+      <span class="fp">Gustavo · 15/07</span>
+      <span class="fp ac">🎯 Meta: 240 bugs · 15/07</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="controls">
+  <button class="cb" onclick="prev()">← Anterior</button>
+  <div class="pb"><div class="pf" id="prog"></div></div>
+  <span class="sc" id="cnt">1 / 9</span>
+  <button class="cb pr" onclick="next()">Próximo →</button>
+  <button class="cb" onclick="window.print()" title="PDF">⎙</button>
+</div>
+
+<script>
+var T=9,C=1;
+function show(n){
+  document.querySelectorAll('.slide').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('cnt').textContent=n+' / '+T;
+  document.getElementById('prog').style.width=((n/T)*100)+'%';
+  C=n;
+}
+function next(){if(C<T)show(C+1);}
+function prev(){if(C>1)show(C-1);}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' ')next();
+  if(e.key==='ArrowLeft')prev();
+  if(e.key==='Home')show(1);
+  if(e.key==='End')show(T);
+});
+show(1);
+</script>
+</body>
+</html>
