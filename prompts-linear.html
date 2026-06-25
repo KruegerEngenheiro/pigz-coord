@@ -3,37 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Prompts do Linear · PIGZ · Coordenação</title>
+<title>Prompts do Linear AI · PIGZ · Coordenação</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}
+
 .header{background:linear-gradient(135deg,#0F1117,#1A1D27);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);}
 .logo{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:900;color:#FA641E;}
 .rainbow{height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA);}
 .content{padding:32px 48px;}
-.section-label{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;color:#FA641E;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;margin-top:32px;}
+
+.how-to{background:#161820;border:1px solid rgba(96,165,250,.2);border-radius:14px;padding:20px 24px;margin-bottom:28px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;}
+.how-to-icon{font-size:28px;}
+.step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:12px;color:#9CA3AF;}
+.step-num{background:#FA641E;color:#fff;font-size:10px;font-weight:900;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.step strong{color:#F3F4F6;}
+
+.section-label{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;color:#FA641E;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;margin-top:28px;}
 .section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
-.view-card{background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px 22px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;}
-.view-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#FA641E;background:rgba(250,100,30,.1);padding:4px 8px;border-radius:6px;white-space:nowrap;}
-.view-title{font-size:13px;font-weight:800;margin-bottom:6px;}
-.view-desc{font-size:11px;color:#6B7280;margin-bottom:8px;}
-.filters{display:flex;flex-wrap:wrap;gap:6px;}
-.filter-chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:'JetBrains Mono',monospace;}
-.chip-team{background:rgba(96,165,250,.1);color:#60A5FA;}
-.chip-status{background:rgba(34,211,164,.1);color:#22D3A4;}
-.chip-prio{background:rgba(248,113,113,.1);color:#F87171;}
-.chip-date{background:rgba(167,139,250,.1);color:#A78BFA;}
-.chip-assignee{background:rgba(251,191,36,.1);color:#FBBF24;}
-.use-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap;}
-.use-daily{background:rgba(34,211,164,.1);color:#22D3A4;}
-.use-weekly{background:rgba(96,165,250,.1);color:#60A5FA;}
-.use-bugzero{background:rgba(250,100,30,.1);color:#FA641E;}
-.tip{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.12);border-radius:8px;padding:10px 14px;font-size:11px;color:#93C5FD;margin-top:8px;}
-.link-btn{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:7px;background:rgba(250,100,30,.12);color:#FA641E;border:1px solid rgba(250,100,30,.2);text-decoration:none;transition:all .2s;white-space:nowrap;}
-.link-btn:hover{background:rgba(250,100,30,.25);}
-.linear-ai{background:#161820;border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:20px 24px;margin-bottom:10px;}
-.ai-prompt{background:#0D0F14;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px 16px;font-size:11px;font-family:'JetBrains Mono',monospace;color:#D1D5DB;line-height:1.7;margin-top:10px;}
+
+.prompt-card{background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px 22px;margin-bottom:10px;}
+.prompt-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.prompt-meta{flex:1;}
+.prompt-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#FA641E;background:rgba(250,100,30,.1);padding:3px 8px;border-radius:5px;display:inline-block;margin-bottom:6px;}
+.prompt-title{font-size:13px;font-weight:800;margin-bottom:3px;}
+.prompt-desc{font-size:11px;color:#6B7280;}
+.use-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+
+.prompt-box{position:relative;background:#0D0F14;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px 18px;margin-top:10px;}
+.prompt-text{font-size:12px;font-family:'JetBrains Mono',monospace;color:#D1D5DB;line-height:1.8;white-space:pre-wrap;}
+.copy-btn{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:7px;background:rgba(250,100,30,.15);color:#FA641E;border:1px solid rgba(250,100,30,.3);cursor:pointer;font-family:'Poppins',sans-serif;transition:all .2s;z-index:1;}
+.copy-btn:hover{background:rgba(250,100,30,.3);}
+.copy-btn.ok{background:rgba(34,211,164,.15);color:#22D3A4;border-color:rgba(34,211,164,.3);}
+
+.where-to-use{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:10px;color:#6B7280;padding:7px 10px;border-radius:7px;background:rgba(255,255,255,.03);}
+.doc-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;}
+
+.states-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.states-table th{font-size:10px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.8px;padding:8px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);}
+.states-table td{font-size:11px;font-family:'JetBrains Mono',monospace;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:#D1D5DB;}
+.states-table tr:last-child td{border-bottom:none;}
 </style>
 </head>
 <body>
@@ -41,195 +51,307 @@ body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0
 <div class="header">
   <div>
     <div class="logo">PIGZ</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:3px">Prompts e Filtros do Linear · Guia de Consulta Rápida</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:3px">Prompts do Linear AI · Copie e cole na busca do Linear</div>
   </div>
-  <a href="index.html" style="font-size:11px;color:#FA641E;text-decoration:none;font-weight:700">← Voltar à Central</a>
+  <a href="index.html" style="font-size:11px;color:#FA641E;text-decoration:none;font-weight:700">← Central</a>
 </div>
 <div class="rainbow"></div>
 
 <div class="content">
 
-  <div style="margin-bottom:8px;font-size:11px;color:#6B7280">
-    Views para salvar no Linear · Time: <strong style="color:#38BDF8">RC (Relacionamento)</strong> | Acesse: <a href="https://linear.app/pigz/team/RC/issues" target="_blank" style="color:#FA641E">linear.app/pigz/team/RC/issues →</a>
-  </div>
-
-  <!-- VIEWS DIÁRIAS -->
-  <div class="section-label">📅 Views Diárias — Usar Todo Dia</div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 1</div>
+  <!-- COMO USAR -->
+  <div class="how-to">
+    <div class="how-to-icon">🤖</div>
     <div>
-      <div class="view-title">🔴 Urgentes + High em Aberto</div>
-      <div class="view-desc">Principal view de acompanhamento. Mostra tudo que é crítico e ainda não foi resolvido.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-prio">Priority: Urgent, High</span>
-        <span class="filter-chip chip-status">State: Aberto, Em Progresso, Em Análise</span>
-      </div>
-      <div class="tip" style="margin-top:8px">🎯 Usar no check-in da manhã e na War Room das 17h</div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?priority%5B0%5D=1&priority%5B1%5D=2" target="_blank" class="link-btn">Abrir no Linear →</a>
-  </div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 2</div>
-    <div>
-      <div class="view-title">⏱ Cards Parados há +2 dias</div>
-      <div class="view-desc">Issues com state "Em Progresso" mas sem atualização há mais de 48h. Usar para cobrança imediata.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-status">State: Em Progresso, Em Análise</span>
-        <span class="filter-chip chip-date">Updated: antes de 2 dias atrás</span>
-      </div>
-      <div class="tip" style="margin-top:8px">🎯 Se um dev aparece aqui, enviar Cobrança de Ritmo (Template 3)</div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues" target="_blank" class="link-btn">Abrir no Linear →</a>
-  </div>
-
-  <!-- VIEWS SEMANAIS -->
-  <div class="section-label">📊 Views Semanais — Usar para o Reporte</div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 3</div>
-    <div>
-      <div class="view-title">✅ Concluídos Esta Semana</div>
-      <div class="view-desc">Conta o que foi entregue nos últimos 7 dias. Alimenta o campo "Resolvidos na Semana" do reporte executivo.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-status">State: CONCLUÍDA</span>
-        <span class="filter-chip chip-date">Updated: últimos 7 dias</span>
-      </div>
-      <div class="tip" style="margin-top:8px">📋 Copiar o número total → campo "Resolvidos esta semana" no reporte</div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?state%5B0%5D=e6e55671-9b1b-4a66-9422-ad4765667ba2" target="_blank" class="link-btn">Abrir no Linear →</a>
-  </div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 4</div>
-    <div>
-      <div class="view-title">⚠️ Sem Responsável (Assignee)</div>
-      <div class="view-desc">Issues abertas sem ninguém responsável. Deve ser zero. Se aparecer algo, atribuir imediatamente.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-assignee">Assignee: Nenhum</span>
-        <span class="filter-chip chip-status">State: Aberto, Em Progresso, Backlog, Triage</span>
-      </div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=none" target="_blank" class="link-btn">Abrir no Linear →</a>
-  </div>
-
-  <!-- VIEWS POR DEV — BUG ZERO -->
-  <div class="section-label">👥 Views por Dev — Operação Bug Zero</div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 5</div>
-    <div>
-      <div class="view-title">🔵 João Paulo — Cards em Aberto</div>
-      <div class="view-desc">Todos os cards RC do sprint de JP ainda em aberto. Prazo: 08/07.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-assignee">Assignee: joao.resende@pigz.com.br</span>
-        <span class="filter-chip chip-status">State: qualquer aberto</span>
-      </div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=54ceacec-99a6-4e27-9685-6ac0bf8bd559" target="_blank" class="link-btn">JP no Linear →</a>
-  </div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 6</div>
-    <div>
-      <div class="view-title">🟢 Guilherme Alves — Cards em Aberto</div>
-      <div class="view-desc">Cards RC + RHC do sprint de GA. Prazo: 15/07.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC + RHC</span>
-        <span class="filter-chip chip-assignee">Assignee: guilherme.alves@pigz.com.br</span>
-        <span class="filter-chip chip-status">State: qualquer aberto</span>
-      </div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=7c535e68-fbf6-4a01-98e9-63df50a739df" target="_blank" class="link-btn">GA no Linear →</a>
-  </div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 7</div>
-    <div>
-      <div class="view-title">🩷 Vitor Rocha — Cards em Aberto</div>
-      <div class="view-desc">Cards RC do sprint de VR. Prazo: 15/07.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-assignee">Assignee: vitor.rocha@pigz.com.br</span>
-        <span class="filter-chip chip-status">State: qualquer aberto</span>
-      </div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=1d8aba99-12bc-4407-a1e2-f381f7cef4db" target="_blank" class="link-btn">VR no Linear →</a>
-  </div>
-
-  <div class="view-card">
-    <div class="view-num">VIEW 8</div>
-    <div>
-      <div class="view-title">🟠 Gustavo Carvalho — Cards em Aberto</div>
-      <div class="view-desc">Cards RC do sprint de GC. Prazo: 15/07.</div>
-      <div class="filters">
-        <span class="filter-chip chip-team">Team: RC</span>
-        <span class="filter-chip chip-assignee">Assignee: gustavo.carvalho@pigz.com.br</span>
-        <span class="filter-chip chip-status">State: qualquer aberto</span>
-      </div>
-    </div>
-    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=d9ac4b1f-282e-46db-b501-26d2786dab21" target="_blank" class="link-btn">GC no Linear →</a>
-  </div>
-
-  <!-- LINEAR AI -->
-  <div class="section-label">🤖 Linear AI — Prompts para Usar na Busca Interna</div>
-
-  <div class="linear-ai">
-    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Como usar o Linear AI</div>
-    <div style="font-size:11px;color:#6B7280;margin-bottom:12px">No Linear, clique no ícone de busca (Ctrl+K) e use linguagem natural. Os prompts abaixo são otimizados para o time RC.</div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div>
-        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Resumo do sprint</div>
-        <div class="ai-prompt">"Mostra o resumo dos issues urgentes abertos no time RC atribuídos ao João Paulo"</div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Issues parados</div>
-        <div class="ai-prompt">"Quais issues do time RC estão em progresso há mais de 2 dias sem atualização?"</div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Progresso por dev</div>
-        <div class="ai-prompt">"Quantos issues o Vitor Rocha concluiu nos últimos 7 dias no time RC?"</div>
-      </div>
-      <div>
-        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Issues críticos</div>
-        <div class="ai-prompt">"Liste todos os issues com prioridade Urgent abertos no time RC"</div>
-      </div>
+      <div style="font-size:14px;font-weight:800;margin-bottom:10px">Como usar estes prompts no Linear AI</div>
+      <div class="step"><div class="step-num">1</div><span>Acesse o Linear e pressione <strong>Ctrl + K</strong> (ou clique na barra de busca no topo)</span></div>
+      <div class="step"><div class="step-num">2</div><span>Clique em <strong>"Ask AI"</strong> ou no ícone de IA na barra de busca</span></div>
+      <div class="step"><div class="step-num">3</div><span>Clique em <strong>Copiar</strong> no prompt desejado abaixo e cole no campo de texto do Linear AI</span></div>
+      <div class="step"><div class="step-num">4</div><span>Use a resposta para preencher o documento indicado em <strong>"Usar para preencher"</strong></span></div>
     </div>
   </div>
 
-  <!-- ESTADOS DO LINEAR (RC) -->
-  <div class="section-label">🗂 Estados do Time RC — Referência</div>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #6B7280;">
-      <div style="font-size:11px;font-weight:700;color:#6B7280">BACKLOG / ABERTO</div>
-      <div style="font-size:10px;color:#4B5563;margin-top:4px">Ainda não iniciado</div>
+  <!-- PROMPTS BUG ZERO -->
+  <div class="section-label">🎯 Operação Bug Zero — Quarta e Sexta</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 1</div>
+        <div class="prompt-title">Resumo Geral do Sprint Bug Zero</div>
+        <div class="prompt-desc">Visão consolidada de todos os devs para o reporte CEO.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(250,100,30,.1);color:#FA641E">Quarta + Sexta</span>
     </div>
-    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #FBBF24;">
-      <div style="font-size:11px;font-weight:700;color:#FBBF24">EM ANÁLISE</div>
-      <div style="font-size:10px;color:#4B5563;margin-top:4px">Em investigação</div>
+    <div class="prompt-box" id="p1">
+      <button class="copy-btn" onclick="copiar('p1',this)">Copiar</button>
+      <div class="prompt-text">Quais issues do time RC estão com status CONCLUÍDA e foram atualizadas nos últimos 3 dias? Me dê o número do issue, título e o nome do responsável.</div>
     </div>
-    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #38BDF8;">
-      <div style="font-size:11px;font-weight:700;color:#38BDF8">EM PROGRESSO</div>
-      <div style="font-size:10px;color:#4B5563;margin-top:4px">Desenvolvimento ativo</div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(250,100,30,.1);color:#FA641E">Reporte CEO — "Concluídos desde a última atualização"</span>
     </div>
-    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #22D3A4;">
-      <div style="font-size:11px;font-weight:700;color:#22D3A4">CONCLUÍDA</div>
-      <div style="font-size:10px;color:#4B5563;margin-top:4px">Entregue ✓</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 2</div>
+        <div class="prompt-title">Urgentes em Aberto — Todos os Devs</div>
+        <div class="prompt-desc">Lista de todos os urgentes para identificar riscos.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(248,113,113,.1);color:#F87171">Todo dia</span>
     </div>
+    <div class="prompt-box" id="p2">
+      <button class="copy-btn" onclick="copiar('p2',this)">Copiar</button>
+      <div class="prompt-text">Liste todos os issues do time RC com prioridade Urgent que ainda não estão com status CONCLUÍDA. Inclua o número do issue, título, responsável e há quantos dias está aberto.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(250,100,30,.1);color:#FA641E">Reporte CEO — "Urgentes ainda abertos"</span>
+      <span class="doc-tag" style="background:rgba(248,113,113,.1);color:#F87171">Template Check-in — campo urgentes por dev</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 3</div>
+        <div class="prompt-title">Status por Desenvolvedor — João Paulo</div>
+        <div class="prompt-desc">Foco no João Paulo (prazo 08/07 — mais urgente).</div>
+      </div>
+      <span class="use-tag" style="background:rgba(56,189,248,.1);color:#38BDF8">JP · 08/07</span>
+    </div>
+    <div class="prompt-box" id="p3">
+      <button class="copy-btn" onclick="copiar('p3',this)">Copiar</button>
+      <div class="prompt-text">Quais issues do time RC estão atribuídos para João Paulo (joao.resende) e ainda não foram concluídos? Ordene por prioridade. Me diga quantos são urgentes, quantos são high e qual o total em aberto.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(56,189,248,.1);color:#38BDF8">Reporte CEO — linha JP</span>
+      <span class="doc-tag" style="background:rgba(251,191,36,.1);color:#FBBF24">Template cobrança individual</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 4</div>
+        <div class="prompt-title">Status por Desenvolvedor — Guilherme Alves</div>
+        <div class="prompt-desc">GA tem cards em RC e RHC (homologação).</div>
+      </div>
+      <span class="use-tag" style="background:rgba(34,211,164,.1);color:#22D3A4">GA · 15/07</span>
+    </div>
+    <div class="prompt-box" id="p4">
+      <button class="copy-btn" onclick="copiar('p4',this)">Copiar</button>
+      <div class="prompt-text">Quais issues dos times RC e RHC estão atribuídos para Guilherme Alves (guilherme.alves) e ainda não foram concluídos? Me diga o total em aberto, quantos são urgentes e se há algum parado há mais de 2 dias sem atualização.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(34,211,164,.1);color:#22D3A4">Reporte CEO — linha GA</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 5</div>
+        <div class="prompt-title">Status por Desenvolvedor — Vitor Rocha</div>
+        <div class="prompt-desc">VR tem o maior volume de cards (73).</div>
+      </div>
+      <span class="use-tag" style="background:rgba(244,114,182,.1);color:#F472B6">VR · 15/07</span>
+    </div>
+    <div class="prompt-box" id="p5">
+      <button class="copy-btn" onclick="copiar('p5',this)">Copiar</button>
+      <div class="prompt-text">Quais issues do time RC estão atribuídos para Vitor Rocha (vitor.rocha) e ainda não foram concluídos? Me diga o total em aberto, quantos são urgentes, quantos estão em progresso e se há algum parado há mais de 2 dias.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(244,114,182,.1);color:#F472B6">Reporte CEO — linha VR</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 6</div>
+        <div class="prompt-title">Status por Desenvolvedor — Gustavo Carvalho</div>
+        <div class="prompt-desc">GC tem o maior volume de concluídos até agora.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(250,100,30,.1);color:#FA641E">GC · 15/07</span>
+    </div>
+    <div class="prompt-box" id="p6">
+      <button class="copy-btn" onclick="copiar('p6',this)">Copiar</button>
+      <div class="prompt-text">Quais issues do time RC estão atribuídos para Gustavo Carvalho (gustavo.carvalho) e ainda não foram concluídos? Me diga o total em aberto, quantos são urgentes e quais foram concluídos nos últimos 3 dias.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(250,100,30,.1);color:#FA641E">Reporte CEO — linha GC</span>
+    </div>
+  </div>
+
+  <!-- PROMPTS REPORTE SEMANAL -->
+  <div class="section-label">📋 Reporte Semanal — Usar toda Sexta ou Sábado</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 7</div>
+        <div class="prompt-title">KPIs da Semana — Bugs Críticos e Resolvidos</div>
+        <div class="prompt-desc">Alimenta os KPIs do topo do reporte executivo.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(96,165,250,.1);color:#60A5FA">Toda semana</span>
+    </div>
+    <div class="prompt-box" id="p7">
+      <button class="copy-btn" onclick="copiar('p7',this)">Copiar</button>
+      <div class="prompt-text">Nos últimos 7 dias no time RC:
+1. Quantos issues com prioridade Urgent ou High foram resolvidos (status CONCLUÍDA)?
+2. Quantos issues com prioridade Urgent ou High ainda estão em aberto?
+3. Qual dev resolveu mais issues esta semana?
+4. Existe algum issue P0 ou P1 aberto há mais de 3 dias?</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(96,165,250,.1);color:#60A5FA">Reporte Semanal — KPIs do topo</span>
+      <span class="doc-tag" style="background:rgba(96,165,250,.1);color:#60A5FA">Template sábado — seção KPIs</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 8</div>
+        <div class="prompt-title">Impedimentos e Cards Bloqueados</div>
+        <div class="prompt-desc">Identifica o que está travado para preencher a seção de riscos.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(248,113,113,.1);color:#F87171">Toda semana</span>
+    </div>
+    <div class="prompt-box" id="p8">
+      <button class="copy-btn" onclick="copiar('p8',this)">Copiar</button>
+      <div class="prompt-text">No time RC, quais issues estão com status "Em Progresso" ou "Em Análise" e não receberam nenhuma atualização nos últimos 3 dias? Liste o número do issue, título, responsável e há quantos dias está parado.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(96,165,250,.1);color:#60A5FA">Reporte Semanal — "Impedimentos Ativos"</span>
+      <span class="doc-tag" style="background:rgba(251,191,36,.1);color:#FBBF24">Template sábado — "Pontos de Atenção"</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 9</div>
+        <div class="prompt-title">Conquistas da Semana</div>
+        <div class="prompt-desc">Issues mais relevantes fechados para destacar no reporte.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(34,211,164,.1);color:#22D3A4">Toda semana</span>
+    </div>
+    <div class="prompt-box" id="p9">
+      <button class="copy-btn" onclick="copiar('p9',this)">Copiar</button>
+      <div class="prompt-text">Quais foram os 5 issues mais importantes resolvidos no time RC nos últimos 7 dias? Priorize os de prioridade Urgent e High. Me dê o número, título e quem resolveu.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(96,165,250,.1);color:#60A5FA">Reporte Semanal — "Conquistas da Semana"</span>
+      <span class="doc-tag" style="background:rgba(251,191,36,.1);color:#FBBF24">Template sábado — "Conquistas"</span>
+    </div>
+  </div>
+
+  <!-- PROMPTS ACOMPANHAMENTO DIÁRIO -->
+  <div class="section-label">⚡ Acompanhamento Diário — Terça e Quinta</div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 10</div>
+        <div class="prompt-title">O que mudou desde ontem?</div>
+        <div class="prompt-desc">Snapshot rápido para o check-in da manhã e War Room.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(251,191,36,.1);color:#FBBF24">Terça e Quinta</span>
+    </div>
+    <div class="prompt-box" id="p10">
+      <button class="copy-btn" onclick="copiar('p10',this)">Copiar</button>
+      <div class="prompt-text">Quais issues do time RC foram atualizados nas últimas 24 horas? Me mostre o que mudou de status (especialmente os que foram para CONCLUÍDA), quem fez as atualizações e se algum issue urgente ficou sem movimento.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para preencher:
+      <span class="doc-tag" style="background:rgba(251,191,36,.1);color:#FBBF24">Template Check-in 09h — foco do dia por dev</span>
+      <span class="doc-tag" style="background:rgba(250,100,30,.1);color:#FA641E">War Room 17h — resumo do dia</span>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <div class="prompt-meta">
+        <div class="prompt-num">PROMPT 11</div>
+        <div class="prompt-title">Sem Responsável (Assignee)</div>
+        <div class="prompt-desc">Issues que precisam ser atribuídos imediatamente.</div>
+      </div>
+      <span class="use-tag" style="background:rgba(248,113,113,.1);color:#F87171">Deve ser zero</span>
+    </div>
+    <div class="prompt-box" id="p11">
+      <button class="copy-btn" onclick="copiar('p11',this)">Copiar</button>
+      <div class="prompt-text">Existem issues no time RC que estão em aberto (status Aberto, Em Análise, Em Progresso ou Backlog) sem nenhum responsável atribuído? Liste todos.</div>
+    </div>
+    <div class="where-to-use">
+      📋 Usar para:
+      <span class="doc-tag" style="background:rgba(248,113,113,.1);color:#F87171">Atribuição imediata — deve ser zero</span>
+    </div>
+  </div>
+
+  <!-- REFERÊNCIA DOS ESTADOS -->
+  <div class="section-label">🗂 Referência — Estados do Time RC</div>
+  <div style="background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:12px;overflow:hidden;">
+    <table class="states-table">
+      <thead>
+        <tr>
+          <th>Estado no Linear</th>
+          <th>Tipo</th>
+          <th>Significado</th>
+          <th>SLA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="color:#6B7280">BACKLOG</td><td style="color:#6B7280">backlog</td><td style="color:#9CA3AF">Na fila, ainda não iniciado</td><td style="color:#6B7280">—</td></tr>
+        <tr><td style="color:#9CA3AF">ABERTO</td><td style="color:#6B7280">unstarted</td><td style="color:#9CA3AF">Pronto para ser pego</td><td style="color:#6B7280">—</td></tr>
+        <tr><td style="color:#FBBF24">EM ANÁLISE</td><td style="color:#FBBF24">started</td><td style="color:#9CA3AF">Dev investigando o problema</td><td style="color:#FBBF24">Urgent: 4h · High: 24h</td></tr>
+        <tr><td style="color:#38BDF8">EM PROGRESSO</td><td style="color:#38BDF8">started</td><td style="color:#9CA3AF">Desenvolvimento ativo</td><td style="color:#38BDF8">Urgent: 24h · High: 3d</td></tr>
+        <tr><td style="color:#22D3A4">CONCLUÍDA</td><td style="color:#22D3A4">completed</td><td style="color:#9CA3AF">Entregue e fechado ✓</td><td style="color:#22D3A4">—</td></tr>
+        <tr><td style="color:#F87171">DUPLICADA / CANCELADA</td><td style="color:#F87171">cancelled</td><td style="color:#9CA3AF">Fechado sem resolver</td><td style="color:#6B7280">—</td></tr>
+      </tbody>
+    </table>
   </div>
 
 </div>
 
 <div style="padding:16px 48px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
-  <div style="font-size:11px;color:#374151">PIGZ · Prompts Linear · Coordenação Carlos Krueger</div>
+  <div style="font-size:11px;color:#374151">PIGZ · Prompts Linear AI · Coordenação Carlos Krueger</div>
   <a href="index.html" style="font-size:11px;color:#FA641E;font-weight:700;text-decoration:none">← Voltar à Central</a>
 </div>
+
+<script>
+function copiar(id, btn) {
+  const box = document.getElementById(id);
+  const clone = box.cloneNode(true);
+  clone.querySelector('.copy-btn')?.remove();
+  const texto = clone.querySelector('.prompt-text')?.innerText?.trim() || clone.innerText.trim();
+  navigator.clipboard.writeText(texto).then(() => {
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 2000);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 2000);
+  });
+}
+</script>
 </body>
 </html>
