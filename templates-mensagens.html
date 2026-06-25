@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Templates de Mensagens · PIGZ · Coordenação</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}
+.header{background:linear-gradient(135deg,#0F1117,#1A1D27);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);}
+.logo{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:900;color:#FA641E;}
+.rainbow{height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA);}
+.content{padding:32px 48px;}
+.section-label{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;color:#FA641E;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;margin-top:32px;}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
+.template-card{background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:22px 24px;margin-bottom:14px;}
+.template-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.template-title{font-size:14px;font-weight:800;}
+.template-meta{font-size:10px;color:#6B7280;}
+.template-body{background:#0D0F14;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:16px 18px;font-size:12px;line-height:1.8;color:#D1D5DB;font-family:'JetBrains Mono',monospace;white-space:pre-wrap;position:relative;}
+.copy-btn{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px;background:rgba(250,100,30,.15);color:#FA641E;border:1px solid rgba(250,100,30,.3);cursor:pointer;font-family:'Poppins',sans-serif;transition:all .2s;}
+.copy-btn:hover{background:rgba(250,100,30,.3);}
+.copy-btn.copied{background:rgba(34,211,164,.15);color:#22D3A4;border-color:rgba(34,211,164,.3);}
+.when{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:10px;}
+.var{color:#FBBF24;font-style:normal;}
+.tip{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.12);border-radius:8px;padding:10px 14px;font-size:11px;color:#93C5FD;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">PIGZ</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:3px">Templates de Mensagens · Google Chat</div>
+  </div>
+  <a href="index.html" style="font-size:11px;color:#FA641E;text-decoration:none;font-weight:700">← Voltar à Central</a>
+</div>
+<div class="rainbow"></div>
+
+<div class="content">
+
+  <div style="margin-bottom:8px;font-size:11px;color:#6B7280">Clique em <strong style="color:#FA641E">Copiar</strong> em cada template e cole direto no Google Chat. Substitua os campos em <span style="color:#FBBF24">amarelo</span>.</div>
+
+  <!-- CHECK-IN DIÁRIO -->
+  <div class="section-label">⚡ 1. Check-in Diário — 09h · Todo dia</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Check-in da Manhã · War Room</div>
+        <div class="template-meta">Para: Grupo do squad · Todo dia às 09h</div>
+      </div>
+      <span class="when" style="background:rgba(34,211,164,.1);color:#22D3A4">⚡ TODO DIA 09h</span>
+    </div>
+    <div class="template-body" id="t1">⚡ Bug Zero · Check-in [DD/MM]
+
+Bom dia time. Snapshot de hoje:
+📊 Sprint: [X]/230 ([X]%) · Dia [X] de 21
+
+Foco do dia:
+🔵 JP → Urgentes: [X] | Foco: [RC-XXXX]
+🟢 GA → Urgentes: [X] | Foco: [RC-XXXX]
+🩷 VR → Urgentes: [X] | Foco: [RC-XXXX]
+🟠 GC → Urgentes: [X] | Foco: [RC-XXXX]
+
+Lembrete: Urgentes têm SLA de 24h.
+Travou? 👉 Abre o microfone na hora.
+
+War Room: 17h–18h (obrigatório)
+      <button class="copy-btn" onclick="copiar('t1',this)">Copiar</button>
+    </div>
+    <div class="tip">💡 Preencha os números abrindo o <a href="dashboard-bug-zero.html" style="color:#60A5FA">Dashboard Bug Zero</a> antes de enviar.</div>
+  </div>
+
+  <!-- COBRANÇA INDIVIDUAL — URGENTE PARADO -->
+  <div class="section-label">🔴 2. Cobrança Individual — Urgente Parado</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Urgente sem movimento há +24h</div>
+        <div class="template-meta">Para: Dev individualmente (mensagem privada)</div>
+      </div>
+      <span class="when" style="background:rgba(248,113,113,.1);color:#F87171">🔴 QUANDO: Urgente parado +24h</span>
+    </div>
+    <div class="template-body" id="t2">Oi [NOME], tudo bem?
+
+Olhando o dashboard, [RC-XXXX] está há [X]h 
+sem atualização e o SLA de Urgent já expirou.
+
+Qual é o status? O que está travando?
+
+Se precisar de suporte técnico do time ou 
+validação de QA, me fala agora que resolvo.
+
+Preciso de uma resposta em até 30 min.
+      <button class="copy-btn" onclick="copiar('t2',this)">Copiar</button>
+    </div>
+  </div>
+
+  <!-- COBRANÇA DE RITMO -->
+  <div class="section-label">🟡 3. Cobrança de Ritmo — Dev Abaixo da Meta</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Dev com ritmo abaixo do esperado</div>
+        <div class="template-meta">Para: Dev individualmente · Quarta ou Sexta</div>
+      </div>
+      <span class="when" style="background:rgba(251,191,36,.1);color:#FBBF24">🟡 QUANDO: Ritmo "risco" ou "crítico"</span>
+    </div>
+    <div class="template-body" id="t3">Oi [NOME], revisão rápida do sprint:
+
+📊 Você está em [X]% ([X]/[TOTAL] cards)
+⏱ O sprint já consumiu [X]% do tempo
+
+No ritmo atual, a projeção indica ~[X] dias 
+de atraso no prazo de [DATA].
+
+Para fechar no prazo, precisaria de ~[X] 
+cards por dia até [DATA].
+
+O que precisamos ajustar? Tem algum card 
+travando os outros? Posso redistribuir algo?
+
+Bora resolver isso na War Room hoje às 17h.
+      <button class="copy-btn" onclick="copiar('t3',this)">Copiar</button>
+    </div>
+    <div class="tip">💡 Preencha os números com o <a href="dashboard-bug-zero.html" style="color:#60A5FA">score de ritmo do dashboard</a>.</div>
+  </div>
+
+  <!-- ESCALADA -->
+  <div class="section-label">🚨 4. Escalada — Card Bloqueado</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Card urgente bloqueado sem resposta</div>
+        <div class="template-meta">Para: Grupo do squad · Quando urgente parado +4h sem resposta</div>
+      </div>
+      <span class="when" style="background:rgba(248,113,113,.1);color:#F87171">🚨 QUANDO: Urgente parado +4h sem resposta</span>
+    </div>
+    <div class="template-body" id="t4">🚨 Escalada · [RC-XXXX]
+
+Card: [TÍTULO DO CARD]
+Dev responsável: [NOME]
+Parado há: [X]h
+Impacto: [DESCRIÇÃO DO IMPACTO SE NÃO RESOLVIDO]
+
+@[NOME DO DEV] — o que precisamos para 
+desbloquear isso agora?
+
+@[OUTRO DEV] — consegue dar suporte?
+
+Preciso de uma resposta nos próximos 30 min.
+Se não resolver até [HORÁRIO], levo para o 
+coordenador acima.
+      <button class="copy-btn" onclick="copiar('t4',this)">Copiar</button>
+    </div>
+  </div>
+
+  <!-- WAR ROOM 17h -->
+  <div class="section-label">🎯 5. Abertura da War Room — 17h</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Abertura da sessão diária da War Room</div>
+        <div class="template-meta">Para: Grupo do squad · Todo dia às 17h</div>
+      </div>
+      <span class="when" style="background:rgba(250,100,30,.1);color:#FA641E">🎯 TODO DIA 17h</span>
+    </div>
+    <div class="template-body" id="t5">🎯 War Room · [DD/MM] · 17h
+
+Entrando na sala agora. Vamos ao fechamento do dia:
+
+✅ O que fechou hoje?
+🔴 O que ficou aberto?
+🧱 Tem algum bloqueio para amanhã?
+📌 Qual o foco de amanhã?
+
+Entrada obrigatória para todos.
+Tempo máximo: 60 minutos.
+      <button class="copy-btn" onclick="copiar('t5',this)">Copiar</button>
+    </div>
+  </div>
+
+  <!-- REPORTE SEMANAL COORDENADORES (SÁBADO) -->
+  <div class="section-label">📋 6. Reporte de Sábado — Para Coordenadores</div>
+  <div class="template-card">
+    <div class="template-header">
+      <div>
+        <div class="template-title">Reporte semanal para coordenadores</div>
+        <div class="template-meta">Para: Canal de coordenação · Todo sábado</div>
+      </div>
+      <span class="when" style="background:rgba(96,165,250,.1);color:#60A5FA">📋 TODO SÁBADO</span>
+    </div>
+    <div class="template-body" id="t6">📋 Reporte Semanal · Squad Pigz · S[X] · [DD/MM]
+
+🎯 OPERAÇÃO BUG ZERO
+   Progresso: [X]/230 ([X]%) · Dia [X] de 21
+   Concluídos na semana: +[X] cards
+   JP: [X]/37 ([X]%) · GA: [X]/50 ([X]%)
+   VR: [X]/73 ([X]%) · GC: [X]/70 ([X]%)
+
+📊 KPIs DA SEMANA
+   Urgentes fechados: [X]
+   Urgentes ainda abertos: [X]
+   Cards em progresso: [X]
+
+⚠️ PONTOS DE ATENÇÃO
+   • [RISCO OU BLOQUEIO 1]
+   • [RISCO OU BLOQUEIO 2]
+
+✅ CONQUISTAS
+   • [CONQUISTA 1]
+   • [CONQUISTA 2]
+
+📅 PRÓXIMA SEMANA
+   Foco: [PRIORIDADE]
+   JP entrega em: [X]d (08/07)
+
+📊 Dashboard: https://kruegerengenheiro.github.io/pigz-coord/dashboard-bug-zero.html
+      <button class="copy-btn" onclick="copiar('t6',this)">Copiar</button>
+    </div>
+    <div class="tip">💡 Preencha com os dados do <a href="dashboard-bug-zero.html" style="color:#60A5FA">dashboard</a> e do <a href="reporte-executivo.html" style="color:#60A5FA">reporte executivo</a>.</div>
+  </div>
+
+</div>
+
+<div style="padding:16px 48px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
+  <div style="font-size:11px;color:#374151">PIGZ · Templates de Mensagens · Coordenação Carlos Krueger</div>
+  <a href="index.html" style="font-size:11px;color:#FA641E;font-weight:700;text-decoration:none">← Voltar à Central</a>
+</div>
+
+<script>
+function copiar(id, btn) {
+  const el = document.getElementById(id);
+  const btn_el = el.querySelector('.copy-btn');
+  // Pega o texto sem o botão
+  const clone = el.cloneNode(true);
+  clone.querySelector('.copy-btn')?.remove();
+  const texto = clone.innerText.trim();
+  navigator.clipboard.writeText(texto).then(()=>{
+    btn.textContent = '✓ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(()=>{
+      btn.textContent = 'Copiar';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

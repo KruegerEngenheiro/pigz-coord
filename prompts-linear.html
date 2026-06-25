@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompts do Linear · PIGZ · Coordenação</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:#0D0F14;color:#F3F4F6;padding:0 0 60px;}
+.header{background:linear-gradient(135deg,#0F1117,#1A1D27);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.06);}
+.logo{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:900;color:#FA641E;}
+.rainbow{height:3px;background:linear-gradient(90deg,#FA641E,#F472B6,#22D3A4,#60A5FA);}
+.content{padding:32px 48px;}
+.section-label{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;color:#FA641E;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;margin-top:32px;}
+.section-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
+.view-card{background:#161820;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px 22px;margin-bottom:10px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:start;}
+.view-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#FA641E;background:rgba(250,100,30,.1);padding:4px 8px;border-radius:6px;white-space:nowrap;}
+.view-title{font-size:13px;font-weight:800;margin-bottom:6px;}
+.view-desc{font-size:11px;color:#6B7280;margin-bottom:8px;}
+.filters{display:flex;flex-wrap:wrap;gap:6px;}
+.filter-chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:'JetBrains Mono',monospace;}
+.chip-team{background:rgba(96,165,250,.1);color:#60A5FA;}
+.chip-status{background:rgba(34,211,164,.1);color:#22D3A4;}
+.chip-prio{background:rgba(248,113,113,.1);color:#F87171;}
+.chip-date{background:rgba(167,139,250,.1);color:#A78BFA;}
+.chip-assignee{background:rgba(251,191,36,.1);color:#FBBF24;}
+.use-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap;}
+.use-daily{background:rgba(34,211,164,.1);color:#22D3A4;}
+.use-weekly{background:rgba(96,165,250,.1);color:#60A5FA;}
+.use-bugzero{background:rgba(250,100,30,.1);color:#FA641E;}
+.tip{background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.12);border-radius:8px;padding:10px 14px;font-size:11px;color:#93C5FD;margin-top:8px;}
+.link-btn{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:7px;background:rgba(250,100,30,.12);color:#FA641E;border:1px solid rgba(250,100,30,.2);text-decoration:none;transition:all .2s;white-space:nowrap;}
+.link-btn:hover{background:rgba(250,100,30,.25);}
+.linear-ai{background:#161820;border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:20px 24px;margin-bottom:10px;}
+.ai-prompt{background:#0D0F14;border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px 16px;font-size:11px;font-family:'JetBrains Mono',monospace;color:#D1D5DB;line-height:1.7;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="logo">PIGZ</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:3px">Prompts e Filtros do Linear · Guia de Consulta Rápida</div>
+  </div>
+  <a href="index.html" style="font-size:11px;color:#FA641E;text-decoration:none;font-weight:700">← Voltar à Central</a>
+</div>
+<div class="rainbow"></div>
+
+<div class="content">
+
+  <div style="margin-bottom:8px;font-size:11px;color:#6B7280">
+    Views para salvar no Linear · Time: <strong style="color:#38BDF8">RC (Relacionamento)</strong> | Acesse: <a href="https://linear.app/pigz/team/RC/issues" target="_blank" style="color:#FA641E">linear.app/pigz/team/RC/issues →</a>
+  </div>
+
+  <!-- VIEWS DIÁRIAS -->
+  <div class="section-label">📅 Views Diárias — Usar Todo Dia</div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 1</div>
+    <div>
+      <div class="view-title">🔴 Urgentes + High em Aberto</div>
+      <div class="view-desc">Principal view de acompanhamento. Mostra tudo que é crítico e ainda não foi resolvido.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-prio">Priority: Urgent, High</span>
+        <span class="filter-chip chip-status">State: Aberto, Em Progresso, Em Análise</span>
+      </div>
+      <div class="tip" style="margin-top:8px">🎯 Usar no check-in da manhã e na War Room das 17h</div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?priority%5B0%5D=1&priority%5B1%5D=2" target="_blank" class="link-btn">Abrir no Linear →</a>
+  </div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 2</div>
+    <div>
+      <div class="view-title">⏱ Cards Parados há +2 dias</div>
+      <div class="view-desc">Issues com state "Em Progresso" mas sem atualização há mais de 48h. Usar para cobrança imediata.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-status">State: Em Progresso, Em Análise</span>
+        <span class="filter-chip chip-date">Updated: antes de 2 dias atrás</span>
+      </div>
+      <div class="tip" style="margin-top:8px">🎯 Se um dev aparece aqui, enviar Cobrança de Ritmo (Template 3)</div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues" target="_blank" class="link-btn">Abrir no Linear →</a>
+  </div>
+
+  <!-- VIEWS SEMANAIS -->
+  <div class="section-label">📊 Views Semanais — Usar para o Reporte</div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 3</div>
+    <div>
+      <div class="view-title">✅ Concluídos Esta Semana</div>
+      <div class="view-desc">Conta o que foi entregue nos últimos 7 dias. Alimenta o campo "Resolvidos na Semana" do reporte executivo.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-status">State: CONCLUÍDA</span>
+        <span class="filter-chip chip-date">Updated: últimos 7 dias</span>
+      </div>
+      <div class="tip" style="margin-top:8px">📋 Copiar o número total → campo "Resolvidos esta semana" no reporte</div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?state%5B0%5D=e6e55671-9b1b-4a66-9422-ad4765667ba2" target="_blank" class="link-btn">Abrir no Linear →</a>
+  </div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 4</div>
+    <div>
+      <div class="view-title">⚠️ Sem Responsável (Assignee)</div>
+      <div class="view-desc">Issues abertas sem ninguém responsável. Deve ser zero. Se aparecer algo, atribuir imediatamente.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-assignee">Assignee: Nenhum</span>
+        <span class="filter-chip chip-status">State: Aberto, Em Progresso, Backlog, Triage</span>
+      </div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=none" target="_blank" class="link-btn">Abrir no Linear →</a>
+  </div>
+
+  <!-- VIEWS POR DEV — BUG ZERO -->
+  <div class="section-label">👥 Views por Dev — Operação Bug Zero</div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 5</div>
+    <div>
+      <div class="view-title">🔵 João Paulo — Cards em Aberto</div>
+      <div class="view-desc">Todos os cards RC do sprint de JP ainda em aberto. Prazo: 08/07.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-assignee">Assignee: joao.resende@pigz.com.br</span>
+        <span class="filter-chip chip-status">State: qualquer aberto</span>
+      </div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=54ceacec-99a6-4e27-9685-6ac0bf8bd559" target="_blank" class="link-btn">JP no Linear →</a>
+  </div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 6</div>
+    <div>
+      <div class="view-title">🟢 Guilherme Alves — Cards em Aberto</div>
+      <div class="view-desc">Cards RC + RHC do sprint de GA. Prazo: 15/07.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC + RHC</span>
+        <span class="filter-chip chip-assignee">Assignee: guilherme.alves@pigz.com.br</span>
+        <span class="filter-chip chip-status">State: qualquer aberto</span>
+      </div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=7c535e68-fbf6-4a01-98e9-63df50a739df" target="_blank" class="link-btn">GA no Linear →</a>
+  </div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 7</div>
+    <div>
+      <div class="view-title">🩷 Vitor Rocha — Cards em Aberto</div>
+      <div class="view-desc">Cards RC do sprint de VR. Prazo: 15/07.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-assignee">Assignee: vitor.rocha@pigz.com.br</span>
+        <span class="filter-chip chip-status">State: qualquer aberto</span>
+      </div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=1d8aba99-12bc-4407-a1e2-f381f7cef4db" target="_blank" class="link-btn">VR no Linear →</a>
+  </div>
+
+  <div class="view-card">
+    <div class="view-num">VIEW 8</div>
+    <div>
+      <div class="view-title">🟠 Gustavo Carvalho — Cards em Aberto</div>
+      <div class="view-desc">Cards RC do sprint de GC. Prazo: 15/07.</div>
+      <div class="filters">
+        <span class="filter-chip chip-team">Team: RC</span>
+        <span class="filter-chip chip-assignee">Assignee: gustavo.carvalho@pigz.com.br</span>
+        <span class="filter-chip chip-status">State: qualquer aberto</span>
+      </div>
+    </div>
+    <a href="https://linear.app/pigz/team/RC/issues?assignee%5B0%5D=d9ac4b1f-282e-46db-b501-26d2786dab21" target="_blank" class="link-btn">GC no Linear →</a>
+  </div>
+
+  <!-- LINEAR AI -->
+  <div class="section-label">🤖 Linear AI — Prompts para Usar na Busca Interna</div>
+
+  <div class="linear-ai">
+    <div style="font-size:13px;font-weight:800;margin-bottom:6px">Como usar o Linear AI</div>
+    <div style="font-size:11px;color:#6B7280;margin-bottom:12px">No Linear, clique no ícone de busca (Ctrl+K) e use linguagem natural. Os prompts abaixo são otimizados para o time RC.</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Resumo do sprint</div>
+        <div class="ai-prompt">"Mostra o resumo dos issues urgentes abertos no time RC atribuídos ao João Paulo"</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Issues parados</div>
+        <div class="ai-prompt">"Quais issues do time RC estão em progresso há mais de 2 dias sem atualização?"</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Progresso por dev</div>
+        <div class="ai-prompt">"Quantos issues o Vitor Rocha concluiu nos últimos 7 dias no time RC?"</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Issues críticos</div>
+        <div class="ai-prompt">"Liste todos os issues com prioridade Urgent abertos no time RC"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTADOS DO LINEAR (RC) -->
+  <div class="section-label">🗂 Estados do Time RC — Referência</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #6B7280;">
+      <div style="font-size:11px;font-weight:700;color:#6B7280">BACKLOG / ABERTO</div>
+      <div style="font-size:10px;color:#4B5563;margin-top:4px">Ainda não iniciado</div>
+    </div>
+    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #FBBF24;">
+      <div style="font-size:11px;font-weight:700;color:#FBBF24">EM ANÁLISE</div>
+      <div style="font-size:10px;color:#4B5563;margin-top:4px">Em investigação</div>
+    </div>
+    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #38BDF8;">
+      <div style="font-size:11px;font-weight:700;color:#38BDF8">EM PROGRESSO</div>
+      <div style="font-size:10px;color:#4B5563;margin-top:4px">Desenvolvimento ativo</div>
+    </div>
+    <div style="background:#161820;border-radius:10px;padding:14px 16px;border-left:3px solid #22D3A4;">
+      <div style="font-size:11px;font-weight:700;color:#22D3A4">CONCLUÍDA</div>
+      <div style="font-size:10px;color:#4B5563;margin-top:4px">Entregue ✓</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="padding:16px 48px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;align-items:center">
+  <div style="font-size:11px;color:#374151">PIGZ · Prompts Linear · Coordenação Carlos Krueger</div>
+  <a href="index.html" style="font-size:11px;color:#FA641E;font-weight:700;text-decoration:none">← Voltar à Central</a>
+</div>
+</body>
+</html>
