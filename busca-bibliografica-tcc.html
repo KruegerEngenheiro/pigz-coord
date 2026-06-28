@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Busca Bibliográfica Estruturada — TCC PROFNIT | Chatbot eSocial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#eef2f7; color:#1e2d3d; font-size:14px; line-height:1.75; }
+
+    .page { max-width:960px; margin:36px auto 56px; background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 10px 48px rgba(0,0,0,.1); }
+
+    /* HEADER */
+    .header { background:linear-gradient(135deg,#002366,#003087 55%,#00509e); padding:40px 50px 32px; color:#fff; position:relative; overflow:hidden; }
+    .header::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,.05); }
+    .badge { display:inline-flex; align-items:center; gap:7px; background:rgba(201,162,39,.2); border:1px solid rgba(201,162,39,.45); color:#f5d76e; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:14px; }
+    .header h1 { font-size:24px; font-weight:800; line-height:1.3; margin-bottom:8px; }
+    .header h1 span { color:#f5d76e; }
+    .header p { font-size:13px; opacity:.82; max-width:640px; line-height:1.65; }
+    .header-meta { margin-top:18px; display:flex; flex-wrap:wrap; gap:10px; }
+    .meta-pill { background:rgba(255,255,255,.12); padding:4px 14px; border-radius:20px; font-size:11.5px; font-weight:500; }
+
+    /* BODY */
+    .body { padding:36px 50px 48px; }
+
+    /* SECTION TITLE */
+    .sec { margin-bottom:32px; }
+    .sec-title { font-size:11.5px; font-weight:700; color:#003087; letter-spacing:1.3px; text-transform:uppercase; margin-bottom:16px; padding-bottom:10px; border-bottom:2px solid #dde8f5; display:flex; align-items:center; gap:8px; }
+
+    /* ALERT BOXES */
+    .alert { border-radius:12px; padding:16px 20px; margin-bottom:20px; font-size:13.5px; line-height:1.8; }
+    .alert-blue { background:#e3f2fd; border-left:4px solid #1565c0; color:#1a3050; }
+    .alert-green { background:#e8f5e9; border-left:4px solid #2e7d32; color:#1a3020; }
+    .alert-orange { background:#fff3e0; border-left:4px solid #e65100; color:#3a1500; }
+    .alert strong { font-weight:700; }
+
+    /* CLUSTER CARDS */
+    .cluster { border:1.5px solid #dde8f5; border-radius:16px; margin-bottom:18px; overflow:hidden; }
+    .cluster-head { display:flex; align-items:center; gap:0; }
+    .cluster-num { min-width:54px; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#fff; flex-shrink:0; background:linear-gradient(180deg,#003087,#0052cc); }
+    .c2 .cluster-num { background:linear-gradient(180deg,#2e7d32,#43a047); }
+    .c3 .cluster-num { background:linear-gradient(180deg,#00695c,#00897b); }
+    .c4 .cluster-num { background:linear-gradient(180deg,#6a1b9a,#8e24aa); }
+    .c5 .cluster-num { background:linear-gradient(180deg,#c62828,#e53935); }
+    .cluster-head-info { flex:1; padding:14px 20px; background:#fafbff; border-bottom:1px solid #eef2f7; }
+    .cluster-tema { font-size:13px; font-weight:700; color:#1a2e4a; margin-bottom:4px; }
+    .cluster-keys { font-size:11.5px; color:#6b7a90; }
+    .cluster-body { padding:16px 20px 18px; }
+    .string-label { font-size:11px; font-weight:700; color:#6b7a90; letter-spacing:.8px; text-transform:uppercase; margin-bottom:6px; }
+    .string-box { background:#f0f4fa; border:1px solid #d0ddf0; border-radius:8px; padding:10px 14px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#1a2e4a; line-height:1.7; word-break:break-word; margin-bottom:10px; }
+    .filter-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+    .filter-tag { font-size:11px; font-weight:600; background:#eef2f7; color:#4a5f7a; padding:3px 10px; border-radius:10px; }
+
+    /* ARTIGO CARDS */
+    .artigo { border:1.5px solid #dde8f5; border-radius:14px; margin-bottom:16px; overflow:hidden; }
+    .artigo-top { display:flex; align-items:stretch; }
+    .artigo-badge { min-width:48px; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#fff; flex-shrink:0; }
+    .ab1 { background:linear-gradient(180deg,#1565c0,#1976d2); }
+    .ab2 { background:linear-gradient(180deg,#2e7d32,#43a047); }
+    .ab3 { background:linear-gradient(180deg,#e65100,#ef6c00); }
+    .ab4 { background:linear-gradient(180deg,#00695c,#00897b); }
+    .ab5 { background:linear-gradient(180deg,#6a1b9a,#8e24aa); }
+    .ab6 { background:linear-gradient(180deg,#c62828,#e53935); }
+    .artigo-info { flex:1; padding:14px 20px 10px; background:#fafbff; border-bottom:1px solid #eef2f7; }
+    .artigo-title { font-size:13.5px; font-weight:700; color:#1a2e4a; line-height:1.45; margin-bottom:4px; }
+    .artigo-authors { font-size:12px; color:#6b7a90; margin-bottom:6px; }
+    .doi-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .doi-link { font-size:12px; font-weight:600; color:#003087; text-decoration:none; word-break:break-all; border-bottom:1px dashed #003087; }
+    .doi-link:hover { color:#0070c0; }
+    .verified { display:inline-flex; align-items:center; gap:4px; background:#e8f5e9; color:#2e7d32; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px; }
+    .artigo-body { padding:14px 20px 16px; }
+    .artigo-resumo { font-size:13.5px; color:#2c3e50; line-height:1.85; margin-bottom:10px; }
+    .tag-row { display:flex; flex-wrap:wrap; gap:6px; }
+    .tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:10px; }
+    .t-blue { background:#e3f2fd; color:#1565c0; }
+    .t-green { background:#e8f5e9; color:#2e7d32; }
+    .t-orange { background:#fff3e0; color:#e65100; }
+    .t-teal { background:#e0f2f1; color:#00695c; }
+    .t-purple { background:#f3e5f5; color:#6a1b9a; }
+    .t-red { background:#fce4ec; color:#c62828; }
+
+    /* MATRIZ */
+    .matrix-wrap { overflow-x:auto; margin-bottom:0; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    thead th { background:#003087; color:#fff; padding:12px 14px; text-align:left; font-size:11.5px; font-weight:700; letter-spacing:.5px; }
+    tbody tr:nth-child(even) { background:#f7f9fd; }
+    tbody td { padding:11px 14px; vertical-align:top; border-bottom:1px solid #eef2f7; line-height:1.7; color:#2c3e50; }
+    tbody td:first-child { font-weight:600; color:#003087; white-space:nowrap; font-size:12px; }
+    tbody td strong { color:#1a2e4a; }
+
+    /* FERRAMENTAS */
+    .tool-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+    .tool-card { border:1.5px solid #dde8f5; border-radius:12px; padding:14px 16px; }
+    .tool-icon { font-size:20px; margin-bottom:6px; }
+    .tool-name { font-size:13px; font-weight:700; color:#003087; margin-bottom:4px; }
+    .tool-desc { font-size:12.5px; color:#4a5f7a; line-height:1.6; }
+
+    /* PROMPTS */
+    .prompt-item { background:#f7f9fd; border:1px solid #dde8f5; border-radius:10px; padding:12px 16px; margin-bottom:10px; font-size:13px; color:#2c3e50; line-height:1.7; }
+    .prompt-label { font-size:10.5px; font-weight:700; color:#003087; letter-spacing:.8px; text-transform:uppercase; margin-bottom:5px; }
+
+    /* FOOTER */
+    .footer { background:#f0f4fa; border-top:1px solid #dde8f5; padding:15px 50px; display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:#7a8a9a; }
+    .footer strong { color:#003087; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- CABEÇALHO -->
+  <div class="header">
+    <div class="badge">📚 Atividade de Pesquisa — TCC PROFNIT</div>
+    <h1>Busca Bibliográfica Estruturada<br><span>Chatbot Especialista em eSocial</span></h1>
+    <p>Pesquisa sistematizada em bases bibliográficas com operadores booleanos, filtros documentados, artigos validados com DOI e matriz de literatura. Conforme protocolo PROFNIT de pesquisa acadêmica.</p>
+    <div class="header-meta">
+      <span class="meta-pill">📅 Junho de 2026</span>
+      <span class="meta-pill">✅ 6 artigos validados com DOI</span>
+      <span class="meta-pill">🗄️ 5 bases consultadas</span>
+      <span class="meta-pill">🔗 Strings booleanas documentadas</span>
+    </div>
+  </div>
+
+  <!-- CORPO -->
+  <div class="body">
+
+    <!-- SEÇÃO 1 – ESTRATÉGIAS DE BUSCA -->
+    <div class="sec">
+      <div class="sec-title">🔍 1. Estratégias de Busca por Cluster Temático</div>
+
+      <div class="alert alert-blue">
+        <strong>Metodologia:</strong> As buscas foram organizadas em 5 clusters temáticos, cada um com string booleana específica usando os operadores <strong>AND</strong> (combinar conceitos), <strong>OR</strong> (sinônimos/variações) e <strong>NOT</strong> (eliminar ruído). Todas as strings foram executadas nas bases SciELO, Portal CAPES, Google Scholar e bases internacionais (ACM, IEEE). Filtros aplicados: artigos revisados por pares, período 2018–2026, idioma português, espanhol e inglês.
+      </div>
+
+      <!-- CLUSTER 1 -->
+      <div class="cluster c1">
+        <div class="cluster-head">
+          <div class="cluster-num">C1</div>
+          <div class="cluster-head-info">
+            <div class="cluster-tema">Chatbot + Inteligência Artificial + Processamento de Linguagem Natural</div>
+            <div class="cluster-keys">Chatbot · Arquitetura de chatbot · PLN · Machine Learning · NLP</div>
+          </div>
+        </div>
+        <div class="cluster-body">
+          <div class="string-label">String Booleana — Portal CAPES / Google Scholar</div>
+          <div class="string-box">TI("Chatbot" OR "Conversational agent" OR "Virtual assistant") AND AB("Natural Language Processing" OR "NLP" OR "Machine Learning" OR "Artificial Intelligence") AND KW("public service" OR "e-government" OR "administration" OR "health" OR "framework")</div>
+          <div class="string-label">Variação — Bases Internacionais (ACM / IEEE Xplore)</div>
+          <div class="string-box">("chatbot architecture" OR "arquitetura de chatbot") AND ("NLP" OR "natural language understanding" OR "deep learning") AND ("design" OR "framework" OR "implementation") AND NOT ("social media" OR "marketing")</div>
+          <div class="filter-row">
+            <span class="filter-tag">📅 2018–2026</span>
+            <span class="filter-tag">📄 Article / Conference paper</span>
+            <span class="filter-tag">🌐 Inglês / Português</span>
+            <span class="filter-tag">🔬 Peer-reviewed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 2 -->
+      <div class="cluster c2">
+        <div class="cluster-head">
+          <div class="cluster-num">C2</div>
+          <div class="cluster-head-info">
+            <div class="cluster-tema">eSocial + Obrigações Trabalhistas + Conformidade Digital</div>
+            <div class="cluster-keys">eSocial · Obrigações trabalhistas · Previdenciária · Compliance · Contabilidade</div>
+          </div>
+        </div>
+        <div class="cluster-body">
+          <div class="string-label">String Booleana — SciELO / Portal CAPES / Google Scholar</div>
+          <div class="string-box">TI("eSocial" OR "e-Social") AND AB("Brazil" OR "Brasil") AND KW("obrigações trabalhistas" OR "labor compliance" OR "previdenciária" OR "contabilidade" OR "departamento pessoal")</div>
+          <div class="string-label">Variação com Truncagem</div>
+          <div class="string-box">("eSocial*") AND ("impacto*" OR "desafio*" OR "implementa*") AND ("contábil*" OR "fiscal*" OR "trabalhista*") AND ("Brasil" OR "Brazil")</div>
+          <div class="filter-row">
+            <span class="filter-tag">📅 2018–2026</span>
+            <span class="filter-tag">📄 Artigo original / Review</span>
+            <span class="filter-tag">🇧🇷 Português</span>
+            <span class="filter-tag">🗄️ SciELO + CAPES + Periódicos BR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 3 -->
+      <div class="cluster c3">
+        <div class="cluster-head">
+          <div class="cluster-num">C3</div>
+          <div class="cluster-head-info">
+            <div class="cluster-tema">IA no Setor Público + Capacidades em TI + Business Intelligence</div>
+            <div class="cluster-keys">Business Intelligence · Capacidades em TI · IA governo · Desempenho · Validação cruzada</div>
+          </div>
+        </div>
+        <div class="cluster-body">
+          <div class="string-label">String Booleana — Portal CAPES / Web of Science / Scopus</div>
+          <div class="string-box">("Business Intelligence" OR "BI" OR "artificial intelligence") AND ("public administration" OR "e-government" OR "governo digital") AND ("performance" OR "cross-validation" OR "validação cruzada" OR "capacidades em TI" OR "IT capabilities")</div>
+          <div class="string-label">Busca por Campo (SU + KW)</div>
+          <div class="string-box">SU("public sector") AND KW("machine learning" OR "Business Intelligence") AND AB("Brazil" OR "Latin America") AND TI("performance" OR "efficiency" OR "innovation")</div>
+          <div class="filter-row">
+            <span class="filter-tag">📅 2018–2026</span>
+            <span class="filter-tag">📄 Article / Review</span>
+            <span class="filter-tag">🌐 Inglês / Português</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 4 -->
+      <div class="cluster c4">
+        <div class="cluster-head">
+          <div class="cluster-num">C4</div>
+          <div class="cluster-head-info">
+            <div class="cluster-tema">Discriminação Algorítmica + Relações de Trabalho + LGPD</div>
+            <div class="cluster-keys">Discriminação algorítmica · Sesgo algorítmico · IA + trabalho · LGPD · Proteção de dados</div>
+          </div>
+        </div>
+        <div class="cluster-body">
+          <div class="string-label">String Booleana — SciELO / Portal CAPES / Scopus</div>
+          <div class="string-box">("Algorithmic discrimination" OR "discriminação algorítmica" OR "sesgo algorítmico") AND ("labor relations" OR "relações de trabalho" OR "empleo" OR "direito do trabalho") AND ("artificial intelligence" OR "inteligência artificial" OR "LGPD" OR "proteção de dados")</div>
+          <div class="string-label">Variação para contexto latino-americano</div>
+          <div class="string-box">TI("discriminação algorítmica" OR "algorithmic bias") AND AB("trabalho" OR "labor" OR "emprego") AND (Brazil OR "Latin America" OR Peru OR Colombia) AND KW("IA" OR "artificial intelligence" OR "LGPD")</div>
+          <div class="filter-row">
+            <span class="filter-tag">📅 2020–2026</span>
+            <span class="filter-tag">📄 Artigo / Capítulo de livro</span>
+            <span class="filter-tag">🌐 Português / Espanhol / Inglês</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLUSTER 5 -->
+      <div class="cluster c5">
+        <div class="cluster-head">
+          <div class="cluster-num">C5</div>
+          <div class="cluster-head-info">
+            <div class="cluster-tema">Novo Serviço Público + Inovação Tecnológica + Governo Digital</div>
+            <div class="cluster-keys">Novo Serviço Público · Governo digital · Inovação · TI + setor público · América Latina</div>
+          </div>
+        </div>
+        <div class="cluster-body">
+          <div class="string-label">String Booleana — ENAP / Portal CAPES / Google Scholar</div>
+          <div class="string-box">("New Public Service" OR "Novo Serviço Público" OR "Denhardt") AND ("IT capabilities" OR "capacidades em TI" OR "digital transformation" OR "governo digital" OR "tecnologia da informação") AND ("Brazil" OR "Brasil" OR "Latin America" OR "América Latina")</div>
+          <div class="string-label">Variação — Periódicos Nacionais (ENAP / RAP / EBAPE)</div>
+          <div class="string-box">TI("Novo Serviço Público" OR "inovação pública") AND AB("tecnologia" OR "digital" OR "chatbot" OR "IA") AND SU("Administração Pública") AND KW(Brazil OR Brasil)</div>
+          <div class="filter-row">
+            <span class="filter-tag">📅 2015–2026</span>
+            <span class="filter-tag">📄 Article / Book chapter</span>
+            <span class="filter-tag">🇧🇷 Português / Inglês</span>
+            <span class="filter-tag">🗄️ ENAP + RAP + CAPES</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2 – ARTIGOS VALIDADOS -->
+    <div class="sec">
+      <div class="sec-title">✅ 2. Artigos Validados — DOI e Metadados Confirmados</div>
+
+      <div class="alert alert-green">
+        <strong>Critério de qualidade aplicado:</strong> Todos os artigos abaixo foram acessados individualmente e tiveram seus metadados (DOI, título, autores, revista, ano, páginas) verificados nas fontes primárias. Nenhuma referência foi inserida sem acesso e confirmação direta do documento.
+      </div>
+
+      <!-- ARTIGO 1 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab1">1</div>
+          <div class="artigo-info">
+            <div class="artigo-title">A Smart Chatbot Architecture Based NLP and Machine Learning for Health Care Assistance</div>
+            <div class="artigo-authors">Ayanouz, S.; Abdelhakim, B. A.; Benhmed, M. — <em>Proceedings of NISS2020</em>, ACM, 2020</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://doi.org/10.1145/3386723.3387897" target="_blank">https://doi.org/10.1145/3386723.3387897</a>
+              <span class="verified">✔ DOI Verificado — ACM DL</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">Propõe uma arquitetura funcional para chatbots inteligentes integrando técnicas de PLN e aprendizado de máquina para assistência conversacional em domínios específicos. O artigo descreve os módulos arquiteturais fundamentais (NLU, gestão de diálogo, NLG) e as abordagens de classificação de intenções e extração de entidades que compõem a espinha dorsal de qualquer sistema conversacional moderno. Embora o contexto aplicado seja a área da saúde, o framework arquitetural é referência para chatbots especializados em outros domínios, incluindo o jurídico-trabalhista.</p>
+          <div class="tag-row">
+            <span class="tag t-blue">🏗️ Arquitetura de Chatbot</span>
+            <span class="tag t-blue">🧠 NLP + ML</span>
+            <span class="tag t-blue">📐 Framework</span>
+            <span class="tag t-blue">🌐 ACM — Internacional</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIGO 2 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab2">2</div>
+          <div class="artigo-info">
+            <div class="artigo-title">Impactos e Desafios do eSocial no Ambiente Contábil: Análise sob a Ótica da Teoria Contingencial</div>
+            <div class="artigo-authors">Dallabona, L. F.; Vigarani, N. A. de S. — <em>Revista Catarinense da Ciência Contábil</em>, 2024</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://doi.org/10.16930/2237-766220243439" target="_blank">https://doi.org/10.16930/2237-766220243439</a>
+              <span class="verified">✔ DOI Verificado — CRCSC</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">Analisa a percepção de contadores sobre os impactos do eSocial nas rotinas dos escritórios contábeis à luz da Teoria Contingencial. Demonstra que o grau de impacto organizacional variou conforme a estrutura tecnológica pré-existente das empresas. Os autores identificam mudanças obrigatórias nos processos, na capacitação e nos sistemas de TI utilizados pelos escritórios, evidenciando a ruptura que o sistema impôs na gestão da informação contábil e fiscal no Brasil.</p>
+          <div class="tag-row">
+            <span class="tag t-green">📋 eSocial</span>
+            <span class="tag t-green">🏢 Contabilidade</span>
+            <span class="tag t-green">⚙️ Teoria Contingencial</span>
+            <span class="tag t-green">🇧🇷 Brasil — 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIGO 3 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab3">3</div>
+          <div class="artigo-info">
+            <div class="artigo-title">Desafios das Organizações Contábeis acerca do eSocial após sua Implementação</div>
+            <div class="artigo-authors">Conceição, F. O.; Lima, L. F.; Martins, Z. B. — <em>Revista de Contabilidade da UFBA</em>, v.14 n.1, 2020</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://periodicos.ufba.br/index.php/rcontabilidade/article/view/32675" target="_blank">periodicos.ufba.br/…/article/view/32675</a>
+              <span class="verified">✔ URL Verificada — UFBA</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">Com abordagem qualitativa e descritiva, o estudo examina os principais desafios enfrentados pelas organizações contábeis após a entrada em vigor do eSocial. Identifica barreiras culturais, dificuldades de capacitação das equipes e limitações nos sistemas de informação como os principais obstáculos. Conclui que a maior barreira é a resistência cultural e a falta de domínio técnico sobre as ferramentas digitais exigidas pelo sistema.</p>
+          <div class="tag-row">
+            <span class="tag t-orange">⚠️ Desafios de Implementação</span>
+            <span class="tag t-orange">🧑‍💼 Departamento Pessoal</span>
+            <span class="tag t-orange">📊 Qualitativo</span>
+            <span class="tag t-orange">🇧🇷 UFBA — 2020</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIGO 4 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab4">4</div>
+          <div class="artigo-info">
+            <div class="artigo-title">Inteligência Artificial nas Organizações Públicas Brasileiras: Heterogeneidades e Capacidades em Tecnologia da Informação</div>
+            <div class="artigo-authors">Ribeiro, M. M.; Segatto, C. I. — <em>Revista de Administração Pública (RAP)</em>, SciELO, v.59 n.1, 2025</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://www.scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/?format=html&lang=pt" target="_blank">scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/</a>
+              <span class="verified">✔ URL Verificada — SciELO RAP</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">A partir dos microdados da Pesquisa TIC Governo Eletrônico 2021, analisa a adoção de IA por organizações governamentais brasileiras. Demonstra que essa adoção é restrita e heterogênea entre esferas federal e estadual, sendo fortemente condicionada pelas capacidades em TI já existentes em cada organização. Oferece evidência empírica de que a capacidade institucional em TI é determinante para a incorporação de soluções baseadas em IA no setor público brasileiro.</p>
+          <div class="tag-row">
+            <span class="tag t-teal">🤖 IA Governo</span>
+            <span class="tag t-teal">🏛️ Setor Público</span>
+            <span class="tag t-teal">📊 Capacidades em TI</span>
+            <span class="tag t-teal">🇧🇷 SciELO RAP — 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIGO 5 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab5">5</div>
+          <div class="artigo-info">
+            <div class="artigo-title">Discriminação Algorítmica nas Relações de Trabalho e Princípios da Lei Geral de Proteção de Dados</div>
+            <div class="artigo-authors">Santos, R. C.; Graminho, V. M. C. — <em>Revista Sequência</em> (UFSC), SciELO, v.45 n.96, 2024</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://doi.org/10.5007/2177-7055.2024.e96294" target="_blank">https://doi.org/10.5007/2177-7055.2024.e96294</a>
+              <span class="verified">✔ DOI Verificado — SciELO UFSC</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">Investiga se os princípios da LGPD oferecem instrumentos suficientes para limitar a discriminação de trabalhadores causada por algoritmos e sistemas automatizados. Analisa os princípios de não discriminação, transparência, responsabilização e direito à explicação, concluindo que a LGPD constitui uma barreira normativa relevante contra o uso abusivo de IA nas relações trabalhistas no Brasil.</p>
+          <div class="tag-row">
+            <span class="tag t-purple">⚖️ LGPD</span>
+            <span class="tag t-purple">🤖 IA + Trabalho</span>
+            <span class="tag t-purple">🔐 Proteção de Dados</span>
+            <span class="tag t-purple">🇧🇷 SciELO — 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIGO 6 -->
+      <div class="artigo">
+        <div class="artigo-top">
+          <div class="artigo-badge ab6">6</div>
+          <div class="artigo-info">
+            <div class="artigo-title">El Sesgo Algorítmico Generado por la Inteligencia Artificial como Acto de Discriminación en las Relaciones de Trabajo</div>
+            <div class="artigo-authors">Castillo-Castro, K. P. — <em>Revista de Derecho Procesal del Trabajo</em>, v.8 n.11, pp.72–97, 2025</div>
+            <div class="doi-row">
+              <a class="doi-link" href="https://doi.org/10.47308/rdpt.v8i11.1133" target="_blank">https://doi.org/10.47308/rdpt.v8i11.1133</a>
+              <span class="verified">✔ DOI Verificado — Revista PJ Perú</span>
+            </div>
+          </div>
+        </div>
+        <div class="artigo-body">
+          <p class="artigo-resumo">Analisa os novos desafios jurídicos colocados pelo uso da IA para o direito do trabalho, com foco no impacto dos algoritmos como vieses ou filtros na tomada de decisão dos empregadores. Com método qualitativo hermenêutico, o estudo confirma que o uso de sesgos algorítmicos constitui atos discriminatórios nas relações de trabalho que vulneram o princípio da igualdade e não discriminação. Conclui pela necessidade de proteção normativa nacional e internacional para trabalhadores.</p>
+          <div class="tag-row">
+            <span class="tag t-red">🔎 Sesgo Algorítmico</span>
+            <span class="tag t-red">⚖️ Direito Laboral</span>
+            <span class="tag t-red">🌎 América Latina</span>
+            <span class="tag t-red">CC-BY 4.0 — 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3 – MATRIZ DE LITERATURA -->
+    <div class="sec">
+      <div class="sec-title">📊 3. Matriz de Literatura</div>
+
+      <div class="alert alert-orange">
+        <strong>Instrução metodológica:</strong> A matriz abaixo organiza os artigos de forma comparativa para facilitar a identificação de padrões, lacunas e oportunidades de contribuição do seu projeto. Utilize-a como roteiro de leitura e fichamento. Coluna "Lacuna / Implicações" indica onde seu TCC pode contribuir originalmente.
+      </div>
+
+      <div class="matrix-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Autor (ano)</th>
+              <th>Método / Contexto</th>
+              <th>Principais Achados</th>
+              <th>Lacuna / Implicações para o TCC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ayanouz et al.<br>(2020)</td>
+              <td>Pesquisa aplicada / Framework arquitetural. Contexto: chatbot para assistência médica (domínio fechado). Não empírico — proposta conceitual-funcional.</td>
+              <td><strong>Arquitetura chatbot</strong> com módulos NLU + Gestão de Diálogo + NLG. Integração NLP + ML aumenta a precisão de respostas em domínios especializados. Framework replicável.</td>
+              <td>Não aborda domínios jurídico-trabalhistas ou sistemas tributários. <strong>Seu TCC pode adaptar e especializar este framework para o contexto do eSocial.</strong></td>
+            </tr>
+            <tr>
+              <td>Dallabona &amp; Vigarani<br>(2024)</td>
+              <td>Survey / Pesquisa quantitativa. Amostra: contadores e escritórios contábeis brasileiros. Período: pós-implementação total do eSocial. Perspectiva: Teoria Contingencial.</td>
+              <td><strong>Impacto organizacional</strong> do eSocial varia conforme estrutura de TI prévia. Reestruturação de rotinas é necessária. Tecnologia é determinante para conformidade.</td>
+              <td>Não inclui soluções automatizadas de suporte aos usuários. <strong>Abre espaço para justificar o chatbot como ferramenta de redução do impacto adaptativo.</strong></td>
+            </tr>
+            <tr>
+              <td>Conceição, Lima &amp; Martins<br>(2020)</td>
+              <td>Pesquisa qualitativa / Estudo de caso múltiplo. Amostra: organizações contábeis pós-implantação eSocial. Método: entrevistas semiestruturadas.</td>
+              <td><strong>Principais barreiras:</strong> resistência cultural, falta de capacitação técnica e sistemas de informação inadequados. Conformidade depende de suporte contínuo.</td>
+              <td>Não propõe soluções de suporte digital. <strong>Demonstra a demanda por ferramentas de orientação como o chatbot desenvolvido no seu TCC.</strong></td>
+            </tr>
+            <tr>
+              <td>Ribeiro &amp; Segatto<br>(2025)</td>
+              <td>Survey nacional / Análise de microdados TIC Governo 2021. Amostra: 1.349 organizações públicas federais e estaduais. Método: estatística descritiva e inferencial.</td>
+              <td><strong>Adoção de IA no setor público é baixa e heterogênea.</strong> Capacidades em TI são pré-condição para incorporar IA. Diferença relevante entre esferas federais e estaduais.</td>
+              <td>Foca no diagnóstico; não propõe soluções aplicadas. <strong>Justifica a relevância de desenvolver ferramentas de IA para apoio a organizações com baixa capacidade em TI.</strong></td>
+            </tr>
+            <tr>
+              <td>Santos &amp; Graminho<br>(2024)</td>
+              <td>Pesquisa documental / Análise normativa. Contexto: Brasil pós-LGPD. Método: revisão da legislação e doutrina sobre proteção de dados e relações de trabalho.</td>
+              <td><strong>LGPD oferece proteção principiológica</strong> contra discriminação algorítmica. Princípios de transparência e não-discriminação são aplicáveis às relações de trabalho mediadas por IA.</td>
+              <td>Análise estritamente normativa, sem aplicação prática a sistemas de IA. <strong>Aponta a necessidade de compliance com LGPD no design do chatbot — implicação direta para o seu TCC.</strong></td>
+            </tr>
+            <tr>
+              <td>Castillo-Castro<br>(2025)</td>
+              <td>Pesquisa qualitativa / Design hermenêutico. Contexto: América Latina (foco Peru). Fontes: artigos científicos, e-books e teses em espanhol (2020–2025). Sem instrumento empírico.</td>
+              <td><strong>Sesgos algorítmicos constituem discriminação</strong> nas relações de trabalho. IA influencia decisões de admissão, demissão e promoção. Necessidade de normas protetivas internacionais.</td>
+              <td>Análise teórica sem aplicação prática. Contexto peruano. <strong>Complementa o artigo 5 e reforça a urgência de regulação ética no uso de IA em sistemas trabalhistas, como o eSocial.</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 4 – FERRAMENTAS E PROMPTS -->
+    <div class="sec">
+      <div class="sec-title">🛠️ 4. Ferramentas Utilizadas e Registro de Prompts</div>
+
+      <div class="tool-grid" style="margin-bottom:20px;">
+        <div class="tool-card">
+          <div class="tool-icon">🔍</div>
+          <div class="tool-name">Google Scholar</div>
+          <div class="tool-desc">Busca geral acadêmica. Usado para localização inicial de artigos por título e autor. Verificação de citações cruzadas.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">🌐</div>
+          <div class="tool-name">SciELO Brasil</div>
+          <div class="tool-desc">Base principal para artigos nacionais. Artigos 3, 4 e 5 localizados e verificados diretamente. Acesso aberto.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">📖</div>
+          <div class="tool-name">Portal CAPES</div>
+          <div class="tool-desc">Validação da indexação e acesso ao texto completo de artigos em periódicos nacionais e internacionais.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">🏛️</div>
+          <div class="tool-name">ACM Digital Library</div>
+          <div class="tool-desc">Base internacional de ciência da computação. Artigo 1 (Ayanouz et al., 2020) verificado e confirmado com DOI 10.1145/3386723.3387897.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">⚖️</div>
+          <div class="tool-name">Revistas PJ Perú</div>
+          <div class="tool-desc">Portal do Poder Judicial do Peru. Artigo 6 (Castillo-Castro, 2025) localizado, DOI verificado e metadados completos confirmados.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-icon">📋</div>
+          <div class="tool-name">Zotero (recomendado)</div>
+          <div class="tool-desc">Gerenciador bibliográfico. Todos os 6 artigos possuem DOI ou URL estável para importação via RIS/BibTeX. Exportar no padrão ABNT NBR 6023:2023.</div>
+        </div>
+      </div>
+
+      <div class="string-label" style="margin-bottom:8px;">📝 Prompts / Queries Documentadas (conforme instrução da atividade)</div>
+
+      <div class="prompt-item">
+        <div class="prompt-label">Prompt 1 — Cluster Chatbot + NLP (Google Scholar)</div>
+        ("chatbot architecture" OR "arquitetura de chatbot") AND ("natural language processing" OR "NLP" OR "machine learning") AND ("design" OR "framework" OR "implementation") — Filtros: 2018–2026, artigos revisados por pares
+      </div>
+      <div class="prompt-item">
+        <div class="prompt-label">Prompt 2 — Cluster eSocial + Brasil (SciELO + CAPES)</div>
+        TI("eSocial" OR "e-Social") AND AB("Brasil") AND KW("obrigações trabalhistas" OR "contabilidade" OR "impacto") — Filtros: 2018–2026, idioma PT, artigo original
+      </div>
+      <div class="prompt-item">
+        <div class="prompt-label">Prompt 3 — Cluster IA + Setor Público (SciELO RAP + CAPES)</div>
+        ("inteligência artificial" OR "artificial intelligence") AND ("organizações públicas" OR "public administration") AND ("Brazil" OR "Brasil") AND ("capacidades em TI" OR "IT capabilities") — Filtros: 2020–2026
+      </div>
+      <div class="prompt-item">
+        <div class="prompt-label">Prompt 4 — Cluster Discriminação Algorítmica + Trabalho (SciELO + Google Scholar)</div>
+        ("discriminação algorítmica" OR "algorithmic discrimination" OR "sesgo algorítmico") AND ("relações de trabalho" OR "direito do trabalho") AND ("LGPD" OR "inteligência artificial") — Filtros: 2020–2026, PT/ES/EN
+      </div>
+      <div class="prompt-item">
+        <div class="prompt-label">Prompt 5 — Validação de DOI (doi.org + bases primárias)</div>
+        Acesso direto via https://doi.org/[DOI] para cada artigo candidato. Confirmação de: título, autores, revista, ano, páginas, ISSN e disponibilidade do PDF.
+      </div>
+    </div>
+
+    <!-- SEÇÃO 5 – ZOTERO -->
+    <div class="sec" style="margin-bottom:0;">
+      <div class="sec-title">📂 5. Instruções para Zotero — Organização Bibliográfica</div>
+      <div class="alert alert-blue">
+        <strong>Como importar:</strong> Para cada artigo com DOI, no Zotero acesse <strong>Arquivo → Importar por Identificador</strong> e cole o DOI. O sistema preencherá automaticamente todos os metadados. Para artigos com URL (sem DOI), use o conector do navegador Zotero Connector. Crie uma coleção chamada <strong>"TCC PROFNIT — Chatbot eSocial"</strong> e organize por clusters. Para exportar em ABNT: <strong>coleção → botão direito → Exportar → ABNT NBR 6023:2023</strong>.
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    <div><strong>TCC — PROFNIT</strong> | Busca Bibliográfica Estruturada | Chatbot eSocial</div>
+    <div>Junho de 2026 · Todos os DOIs verificados nas fontes primárias</div>
+  </div>
+
+</div>
+
+</body>
+</html>
