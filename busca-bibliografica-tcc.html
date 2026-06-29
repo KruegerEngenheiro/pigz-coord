@@ -3,107 +3,293 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pesquisa Bibliográfica — TCC PROFNIT | Chatbot eSocial</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Matriz de Artigos — Pesquisa Bibliográfica | TCC PROFNIT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; background:#f0f4fa; color:#1e2d3d; font-size:15px; line-height:1.75; }
-
-    .page { max-width:900px; margin:32px auto 60px; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f0f4fa;color:#1e2d3d;font-size:15px;line-height:1.75}
+    .wrap{max-width:980px;margin:32px auto 60px}
 
     /* HEADER */
-    .header { background:linear-gradient(135deg,#002366,#003087 55%,#00509e); padding:40px 46px 36px; border-radius:20px; color:#fff; margin-bottom:24px; }
-    .badge { display:inline-block; background:rgba(255,215,0,.18); border:1px solid rgba(255,215,0,.4); color:#ffd700; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:14px; }
-    .header h1 { font-size:26px; font-weight:800; line-height:1.3; margin-bottom:10px; }
-    .header h1 span { color:#ffd700; }
-    .header .intro { font-size:14.5px; opacity:.88; line-height:1.75; max-width:680px; }
-    .header-pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-    .pill { background:rgba(255,255,255,.13); padding:5px 15px; border-radius:20px; font-size:12px; font-weight:500; }
+    .header{background:linear-gradient(135deg,#002366,#003087 55%,#004db3);padding:38px 48px 32px;border-radius:20px;color:#fff;margin-bottom:22px}
+    .badge-top{display:inline-block;background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.4);color:#ffd700;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:14px}
+    .header h1{font-size:24px;font-weight:900;line-height:1.3;margin-bottom:8px}
+    .header h1 span{color:#ffd700}
+    .header p{font-size:13.5px;opacity:.88;max-width:680px;line-height:1.7}
+    .header-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .pill{background:rgba(255,255,255,.14);padding:5px 15px;border-radius:20px;font-size:12px;font-weight:500}
 
     /* SECTION */
-    .section { background:#fff; border-radius:18px; padding:32px 40px; margin-bottom:20px; box-shadow:0 4px 20px rgba(0,0,0,.06); }
-    .section-title { font-size:18px; font-weight:800; color:#003087; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
-    .section-sub { font-size:13.5px; color:#6b7a90; margin-bottom:24px; line-height:1.6; }
+    .section{background:#fff;border-radius:18px;padding:32px 40px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .section-title{font-size:19px;font-weight:800;color:#003087;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+    .section-sub{font-size:13.5px;color:#6b7a90;margin-bottom:24px;line-height:1.65}
 
-    /* KEYWORDS */
-    .kw-group { margin-bottom:20px; }
-    .kw-label { font-size:12px; font-weight:700; color:#003087; letter-spacing:.8px; text-transform:uppercase; margin-bottom:10px; padding:3px 0 8px; border-bottom:2px solid #eef2f7; }
-    .kw-chips { display:flex; flex-wrap:wrap; gap:8px; }
-    .chip { padding:6px 14px; border-radius:20px; font-size:13px; font-weight:500; }
-    .c-blue  { background:#e3f2fd; color:#1565c0; }
-    .c-green { background:#e8f5e9; color:#2e7d32; }
-    .c-teal  { background:#e0f2f1; color:#00695c; }
-    .c-purple{ background:#f3e5f5; color:#6a1b9a; }
+    /* BASE BADGES */
+    .badge-scielo{display:inline-flex;align-items:center;gap:5px;background:#e8f5e9;color:#1b5e20;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;border:1.5px solid #a5d6a7}
+    .badge-capes{display:inline-flex;align-items:center;gap:5px;background:#fff3e0;color:#bf360c;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;border:1.5px solid #ffcc80}
+    .badge-scopus{display:inline-flex;align-items:center;gap:5px;background:#e3f2fd;color:#0d47a1;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;border:1.5px solid #90caf9}
+    .badge-scholar{display:inline-flex;align-items:center;gap:5px;background:#f3e5f5;color:#4a148c;font-size:12px;font-weight:800;padding:4px 12px;border-radius:20px;border:1.5px solid #ce93d8}
+    .badge-recent{display:inline-flex;align-items:center;gap:4px;background:#e8f5e9;color:#2e7d32;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+    .badge-verified{display:inline-flex;align-items:center;gap:4px;background:#e0f2f1;color:#00695c;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
 
-    /* BASES */
-    .bases-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .base-card { border:2px solid #dde8f5; border-radius:14px; padding:20px 22px; }
-    .base-icon { font-size:28px; margin-bottom:8px; }
-    .base-name { font-size:15px; font-weight:800; color:#003087; margin-bottom:4px; }
-    .base-desc { font-size:13px; color:#4a5f7a; line-height:1.65; }
-    .base-tag { display:inline-block; margin-top:10px; background:#e3f2fd; color:#1565c0; font-size:11px; font-weight:700; padding:3px 10px; border-radius:10px; }
+    /* MATRIX TABLE */
+    .matrix-outer{overflow-x:auto;border-radius:14px;border:2px solid #dde8f5}
+    table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+    thead tr{background:linear-gradient(90deg,#002366,#003087)}
+    thead th{color:#fff;padding:14px 16px;text-align:left;font-size:11.5px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+    thead th:first-child{border-radius:0}
+    tbody tr:nth-child(even){background:#f7f9fd}
+    tbody tr:hover{background:#eef4ff;transition:background .2s}
+    tbody td{padding:14px 16px;vertical-align:top;border-bottom:1px solid #eef2f7;line-height:1.75}
+    tbody td:first-child{font-weight:700;color:#003087;font-size:12.5px;min-width:110px}
+    tbody td:nth-child(2){min-width:160px}
+    tbody td:nth-child(3){min-width:100px}
+    tbody td:nth-child(4){min-width:140px;font-size:12px;color:#4a5f7a}
+    tbody td:nth-child(5){min-width:200px}
+    tbody td:nth-child(6){min-width:160px;font-size:12px;font-style:italic;color:#4a5f7a}
+    .artigo-titulo-cell{font-weight:600;color:#1a2e4a;line-height:1.45;font-size:12.5px;margin-bottom:4px}
+    .doi-cell{font-size:11px;margin-top:5px}
+    .doi-cell a{color:#003087;text-decoration:none;border-bottom:1px dashed #003087}
+    .kw-cell{display:flex;flex-wrap:wrap;gap:4px}
+    .kw-tag{background:#eef2f7;color:#4a5f7a;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:8px}
 
-    /* ARTIGOS */
-    .artigo { border:1.5px solid #dde8f5; border-radius:16px; margin-bottom:16px; overflow:hidden; }
-    .artigo-header { display:flex; align-items:stretch; }
-    .artigo-num { min-width:52px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:800; color:#fff; flex-shrink:0; }
-    .n1{background:#1565c0;} .n2{background:#2e7d32;} .n3{background:#e65100;}
-    .n4{background:#00695c;} .n5{background:#6a1b9a;} .n6{background:#c62828;}
-    .artigo-meta { flex:1; padding:14px 20px 12px; background:#fafbff; }
-    .artigo-titulo { font-size:14px; font-weight:700; color:#1a2e4a; line-height:1.45; margin-bottom:4px; }
-    .artigo-origem { font-size:12.5px; color:#6b7a90; }
-    .artigo-body { padding:16px 20px 18px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .col-label { font-size:11px; font-weight:700; color:#003087; letter-spacing:.7px; text-transform:uppercase; margin-bottom:6px; }
-    .col-text { font-size:13.5px; color:#2c3e50; line-height:1.8; }
-    .link-doi { display:block; margin-top:10px; font-size:12px; color:#003087; text-decoration:none; border-bottom:1px dashed #003087; word-break:break-all; }
-    .link-doi:hover { color:#0070c0; }
-    .verified { display:inline-flex; align-items:center; gap:4px; background:#e8f5e9; color:#2e7d32; font-size:10.5px; font-weight:700; padding:2px 9px; border-radius:10px; margin-top:6px; }
+    /* ARTICLE CARDS */
+    .artigo{border:1.5px solid #dde8f5;border-radius:16px;margin-bottom:16px;overflow:hidden}
+    .artigo-top{display:flex;align-items:stretch}
+    .artigo-num{min-width:50px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0}
+    .n1{background:#c62828}.n2{background:#1565c0}.n3{background:#2e7d32}.n4{background:#2e7d32}.n5{background:#2e7d32}.n6{background:#004d40}
+    .artigo-meta{flex:1;padding:14px 20px 10px;background:#fafbff;border-bottom:1px solid #eef2f7}
+    .artigo-titulo{font-size:13.5px;font-weight:700;color:#1a2e4a;line-height:1.45;margin-bottom:6px}
+    .artigo-autores{font-size:12px;color:#6b7a90;margin-bottom:8px}
+    .artigo-meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .artigo-body{padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .col-label{font-size:11px;font-weight:700;color:#003087;letter-spacing:.7px;text-transform:uppercase;margin-bottom:5px}
+    .col-text{font-size:13.5px;color:#2c3e50;line-height:1.8}
+    .link-doi{display:block;margin-top:8px;font-size:11.5px;color:#003087;text-decoration:none;border-bottom:1px dashed #003087;word-break:break-all}
 
     /* ABNT */
-    .abnt-item { background:#f7f9fd; border:1.5px solid #dde8f5; border-left:4px solid #003087; border-radius:10px; padding:14px 18px; margin-bottom:12px; font-size:13px; color:#1a2e4a; line-height:1.9; }
-    .abnt-num { font-size:11px; font-weight:700; color:#003087; letter-spacing:.8px; text-transform:uppercase; margin-bottom:6px; }
+    .abnt-item{background:#f7f9fd;border:1.5px solid #dde8f5;border-left:4px solid #003087;border-radius:10px;padding:14px 18px;margin-bottom:12px;font-size:13px;color:#1a2e4a;line-height:1.9}
+    .abnt-label{font-size:11px;font-weight:700;color:#003087;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
 
     /* ZOTERO */
-    .step { display:flex; gap:16px; align-items:flex-start; margin-bottom:18px; }
-    .step-num { min-width:36px; height:36px; border-radius:50%; background:#003087; color:#fff; font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
-    .step-content .step-title { font-size:14px; font-weight:700; color:#1a2e4a; margin-bottom:4px; }
-    .step-content .step-desc { font-size:13.5px; color:#4a5f7a; line-height:1.7; }
+    .step{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+    .step-num{min-width:34px;height:34px;border-radius:50%;background:#003087;color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .step-title{font-size:14px;font-weight:700;color:#1a2e4a;margin-bottom:3px}
+    .step-desc{font-size:13px;color:#4a5f7a;line-height:1.7}
+
+    /* KEYWORDS */
+    .kw-group{margin-bottom:18px}
+    .kw-group-label{font-size:11.5px;font-weight:700;color:#003087;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;padding-bottom:7px;border-bottom:2px solid #eef2f7}
+    .kw-chips{display:flex;flex-wrap:wrap;gap:7px}
+    .chip{padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:500}
+    .c-blue{background:#e3f2fd;color:#1565c0}
+    .c-green{background:#e8f5e9;color:#2e7d32}
+    .c-teal{background:#e0f2f1;color:#00695c}
+    .c-purple{background:#f3e5f5;color:#6a1b9a}
 
     /* FOOTER */
-    .footer { background:#003087; border-radius:16px; padding:20px 40px; color:#fff; display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-top:24px; }
-    .footer strong { color:#ffd700; }
+    .footer{background:#002366;border-radius:16px;padding:18px 40px;color:#fff;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;margin-top:20px;flex-wrap:wrap;gap:10px}
+    .footer strong{color:#ffd700}
 
-    @media(max-width:680px) {
-      .bases-grid { grid-template-columns:1fr; }
-      .artigo-body { grid-template-columns:1fr; }
-      .section { padding:24px 22px; }
-      .header { padding:28px 24px; }
-    }
+    @media(max-width:700px){.artigo-body{grid-template-columns:1fr}.section{padding:22px 20px}.header{padding:28px 24px}}
   </style>
 </head>
 <body>
-
-<div class="page">
+<div class="wrap">
 
   <!-- CABEÇALHO -->
   <div class="header">
-    <div class="badge">📚 Resultado da Pesquisa Bibliográfica — TCC PROFNIT</div>
-    <h1>O que pesquisamos e <span>o que encontramos</span></h1>
-    <p class="intro">Este documento apresenta de forma clara e organizada toda a pesquisa realizada nas bases acadêmicas para o seu TCC. Você vai encontrar: as palavras usadas na busca, onde buscamos, os artigos encontrados (com resumo simples) e as referências prontas para usar.</p>
+    <div class="badge-top">📚 Pesquisa Bibliográfica — TCC PROFNIT</div>
+    <h1>Matriz de Artigos <span>por Base de Dados</span></h1>
+    <p>Artigos científicos publicados nas bases oficiais: Portal CAPES, SciELO, Scopus e Google Scholar — sem repositórios universitários. Ordenados do mais recente para o mais antigo.</p>
     <div class="header-pills">
-      <span class="pill">✅ 6 artigos científicos encontrados e validados</span>
-      <span class="pill">🗄️ 4 bases acadêmicas pesquisadas</span>
-      <span class="pill">📖 Referências em ABNT prontas para copiar</span>
+      <span class="pill">✅ 6 artigos validados com DOI</span>
+      <span class="pill">📅 Publicados entre 2020 e 2025</span>
+      <span class="pill">🚫 Nenhum de repositório</span>
+      <span class="pill">🗄️ 4 bases oficiais cobertas</span>
     </div>
   </div>
 
-  <!-- SEÇÃO 1 – PALAVRAS-CHAVE -->
+  <!-- SEÇÃO 1: MATRIZ (DESTAQUE PRINCIPAL) -->
   <div class="section">
-    <div class="section-title">🔑 Palavras-chave utilizadas na pesquisa</div>
-    <div class="section-sub">Para localizar artigos relevantes, usamos termos em português, inglês e espanhol agrupados pelos temas do seu TCC. Quanto mais variações usamos, mais chances de encontrar bons artigos.</div>
+    <div class="section-title">📊 Matriz de Artigos Científicos</div>
+    <div class="section-sub">Tabela com todos os artigos encontrados, a base onde foram publicados, as palavras-chave usadas na busca e o que cada artigo traz de relevante para o TCC.</div>
+
+    <div class="matrix-outer">
+      <table>
+        <thead>
+          <tr>
+            <th>Autor (Ano)</th>
+            <th>Título do Artigo</th>
+            <th>Base de Dados</th>
+            <th>Palavras-chave da Busca</th>
+            <th>Principais Contribuições</th>
+            <th>Relevância para o TCC</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Artigo 1 -->
+          <tr>
+            <td>Castillo-Castro<br>(2025)</td>
+            <td>
+              <div class="artigo-titulo-cell">El sesgo algorítmico generado por la IA como acto de discriminación en las relaciones de trabajo</div>
+              <div class="doi-cell"><a href="https://doi.org/10.47308/rdpt.v8i11.1133" target="_blank">doi.org/10.47308/rdpt.v8i11.1133</a></div>
+            </td>
+            <td>
+              <span class="badge-scholar">🔍 Google Scholar</span>
+              <div style="margin-top:5px"><span class="badge-recent">📅 2025</span></div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">Discriminação algorítmica</span>
+                <span class="kw-tag">Sesgo algorítmico</span>
+                <span class="kw-tag">IA + Trabalho</span>
+                <span class="kw-tag">Direito laboral</span>
+              </div>
+            </td>
+            <td>Analisa como algoritmos de IA geram discriminação nas relações de trabalho. Comprova juridicamente que o viés algorítmico viola o princípio da igualdade e da não-discriminação. Reforça a necessidade de regulação normativa.</td>
+            <td>Sustenta a ética no design do chatbot de eSocial e o cumprimento das normas de não-discriminação nas informações entregues.</td>
+          </tr>
+
+          <!-- Artigo 2 -->
+          <tr>
+            <td>Ribeiro &amp; Segatto<br>(2025)</td>
+            <td>
+              <div class="artigo-titulo-cell">Inteligência artificial nas organizações públicas brasileiras: heterogeneidades e capacidades em TI</div>
+              <div class="doi-cell"><a href="https://doi.org/10.1590/0034-761220230264" target="_blank">doi.org/10.1590/0034-761220230264</a></div>
+            </td>
+            <td>
+              <span class="badge-scielo">🌿 SciELO</span>
+              <div style="margin-top:5px"><span class="badge-recent">📅 2025</span></div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">IA + Setor Público</span>
+                <span class="kw-tag">Capacidades em TI</span>
+                <span class="kw-tag">Governo digital</span>
+                <span class="kw-tag">Administração Pública</span>
+              </div>
+            </td>
+            <td>Com dados de 1.349 organizações públicas brasileiras, demonstra que a adoção de IA no setor público é baixa e heterogênea. A capacidade de TI pré-existente é o principal fator determinante para incorporação da IA.</td>
+            <td>Contextualiza o TCC no cenário nacional de IA pública e justifica a criação de ferramentas de IA acessíveis para organizações com menor capacidade de TI.</td>
+          </tr>
+
+          <!-- Artigo 3 -->
+          <tr>
+            <td>Santos &amp; Graminho<br>(2024)</td>
+            <td>
+              <div class="artigo-titulo-cell">Discriminação algorítmica nas relações de trabalho e princípios da Lei Geral de Proteção de Dados</div>
+              <div class="doi-cell"><a href="https://doi.org/10.5007/2177-7055.2024.e96294" target="_blank">doi.org/10.5007/2177-7055.2024.e96294</a></div>
+            </td>
+            <td>
+              <span class="badge-scielo">🌿 SciELO</span>
+              <div style="margin-top:5px"><span class="badge-recent">📅 2024</span></div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">Discriminação algorítmica</span>
+                <span class="kw-tag">LGPD</span>
+                <span class="kw-tag">Proteção de dados</span>
+                <span class="kw-tag">IA + Trabalho</span>
+              </div>
+            </td>
+            <td>Analisa se os princípios da LGPD protegem trabalhadores contra decisões automatizadas por IA. Conclui que a LGPD é uma barreira normativa relevante e que transparência e não-discriminação são princípios aplicáveis ao ambiente digital de trabalho.</td>
+            <td>Fundamento legal para o chatbot de eSocial respeitar LGPD — transparência, finalidade e não-discriminação nos dados trabalhistas.</td>
+          </tr>
+
+          <!-- Artigo 4 -->
+          <tr>
+            <td>Dallabona &amp; Vigarani<br>(2024)</td>
+            <td>
+              <div class="artigo-titulo-cell">Impactos e desafios do eSocial no ambiente contábil: análise sob a ótica da teoria contingencial</div>
+              <div class="doi-cell"><a href="https://doi.org/10.16930/2237-766220243439" target="_blank">doi.org/10.16930/2237-766220243439</a></div>
+            </td>
+            <td>
+              <span class="badge-capes">🟠 Portal CAPES</span>
+              <div style="margin-top:5px"><span class="badge-recent">📅 2024</span></div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">eSocial</span>
+                <span class="kw-tag">Contabilidade</span>
+                <span class="kw-tag">Conformidade fiscal</span>
+                <span class="kw-tag">Teoria Contingencial</span>
+                <span class="kw-tag">Obrigações trabalhistas</span>
+              </div>
+            </td>
+            <td>Survey com contadores mostra que o impacto do eSocial varia conforme a infraestrutura tecnológica prévia. Empresas com menos recursos de TI enfrentaram maior dificuldade de adaptação e conformidade.</td>
+            <td>Prova empírica de que usuários do eSocial ainda enfrentam barreiras — justifica diretamente a necessidade do chatbot de suporte.</td>
+          </tr>
+
+          <!-- Artigo 5 -->
+          <tr>
+            <td>Bitencourt &amp; Martins<br>(2023)</td>
+            <td>
+              <div class="artigo-titulo-cell">A inteligência artificial nos órgãos constitucionais de controle de contas da administração pública brasileira</div>
+              <div class="doi-cell"><a href="https://doi.org/10.5380/rinc.v10i3.93650" target="_blank">doi.org/10.5380/rinc.v10i3.93650</a></div>
+            </td>
+            <td>
+              <span class="badge-scielo">🌿 SciELO</span>
+              <div style="margin-top:5px"><span class="badge-recent">📅 2023</span></div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">IA + Administração Pública</span>
+                <span class="kw-tag">Tribunal de Contas</span>
+                <span class="kw-tag">Governo digital</span>
+                <span class="kw-tag">Controle público</span>
+              </div>
+            </td>
+            <td>Mapeia o uso de IA (incluindo chatbots como o Kairós do TCE-RN e o ALICE do TCU) nos tribunais de contas brasileiros. Identifica custos, benefícios e desafios da implantação de IA nos órgãos de controle externo da Administração Pública.</td>
+            <td>Demonstra que o Estado brasileiro já usa IA e chatbots para fins públicos — validando o uso de chatbot especialista no contexto do eSocial.</td>
+          </tr>
+
+          <!-- Artigo 6 -->
+          <tr>
+            <td>Ayanouz et al.<br>(2020)</td>
+            <td>
+              <div class="artigo-titulo-cell">A smart chatbot architecture based NLP and machine learning for health care assistance</div>
+              <div class="doi-cell"><a href="https://doi.org/10.1145/3386723.3387897" target="_blank">doi.org/10.1145/3386723.3387897</a></div>
+            </td>
+            <td>
+              <span class="badge-scopus">🔵 Scopus</span>
+              <div style="margin-top:5px;font-size:11px;color:#6b7a90">+ Google Scholar</div>
+            </td>
+            <td>
+              <div class="kw-cell">
+                <span class="kw-tag">Chatbot</span>
+                <span class="kw-tag">NLP</span>
+                <span class="kw-tag">Machine Learning</span>
+                <span class="kw-tag">Arquitetura de chatbot</span>
+                <span class="kw-tag">Sistema especialista</span>
+              </div>
+            </td>
+            <td>Propõe um framework completo de arquitetura para chatbot inteligente com módulos NLU + Gestão de Diálogo + NLG integrados com PLN e aprendizado de máquina. Referência técnica internacional amplamente citada.</td>
+            <td>Base técnica para justificar e estruturar a arquitetura do chatbot especialista em eSocial que o TCC está desenvolvendo.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- LEGENDA DAS BASES -->
+    <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <span style="font-size:12px;font-weight:600;color:#6b7a90;">Legenda das bases:</span>
+      <span class="badge-scielo">🌿 SciELO</span>
+      <span class="badge-capes">🟠 Portal CAPES</span>
+      <span class="badge-scopus">🔵 Scopus</span>
+      <span class="badge-scholar">🔍 Google Scholar</span>
+    </div>
+  </div>
+
+  <!-- SEÇÃO 2: PALAVRAS-CHAVE -->
+  <div class="section">
+    <div class="section-title">🔑 Palavras-chave utilizadas nas buscas</div>
+    <div class="section-sub">Os termos abaixo foram usados em combinação (com os operadores AND, OR) nas 4 bases para encontrar os artigos acima. Quanto mais variações, maior a cobertura da pesquisa.</div>
 
     <div class="kw-group">
-      <div class="kw-label">🤖 Tecnologia e Inteligência Artificial</div>
+      <div class="kw-group-label">🤖 Tecnologia, IA e Chatbot</div>
       <div class="kw-chips">
         <span class="chip c-blue">Chatbot</span>
         <span class="chip c-blue">Arquitetura de chatbot</span>
@@ -113,18 +299,19 @@
         <span class="chip c-blue">Processamento de Linguagem Natural (PLN)</span>
         <span class="chip c-blue">NLP (Natural Language Processing)</span>
         <span class="chip c-blue">Assistente Virtual</span>
+        <span class="chip c-blue">Sistema Especialista</span>
         <span class="chip c-blue">Automação</span>
         <span class="chip c-blue">Transformação Digital</span>
         <span class="chip c-blue">Modelo de Linguagem</span>
         <span class="chip c-blue">Interface Conversacional</span>
-        <span class="chip c-blue">Sistema Especialista</span>
         <span class="chip c-blue">Conversational Agent</span>
-        <span class="chip c-blue">RAG (Retrieval-Augmented Generation)</span>
+        <span class="chip c-blue">RAG</span>
+        <span class="chip c-blue">NLU / NLG</span>
       </div>
     </div>
 
     <div class="kw-group">
-      <div class="kw-label">📋 eSocial e Obrigações Trabalhistas</div>
+      <div class="kw-group-label">📋 eSocial e Obrigações Trabalhistas</div>
       <div class="kw-chips">
         <span class="chip c-green">eSocial</span>
         <span class="chip c-green">Obrigações Trabalhistas</span>
@@ -136,33 +323,33 @@
         <span class="chip c-green">INSS Digital</span>
         <span class="chip c-green">Regularidade Trabalhista</span>
         <span class="chip c-green">Digitalização Fiscal</span>
-        <span class="chip c-green">Escritório Contábil</span>
-        <span class="chip c-green">Labor Compliance</span>
-        <span class="chip c-green">Digital Labor Obligations</span>
         <span class="chip c-green">SPED</span>
+        <span class="chip c-green">Labor Compliance</span>
+        <span class="chip c-green">Escritório Contábil</span>
+        <span class="chip c-green">Teoria Contingencial</span>
       </div>
     </div>
 
     <div class="kw-group">
-      <div class="kw-label">🏛️ Gestão Pública e Governo Digital</div>
+      <div class="kw-group-label">🏛️ Gestão Pública e Governo Digital</div>
       <div class="kw-chips">
         <span class="chip c-teal">Novo Serviço Público</span>
         <span class="chip c-teal">E-governo</span>
         <span class="chip c-teal">Governo Digital</span>
         <span class="chip c-teal">Administração Pública Digital</span>
         <span class="chip c-teal">Inovação Pública</span>
-        <span class="chip c-teal">Gestão Pública</span>
         <span class="chip c-teal">Capacidades em TI</span>
         <span class="chip c-teal">IT Capabilities</span>
+        <span class="chip c-teal">Controle Externo</span>
+        <span class="chip c-teal">Tribunal de Contas</span>
+        <span class="chip c-teal">Modernização do Estado</span>
         <span class="chip c-teal">New Public Service</span>
         <span class="chip c-teal">Serviço Público Digital</span>
-        <span class="chip c-teal">Modernização do Estado</span>
-        <span class="chip c-teal">Public Administration</span>
       </div>
     </div>
 
-    <div class="kw-group" style="margin-bottom:0;">
-      <div class="kw-label">⚖️ Dados, Ética e Performance</div>
+    <div class="kw-group" style="margin-bottom:0">
+      <div class="kw-group-label">⚖️ Ética, Dados e Direito</div>
       <div class="kw-chips">
         <span class="chip c-purple">Discriminação Algorítmica</span>
         <span class="chip c-purple">Sesgo Algorítmico</span>
@@ -174,259 +361,82 @@
         <span class="chip c-purple">Análise de Dados</span>
         <span class="chip c-purple">Validação Cruzada</span>
         <span class="chip c-purple">Comparação Cruzada de Dados</span>
-        <span class="chip c-purple">Performance</span>
+        <span class="chip c-purple">Algoritmo + Trabalho</span>
         <span class="chip c-purple">Algorithmic Discrimination</span>
       </div>
     </div>
   </div>
 
-  <!-- SEÇÃO 2 – BASES PESQUISADAS -->
+  <!-- SEÇÃO 3: REFERÊNCIAS ABNT -->
   <div class="section">
-    <div class="section-title">🗄️ Onde pesquisamos</div>
-    <div class="section-sub">Pesquisamos em 4 bases de dados acadêmicas reconhecidas internacionalmente. Cada uma tem um foco diferente e juntas garantem uma cobertura ampla e de qualidade para o TCC.</div>
-
-    <div class="bases-grid">
-      <div class="base-card">
-        <div class="base-icon">📗</div>
-        <div class="base-name">Portal de Periódicos CAPES</div>
-        <div class="base-desc">Principal base de acesso do Brasil, mantida pelo governo federal. Dá acesso a milhares de revistas científicas nacionais e internacionais. É onde encontramos os artigos brasileiros mais qualificados.</div>
-        <span class="base-tag">🇧🇷 Principal base nacional</span>
-      </div>
-      <div class="base-card">
-        <div class="base-icon">📙</div>
-        <div class="base-name">SciELO Brasil</div>
-        <div class="base-desc">Biblioteca científica eletrônica focada em revistas da América Latina. Ótima para artigos em português sobre eSocial, administração pública e direito do trabalho. Acesso gratuito e aberto.</div>
-        <span class="base-tag">🌎 América Latina — Acesso aberto</span>
-      </div>
-      <div class="base-card">
-        <div class="base-icon">📘</div>
-        <div class="base-name">Scopus / Web of Science</div>
-        <div class="base-desc">As maiores bases internacionais de artigos científicos. Cobrem pesquisas em todo o mundo nas áreas de tecnologia, IA, gestão e direito. Indicadas para encontrar estudos comparativos com outros países.</div>
-        <span class="base-tag">🌍 Base internacional de referência</span>
-      </div>
-      <div class="base-card">
-        <div class="base-icon">📕</div>
-        <div class="base-name">Google Scholar</div>
-        <div class="base-desc">Buscador acadêmico do Google. Usado para ampliar a busca, verificar citações e localizar artigos em repositórios de universidades brasileiras como UFBA, UFSC, FGV e Unicamp.</div>
-        <span class="base-tag">🔍 Busca ampla + repositórios universitários</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEÇÃO 3 – ARTIGOS ENCONTRADOS -->
-  <div class="section">
-    <div class="section-title">📄 Artigos encontrados e validados</div>
-    <div class="section-sub">Todos os artigos abaixo foram verificados diretamente nas fontes originais. Cada um tem o link ativo. A coluna da direita explica <strong>por que esse artigo importa para o seu TCC</strong>.</div>
-
-    <!-- ARTIGO 1 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n1">1</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">Uma Arquitetura de Chatbot Inteligente com NLP e Aprendizado de Máquina para Assistência em Saúde</div>
-          <div class="artigo-origem">Ayanouz, S.; Abdelhakim, B. A.; Benhmed, M. — ACM (International Conference) · 2020</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Apresenta um modelo completo de como construir um chatbot inteligente, mostrando cada parte que ele deve ter: o módulo que entende o que o usuário escreve, o que decide a resposta, e o que gera a resposta final. Usa técnicas de NLP e aprendizado de máquina para que o sistema funcione mesmo com domínios de conhecimento fechados e especializados.</div>
-          <a class="link-doi" href="https://doi.org/10.1145/3386723.3387897" target="_blank">🔗 doi.org/10.1145/3386723.3387897</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Esse artigo serve como <strong>base técnica</strong> para justificar a arquitetura do chatbot especialista em eSocial que você está desenvolvendo. A estrutura proposta pelos autores pode ser adaptada diretamente para o seu sistema.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ARTIGO 2 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n2">2</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">Impactos e Desafios do eSocial no Ambiente Contábil</div>
-          <div class="artigo-origem">Dallabona, L. F.; Vigarani, N. A. de S. — Revista Catarinense da Ciência Contábil · 2024</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Mostra como a chegada do eSocial impactou os escritórios de contabilidade no Brasil. Os autores ouviram contadores e concluíram que o grau de dificuldade para se adaptar ao sistema foi diretamente proporcional ao quanto a empresa já usava tecnologia antes. Empresas com menos recursos de TI sofreram mais.</div>
-          <a class="link-doi" href="https://doi.org/10.16930/2237-766220243439" target="_blank">🔗 doi.org/10.16930/2237-766220243439</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Comprova que muitos usuários do eSocial ainda têm dificuldades com o sistema — justificando a necessidade do <strong>chatbot de apoio</strong> que o seu TCC está desenvolvendo.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ARTIGO 3 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n3">3</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">Desafios das Organizações Contábeis acerca do eSocial após sua Implementação</div>
-          <div class="artigo-origem">Conceição, F. O.; Lima, L. F.; Martins, Z. B. — Revista de Contabilidade da UFBA · 2020</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Pesquisou organizações contábeis brasileiras e descobriu que as maiores barreiras para usar o eSocial não são técnicas — são humanas. Resistência à mudança, falta de treinamento e sistemas de TI desatualizados são os principais obstáculos. O sistema chegou antes das pessoas estarem prontas.</div>
-          <a class="link-doi" href="https://periodicos.ufba.br/index.php/rcontabilidade/article/view/32675" target="_blank">🔗 periodicos.ufba.br (Acesso aberto)</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Reforça a justificativa do seu projeto: se as barreiras são de <strong>conhecimento e orientação</strong>, um chatbot especialista resolve exatamente esse problema.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ARTIGO 4 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n4">4</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">Inteligência Artificial nas Organizações Públicas Brasileiras: Heterogeneidades e Capacidades em TI</div>
-          <div class="artigo-origem">Ribeiro, M. M.; Segatto, C. I. — Revista de Administração Pública (RAP) · SciELO · 2025</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Com dados de 1.349 organizações públicas brasileiras, o estudo mostra que o uso de IA no setor público ainda é muito limitado e desigual. A principal razão é a falta de infraestrutura de TI. Organizações que já tinham boa base tecnológica conseguiram adotar IA mais facilmente.</div>
-          <a class="link-doi" href="https://www.scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/" target="_blank">🔗 scielo.br/j/rap (Acesso aberto)</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Conecta diretamente o seu projeto ao contexto da administração pública brasileira. Reforça que desenvolver soluções de <strong>IA acessíveis para o setor público</strong> é uma necessidade real e atual.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ARTIGO 5 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n5">5</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">Discriminação Algorítmica nas Relações de Trabalho e Princípios da LGPD</div>
-          <div class="artigo-origem">Santos, R. C.; Graminho, V. M. C. — Revista Sequência (UFSC) · SciELO · 2024</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Analisa se a Lei Geral de Proteção de Dados (LGPD) é suficiente para proteger trabalhadores contra decisões automáticas feitas por algoritmos. A conclusão é que a LGPD oferece uma proteção importante, mas ainda precisa ser mais bem aplicada no contexto das relações de trabalho digitais.</div>
-          <a class="link-doi" href="https://doi.org/10.5007/2177-7055.2024.e96294" target="_blank">🔗 doi.org/10.5007/2177-7055.2024.e96294</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Fundamental para a parte ética e legal do seu projeto. O chatbot de eSocial precisa respeitar a LGPD — <strong>esse artigo sustenta a sua preocupação com compliance e proteção de dados</strong>.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ARTIGO 6 -->
-    <div class="artigo">
-      <div class="artigo-header">
-        <div class="artigo-num n6">6</div>
-        <div class="artigo-meta">
-          <div class="artigo-titulo">O Viés Algorítmico Gerado pela IA como Ato de Discriminação nas Relações de Trabalho</div>
-          <div class="artigo-origem">Castillo-Castro, K. P. — Revista de Derecho Procesal del Trabajo · 2025 · pp. 72–97</div>
-        </div>
-      </div>
-      <div class="artigo-body">
-        <div>
-          <div class="col-label">O que o artigo diz</div>
-          <div class="col-text">Estuda como os algoritmos de IA podem agir de forma discriminatória nas relações de trabalho — por exemplo, ao filtrar candidatos ou avaliar desempenho de trabalhadores. Conclui que isso é discriminação e que os países precisam criar leis para proteger os trabalhadores nesse novo cenário tecnológico.</div>
-          <a class="link-doi" href="https://doi.org/10.47308/rdpt.v8i11.1133" target="_blank">🔗 doi.org/10.47308/rdpt.v8i11.1133</a>
-          <span class="verified">✔ Link verificado e ativo</span>
-        </div>
-        <div>
-          <div class="col-label">Por que importa para o seu TCC</div>
-          <div class="col-text">Complementa o artigo anterior com perspectiva da América Latina. Reforça que o chatbot deve ser <strong>desenvolvido com critérios éticos</strong>, sem reproduzir discriminações ou distorções nas informações trabalhistas que entrega.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEÇÃO 4 – REFERÊNCIAS ABNT -->
-  <div class="section">
-    <div class="section-title">📖 Referências em formato ABNT</div>
-    <div class="section-sub">Abaixo estão as 6 referências formatadas conforme a norma <strong>ABNT NBR 6023:2023</strong>, prontas para copiar e colar na lista de referências do seu TCC. Essas são as citações que você e o Carlos podem inserir diretamente no trabalho.</div>
+    <div class="section-title">📖 Referências — ABNT NBR 6023:2023</div>
+    <div class="section-sub">Prontas para copiar direto no TCC. Ordenadas do mais recente para o mais antigo, como solicitado.</div>
 
     <div class="abnt-item">
-      <div class="abnt-num">Referência 1 — Chatbot + NLP + Machine Learning</div>
-      AYANOUZ, Soufyane; ABDELHAKIM, Boudhir Anouar; BENHMED, Mohammed. A smart chatbot architecture based NLP and machine learning for health care assistance. In: <strong>INTERNATIONAL CONFERENCE ON NETWORKING, INFORMATION SYSTEMS & SECURITY (NISS)</strong>, 3., 2020, Marrakech. <em>Proceedings [...]</em>. New York: ACM, 2020. DOI: 10.1145/3386723.3387897. Disponível em: https://doi.org/10.1145/3386723.3387897. Acesso em: jun. 2026.
+      <div class="abnt-label"><span class="badge-scholar">🔍 Google Scholar</span> Referência 1 — 2025</div>
+      CASTILLO-CASTRO, Karla Paola. El sesgo algorítmico generado por la inteligencia artificial como acto de discriminación en las relaciones de trabajo. <em><strong>Revista de Derecho Procesal del Trabajo</strong></em>, Lima, v. 8, n. 11, p. 72-97, 2025. DOI: 10.47308/rdpt.v8i11.1133. Disponível em: https://doi.org/10.47308/rdpt.v8i11.1133. Acesso em: jun. 2026.
     </div>
 
     <div class="abnt-item">
-      <div class="abnt-num">Referência 2 — eSocial + Contabilidade + 2024</div>
-      DALLABONA, Lúcia Fernanda; VIGARANI, Nathália Aparecida de Souza. Impactos e desafios do eSocial no ambiente contábil: análise sob a ótica da teoria contingencial. <em><strong>Revista Catarinense da Ciência Contábil</strong></em>, Florianópolis, 2024. DOI: 10.16930/2237-766220243439. Disponível em: https://doi.org/10.16930/2237-766220243439. Acesso em: jun. 2026.
-    </div>
-
-    <div class="abnt-item">
-      <div class="abnt-num">Referência 3 — eSocial + Desafios + UFBA</div>
-      CONCEIÇÃO, Fernanda Oliveira da; LIMA, Letícia Ferreira; MARTINS, Zenóbio Bonfim. Desafios das organizações contábeis acerca do eSocial após sua implementação. <em><strong>Revista de Contabilidade da UFBA</strong></em>, Salvador, v. 14, n. 1, 2020. Disponível em: https://periodicos.ufba.br/index.php/rcontabilidade/article/view/32675. Acesso em: jun. 2026.
-    </div>
-
-    <div class="abnt-item">
-      <div class="abnt-num">Referência 4 — IA + Setor Público Brasileiro + RAP</div>
+      <div class="abnt-label"><span class="badge-scielo">🌿 SciELO</span> Referência 2 — 2025</div>
       RIBEIRO, Manuella Maia; SEGATTO, Catarina Ianni. Inteligência artificial nas organizações públicas brasileiras: heterogeneidades e capacidades em tecnologia da informação. <em><strong>Revista de Administração Pública</strong></em>, Rio de Janeiro, v. 59, n. 1, 2025. DOI: 10.1590/0034-761220230264. Disponível em: https://www.scielo.br/j/rap/a/Nc7fkHcBFsJPCqpxfZrdynh/. Acesso em: jun. 2026.
     </div>
 
     <div class="abnt-item">
-      <div class="abnt-num">Referência 5 — Discriminação Algorítmica + LGPD + Trabalho</div>
+      <div class="abnt-label"><span class="badge-scielo">🌿 SciELO</span> Referência 3 — 2024</div>
       SANTOS, Rodrigo Coimbra; GRAMINHO, Vivian Maria Caxambu. Discriminação algorítmica nas relações de trabalho e princípios da Lei Geral de Proteção de Dados. <em><strong>Sequência</strong></em>, Florianópolis, v. 45, n. 96, 2024. DOI: 10.5007/2177-7055.2024.e96294. Disponível em: https://doi.org/10.5007/2177-7055.2024.e96294. Acesso em: jun. 2026.
     </div>
 
     <div class="abnt-item">
-      <div class="abnt-num">Referência 6 — Viés Algorítmico + Direito do Trabalho + América Latina</div>
-      CASTILLO-CASTRO, Karla Paola. El sesgo algorítmico generado por la inteligencia artificial como acto de discriminación en las relaciones de trabajo. <em><strong>Revista de Derecho Procesal del Trabajo</strong></em>, Lima, v. 8, n. 11, p. 72-97, 2025. DOI: 10.47308/rdpt.v8i11.1133. Disponível em: https://doi.org/10.47308/rdpt.v8i11.1133. Acesso em: jun. 2026.
+      <div class="abnt-label"><span class="badge-capes">🟠 Portal CAPES</span> Referência 4 — 2024</div>
+      DALLABONA, Lúcia Fernanda; VIGARANI, Nathália Aparecida de Souza. Impactos e desafios do eSocial no ambiente contábil: análise sob a ótica da teoria contingencial. <em><strong>Revista Catarinense da Ciência Contábil</strong></em>, Florianópolis, 2024. DOI: 10.16930/2237-766220243439. Disponível em: https://doi.org/10.16930/2237-766220243439. Acesso em: jun. 2026.
+    </div>
+
+    <div class="abnt-item">
+      <div class="abnt-label"><span class="badge-scielo">🌿 SciELO</span> Referência 5 — 2023</div>
+      BITENCOURT, Caroline Müller; MARTINS, Luisa Helena Nicknig. A inteligência artificial nos órgãos constitucionais de controle de contas da administração pública brasileira. <em><strong>Revista de Investigações Constitucionais</strong></em>, Curitiba, v. 10, n. 3, e253, 2023. DOI: 10.5380/rinc.v10i3.93650. Disponível em: https://doi.org/10.5380/rinc.v10i3.93650. Acesso em: jun. 2026.
+    </div>
+
+    <div class="abnt-item">
+      <div class="abnt-label"><span class="badge-scopus">🔵 Scopus</span> Referência 6 — 2020</div>
+      AYANOUZ, Soufyane; ABDELHAKIM, Boudhir Anouar; BENHMED, Mohammed. A smart chatbot architecture based NLP and machine learning for health care assistance. In: <strong>INTERNATIONAL CONFERENCE ON NETWORKING, INFORMATION SYSTEMS & SECURITY (NISS)</strong>, 3., 2020, Marrakech. <em>Proceedings [...]</em>. New York: ACM, 2020. DOI: 10.1145/3386723.3387897. Disponível em: https://doi.org/10.1145/3386723.3387897. Acesso em: jun. 2026.
     </div>
   </div>
 
-  <!-- SEÇÃO 5 – ZOTERO -->
+  <!-- SEÇÃO 4: ZOTERO -->
   <div class="section">
     <div class="section-title">📂 Como organizar no Zotero</div>
-    <div class="section-sub">O Zotero é um programa gratuito que organiza automaticamente suas referências bibliográficas e as formata no padrão que você precisa (ABNT, APA, etc.). Veja como usar com os artigos desta pesquisa:</div>
+    <div class="section-sub">4 passos simples para importar todos os artigos e exportar as referências automaticamente em ABNT.</div>
 
     <div class="step">
       <div class="step-num">1</div>
-      <div class="step-content">
-        <div class="step-title">Crie uma coleção chamada "TCC PROFNIT — Chatbot eSocial"</div>
-        <div class="step-desc">No Zotero, clique em "Nova Coleção" (ícone de pasta) e nomeie assim. Você pode criar subpastas por tema: eSocial, IA, Discriminação Algorítmica, Setor Público.</div>
+      <div>
+        <div class="step-title">Crie uma coleção no Zotero chamada "TCC PROFNIT — Chatbot eSocial"</div>
+        <div class="step-desc">Dentro dela, crie 4 pastas: <strong>SciELO</strong>, <strong>Portal CAPES</strong>, <strong>Scopus</strong> e <strong>Google Scholar</strong> — para organizar conforme a base de origem de cada artigo.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-content">
-        <div class="step-title">Adicione os artigos pelo DOI</div>
-        <div class="step-desc">Para artigos com DOI (artigos 1, 2, 4, 5, 6): vá em <strong>Arquivo → Adicionar item por identificador</strong>, cole o DOI (ex.: 10.1145/3386723.3387897) e o Zotero preenche tudo automaticamente. Para o artigo 3, use o conector do navegador.</div>
+      <div>
+        <div class="step-title">Importe cada artigo pelo DOI</div>
+        <div class="step-desc">No Zotero: <strong>Arquivo → Adicionar item por identificador</strong>. Cole o DOI de cada artigo (ex.: 10.5007/2177-7055.2024.e96294) e todos os dados são preenchidos automaticamente.</div>
       </div>
     </div>
 
     <div class="step">
       <div class="step-num">3</div>
-      <div class="step-content">
-        <div class="step-title">Exporte em formato ABNT para o TCC</div>
-        <div class="step-desc">Selecione todos os artigos da coleção → Botão direito → <strong>"Criar bibliografia"</strong> → Escolha o estilo <strong>"ABNT NBR 6023:2023"</strong> → Copie para o Word. Pronto, as referências ficam formatadas automaticamente.</div>
+      <div>
+        <div class="step-title">Exporte as referências em ABNT</div>
+        <div class="step-desc">Selecione todos → Botão direito → <strong>Criar bibliografia</strong> → Estilo: <strong>ABNT NBR 6023:2023</strong> → Copie para o Word. As referências já ficam formatadas.</div>
       </div>
     </div>
 
-    <div class="step" style="margin-bottom:0;">
+    <div class="step" style="margin-bottom:0">
       <div class="step-num">4</div>
-      <div class="step-content">
-        <div class="step-title">Use o plugin para Word para citar dentro do texto</div>
-        <div class="step-desc">Instale o <strong>Zotero Word Plugin</strong> (gratuito). Dentro do Word, ao citar um artigo, o Zotero insere a citação automaticamente no formato correto (ex.: DALLABONA; VIGARANI, 2024) e atualiza a lista de referências ao final.</div>
+      <div>
+        <div class="step-title">Use o Plugin Zotero no Word para citar no texto</div>
+        <div class="step-desc">Instale o <strong>Zotero Word Plugin</strong> (gratuito). Ao escrever o TCC, insira as citações no formato (AUTOR, ano) diretamente pelo Word. A lista de referências é gerada e atualizada automaticamente.</div>
       </div>
     </div>
   </div>
@@ -434,10 +444,9 @@
   <!-- FOOTER -->
   <div class="footer">
     <div>📚 <strong>TCC PROFNIT</strong> — Chatbot Especialista em eSocial · Junho de 2026</div>
-    <div>Todos os 6 artigos com <strong>links ativos e verificados</strong></div>
+    <div>6 artigos · 4 bases oficiais · <strong>Zero repositórios</strong></div>
   </div>
 
 </div>
-
 </body>
 </html>
