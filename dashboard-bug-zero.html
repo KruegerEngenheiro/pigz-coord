@@ -195,7 +195,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   <div class="topbar-logo">PIGZ</div>
   <div class="topbar-sep"></div>
   <div class="topbar-title">Operação Bug Zero</div>
-  <div class="topbar-ts">Atualizado 29/06/2026, 09:08:17 · Sprint 24/06–15/07</div>
+  <div class="topbar-ts">Atualizado 29/06/2026, 10:43:15 · Sprint 24/06–15/07</div>
 </div>
 <div class="hero">
   <div class="hero-eyebrow">Operação Bug Zero · PIGZ 2026</div>
@@ -457,15 +457,9 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('sla')">📅 SLA por Prazo</button>
-    <button class="tab" onclick="showTab('msg')">💬 Mensagem Grupo</button>
-  </div>
-
-  <!-- TAB: SLA por prazo -->
-  <div id="tab-sla">
-    <div class="filter-bar">
+  <!-- SLA por prazo -->
+  <div class="section-title">SLA por Prazo</div>
+  <div class="filter-bar">
       <span style="font-size:11px;color:var(--text3)">Filtrar:</span>
       <button class="filter-btn active" onclick="filterCards('all',this)">Todos</button>
       <button class="filter-btn" onclick="filterCards('OVERDUE',this)">🔴 Vencidos</button>
@@ -2279,51 +2273,10 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- TAB: Mensagem -->
-  <div id="tab-msg" class="hidden">
-    <div class="cobranca">
-      <div class="cobranca-header">
-        <div class="cobranca-label">💬 Mensagem para o grupo — copie e envie</div>
-        <button class="copy-btn" onclick="copyMsg()">📋 Copiar</button>
-      </div>
-      <div class="msg-pre" id="msg-text">🎯 Operação Bug Zero — 29/06/2026
-
-Pessoal, dados auditados diretamente do Linear.
-Contamos SOMENTE os cards do documento, fechados a partir de 24/06.
-
-📊 Resultado atual (Dia 6 de 22):
-
-🔵 JP — João Paulo
-   9/37 concluídos (24%) · 0 urgentes · Prazo: 08/07
-
-🟢 GA — Guilherme Alves
-   11/49 concluídos (22%) · 0 urgentes · Prazo: 15/07
-
-🟣 VR — Vitor Rocha
-   28/75 concluídos (37%) · 12 urgentes · Prazo: 15/07
-
-🟠 GC — Gustavo Carvalho
-   6/70 concluídos (9%) · 3 urgentes · Prazo: 15/07
-
-📈 Total: 54/231 (23%) | 2 vencidos abertos | 15 urgentes
-⏱ Ritmo necessário: 12 cards/dia para fechar no prazo.
-
-🔴 Cards VENCIDOS que precisam fechar agora:
-   GC — RC-1495 (prazo era 25/06) — Contestação da Exigência de CPF para Emi
-   GC — RC-1506 (prazo era 26/06) — Definir solução paliativa para emissão d
-
-Urgentes: SLA 24h — cada um cobra o seu. ✅</div>
-    </div>
-  </div>
-
 </div>
 
 <script>
-function showTab(name) {
-  document.getElementById('tab-sla').classList.toggle('hidden', name !== 'sla');
-  document.getElementById('tab-msg').classList.toggle('hidden', name !== 'msg');
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', (name==='sla'&&i===0)||(name==='msg'&&i===1)));
-}
+function showTab(name) { /* removido */ }
 
 let activeStatus = 'all', activeDev = 'all';
 function applyFilter() {
@@ -2351,12 +2304,7 @@ function filterDev(dev, btn) {
   if (activeDev !== 'all') btn.classList.add('active');
   applyFilter();
 }
-function copyMsg() {
-  const txt = document.getElementById('msg-text').innerText || document.getElementById('msg-text').textContent;
-  navigator.clipboard.writeText(txt);
-  event.target.textContent = '✅ Copiado!';
-  setTimeout(() => event.target.textContent = '📋 Copiar', 2000);
-}
+
 // toggle seções
 document.querySelectorAll('.prazo-header').forEach(h => {
   h.addEventListener('click', () => {
