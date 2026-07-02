@@ -187,15 +187,113 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   .kpi-grid{grid-template-columns:repeat(3,1fr)}
   .dev-grid{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ── PASSWORD OVERLAY ── */
+#pw-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:#080A0F;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:0;
+  transition:opacity .4s ease;
+}
+#pw-overlay.fade-out{opacity:0;pointer-events:none}
+.pw-box{
+  background:#111318;border:1px solid rgba(255,107,53,0.2);
+  border-radius:20px;padding:48px 40px;width:100%;max-width:380px;
+  box-shadow:0 0 60px rgba(255,107,53,0.08), 0 20px 60px rgba(0,0,0,0.5);
+  display:flex;flex-direction:column;align-items:center;gap:24px;
+}
+.pw-logo-dot{width:10px;height:10px;border-radius:50%;background:#FF6B35;box-shadow:0 0 12px #FF6B35;margin-bottom:-8px}
+.pw-logo{font-family:'Poppins',sans-serif;font-size:22px;font-weight:900;letter-spacing:5px;color:#FF6B35}
+.pw-subtitle{font-size:11px;color:#475569;font-family:'Poppins',sans-serif;letter-spacing:1px;text-transform:uppercase;text-align:center}
+.pw-divider{width:40px;height:1px;background:rgba(255,107,53,0.3)}
+.pw-label{font-size:11px;font-weight:600;color:#94A3B8;font-family:'Poppins',sans-serif;letter-spacing:1px;text-transform:uppercase;align-self:flex-start}
+.pw-input-wrap{position:relative;width:100%}
+.pw-input{
+  width:100%;background:#0D1017;border:1px solid rgba(255,255,255,0.08);
+  border-radius:10px;padding:14px 44px 14px 16px;
+  color:#F1F5F9;font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:3px;
+  outline:none;transition:border-color .2s;
+}
+.pw-input:focus{border-color:rgba(255,107,53,0.5)}
+.pw-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:#475569;font-size:16px;user-select:none;transition:color .2s}
+.pw-eye:hover{color:#94A3B8}
+.pw-btn{
+  width:100%;background:linear-gradient(135deg,#FF6B35,#FF8C5A);
+  border:none;border-radius:10px;padding:14px;
+  color:#fff;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:opacity .2s,transform .15s;
+}
+.pw-btn:hover{opacity:.9;transform:translateY(-1px)}
+.pw-btn:active{transform:translateY(0)}
+.pw-error{
+  font-size:11px;color:#EF4444;font-family:'Poppins',sans-serif;
+  text-align:center;height:16px;transition:opacity .2s;
+}
+.pw-footer{font-size:10px;color:#334155;font-family:'Poppins',sans-serif;text-align:center;margin-top:-8px}
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE — não altera conteúdo do dashboard -->
+<div id="pw-overlay">
+  <div class="pw-box">
+    <div class="pw-logo-dot"></div>
+    <div class="pw-logo">PIGZ</div>
+    <div class="pw-subtitle">Operação Bug Zero &nbsp;·&nbsp; Acesso Restrito</div>
+    <div class="pw-divider"></div>
+    <div class="pw-label">Senha de acesso</div>
+    <div class="pw-input-wrap">
+      <input class="pw-input" id="pw-input" type="password" placeholder="••••••••" autocomplete="off" />
+      <span class="pw-eye" id="pw-eye" onclick="toggleEye()">&#128065;</span>
+    </div>
+    <div class="pw-error" id="pw-error"></div>
+    <button class="pw-btn" onclick="checkPw()">Entrar</button>
+    <div class="pw-footer">Dashboard interno &mdash; PIGZ &copy; 2026</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Verifica sessão ativa
+  if(sessionStorage.getItem('pigz_auth')==='ok'){
+    document.getElementById('pw-overlay').style.display='none';
+  }
+  document.getElementById('pw-input').addEventListener('keydown',function(e){
+    if(e.key==='Enter') checkPw();
+    document.getElementById('pw-error').textContent='';
+  });
+})();
+function toggleEye(){
+  var i=document.getElementById('pw-input');
+  var e=document.getElementById('pw-eye');
+  if(i.type==='password'){i.type='text';e.textContent='🙈';}
+  else{i.type='password';e.textContent='👁';}
+}
+function checkPw(){
+  var v=document.getElementById('pw-input').value;
+  // Hash simples: soma dos char codes (ofuscação básica para acesso interno)
+  var h=v.split('').reduce(function(a,c){return a+c.charCodeAt(0);},0);
+  if(h===760){ // pigzbug
+    sessionStorage.setItem('pigz_auth','ok');
+    var ov=document.getElementById('pw-overlay');
+    ov.classList.add('fade-out');
+    setTimeout(function(){ov.style.display='none';},400);
+  } else {
+    var err=document.getElementById('pw-error');
+    err.textContent='Senha incorreta. Tente novamente.';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+</script>
+
 <div class="topbar">
   <div class="topbar-dot"></div>
   <div class="topbar-logo">PIGZ</div>
   <div class="topbar-sep"></div>
   <div class="topbar-title">Operação Bug Zero</div>
-  <div class="topbar-ts">Atualizado 02/07/2026, 18:48:21 · Sprint 24/06–15/07</div>
+  <div class="topbar-ts">Atualizado 02/07/2026, 18:53:10 · Sprint 24/06–15/07</div>
 </div>
 <div class="hero">
   <div class="hero-eyebrow">Operação Bug Zero · PIGZ 2026</div>
