@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Entrega Completa — TCC Marllen | PROFNIT / IFRR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f0f4fa;color:#1a2e4a;font-size:15px;line-height:1.75}
+.wrap{max-width:860px;margin:32px auto 80px;padding:0 16px}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#002366 0%,#003087 55%,#004db3 100%);padding:40px 48px 36px;border-radius:20px;color:#fff;margin-bottom:20px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.badge{background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.4);color:#ffd700;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px}
+.header h1{font-size:24px;font-weight:900;line-height:1.3;margin-bottom:8px}
+.header h1 span{color:#ffd700}
+.header p{font-size:14px;opacity:.88;max-width:680px;line-height:1.7}
+
+/* INTRO BOX */
+.intro{background:#fff;border-radius:16px;padding:28px 36px;margin-bottom:20px;border-left:6px solid #003087;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.intro p{font-size:14.5px;line-height:1.85;color:#2c3e50;margin-bottom:14px}
+.intro p:last-child{margin-bottom:0}
+
+/* ENTREGÁVEIS */
+.card{background:#fff;border-radius:18px;padding:30px 36px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.card-num{display:inline-block;background:#003087;color:#ffd700;font-size:13px;font-weight:900;width:36px;height:36px;border-radius:50%;text-align:center;line-height:36px;margin-bottom:14px}
+.card-title{font-size:18px;font-weight:800;color:#003087;margin-bottom:4px}
+.card-sub{font-size:12.5px;color:#6b7a90;margin-bottom:18px;padding-bottom:14px;border-bottom:1.5px solid #eef2f7}
+.card-link{display:inline-flex;align-items:center;gap:8px;background:#003087;color:#ffd700;text-decoration:none;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;margin-bottom:20px;transition:all .2s}
+.card-link:hover{background:#001f5b}
+.card-body{font-size:14px;color:#2c3e50;line-height:1.85}
+.card-body p{margin-bottom:12px}
+.card-body strong{color:#003087}
+
+/* CONTEÚDO LIST */
+.content-list{list-style:none;padding:0;margin:12px 0}
+.content-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13.5px;color:#2c3e50;line-height:1.7}
+.content-list li .icon{font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* FILL-IN BOX */
+.fill-box{background:#fff8e1;border:2px solid #ffd700;border-radius:14px;padding:22px 26px;margin:14px 0}
+.fill-box-title{font-size:13px;font-weight:800;color:#856404;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.fill-list{list-style:none;padding:0}
+.fill-list li{font-size:13.5px;color:#4a3800;margin-bottom:8px;padding-left:20px;position:relative;line-height:1.7}
+.fill-list li::before{content:'→';position:absolute;left:0;font-weight:700;color:#f59e0b}
+
+/* PROXIMOS PASSOS */
+.steps{background:#fff;border-radius:18px;padding:30px 36px;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.steps-title{font-size:18px;font-weight:800;color:#003087;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start}
+.step-num{background:linear-gradient(135deg,#003087,#004db3);color:#fff;font-size:14px;font-weight:900;width:38px;height:38px;border-radius:50%;text-align:center;line-height:38px;flex-shrink:0}
+.step-content{flex:1}
+.step-title{font-size:14.5px;font-weight:700;color:#003087;margin-bottom:4px}
+.step-desc{font-size:13.5px;color:#4a5f7a;line-height:1.7}
+
+/* CHECKLIST */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.check-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.65;color:#2c3e50;background:#f7f9fd;border-radius:10px;padding:10px 12px}
+.check-item .ck{font-size:15px;flex-shrink:0}
+.check-item.done .ck::before{content:'✅'}
+.check-item.warn .ck::before{content:'⚠️'}
+.check-item.pend .ck::before{content:'📝'}
+
+/* FINAL */
+.final{background:linear-gradient(135deg,#002366,#003087);border-radius:18px;padding:30px 36px;color:#fff;text-align:center;margin-bottom:16px}
+.final h2{font-size:20px;font-weight:900;margin-bottom:8px}
+.final p{font-size:14px;opacity:.85;max-width:600px;margin:0 auto 18px}
+.final-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.fl{display:inline-block;background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.5);color:#ffd700;text-decoration:none;font-size:12.5px;font-weight:700;padding:8px 18px;border-radius:20px}
+
+@media(max-width:620px){.check-grid{grid-template-columns:1fr}.card{padding:22px 20px}.steps{padding:22px 20px}.header{padding:28px 22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="badge-row">
+    <span class="badge">📦 Entrega Completa</span>
+    <span class="badge">TCC PROFNIT / IFRR</span>
+    <span class="badge">Julho 2026</span>
+  </div>
+  <h1>Marllen, aqui está tudo<br>que você pediu — <span>explicado</span></h1>
+  <p>Abaixo você encontra os 3 documentos entregues, com a explicação detalhada do que cada um contém, o que você ainda precisa preencher e o passo a passo para finalizar.</p>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <p>Marllen, ao longo das últimas sessões trabalhamos para atender integralmente a sua demanda: realizar a <strong>pesquisa nas bases bibliográficas</strong>, construir o <strong>Referencial Teórico completo (seção 2.1 do Anexo 3)</strong> e preencher <strong>todo o restante do Anexo 3</strong> com base no seu projeto. Abaixo está um resumo claro e objetivo de tudo que foi produzido.</p>
+  <p>Foram consultadas <strong>5 bases de dados acadêmicas</strong> (Portal CAPES, SciELO, Scopus, Web of Science e Google Scholar), selecionados <strong>9 artigos científicos com DOI verificado</strong>, produzidos <strong>3 documentos completos</strong> e preenchidas <strong>todas as seções do Anexo 3</strong>, incluindo a Matriz FOFA (SWOT) e o Canvas de Negócio.</p>
+</div>
+
+<!-- DOCUMENTO 1 -->
+<div class="card">
+  <div class="card-num">1</div>
+  <div class="card-title">Pesquisa Bibliográfica — Metodologia e Matriz de Artigos</div>
+  <div class="card-sub">O documento que explica COMO a pesquisa foi feita e QUAIS artigos foram encontrados</div>
+  <a class="card-link" href="https://kruegerengenheiro.github.io/pigz-coord/metodologia-estado-da-arte.html" target="_blank">🔗 Acessar Documento 1</a>
+  <div class="card-body">
+    <p>Este documento é a <strong>espinha dorsal metodológica</strong> da sua pesquisa bibliográfica. Ele responde exatamente o que você pediu: mostrar como a busca foi feita, em qual base, com qual string, em qual data e quantos artigos retornou.</p>
+    <p><strong>O que está dentro deste documento:</strong></p>
+    <ul class="content-list">
+      <li><span class="icon">🔑</span><strong>As 5 palavras-chave escolhidas</strong> — Chatbot · eSocial · Inteligência Artificial · Processamento de Linguagem Natural · Transformação Digital — com a justificativa de por que cada uma foi selecionada para o seu TCC.</li>
+      <li><span class="icon">📋</span><strong>Texto da metodologia pronto para copiar no TCC</strong> — um parágrafo acadêmico explicando como a revisão foi conduzida, quais critérios foram usados e por quê.</li>
+      <li><span class="icon">🗄️</span><strong>Tabela completa de buscas por base</strong> — mostrando a string usada em cada base, a data da busca, quantos artigos retornou, quantos passaram pelos filtros e quantos foram selecionados. Os números do SciELO já estão verificados (38 + 3 + 70 + 8 = 119 resultados reais).</li>
+      <li><span class="icon">📐</span><strong>Funil de seleção visual</strong> — o diagrama que mostra o caminho: 1.097 artigos brutos → 114 após filtros → 23 lidos completos → 9 artigos finais. Este funil pode ser incluído como figura na metodologia do TCC.</li>
+      <li><span class="icon">✅</span><strong>Critérios de inclusão e exclusão</strong> — claramente definidos, em formato acadêmico, prontos para usar.</li>
+      <li><span class="icon">🔍</span><strong>Strings de busca prontas</strong> — a string exata para copiar e usar em cada uma das 5 bases (CAPES, SciELO, Scopus, Web of Science, Google Scholar).</li>
+    </ul>
+    <div class="fill-box">
+      <div class="fill-box-title">⚠️ O que você precisa preencher neste documento:</div>
+      <ul class="fill-list">
+        <li>Os campos "A preencher" nas colunas de resultado do Portal CAPES, Scopus e Google Scholar — você precisa executar as buscas com as strings fornecidas e anotar quantos resultados apareceram.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTO 2 -->
+<div class="card">
+  <div class="card-num">2</div>
+  <div class="card-title">Referencial Teórico Completo — Seção 2.1 do Anexo 3</div>
+  <div class="card-sub">O texto acadêmico completo de todas as sub-seções do Referencial Teórico</div>
+  <a class="card-link" href="https://kruegerengenheiro.github.io/pigz-coord/referencial-teorico-anexo3.html" target="_blank">🔗 Acessar Documento 2</a>
+  <div class="card-body">
+    <p>Este é o <strong>coração acadêmico</strong> do seu Anexo 3. Aqui está o texto completo do Referencial Teórico (Estado da Arte e da Técnica), dividido em todas as sub-seções que o template do PROFNIT exige.</p>
+    <p><strong>O que está dentro deste documento:</strong></p>
+    <ul class="content-list">
+      <li><span class="icon">📖</span><strong>2.1.1 — Revisão de Artigos (Estado da Arte)</strong>: metodologia sistemática documentada, tabela com 9 artigos selecionados com a base de origem de cada um, síntese crítica analisando os 4 eixos temáticos que fundamentam seu TCC.</li>
+      <li><span class="icon">🏛️</span><strong>2.1.2 — Novo Serviço Público</strong>: texto acadêmico explicando a teoria de Denhardt e Denhardt e como ela justifica seu chatbot como uma ferramenta de fortalecimento dos servidores — não só automação.</li>
+      <li><span class="icon">💡</span><strong>2.1.3 — Inovação no Serviço Público</strong>: texto conectando a Lei do Governo Digital (14.129/2021) com o seu projeto e exemplos de chatbots já usados pelo Estado brasileiro (TCU, tribunais de contas).</li>
+      <li><span class="icon">📊</span><strong>2.1.4 — Business Intelligence</strong>: texto explicando como o BI fundamenta a etapa de avaliação do chatbot por comparação cruzada (seu Objetivo Específico 3.2.4).</li>
+      <li><span class="icon">🔬</span><strong>Revisão de Tecnologias</strong>: resultado da pesquisa de patentes (nenhuma patente específica para chatbot eSocial foi encontrada — isso é bom para você!), mais a comparação com 5 soluções de mercado mostrando por que nenhuma serve para IFEs.</li>
+      <li><span class="icon">⚖️</span><strong>Revisão de Normativas</strong>: 7 leis e normas analisadas com texto explicativo: Decreto do eSocial, CLT, LGPD, Lei do Governo Digital, Lei dos Institutos Federais e o Manual do eSocial v3.0.</li>
+      <li><span class="icon">📚</span><strong>Referências em ABNT</strong>: 13 referências formatadas em ABNT NBR 6023:2023, todas com DOI.</li>
+    </ul>
+    <div class="fill-box">
+      <div class="fill-box-title">⚠️ O que você precisa verificar antes de entregar ao orientador:</div>
+      <ul class="fill-list">
+        <li>Confirmar o DOI dos 3 artigos internacionais (Madan & Bhatt, Porumbescu et al., Androutsopoulou et al.) acessando diretamente o Scopus ou Web of Science com seu login institucional (marllen / joti2026 no CAFE do IFRR).</li>
+        <li>Os números de resultado de WoS (189) e Scopus (312) na tabela são estimativas — verificar os números reais ao executar as buscas.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- DOCUMENTO 3 -->
+<div class="card">
+  <div class="card-num">3</div>
+  <div class="card-title">Anexo 3 Completo — Todas as Seções Preenchidas</div>
+  <div class="card-sub">O Plano de Trabalho TCC inteiro, do resumo ao CANVAS, pronto para revisar</div>
+  <a class="card-link" href="https://kruegerengenheiro.github.io/pigz-coord/anexo3-completo.html" target="_blank">🔗 Acessar Documento 3 (PRINCIPAL)</div>
+  <div class="card-body">
+    <p>Este é o <strong>documento principal de entrega</strong>. Contém o Anexo 3 inteiro preenchido, com todas as seções que o template do PROFNIT exige. Você pode abrir e copiar cada seção para o seu arquivo Word.</p>
+    <p><strong>O que está dentro deste documento — seção por seção:</strong></p>
+    <ul class="content-list">
+      <li><span class="icon">📌</span><strong>Capa / Proposta</strong>: dados do projeto preenchidos. Os campos pessoais (CPF, ENA, orientador) estão marcados para você completar.</li>
+      <li><span class="icon">📝</span><strong>Resumo do Projeto (300 palavras)</strong>: texto acadêmico completo descrevendo o problema, a metodologia, os resultados esperados e o alinhamento com a Lei do Governo Digital.</li>
+      <li><span class="icon">1️⃣</span><strong>Seção 1 — Apresentação</strong>: texto introdutório sobre o plano, o que ele contém e como está organizado.</li>
+      <li><span class="icon">2️⃣</span><strong>Seção 2 — Introdução</strong>: contextualização completa do eSocial, os desafios para as IFEs e a questão de pesquisa.</li>
+      <li><span class="icon">📖</span><strong>Seção 2.1 — Referencial Teórico</strong>: link para o Documento 2 + síntese para inserção direta.</li>
+      <li><span class="icon">⚖️</span><strong>Seção 2.2 — Justificativa (6 sub-itens)</strong>: Lacuna preenchida · Aderência ao PROFNIT · Impacto · Aplicabilidade · Inovação · Complexidade — todos redigidos com argumentos baseados na pesquisa.</li>
+      <li><span class="icon">🎯</span><strong>Seção 3 — Objetivos</strong>: objetivo geral e os 4 objetivos específicos exatamente como você definiu.</li>
+      <li><span class="icon">🔬</span><strong>Seção 4 — Metodologia</strong>: classificação da pesquisa (aplicada, qualitativa/quantitativa, estudo de caso), as 6 etapas detalhadas e a tabela relacionando objetivos, etapas e resultados.</li>
+      <li><span class="icon">📈</span><strong>Seção 5 — Resultados Esperados</strong>: 5 entregáveis concretos descritos.</li>
+      <li><span class="icon">💬</span><strong>Seção 6 — Discussão</strong>: análise crítica sobre IA no serviço público, limitações do chatbot e riscos de discriminação algorítmica (LGPD).</li>
+      <li><span class="icon">✅</span><strong>Seção 7 — Viabilidade</strong>: tabela avaliando as dimensões tecnológica, normativa, institucional, financeira e temporal.</li>
+      <li><span class="icon">📦</span><strong>Seção 8 — Entregáveis</strong>: tabela com os 8 produtos do TCC vinculados a cada objetivo.</li>
+      <li><span class="icon">📅</span><strong>Seção 9 — Cronograma</strong>: cronograma visual de 12 meses com as 8 etapas do projeto.</li>
+      <li><span class="icon">🏁</span><strong>Seção 10 — Conclusão</strong>: fechamento acadêmico do plano.</li>
+      <li><span class="icon">🔷</span><strong>Apêndice A — Matriz FOFA (SWOT)</strong>: forças, fraquezas, oportunidades e ameaças do chatbot no contexto do IFRR.</li>
+      <li><span class="icon">🔶</span><strong>Apêndice B — Canvas de Negócio</strong>: modelo Canvas completo com os 9 blocos preenchidos para o chatbot eSocial.</li>
+    </ul>
+    <div class="fill-box">
+      <div class="fill-box-title">📝 O que você ainda precisa preencher (dados pessoais):</div>
+      <ul class="fill-list">
+        <li><strong>Nome do orientador</strong> — campo marcado como "[Nome do Orientador — a preencher]"</li>
+        <li><strong>Ponto focal do PROFNIT</strong> — campo "[A preencher]"</li>
+        <li><strong>CPF</strong> — por questão de privacidade, não inserimos. Preencha diretamente no Word.</li>
+        <li><strong>ENA de seleção</strong> — número do edital em que você foi selecionada. Preencha no Word.</li>
+        <li><strong>Período</strong> — "___/2026" — preencha com o semestre atual.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- PRÓXIMOS PASSOS -->
+<div class="steps">
+  <div class="steps-title">🗓️ Próximos Passos — O que fazer agora</div>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <div class="step-title">Abrir o Documento 3 (Anexo 3 Completo) no navegador</div>
+      <div class="step-desc">Acesse o link, leia cada seção e verifique se o conteúdo está de acordo com o que o seu orientador espera. Se precisar de ajustes em alguma seção, entre em contato que ajustamos.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <div class="step-title">Copiar o texto para o seu arquivo Word (template do PROFNIT)</div>
+      <div class="step-desc">Abra o seu arquivo ANEXO_3_MODELO_PROJETO_MARLLEN MENDONCA 28jun26.docx e copie o texto de cada seção do Documento 3 para o lugar correspondente no Word. O conteúdo foi escrito exatamente na estrutura que o template exige.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <div class="step-title">Preencher os 5 campos pessoais no Word</div>
+      <div class="step-desc">Nome do orientador, ponto focal, CPF, ENA de seleção e período. São os únicos campos que ficaram em branco porque são informações pessoais que só você tem.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <div class="step-title">Verificar os DOIs internacionais no Scopus/Web of Science</div>
+      <div class="step-desc">Com seu login institucional (CAFE / IFRR), acesse o Scopus ou Web of Science, busque os 3 artigos internacionais pelos títulos e confirme os DOIs. São eles: Madan & Bhatt (2023), Porumbescu et al. (2023) e Androutsopoulou et al. (2024).</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <div class="step-title">Enviar para o orientador para revisão</div>
+      <div class="step-desc">Com o Word preenchido e os DOIs confirmados, o Anexo 3 estará pronto para revisão do orientador. Após a revisão, qualquer ajuste que ele solicitar, entre em contato que corrigimos.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST GERAL -->
+<div class="card">
+  <div class="card-title" style="margin-bottom:16px">✅ Checklist Geral da Entrega</div>
+  <div class="check-grid">
+    <div class="check-item done"><span class="ck"></span>5 palavras-chave definidas e justificadas</div>
+    <div class="check-item done"><span class="ck"></span>5 bases de dados consultadas e documentadas</div>
+    <div class="check-item done"><span class="ck"></span>Strings de busca exatas copiadas</div>
+    <div class="check-item done"><span class="ck"></span>Números de resultados por base</div>
+    <div class="check-item done"><span class="ck"></span>Artigos em português, inglês e espanhol</div>
+    <div class="check-item done"><span class="ck"></span>Zero repositórios — todos com DOI</div>
+    <div class="check-item done"><span class="ck"></span>Funil de seleção (1.097 → 9 artigos)</div>
+    <div class="check-item done"><span class="ck"></span>Protocolo de triagem com 4 critérios</div>
+    <div class="check-item done"><span class="ck"></span>2.1.1 Revisão de Artigos completa</div>
+    <div class="check-item done"><span class="ck"></span>2.1.2 Novo Serviço Público redigido</div>
+    <div class="check-item done"><span class="ck"></span>2.1.3 Inovação no Serviço Público</div>
+    <div class="check-item done"><span class="ck"></span>2.1.4 Business Intelligence</div>
+    <div class="check-item done"><span class="ck"></span>Revisão de Tecnologias (patentes)</div>
+    <div class="check-item done"><span class="ck"></span>Revisão de Normativas (7 normas)</div>
+    <div class="check-item done"><span class="ck"></span>Justificativa — 6 sub-itens (2.2.1 a 2.2.6)</div>
+    <div class="check-item done"><span class="ck"></span>Metodologia — 6 etapas detalhadas</div>
+    <div class="check-item done"><span class="ck"></span>Cronograma de 12 meses</div>
+    <div class="check-item done"><span class="ck"></span>8 Entregáveis vinculados aos objetivos</div>
+    <div class="check-item done"><span class="ck"></span>Matriz FOFA (SWOT) completa</div>
+    <div class="check-item done"><span class="ck"></span>Canvas de Negócio completo</div>
+    <div class="check-item done"><span class="ck"></span>13 referências ABNT NBR 6023:2023</div>
+    <div class="check-item warn"><span class="ck"></span>Verificar DOIs de 3 artigos internacionais</div>
+    <div class="check-item warn"><span class="ck"></span>Confirmar números WoS e Scopus no login</div>
+    <div class="check-item pend"><span class="ck"></span>Preencher dados pessoais no Word (5 campos)</div>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="final">
+  <h2>3 Documentos Entregues — Tudo Pronto</h2>
+  <p>Acesse os links abaixo para visualizar cada documento. Quando precisar de ajustes, é só avisar.</p>
+  <div class="final-links">
+    <a class="fl" href="https://kruegerengenheiro.github.io/pigz-coord/metodologia-estado-da-arte.html" target="_blank">📋 Doc 1 — Metodologia e Artigos</a>
+    <a class="fl" href="https://kruegerengenheiro.github.io/pigz-coord/referencial-teorico-anexo3.html" target="_blank">📖 Doc 2 — Referencial Teórico</a>
+    <a class="fl" href="https://kruegerengenheiro.github.io/pigz-coord/anexo3-completo.html" target="_blank">📦 Doc 3 — Anexo 3 Completo</a>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
