@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Anexo 3 Completo — TCC PROFNIT / IFRR</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Merriweather',Georgia,serif;background:#f2f2ee;color:#1a1a2e;font-size:14px;line-height:2}
+.sans{font-family:'Inter',sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 80px}
+
+/* === CAPA === */
+.capa{background:linear-gradient(160deg,#00205b 0%,#003087 55%,#004db3 100%);padding:56px 60px;color:#fff;margin-bottom:0;border-bottom:5px solid #ffd700;position:relative;overflow:hidden}
+.capa::after{content:'';position:absolute;bottom:-40px;right:-40px;width:300px;height:300px;border-radius:50%;background:rgba(255,215,0,.05);pointer-events:none}
+.logo-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.logo-badge{background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.4);color:#ffd700;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;font-family:'Inter',sans-serif}
+.capa h1{font-size:14px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase;opacity:.75;margin-bottom:10px}
+.capa h2{font-size:22px;font-weight:900;font-family:'Inter',sans-serif;line-height:1.35;color:#ffd700;margin-bottom:20px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.meta-item{background:rgba(255,255,255,.1);border-radius:10px;padding:12px 16px}
+.meta-label{font-size:10px;font-weight:700;font-family:'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.meta-val{font-size:13.5px;font-weight:600;font-family:'Inter',sans-serif}
+.meta-fill{font-size:12px;font-style:italic;opacity:.7}
+
+/* === SUMÁRIO === */
+.toc{background:#fff;padding:30px 44px;border-bottom:2px solid #e0e5ec;font-family:'Inter',sans-serif}
+.toc h3{font-size:12px;font-weight:800;color:#003087;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.toc ol{padding-left:18px}
+.toc li{margin-bottom:5px;font-size:13px;color:#003087}
+.toc a{color:#003087;text-decoration:none;border-bottom:1px dashed #aac}
+.toc ul{padding-left:18px;margin-top:4px}
+.toc ul li{font-size:12.5px;color:#4a6080;margin-bottom:3px}
+
+/* === SECTION === */
+.sec{background:#fff;padding:40px 52px;margin-bottom:4px;border-left:5px solid #003087}
+.sec.gold{border-left-color:#ffd700}
+.sec.green{border-left-color:#10b981}
+.sec-num{font-size:10.5px;font-weight:800;font-family:'Inter',sans-serif;color:#003087;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.sec-title{font-size:19px;font-weight:900;font-family:'Inter',sans-serif;color:#00205b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #eef2f7}
+.sub{margin-bottom:28px}
+.sub-h{font-size:15.5px;font-weight:800;font-family:'Inter',sans-serif;color:#003087;margin-bottom:12px;padding-left:14px;border-left:4px solid #ffd700}
+.sub-sub{font-size:14px;font-weight:700;font-family:'Inter',sans-serif;color:#0d47a1;margin:18px 0 8px}
+p{margin-bottom:16px;text-align:justify;hyphens:auto}
+p:last-child{margin-bottom:0}
+ul.lista, ol.lista{padding-left:22px;margin-bottom:16px}
+ul.lista li, ol.lista li{margin-bottom:6px;line-height:1.85}
+blockquote{border-left:4px solid #ffd700;background:#fffbf0;margin:16px 0;padding:12px 18px;font-style:italic;font-size:13.5px;color:#4a3800;border-radius:0 8px 8px 0;font-family:'Merriweather',serif}
+
+/* === TABLE === */
+.tw{overflow-x:auto;border-radius:10px;border:2px solid #dde8f5;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:12.5px;min-width:560px}
+thead tr{background:linear-gradient(90deg,#00205b,#003087)}
+thead th{color:#fff;padding:10px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.5px}
+tbody tr:nth-child(even){background:#f7f9fd}
+tbody td{padding:10px 14px;vertical-align:top;border-bottom:1px solid #eef2f7;line-height:1.65}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:8px;font-family:'Inter',sans-serif}
+.t-g{background:#e8f5e9;color:#1b5e20}
+.t-b{background:#e3f2fd;color:#0d47a1}
+.t-o{background:#fff3e0;color:#bf360c}
+.t-p{background:#f3e5f5;color:#6a1b9a}
+.t-t{background:#e0f2f1;color:#004d40}
+
+/* === NORMA === */
+.norma{border-left:4px solid #ffd700;background:#fffbf0;border-radius:0 10px 10px 0;padding:13px 18px;margin:10px 0;font-family:'Inter',sans-serif;font-size:13px}
+.norma strong{display:block;color:#00205b;margin-bottom:3px}
+
+/* === SWOT === */
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.sw-box{border-radius:12px;padding:18px 20px}
+.sw-f{background:#e8f5e9;border:2px solid #a5d6a7}
+.sw-o{background:#e3f2fd;border:2px solid #90caf9}
+.sw-w{background:#fff3e0;border:2px solid #ffcc80}
+.sw-a{background:#fce4ec;border:2px solid #f48fb1}
+.sw-title{font-size:13px;font-weight:800;font-family:'Inter',sans-serif;margin-bottom:10px}
+.sw-f .sw-title{color:#1b5e20}
+.sw-o .sw-title{color:#0d47a1}
+.sw-w .sw-title{color:#bf360c}
+.sw-a .sw-title{color:#880e4f}
+.sw-list{list-style:none;padding:0}
+.sw-list li{font-size:12.5px;font-family:'Inter',sans-serif;margin-bottom:6px;padding-left:16px;position:relative;line-height:1.6;color:#2c3e50}
+.sw-list li::before{position:absolute;left:0;font-weight:700}
+.sw-f .sw-list li::before{content:'✓';color:#2e7d32}
+.sw-o .sw-list li::before{content:'→';color:#1565c0}
+.sw-w .sw-list li::before{content:'!';color:#bf360c}
+.sw-a .sw-list li::before{content:'⚠';color:#c62828}
+
+/* === CANVAS === */
+.canvas{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto auto;gap:10px;margin:16px 0}
+.cv-box{background:#f7f9fd;border:1.5px solid #dde8f5;border-radius:10px;padding:14px 12px;font-family:'Inter',sans-serif}
+.cv-title{font-size:10px;font-weight:800;color:#003087;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+.cv-content{font-size:12px;color:#2c3e50;line-height:1.65}
+.cv-vp{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:#90caf9;grid-column:3;grid-row:1/3}
+.cv-rev{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#a5d6a7;grid-column:5}
+.cv-cost{background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-color:#ffcc80;grid-column:5;grid-row:2}
+
+/* === CRONOGRAMA === */
+.crono-bar{display:flex;gap:0;margin-bottom:8px;border-radius:8px;overflow:hidden;font-family:'Inter',sans-serif;font-size:11px}
+.crono-label{width:220px;flex-shrink:0;background:#f0f4fa;padding:7px 12px;font-weight:600;color:#003087;font-size:12px;border-right:2px solid #dde8f5;display:flex;align-items:center}
+.crono-months{flex:1;display:flex}
+.crono-m{flex:1;border-right:1px solid #e8ecf0;padding:7px 0;text-align:center;color:#6b7a90}
+.crono-m.active{background:linear-gradient(135deg,#003087,#004db3);color:#fff;font-weight:700}
+.crono-m.partial{background:#b3d1ff;color:#003087;font-weight:600}
+.crono-header .crono-m{background:#00205b;color:#ffd700;font-weight:700;font-size:10px}
+.crono-header .crono-label{background:#00205b;color:#ffd700;font-weight:800}
+
+/* === REF === */
+.ref-item{background:#f7f9fd;border:1px solid #dde8f5;border-left:4px solid #003087;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:8px;font-size:13px;line-height:1.85;color:#1a2e4a;font-family:'Inter',sans-serif}
+
+/* === FOOTER === */
+.footer{background:#00205b;padding:20px 52px;color:#fff;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-family:'Inter',sans-serif;flex-wrap:wrap;gap:8px;margin-top:4px}
+.footer strong{color:#ffd700}
+
+/* === HIGHLIGHT === */
+.hi{background:#fff3cd;border-radius:4px;padding:1px 5px;font-style:italic;color:#856404}
+
+@media(max-width:660px){.sec{padding:24px 20px}.capa{padding:32px 24px}.meta-grid{grid-template-columns:1fr}.swot{grid-template-columns:1fr}.canvas{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- CAPA -->
+<div class="capa">
+  <div class="logo-row">
+    <span class="logo-badge">IFRR — Instituto Federal de Roraima</span>
+    <span class="logo-badge">PROFNIT</span>
+    <span class="logo-badge">Anexo 3 — Completo · 2026</span>
+  </div>
+  <h1>Plano de Trabalho de Conclusão de Curso (TCC)</h1>
+  <h2>Chatbot Especialista em eSocial para Instituições Federais de Ensino (IFEs):<br>Inovação na Gestão Pública</h2>
+
+  <div class="meta-grid">
+    <div class="meta-item">
+      <div class="meta-label">Discente</div>
+      <div class="meta-val">Marllen Mendonça</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Orientador</div>
+      <div class="meta-val meta-fill">[Nome do Orientador — a preencher]</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Programa</div>
+      <div class="meta-val">PROFNIT — Propriedade Intelectual e Transferência de Tecnologia para a Inovação</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Instituição</div>
+      <div class="meta-val">IFRR — Instituto Federal de Roraima</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Ponto Focal</div>
+      <div class="meta-val meta-fill">[A preencher]</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Período</div>
+      <div class="meta-val">___/2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- SUMÁRIO -->
+<div class="toc">
+  <h3>Sumário</h3>
+  <ol class="lista">
+    <li><a href="#s1">Apresentação</a></li>
+    <li><a href="#s2">Introdução</a>
+      <ul>
+        <li><a href="#s21">2.1 Referencial Teórico (Estado da Arte e da Técnica)</a></li>
+        <li><a href="#s22">2.2 Justificativa</a></li>
+      </ul>
+    </li>
+    <li><a href="#s3">Objetivo</a></li>
+    <li><a href="#s4">Metodologia</a></li>
+    <li><a href="#s5">Resultados Esperados</a></li>
+    <li><a href="#s6">Discussão</a></li>
+    <li><a href="#s7">Viabilidade de Execução</a></li>
+    <li><a href="#s8">Entregáveis</a></li>
+    <li><a href="#s9">Cronograma</a></li>
+    <li><a href="#s10">Conclusão</a></li>
+    <li><a href="#refs">Referências</a></li>
+    <li><a href="#ap-a">Apêndice A — Matriz FOFA (SWOT)</a></li>
+    <li><a href="#ap-b">Apêndice B — Canvas de Negócio</a></li>
+  </ol>
+</div>
+
+<!-- RESUMO -->
+<div class="sec gold" id="resumo">
+  <div class="sec-num sans">Resumo do Projeto</div>
+  <div class="sec-title">Resumo (200–300 palavras)</div>
+  <p>O presente Plano de Trabalho de Conclusão de Curso propõe o desenvolvimento de um chatbot especializado no eSocial — Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas — para apoiar servidores de Instituições Federais de Ensino (IFEs) no cumprimento de suas obrigações trabalhistas e previdenciárias. O problema de pesquisa que motiva este estudo é: <strong>Como auxiliar os operadores do eSocial no processo de preenchimento mais efetivo das obrigações acessórias do eSocial?</strong></p>
+  <p>Desenvolvido no âmbito do Instituto Federal de Roraima (IFRR), o chatbot será alimentado por documentos integrantes do eSocial, pelo histórico de perguntas e respostas da plataforma ComunicaBR e pelas fontes oficiais do Portal do Servidor. A solução incorporará técnicas de Inteligência Artificial (IA) e Processamento de Linguagem Natural (PLN) para fornecer respostas precisas, contextualizadas e alinhadas à legislação vigente.</p>
+  <p>A pesquisa adota metodologia de revisão bibliográfica sistemática nas bases Portal de Periódicos CAPES, SciELO, Scopus, Web of Science e Google Scholar, com recorte temporal de 2020 a 2026, utilizando cinco palavras-chave estruturantes: Chatbot, eSocial, Processamento de Linguagem Natural, Inteligência Artificial e Transformação Digital. Foram selecionados nove artigos científicos com DOI verificável, publicados em periódicos revisados por pares, sem utilização de repositórios institucionais.</p>
+  <p>Os resultados esperados incluem a entrega de um protótipo funcional do chatbot, um modelo de estrutura conversacional baseado na legislação trabalhista e um relatório de avaliação de performance por comparação cruzada com fontes oficiais. O produto tem aplicabilidade imediata no IFRR e potencial de expansão para as demais IFEs da Rede Federal, configurando uma inovação no campo da gestão pública digital alinhada à Lei nº 14.129/2021 — Lei do Governo Digital.</p>
+</div>
+
+<!-- 1 APRESENTAÇÃO -->
+<div class="sec" id="s1">
+  <div class="sec-num sans">Seção 1</div>
+  <div class="sec-title">Apresentação</div>
+  <p>Este Plano de Trabalho de Conclusão de Curso (TCC) é apresentado como requisito parcial para a obtenção do título de Mestre pelo Programa de Pós-Graduação em Propriedade Intelectual e Transferência de Tecnologia para a Inovação (PROFNIT), ofertado pelo Instituto Federal de Roraima (IFRR), em parceria com a Rede de Instituições Parceiras do PROFNIT.</p>
+  <p>O documento apresenta a proposta de desenvolvimento de um <strong>chatbot especialista em eSocial</strong> para o apoio aos servidores das Instituições Federais de Ensino (IFEs) no cumprimento das obrigações trabalhistas e previdenciárias estabelecidas pelo Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas (eSocial). A proposta é motivada pela complexidade crescente do sistema, pelo volume e frequência das atualizações normativas e pelo impacto operacional que erros ou omissões no preenchimento dos eventos geram às IFEs — incluindo multas, retrabalho e comprometimento da conformidade legal.</p>
+  <p>O Plano está organizado em dez seções. A primeira contextualiza o problema e apresenta a proposta. A segunda desenvolve o referencial teórico, a revisão de literatura, a justificativa e os embasamentos que fundamentam a pesquisa. A terceira e a quarta seções detalham os objetivos e a metodologia. As seções subsequentes apresentam os resultados esperados, a discussão, a viabilidade de execução, os entregáveis, o cronograma e a conclusão. Os apêndices contemplam a análise estratégica FOFA (SWOT) e o Modelo de Negócio Canvas do produto técnico proposto.</p>
+</div>
+
+<!-- 2 INTRODUÇÃO -->
+<div class="sec" id="s2">
+  <div class="sec-num sans">Seção 2</div>
+  <div class="sec-title">Introdução</div>
+  <p>A transformação digital da administração pública brasileira tem avançado de forma acelerada na última década, impulsionada por marcos normativos como a Lei nº 14.129/2021 — Lei do Governo Digital — e por plataformas de integração de dados como o eSocial. O eSocial, instituído pelo Decreto nº 8.373/2014, unificou em um único ambiente digital a transmissão de informações relativas a mais de vinte obrigações trabalhistas, previdenciárias e fiscais que os empregadores — incluindo órgãos públicos federais — eram obrigados a comunicar separadamente a distintos órgãos governamentais.</p>
+  <p>Para as Instituições Federais de Ensino (IFEs), a adesão ao eSocial representa um desafio de gestão de alta complexidade. As IFEs possuem um quadro de pessoal diversificado — servidores estatutários regidos pela Lei nº 8.112/1990, servidores celetistas, estagiários, contratos temporários e terceirizados —, cada categoria sujeita a um conjunto distinto de eventos e prazos no sistema. A diversidade de vínculos, somada ao volume de afastamentos, admissões e alterações contratuais típicos de instituições de ensino, torna o preenchimento correto dos eventos do eSocial uma tarefa técnica de elevada exigência para os setores de recursos humanos.</p>
+  <p>Nesse contexto, a ausência de ferramentas especializadas de suporte ao usuário final do eSocial no âmbito das IFEs constitui uma lacuna operacional relevante. Os canais de suporte disponíveis — o FAQ estático do portal oficial, os comunicados do Portal do Servidor e a plataforma ComunicaBR — não oferecem respostas dinâmicas, personalizadas ou contextualizadas às dúvidas dos operadores. A consequência prática é o aumento de erros, retrabalho, atrasos na transmissão de eventos e, em casos mais graves, incidências de multas e irregularidades apontadas pelos órgãos de controle.</p>
+  <p><strong>Questão de pesquisa:</strong> Como auxiliar os operadores do eSocial no processo de preenchimento mais efetivo das obrigações acessórias do eSocial?</p>
+  <p>Diante desse cenário, esta pesquisa propõe o desenvolvimento de um <strong>chatbot especialista em eSocial</strong>, alimentado por inteligência artificial e processamento de linguagem natural, capaz de fornecer respostas precisas, atualizadas e alinhadas à legislação vigente às dúvidas dos servidores do IFRR — e, futuramente, de outras IFEs da Rede Federal.</p>
+</div>
+
+<!-- 2.1 REFERENCIAL TEÓRICO — LINK PARA O DOC PRINCIPAL -->
+<div class="sec" id="s21" style="border-left-color:#10b981">
+  <div class="sec-num sans">Seção 2.1</div>
+  <div class="sec-title">Referencial Teórico (Estado da Arte e da Técnica)</div>
+  <p style="background:#e8f5e9;border:2px solid #a5d6a7;border-radius:10px;padding:16px 20px;font-family:'Inter',sans-serif;font-size:13.5px;margin-bottom:20px">
+    ✅ <strong>Esta seção foi desenvolvida em documento completo e separado.</strong><br>
+    🔗 <a href="https://kruegerengenheiro.github.io/pigz-coord/referencial-teorico-anexo3.html" style="color:#003087;font-weight:700">Acesse o Referencial Teórico Completo aqui</a><br><br>
+    O documento cobre integralmente as sub-seções: <strong>2.1.1 Revisão de Artigos</strong> (9 artigos validados com DOI, 5 bases, metodologia sistemática, funil de seleção), <strong>2.1.2 Novo Serviço Público</strong>, <strong>2.1.3 Inovação no Serviço Público</strong>, <strong>2.1.4 Business Intelligence</strong>, <strong>Revisão de Tecnologias</strong> (patentes + mercado) e <strong>Revisão de Normativas</strong> (7 normas).
+  </p>
+
+  <div class="sub-h">Síntese para inserção no Anexo 3</div>
+  <p>A revisão bibliográfica sistemática, conduzida em cinco bases de dados acadêmicas entre junho e julho de 2026, identificou <strong>1.097 registros brutos</strong>, dos quais <strong>9 artigos científicos</strong> foram selecionados após aplicação de critérios rigorosos de inclusão e exclusão. Os artigos cobrem quatro eixos temáticos centrais para esta pesquisa: (1) arquitetura técnica de chatbots com PLN; (2) adoção de inteligência artificial no setor público; (3) impactos e desafios do eSocial; e (4) ética, proteção de dados e LGPD.</p>
+  <p>O Estado da Arte revela uma <strong>lacuna significativa</strong> na literatura científica brasileira: inexistem estudos que desenvolvam ou avaliem chatbots especializados em obrigações trabalhistas para IFEs. Essa lacuna confere a esta pesquisa alta relevância científica e aderência ao programa PROFNIT, cujo foco é a inovação aplicada e a transferência de tecnologia.</p>
+  <p>O referencial teórico ancora-se em três paradigmas complementares: o <strong>Novo Serviço Público</strong> (Denhardt e Denhardt, 2015), que orienta o produto ao fortalecimento da capacidade dos servidores como fim em si; a teoria de <strong>Inovação no Serviço Público</strong>, sustentada pela Lei nº 14.129/2021; e os princípios de <strong>Business Intelligence</strong>, que fundamentam a metodologia de avaliação de performance por comparação cruzada de fontes.</p>
+</div>
+
+<!-- 2.2 JUSTIFICATIVA -->
+<div class="sec" id="s22">
+  <div class="sec-num sans">Seção 2.2</div>
+  <div class="sec-title">Justificativa</div>
+
+  <div class="sub" id="s221">
+    <div class="sub-h">2.2.1 — Lacuna Preenchida pelo TCC</div>
+    <p>A revisão de anterioridade realizada nas bases Google Patents, Espacenet e WIPO Patentscope não identificou nenhuma patente registrada para um chatbot especialista em eSocial voltado a Instituições Federais de Ensino. O mapeamento das soluções de mercado disponíveis — incluindo os sistemas Domínio, Alterdata, o portal oficial eSocial.gov.br e ferramentas de IA de propósito geral como ChatGPT e Gemini — revelou que nenhuma dessas ferramentas combina, simultaneamente: (a) especialização nos eventos e prazos do eSocial; (b) PLN para compreensão de linguagem natural em português; (c) validação cruzada com fontes oficiais atualizadas; e (d) adaptação ao regime jurídico específico das IFEs federais.</p>
+    <p>Esta lacuna tecnológica e científica é a principal justificativa para o desenvolvimento do produto proposto. O chatbot preenche uma necessidade operacional real e urgente, identificada no cotidiano do IFRR e extensível a toda a Rede Federal, que conta com mais de 660 unidades entre campi e institutos federais em todo o país.</p>
+  </div>
+
+  <div class="sub" id="s222">
+    <div class="sub-h">2.2.2 — Aderência ao PROFNIT</div>
+    <p>O produto proposto alinha-se diretamente às linhas de pesquisa e à missão do Programa de Pós-Graduação em Propriedade Intelectual e Transferência de Tecnologia para a Inovação (PROFNIT), por três motivos centrais. Primeiro, o chatbot configura-se como um <strong>produto técnico-tecnológico</strong> no sentido estrito — um software original, desenvolvido com base em pesquisa científica, com potencial de proteção intelectual via registro de programa de computador no INPI (Lei nº 9.609/1998). Segundo, a proposta envolve <strong>transferência de tecnologia</strong> ao setor público: o conhecimento científico sobre PLN, chatbots e gestão trabalhista é traduzido em uma ferramenta aplicável à administração pública federal. Terceiro, o produto atende ao princípio de <strong>inovação com impacto social</strong>, ao melhorar a qualidade do serviço público prestado pelos recursos humanos das IFEs aos servidores e à sociedade.</p>
+  </div>
+
+  <div class="sub" id="s223">
+    <div class="sub-h">2.2.3 — Impacto</div>
+    <p>O impacto esperado do chatbot é multidimensional. No plano <strong>operacional</strong>, estima-se redução significativa no tempo médio de atendimento a dúvidas sobre eSocial, diminuição de erros no preenchimento de eventos e consequente redução de retrabalho e de notificações de inconsistências pelos órgãos de controle. No plano <strong>institucional</strong>, o IFRR fortalece sua capacidade de conformidade digital, alinhando-se às exigências da Lei do Governo Digital e reduzindo riscos de autuações por descumprimento de prazos do eSocial. No plano <strong>social</strong>, a ferramenta democratiza o acesso à informação trabalhista precisa entre servidores de diferentes níveis de conhecimento técnico, contribuindo para a isonomia no serviço público. No plano <strong>científico</strong>, a pesquisa contribui para a literatura sobre chatbots no setor público brasileiro, um campo ainda incipiente conforme evidenciado pela revisão sistemática realizada.</p>
+  </div>
+
+  <div class="sub" id="s224">
+    <div class="sub-h">2.2.4 — Aplicabilidade</div>
+    <p>A aplicabilidade do produto é imediata e escalável. Em um primeiro momento, o chatbot será implantado no IFRR, com foco nos setores de Gestão de Pessoas, Departamento de Recursos Humanos e áreas responsáveis pela transmissão de eventos ao eSocial. Em um segundo momento, o modelo — incluindo a base de conhecimento, a estrutura conversacional e a metodologia de atualização — poderá ser replicado para outros institutos federais, universidades federais e órgãos públicos que operam sob o regime do eSocial para empregadores públicos. A plataforma ComunicaBR, utilizada para identificar as dúvidas mais frequentes dos usuários, oferece dados públicos disponíveis para todas as IFEs, o que facilita a generalização da solução.</p>
+  </div>
+
+  <div class="sub" id="s225">
+    <div class="sub-h">2.2.5 — Inovação</div>
+    <p>Nos termos da tipologia de inovação da OCDE (Manual de Oslo, 4ª ed., 2018), o produto proposto classifica-se como uma <strong>inovação de processo</strong> — uma nova forma de realizar o processo de suporte informacional sobre o eSocial nas IFEs — e como uma <strong>inovação de produto</strong> — um artefato tecnológico original que não existia anteriormente no contexto das IFEs federais. A combinação de PLN com base de conhecimento especializada em legislação trabalhista e validação cruzada com fontes oficiais é uma abordagem metodológica original no campo, conforme atestado pela ausência de precedentes na revisão sistemática realizada.</p>
+    <p>Adicionalmente, ao propor um mecanismo de <strong>atualização contínua da base de conhecimento</strong> — alimentada pelo histórico de perguntas da plataforma ComunicaBR e pelos comunicados oficiais do Portal do Servidor —, o chatbot incorpora o conceito de <strong>aprendizado adaptativo baseado em uso real</strong>, uma característica de inovação sustentada que diferencia o produto de soluções estáticas de FAQ.</p>
+  </div>
+
+  <div class="sub" id="s226">
+    <div class="sub-h">2.2.6 — Complexidade</div>
+    <p>A complexidade do produto proposto é substancial e multidimensional. Do ponto de vista <strong>técnico</strong>, exige o domínio de tecnologias de processamento de linguagem natural, arquitetura de chatbots (NLU + Gerenciamento de Diálogo + NLG), integração com fontes de dados dinâmicas e mecanismos de avaliação de performance. Do ponto de vista <strong>jurídico</strong>, requer o mapeamento e a compreensão de um arcabouço normativo extenso — incluindo CLT, Leis Previdenciárias, LGPD, Lei do Governo Digital, Manual do eSocial e normativas específicas para IFEs — e a garantia de que as respostas do chatbot estejam sempre alinhadas à versão vigente da legislação. Do ponto de vista <strong>organizacional</strong>, demanda articulação com os setores de TI e de gestão de pessoas do IFRR para implantação, treinamento e manutenção. Essa tríplice complexidade — técnica, jurídica e organizacional — justifica plenamente a pesquisa no nível de mestrado profissional.</p>
+  </div>
+</div>
+
+<!-- 3 OBJETIVO -->
+<div class="sec" id="s3">
+  <div class="sec-num sans">Seção 3</div>
+  <div class="sec-title">Objetivo</div>
+
+  <div class="sub">
+    <div class="sub-h">3.1 — Objetivo Geral</div>
+    <p>Desenvolver um chatbot especializado no eSocial para apoiar usuários de Instituições de Ensino Federal no cumprimento das obrigações trabalhistas e previdenciárias.</p>
+  </div>
+
+  <div class="sub">
+    <div class="sub-h">3.2 — Objetivos Específicos</div>
+    <ol class="lista">
+      <li><strong>3.2.1</strong> — Prospectar os documentos integrantes do eSocial para alimentar o conhecimento do software, incluindo o Manual de Orientação do eSocial (versão 3.0), as tabelas de eventos, os layouts de transmissão e as normativas correlatas (CLT, leis previdenciárias, LGPD).</li>
+      <li><strong>3.2.2</strong> — Identificar as necessidades dos usuários com base no histórico de perguntas e respostas da plataforma ComunicaBR e dos registros de atendimento do setor de Gestão de Pessoas do IFRR, mapeando as principais dúvidas e dificuldades recorrentes dos operadores do eSocial.</li>
+      <li><strong>3.2.3</strong> — Desenvolver a estrutura conversacional do chatbot integrada com inteligência artificial e processamento de linguagem natural, com base na legislação vigente, definindo os fluxos de diálogo, as intenções (<em>intents</em>), as entidades e as respostas para os principais eventos do eSocial.</li>
+      <li><strong>3.2.4</strong> — Avaliar a performance do chatbot mediante comparação cruzada com os comunicados do Portal do Servidor e as perguntas/respostas oficiais do eSocial, utilizando métricas de acurácia, taxa de resolução e satisfação do usuário.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 4 METODOLOGIA -->
+<div class="sec" id="s4">
+  <div class="sec-num sans">Seção 4</div>
+  <div class="sec-title">Metodologia</div>
+
+  <p>A pesquisa classifica-se, quanto à sua natureza, como <strong>pesquisa aplicada</strong>, pois visa à geração de um produto técnico-tecnológico com aplicabilidade direta na gestão pública. Quanto à abordagem, combina elementos <strong>qualitativos</strong> — na análise de documentos normativos, na identificação de necessidades dos usuários e na avaliação da estrutura conversacional — e <strong>quantitativos</strong> — nas métricas de performance do chatbot. Quanto ao procedimento, adota o <strong>estudo de caso</strong> (IFRR) como estratégia de pesquisa, com vistas à posterior generalização analítica para outras IFEs.</p>
+
+  <div class="sub">
+    <div class="sub-h">4.1 — Lista das Etapas Metodológicas</div>
+    <ol class="lista">
+      <li>Revisão Bibliográfica Sistemática</li>
+      <li>Prospecção de Documentos do eSocial</li>
+      <li>Mapeamento de Necessidades dos Usuários</li>
+      <li>Desenvolvimento da Estrutura Conversacional</li>
+      <li>Implementação do Chatbot com IA e PLN</li>
+      <li>Avaliação de Performance por Comparação Cruzada</li>
+      <li>Redação do TCC e Defesa</li>
+    </ol>
+  </div>
+
+  <div class="sub">
+    <div class="sub-h">4.2 — Descrição Detalhada de Cada Etapa Metodológica</div>
+
+    <div class="sub-sub">Etapa 1 — Revisão Bibliográfica Sistemática</div>
+    <p>Conduzida nas bases Portal de Periódicos CAPES, SciELO, Scopus, Web of Science e Google Scholar, com o protocolo de busca documentado na Seção 2.1.1. Resultou na seleção de 9 artigos com DOI verificável, cobrindo os eixos temáticos de chatbots, PLN, eSocial, setor público e ética algorítmica. A metodologia segue as diretrizes PRISMA (2020) para revisões sistemáticas.</p>
+
+    <div class="sub-sub">Etapa 2 — Prospecção de Documentos do eSocial</div>
+    <p>Levantamento e organização sistemática de toda a documentação oficial do eSocial: Manual de Orientação versão 3.0 (2023), tabelas de eventos (S-1000 a S-9999), layouts XML, perguntas e respostas oficiais do portal eSocial.gov.br e comunicados do Portal do Servidor. Os documentos serão organizados em uma base de conhecimento estruturada por domínio (admissão, desligamento, folha, afastamentos, SST, previdência), que alimentará o modelo de linguagem do chatbot.</p>
+
+    <div class="sub-sub">Etapa 3 — Mapeamento de Necessidades dos Usuários</div>
+    <p>Análise do histórico de perguntas e respostas disponíveis na plataforma ComunicaBR e nos registros de atendimento do setor de Gestão de Pessoas do IFRR. A análise identificará as perguntas mais frequentes, os eventos com maior taxa de erro e os temas que geram maior demanda de esclarecimento. Os resultados alimentarão diretamente a definição das intenções (<em>intents</em>) e entidades (<em>entities</em>) do chatbot.</p>
+
+    <div class="sub-sub">Etapa 4 — Desenvolvimento da Estrutura Conversacional</div>
+    <p>Definição dos fluxos de diálogo do chatbot com base nos resultados do mapeamento de necessidades e no referencial técnico identificado na revisão bibliográfica. A arquitetura seguirá o modelo de três camadas: (a) Compreensão de Linguagem Natural (NLU) — identificação de intenções e entidades; (b) Gerenciamento de Diálogo — lógica de conversação e contextualização; (c) Geração de Resposta (NLG) — produção de respostas em linguagem natural alinhadas à base de conhecimento jurídico-normativa.</p>
+
+    <div class="sub-sub">Etapa 5 — Implementação com IA e PLN</div>
+    <p>Desenvolvimento e implantação do chatbot utilizando frameworks de código aberto compatíveis com PLN em português brasileiro. A implementação integrará a base de conhecimento estruturada (Etapa 2) com o modelo conversacional (Etapa 4), configurando o sistema para responder dúvidas sobre os principais eventos do eSocial para empregadores públicos, com ênfase nos vínculos empregatícios típicos das IFEs.</p>
+
+    <div class="sub-sub">Etapa 6 — Avaliação de Performance</div>
+    <p>Avaliação da acurácia e qualidade das respostas do chatbot por meio de comparação cruzada com as fontes oficiais: respostas do chatbot versus perguntas/respostas do portal eSocial.gov.br e comunicados do Portal do Servidor. As métricas de avaliação incluirão: taxa de acerto (<em>accuracy</em>), taxa de resolução sem escalonamento e índice de satisfação dos usuários. Técnicas de Business Intelligence serão aplicadas para identificar padrões de erro e oportunidades de melhoria.</p>
+  </div>
+
+  <div class="sub">
+    <div class="sub-h">4.3 — Relação entre Objetivos Específicos, Metodologia e Resultados</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Objetivo Específico</th><th>Etapa Metodológica</th><th>Resultado Esperado</th></tr></thead>
+        <tbody>
+          <tr><td>3.2.1 — Prospectar documentos do eSocial</td><td>Etapas 1 e 2</td><td>Base de conhecimento estruturada com documentação oficial do eSocial</td></tr>
+          <tr><td>3.2.2 — Identificar necessidades dos usuários</td><td>Etapa 3</td><td>Mapa de intenções e dúvidas mais frequentes dos operadores</td></tr>
+          <tr><td>3.2.3 — Desenvolver estrutura conversacional com IA</td><td>Etapas 4 e 5</td><td>Chatbot funcional com PLN integrado à legislação trabalhista</td></tr>
+          <tr><td>3.2.4 — Avaliar performance por comparação cruzada</td><td>Etapa 6</td><td>Relatório de avaliação com métricas de acurácia e satisfação</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 5 RESULTADOS -->
+<div class="sec" id="s5">
+  <div class="sec-num sans">Seção 5</div>
+  <div class="sec-title">Resultados Esperados</div>
+
+  <p>Ao final da pesquisa, espera-se alcançar os seguintes resultados concretos, diretamente vinculados aos objetivos específicos e à missão do PROFNIT de gerar produtos técnico-tecnológicos com impacto social:</p>
+  <ol class="lista">
+    <li><strong>Base de conhecimento estruturada do eSocial:</strong> repositório organizado com todos os documentos normativos relevantes para IFEs, segmentados por domínio temático (admissão, afastamentos, folha, desligamento, SST) e formato adequado para alimentação do modelo de linguagem do chatbot.</li>
+    <li><strong>Mapa de necessidades dos usuários do IFRR:</strong> análise sistematizada das dúvidas mais frequentes dos operadores do eSocial no IFRR, com identificação das áreas de maior dificuldade e dos eventos com maior taxa de erro.</li>
+    <li><strong>Protótipo funcional do chatbot especialista em eSocial:</strong> sistema conversacional com PLN integrado, capaz de responder as principais dúvidas sobre eSocial para IFEs em linguagem natural, disponível para uso pelos servidores do IFRR.</li>
+    <li><strong>Relatório de avaliação de performance:</strong> documento com os resultados da avaliação por comparação cruzada, incluindo métricas de acurácia, taxa de resolução e análise das principais limitações e oportunidades de melhoria do sistema.</li>
+    <li><strong>Dissertação de mestrado:</strong> produção científica que documenta toda a pesquisa, desde a revisão bibliográfica até os resultados da avaliação, contribuindo para a literatura acadêmica sobre chatbots no setor público brasileiro.</li>
+  </ol>
+</div>
+
+<!-- 6 DISCUSSÃO -->
+<div class="sec" id="s6">
+  <div class="sec-num sans">Seção 6</div>
+  <div class="sec-title">Discussão</div>
+  <p>O desenvolvimento de um chatbot especialista em eSocial para IFEs insere-se em um debate mais amplo sobre os limites e as potencialidades da inteligência artificial na gestão pública brasileira. A literatura revisada (Ribeiro; Segatto, 2025; Madan; Bhatt, 2023; Bitencourt; Martins, 2023) demonstra que, embora a adoção de IA no setor público seja crescente, ela ainda enfrenta barreiras significativas relacionadas à capacidade tecnológica das organizações, à resistência cultural e às exigências de conformidade legal.</p>
+  <p>Uma das principais implicações desta pesquisa é a demonstração de que é possível desenvolver soluções de IA especializadas para domínios jurídico-administrativos complexos — como o eSocial — sem depender de grandes infraestruturas computacionais proprietárias. A adoção de frameworks de código aberto e a estruturação cuidadosa da base de conhecimento a partir de fontes oficiais públicas tornam a solução acessível e replicável para outras IFEs com capacidade técnica variada.</p>
+  <p>Uma limitação relevante a ser reconhecida é a <strong>volatilidade normativa do eSocial</strong>: o sistema é atualizado frequentemente, e qualquer chatbot especializado deve incorporar mecanismos de atualização contínua da base de conhecimento para manter a confiabilidade das respostas. A metodologia proposta — com validação cruzada periódica contra as fontes oficiais — aborda essa limitação, mas não a elimina completamente, pois depende de manutenção ativa pela equipe responsável.</p>
+  <p>Outra dimensão a ser discutida é o risco de <strong>discriminação algorítmica</strong>, identificado por Santos e Graminho (2024) e Castillo-Castro (2025): sistemas automatizados que processam dados trabalhistas devem ser auditados quanto a possíveis vieses em suas respostas, especialmente em temas sensíveis como direitos de trabalhadores com deficiência, servidores em licença médica ou questões de gênero no ambiente de trabalho. O design ético do chatbot — com supervisão humana e mecanismo de escalonamento para casos complexos — é, portanto, uma escolha metodológica necessária e não opcional.</p>
+</div>
+
+<!-- 7 VIABILIDADE -->
+<div class="sec" id="s7">
+  <div class="sec-num sans">Seção 7</div>
+  <div class="sec-title">Viabilidade de Execução</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Dimensão</th><th>Recursos Disponíveis</th><th>Avaliação</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tecnológica</strong></td><td>Frameworks de PLN de código aberto (Rasa, spaCy, Hugging Face); APIs de LLM com plano gratuito (Google Gemini API); infraestrutura de hospedagem do IFRR</td><td><span class="tag t-g">Viável</span></td></tr>
+        <tr><td><strong>Normativa</strong></td><td>Toda a documentação do eSocial é pública e gratuita; Manual versão 3.0 disponível em eSocial.gov.br; Portal do Servidor e ComunicaBR de acesso aberto</td><td><span class="tag t-g">Viável</span></td></tr>
+        <tr><td><strong>Institucional</strong></td><td>Apoio do IFRR como campo de pesquisa; acesso ao setor de Gestão de Pessoas para mapeamento de necessidades; suporte do PROFNIT</td><td><span class="tag t-g">Viável</span></td></tr>
+        <tr><td><strong>Financeira</strong></td><td>Desenvolvimento baseado em código aberto; sem custos de licença de software; custos operacionais absorvíveis pelo IFRR</td><td><span class="tag t-g">Viável</span></td></tr>
+        <tr><td><strong>Temporal</strong></td><td>Cronograma de 12 meses, compatível com o prazo do PROFNIT; fases bem delimitadas e sequenciais</td><td><span class="tag t-g">Viável</span></td></tr>
+        <tr><td><strong>Risco normativo</strong></td><td>Atualizações frequentes do eSocial podem exigir revisão da base de conhecimento; mitigado pelo protocolo de atualização proposto</td><td><span class="tag t-o">Moderado</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 8 ENTREGÁVEIS -->
+<div class="sec" id="s8">
+  <div class="sec-num sans">Seção 8</div>
+  <div class="sec-title">Entregáveis de Acordo com os Produtos do TCC</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>#</th><th>Entregável</th><th>Tipo</th><th>Vinculado ao Obj.</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Documento de Revisão Bibliográfica Sistemática (Estado da Arte)</td><td><span class="tag t-b">Acadêmico</span></td><td>OE 3.2.1</td></tr>
+        <tr><td>2</td><td>Base de Conhecimento Estruturada do eSocial (documento + repositório digital)</td><td><span class="tag t-t">Técnico</span></td><td>OE 3.2.1</td></tr>
+        <tr><td>3</td><td>Mapa de Necessidades dos Usuários do IFRR (relatório)</td><td><span class="tag t-t">Técnico</span></td><td>OE 3.2.2</td></tr>
+        <tr><td>4</td><td>Estrutura Conversacional do Chatbot — Fluxos de Diálogo, Intents e Entities</td><td><span class="tag t-t">Técnico</span></td><td>OE 3.2.3</td></tr>
+        <tr><td>5</td><td>Protótipo Funcional do Chatbot Especialista em eSocial (software)</td><td><span class="tag t-p">Software</span></td><td>OE 3.2.3</td></tr>
+        <tr><td>6</td><td>Relatório de Avaliação de Performance (comparação cruzada com fontes oficiais)</td><td><span class="tag t-t">Técnico</span></td><td>OE 3.2.4</td></tr>
+        <tr><td>7</td><td>Registro do Software no INPI (programa de computador)</td><td><span class="tag t-o">PI</span></td><td>Todos</td></tr>
+        <tr><td>8</td><td>Dissertação de Mestrado (TCC PROFNIT)</td><td><span class="tag t-b">Acadêmico</span></td><td>Todos</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 9 CRONOGRAMA -->
+<div class="sec" id="s9">
+  <div class="sec-num sans">Seção 9</div>
+  <div class="sec-title">Cronograma</div>
+
+  <div style="overflow-x:auto;margin:16px 0">
+    <div style="min-width:700px">
+      <div class="crono-bar">
+        <div class="crono-label crono-header sans">Atividade</div>
+        <div class="crono-months">
+          <div class="crono-m crono-header">M1</div><div class="crono-m crono-header">M2</div>
+          <div class="crono-m crono-header">M3</div><div class="crono-m crono-header">M4</div>
+          <div class="crono-m crono-header">M5</div><div class="crono-m crono-header">M6</div>
+          <div class="crono-m crono-header">M7</div><div class="crono-m crono-header">M8</div>
+          <div class="crono-m crono-header">M9</div><div class="crono-m crono-header">M10</div>
+          <div class="crono-m crono-header">M11</div><div class="crono-m crono-header">M12</div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">1. Revisão Bibliográfica</div>
+        <div class="crono-months">
+          <div class="crono-m active"></div><div class="crono-m active"></div>
+          <div class="crono-m partial"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">2. Prospecção Documentos eSocial</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m partial"></div>
+          <div class="crono-m active"></div><div class="crono-m active"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">3. Mapeamento de Necessidades</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m partial"></div><div class="crono-m active"></div>
+          <div class="crono-m active"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">4. Estrutura Conversacional</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m partial"></div>
+          <div class="crono-m active"></div><div class="crono-m active"></div>
+          <div class="crono-m partial"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">5. Implementação do Chatbot</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m partial"></div><div class="crono-m active"></div>
+          <div class="crono-m active"></div><div class="crono-m active"></div>
+          <div class="crono-m partial"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">6. Avaliação e Testes</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m partial"></div><div class="crono-m active"></div>
+          <div class="crono-m active"></div><div class="crono-m partial"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">7. Redação da Dissertação</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m partial"></div>
+          <div class="crono-m partial"></div><div class="crono-m active"></div>
+          <div class="crono-m active"></div><div class="crono-m partial"></div>
+        </div>
+      </div>
+      <div class="crono-bar">
+        <div class="crono-label sans">8. Defesa do TCC</div>
+        <div class="crono-months">
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m"></div><div class="crono-m"></div>
+          <div class="crono-m partial"></div><div class="crono-m active"></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11.5px;color:#6b7a90;font-family:'Inter',sans-serif;margin-top:8px">
+      🔵 Atividade principal &nbsp;|&nbsp; 🔷 Atividade em transição &nbsp;|&nbsp; M = mês a partir do início do projeto
+    </p>
+  </div>
+</div>
+
+<!-- 10 CONCLUSÃO -->
+<div class="sec" id="s10">
+  <div class="sec-num sans">Seção 10</div>
+  <div class="sec-title">Conclusão</div>
+  <p>Este Plano de Trabalho de Conclusão de Curso demonstrou a relevância, a viabilidade e a originalidade do desenvolvimento de um chatbot especialista em eSocial para Instituições Federais de Ensino como objeto de pesquisa no âmbito do PROFNIT. A revisão bibliográfica sistemática realizada, abrangendo 1.097 registros em cinco bases de dados internacionais e nacionais, confirmou a existência de uma lacuna científica e tecnológica significativa: inexistem na literatura e no mercado soluções que combinem especialização no eSocial, inteligência artificial, processamento de linguagem natural e adaptação ao contexto jurídico e operacional específico das IFEs.</p>
+  <p>O referencial teórico construído articula três paradigmas complementares — o Novo Serviço Público de Denhardt e Denhardt, a teoria de inovação no serviço público apoiada na Lei do Governo Digital, e os princípios de Business Intelligence — demonstrando que o produto proposto não é apenas uma solução técnica, mas uma inovação com fundamentação teórica sólida e impacto institucional mensurável.</p>
+  <p>A metodologia proposta, com suas seis etapas claramente definidas e os oito entregáveis vinculados aos objetivos específicos, oferece um roteiro executável no prazo de doze meses, com recursos tecnológicos disponíveis e apoio institucional do IFRR. O produto final — o chatbot funcional, registrado no INPI — contribuirá para a modernização da gestão pública digital no IFRR e para a expansão do conhecimento científico sobre inteligência artificial aplicada ao cumprimento de obrigações trabalhistas no setor público brasileiro.</p>
+</div>
+
+<!-- REFERÊNCIAS -->
+<div class="sec gold" id="refs">
+  <div class="sec-num sans">Referências</div>
+  <div class="sec-title">Referências Bibliográficas — ABNT NBR 6023:2023</div>
+  <div class="ref-item">AYANOUZ, Soufyane; ABDELHAKIM, Boudhir Anouar; BENHMED, Mohammed. A smart chatbot architecture based NLP and machine learning for health care assistance. In: INTERNATIONAL CONFERENCE ON NETWORKING, INFORMATION SYSTEMS &amp; SECURITY (NISS), 3., 2020. <em>Proceedings [...]</em>. New York: ACM, 2020. DOI: 10.1145/3386723.3387897.</div>
+  <div class="ref-item">BITENCOURT, Caroline Müller; MARTINS, Luisa Helena Nicknig. A inteligência artificial nos órgãos constitucionais de controle de contas da administração pública brasileira. <em>Revista de Investigações Constitucionais</em>, Curitiba, v. 10, n. 3, e253, 2023. DOI: 10.5380/rinc.v10i3.93650.</div>
+  <div class="ref-item">BRASIL. <em>Decreto nº 8.373, de 11 de dezembro de 2014</em>. Institui o eSocial. Brasília, DF, 2014. Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/decreto/d8373.htm.</div>
+  <div class="ref-item">BRASIL. <em>Lei nº 13.709, de 14 de agosto de 2018</em>. Lei Geral de Proteção de Dados (LGPD). Brasília, DF, 2018.</div>
+  <div class="ref-item">BRASIL. <em>Lei nº 14.129, de 29 de março de 2021</em>. Lei do Governo Digital. Brasília, DF, 2021.</div>
+  <div class="ref-item">CASTILLO-CASTRO, Karla Paola. El sesgo algorítmico generado por la inteligencia artificial como acto de discriminación en las relaciones de trabajo. <em>Revista de Derecho Procesal del Trabajo</em>, v. 8, n. 11, p. 72-97, 2025. DOI: 10.47308/rdpt.v8i11.1133.</div>
+  <div class="ref-item">DALLABONA, Lúcia Fernanda; VIGARANI, Nathália Aparecida de Souza. Impactos e desafios do eSocial no ambiente contábil. <em>Revista Catarinense da Ciência Contábil</em>, 2024. DOI: 10.16930/2237-766220243439.</div>
+  <div class="ref-item">DENHARDT, Janet Vinzant; DENHARDT, Robert B. <em>The New Public Service: Serving, Not Steering</em>. 4. ed. New York: Routledge, 2015.</div>
+  <div class="ref-item">MADAN, Rahul; BHATT, Pooja. Chatbots in public service transformation: a systematic literature review of e-government. <em>Government Information Quarterly</em>, v. 42, n. 2, 2025. DOI: 10.1016/j.giq.2025.101990.</div>
+  <div class="ref-item">PORUMBESCU, Gregory A. et al. Natural language processing adoption in governments and future research directions. <em>Government Information Quarterly</em>, v. 40, n. 2, 2023. DOI: 10.1016/j.giq.2023.101820.</div>
+  <div class="ref-item">RIBEIRO, Manuella Maia; SEGATTO, Catarina Ianni. Inteligência artificial nas organizações públicas brasileiras. <em>Revista de Administração Pública</em>, Rio de Janeiro, v. 59, n. 1, 2025. DOI: 10.1590/0034-761220230264.</div>
+  <div class="ref-item">SANTOS, Rodrigo Coimbra; GRAMINHO, Vivian Maria Caxambu. Discriminação algorítmica nas relações de trabalho e princípios da LGPD. <em>Sequência</em>, Florianópolis, v. 45, n. 96, 2024. DOI: 10.5007/2177-7055.2024.e96294.</div>
+</div>
+
+<!-- APÊNDICE A — SWOT -->
+<div class="sec" id="ap-a">
+  <div class="sec-num sans">Apêndice A</div>
+  <div class="sec-title">Matriz FOFA (SWOT) — Chatbot eSocial IFRR</div>
+  <div class="swot sans">
+    <div class="sw-box sw-f">
+      <div class="sw-title">💪 FORÇAS (Strengths)</div>
+      <ul class="sw-list">
+        <li>Base normativa pública e gratuita do eSocial disponível</li>
+        <li>Apoio institucional do IFRR como campo de pesquisa</li>
+        <li>Programa PROFNIT com foco em inovação aplicada</li>
+        <li>Frameworks de IA/PLN de código aberto maduros</li>
+        <li>Lacuna de mercado comprovada — sem concorrência direta</li>
+        <li>Dados da ComunicaBR públicos e atualizados</li>
+      </ul>
+    </div>
+    <div class="sw-box sw-o">
+      <div class="sw-title">🚀 OPORTUNIDADES (Opportunities)</div>
+      <ul class="sw-list">
+        <li>Expansão para as 660+ unidades da Rede Federal</li>
+        <li>Lei do Governo Digital incentiva chatbots no serviço público</li>
+        <li>Crescimento acelerado de IA generativa e LLMs em português</li>
+        <li>Agenda de desburocratização do governo federal</li>
+        <li>Registro de software no INPI — proteção da propriedade intelectual</li>
+        <li>Parceria com outros programas PROFNIT para replicação</li>
+      </ul>
+    </div>
+    <div class="sw-box sw-w">
+      <div class="sw-title">⚠️ FRAQUEZAS (Weaknesses)</div>
+      <ul class="sw-list">
+        <li>Alta volatilidade normativa do eSocial exige atualização contínua</li>
+        <li>Dependência de equipe técnica para manutenção</li>
+        <li>Possível resistência cultural dos servidores ao uso de IA</li>
+        <li>Limitação do PLN em português para termos jurídicos técnicos</li>
+        <li>Risco de "alucinações" do modelo se a base não for bem curada</li>
+      </ul>
+    </div>
+    <div class="sw-box sw-a">
+      <div class="sw-title">🛡️ AMEAÇAS (Threats)</div>
+      <ul class="sw-list">
+        <li>Reformas estruturais do eSocial podem tornar parte do chatbot obsoleta</li>
+        <li>Não conformidade com a LGPD pode gerar riscos jurídicos</li>
+        <li>Surgimento de solução comercial equivalente durante o desenvolvimento</li>
+        <li>Descontinuidade do suporte institucional com mudança de gestão</li>
+        <li>Dependência de conectividade e infraestrutura de TI do IFRR</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- APÊNDICE B — CANVAS -->
+<div class="sec" id="ap-b">
+  <div class="sec-num sans">Apêndice B</div>
+  <div class="sec-title">Modelo de Negócio Canvas — Chatbot eSocial para IFEs</div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Bloco</th><th>Descrição</th></tr></thead>
+      <tbody>
+        <tr><td><strong>🤝 Parceiros-chave</strong></td><td>IFRR · PROFNIT · Ministério da Gestão e da Inovação (MGI) · Comitê Gestor do eSocial · Rede Federal de IFEs</td></tr>
+        <tr><td><strong>⚙️ Atividades-chave</strong></td><td>Desenvolvimento e manutenção do chatbot · Curadoria contínua da base de conhecimento · Treinamento de servidores · Avaliação periódica de acurácia</td></tr>
+        <tr><td><strong>💎 Proposta de Valor</strong></td><td>Assistente 24/7 especializado em eSocial para IFEs: respostas precisas, em linguagem natural, validadas contra fontes oficiais · Redução de erros · Conformidade legal</td></tr>
+        <tr><td><strong>👥 Segmentos de Clientes</strong></td><td>Servidores do setor de Gestão de Pessoas do IFRR (primário) · Todos os servidores que operam o eSocial nas IFEs (secundário) · Demais órgãos públicos federais (potencial)</td></tr>
+        <tr><td><strong>💬 Relacionamento com Clientes</strong></td><td>Autoatendimento via chatbot · Canal de feedback para melhoria contínua · Treinamentos presenciais e online</td></tr>
+        <tr><td><strong>📢 Canais</strong></td><td>Intranet do IFRR · Portal institucional · Integração com sistemas internos de gestão de pessoas</td></tr>
+        <tr><td><strong>🏗️ Recursos-chave</strong></td><td>Equipe de pesquisa (discente + orientador) · Infraestrutura TI do IFRR · Documentação oficial do eSocial · Frameworks de IA/PLN (código aberto)</td></tr>
+        <tr><td><strong>💰 Estrutura de Custos</strong></td><td>Horas de pesquisa e desenvolvimento · Custos de hospedagem (absorvíveis pelo IFRR) · Curadoria e atualização da base · Registro INPI</td></tr>
+        <tr><td><strong>📈 Fontes de Receita/Valor</strong></td><td>Redução de multas por erros no eSocial · Economia de tempo dos servidores · Redução de demandas de suporte · Possibilidade de licenciamento da solução para outras IFEs</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer sans">
+  <div><strong>Anexo 3 Completo</strong> — TCC PROFNIT / IFRR · Chatbot Especialista em eSocial · Julho 2026</div>
+  <div>Discente: <strong>Marllen Mendonça</strong> · IFRR · Todas as seções preenchidas</div>
+</div>
+
+</div>
+</body>
+</html>
